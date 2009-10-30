@@ -1,0 +1,6 @@
+page.includeCSS.datamints_feuser_css = EXT:datamints_feuser/res/datamints_feuser.css
+seite.includeCSS.datamints_feuser_css < page.includeCSS.datamints_feuser_css
+
+plugin.tx_datamints_feuser_pi1 {
+	showType = register
+}

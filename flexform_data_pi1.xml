@@ -1,0 +1,79 @@
+<T3DataStructure>
+  <sheets>
+
+	<sDEF>
+		<ROOT>
+			<TCEforms>
+				<sheetTitle>Common configuration</sheetTitle>
+			</TCEforms>
+			<type>array</type>
+			<el>
+
+				<showType>
+					<TCEforms>
+						<label>Type of view:</label>
+						<config>
+							<type>select</type>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0">Register</numIndex>
+									<numIndex index="1">register</numIndex>
+								</numIndex>
+								<numIndex index="1" type="array">
+									<numIndex index="0">Edit</numIndex>
+									<numIndex index="1">edit</numIndex>
+								</numIndex>
+							</items>
+							<maxitems>1</maxitems>
+							<size>1</size>
+						</config>
+					</TCEforms>
+				</showType>
+
+				<usedFields>
+					<TCEforms>
+						<label>Used fields:</label>
+						<config>
+							<type>select</type>
+							<minitems>0</minitems>
+							<maxitems>100</maxitems>
+							<size>20</size>
+							<autoSizeMax>20</autoSizeMax>
+							<selectedListStyle>width:400px</selectedListStyle>
+							<itemListStyle>width:400px</itemListStyle>
+							<itemsProcFunc>tx_flexform_getFieldNames->getFieldNames</itemsProcFunc>
+							<allowNonIdValues>1</allowNonIdValues>
+							<multiple>1</multiple>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0">--Separator--</numIndex>
+									<numIndex index="1">--Separator--</numIndex>
+								</numIndex>
+							</items>
+						</config>
+					</TCEforms>
+				</usedFields>
+
+				<requiredFields>
+					<TCEforms>
+						<label>Required fields:</label>
+						<config>
+							<type>select</type>
+							<size>20</size>
+							<autoSizeMax>20</autoSizeMax>
+							<minitems>0</minitems>
+							<maxitems>100</maxitems>
+							<selectedListStyle>width:400px</selectedListStyle>
+							<itemListStyle>width:400px</itemListStyle>
+							<itemsProcFunc>tx_flexform_getFieldNames->getFieldNames</itemsProcFunc>
+							<allowNonIdValues>1</allowNonIdValues>
+						</config>
+					</TCEforms>
+				</requiredFields>
+
+			</el>
+		</ROOT>
+	</sDEF>
+
+  </sheets>
+</T3DataStructure>

@@ -1,0 +1,53 @@
+/******************************************/
+/* datamints feuser CSS */
+/******************************************/
+
+div.tx-datamintsfeuser-pi1 {
+	margin-bottom:20px;
+}
+
+div.tx-datamintsfeuser-pi1 form {
+	margin:0;
+	padding:0;
+}
+div.tx-datamintsfeuser-pi1 form fieldset {
+	margin:0;
+	padding:0;
+	border:none;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.form_item {
+	clear:both;
+	margin-top:10px;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.form_item label {
+	display:block;
+	width:160px;
+	float:left;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.form_item input {
+	width:300px;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.form_item input[type="checkbox"] {
+	width:auto;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.form_item textarea {
+	width:300px;
+}
+div.tx-datamintsfeuser-pi1 input#datamints_feuser_password_1 {
+	width:144px;
+}
+div.tx-datamintsfeuser-pi1 input#datamints_feuser_password_2 {
+	width:144px;
+	margin-left:10px;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.form_item div.group_item {
+	float:left;
+	margin-bottom:10px;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.submit_item {
+	clear:both;
+	margin-top:20px;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.submit_item input {
+	margin-left:160px;
+}
