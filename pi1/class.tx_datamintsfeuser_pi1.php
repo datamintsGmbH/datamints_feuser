@@ -124,14 +124,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				// Passwordfelder behandeln.
 				if (strstr($GLOBALS['TCA']['fe_users']['columns'][$fieldName]['config']['eval'], 'password')) {
 					unset($arrUpdate[$fieldName . '_rep']);
-					// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password verschlüsselt.
-					if (t3lib_extMgm::isLoaded('saltedpasswords')) {
-						$saltedpasswords = tx_saltedpasswords_div::returnExtConf();
-						if ($saltedpasswords['enabled'] == 1) {
-							$tx_saltedpasswords = new $saltedpasswords['saltedPWHashingMethod']();
-							$arrUpdate[$fieldName] = $tx_saltedpasswords->getHashedPassword($arrUpdate[$fieldName]);
-						}
-					}
+					// Password generieren und verschlüsseln je nach Einstellung.
+					$arrUpdate[$fieldName] = $this->generatePassword($arrUpdate[$fieldName]);
 					// Wenn kein Password übergeben wurde auch keins schreiben.
 					if ($arrUpdate[$fieldName] == '') {
 						unset($arrUpdate[$fieldName]);
@@ -190,6 +184,34 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Erstellt wenn gefordert ein Password, und verschlüsselt dieses oder das übergebene, wenn es verschlüsselt werden soll.
+	 * @param	String	$password
+	 */
+	function generatePassword($password) {
+		// Erstellt ein Password.
+		if ($this->conf['register.']['generatepassword.']['mode']) {
+			$chars = '234567890abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			$i = 0;
+			$password = '';
+			while ($i <= $this->conf['register.']['generatepassword.']['length']) {
+				$password .= $chars{mt_rand(0, strlen($chars))};
+				$i++;
+			}
+			// Unverschlüsseltes Password aufheben.
+			$this->piVars['password'] = $password;
+		}
+		// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password verschlüsselt.
+		if (t3lib_extMgm::isLoaded('saltedpasswords')) {
+			$saltedpasswords = tx_saltedpasswords_div::returnExtConf();
+			if ($saltedpasswords['enabled'] == 1) {
+				$tx_saltedpasswords = new $saltedpasswords['saltedPWHashingMethod']();
+				$password = $tx_saltedpasswords->getHashedPassword($password);
+			}
+		}
+		return $password;
 	}
 
 	/**
