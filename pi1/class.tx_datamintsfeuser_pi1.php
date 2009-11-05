@@ -75,7 +75,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			case 'send':
 				$content = $this->sendForm();
 				break;
-			case 'login':
+			case 'redirect':
 				// Wenn Weiterleitung mit Login, dann wird erst eingeloggt und dann weitergeleitet.
 				header('Location: ' . $this->pi_getPageLink($this->conf['register.']['redirect']));
 				break;
@@ -175,8 +175,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					$content = 'Alle Daten erfolgreich eingetragen! Sie werden in wenigen Sekunden weitergeleitet!';
 					// Wenn nach der Registrierung weitergeleitet werden soll.
 					if ($this->conf['register.']['redirect'] && $this->conf['register.']['login']) {
-						// Weiterleitung mit Login.
-						header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '[submit]=login&logintype=login&pid=' . $this->conf['register.']['userfolder'] . '&user=' . $this->piVars['username'] . '&pass=' . $this->piVars['password']);
+						// Weiterleitung mit Login. Zuerst auf die eigene Seite mit Login Parametern und dann auf das Weiterleitungsziel.
+						header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '[submit]=redirect&logintype=login&pid=' . $this->conf['register.']['userfolder'] . '&user=' . $this->piVars['username'] . '&pass=' . $this->piVars['password']);
 					} elseif ($this->conf['register.']['redirect']) {
 						// Weiterleitung ohne Login.
 						header('Location: ' . $this->pi_getPageLink($this->conf['register.']['redirect']));
