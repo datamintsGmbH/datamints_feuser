@@ -78,7 +78,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			case 'redirect':
 				// Wenn Weiterleitung mit Login, dann wird erst eingeloggt und dann weitergeleitet.
 				if ($this->conf['register.']['redirect']) {
-					header('Location: ' . $this->pi_getPageLink($this->conf['register.']['redirect']));
+					header('Location: ' . $this->pi_getPageLink($this->conf['register.']['redirect']) . '?blub=' . $_GET['pass']);
 				} else {
 					header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id));
 				}
@@ -194,7 +194,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Erstellt ein Password.
 		if ($this->conf['register.']['generatepassword.']['mode']) {
 			$chars = '234567890abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-			$i = 0;
+			$i = 1;
 			$password = '';
 			while ($i <= $this->conf['register.']['generatepassword.']['length']) {
 				$password .= $chars{mt_rand(0, strlen($chars))};
