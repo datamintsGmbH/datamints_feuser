@@ -6,14 +6,15 @@ div.tx-datamintsfeuser-pi1 {
 	margin-bottom:20px;
 }
 
+/* Form and Fields */
 div.tx-datamintsfeuser-pi1 form {
 	margin:0;
 	padding:0;
 }
 div.tx-datamintsfeuser-pi1 form fieldset {
-	margin:0;
-	padding:0;
-	border:none;
+	margin-bottom:20px;
+	padding:10px;
+	border:1px solid #ccc;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.form_item {
 	clear:both;
@@ -33,10 +34,10 @@ div.tx-datamintsfeuser-pi1 form fieldset div.form_item input[type="checkbox"] {
 div.tx-datamintsfeuser-pi1 form fieldset div.form_item textarea {
 	width:300px;
 }
-div.tx-datamintsfeuser-pi1 input#datamints_feuser_password_1 {
+div.tx-datamintsfeuser-pi1 input#tx_datamintsfeuser_pi1_password_1 {
 	width:144px;
 }
-div.tx-datamintsfeuser-pi1 input#datamints_feuser_password_2 {
+div.tx-datamintsfeuser-pi1 input#tx_datamintsfeuser_pi1_password_2 {
 	width:144px;
 	margin-left:10px;
 }
@@ -50,4 +51,16 @@ div.tx-datamintsfeuser-pi1 form fieldset div.submit_item {
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.submit_item input {
 	margin-left:160px;
+}
+
+/* Error - Messages */
+div.tx-datamintsfeuser-pi1 form fieldset div.form_item div.form_error {
+	color:#a20;
+	font-weight:bold;
+	margin-top:5px;
+	padding-left:25px;
+	background-image:url('arrow_red_up.png');
+	background-repeat:no-repeat;
+	background-position:5px 0;
+	clear:left;
 }

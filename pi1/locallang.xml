@@ -6,15 +6,27 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="delete_image">Delete current image!</label>
-			<label index="submit_button_register">Register</label>
-			<label index="submit_button_edit">Save</label>
+			<label index="image_delete">Delete current image!</label>
+			<label index="image_error_size">The image is too large!</label>
+			<label index="image_error_type">The uploaded file is not an image!</label>
+			<label index="image_error_upload">The image could not be uploaded!</label>
+			<label index="password_error">It must be entered twice to the same password, and it must be at least 6 characters long!</label>
+			<label index="email_error">There must be a valid e-mail to be entered!</label>
+			<label index="name_error">There must be a valid name to be entered!</label>
+			<label index="submit_register">Register</label>
+			<label index="submit_edit">Save</label>
 		</languageKey>
 
 		<languageKey index="de" type="array">
-			<label index="delete_image">Vorhandenes Bild löschen!</label>
-			<label index="submit_button_register">Registrieren</label>
-			<label index="submit_button_edit">Speichern</label>
+			<label index="image_delete">Vorhandenes Bild löschen!</label>
+			<label index="image_error_size">Das Bild ist zu Groß!</label>
+			<label index="image_error_type">Die Hochgeladene Datei ist kein Bild!</label>
+			<label index="image_error_upload">Das Bild konnte nicht hochgeladen werden!</label>
+			<label index="password_error">Es muss zwei mal das gleiche Passwort eingegeben werden, und es muss mindestens 6 Zeichen lang sein!</label>
+			<label index="email_error">Es muss eine gültige E-Mail eingegeben werden!</label>
+			<label index="name_error">Es muss ein gültiger Name eingegeben werden!</label>
+			<label index="submit_register">Registrieren</label>
+			<label index="submit_edit">Speichern</label>
 		</languageKey>
 	</data>
 </T3locallang>

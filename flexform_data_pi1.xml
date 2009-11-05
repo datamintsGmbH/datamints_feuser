@@ -46,8 +46,8 @@
 							<multiple>1</multiple>
 							<items type="array">
 								<numIndex index="0" type="array">
-									<numIndex index="0">--Separator--</numIndex>
-									<numIndex index="1">--Separator--</numIndex>
+									<numIndex index="0">--separator--</numIndex>
+									<numIndex index="1">--separator--</numIndex>
 								</numIndex>
 							</items>
 						</config>
