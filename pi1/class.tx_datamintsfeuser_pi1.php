@@ -104,7 +104,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$requireCheck = $this->requireCheckForm();
 		// Wenn bei der Validierung ein Feld nicht den Anforderungen entspricht noch einmal die Form anzeigen und entsprechende Felder markieren.
 		$valueCheck = array_merge((Array)$uniqueCheck, (Array)$validCheck, (Array)$requireCheck);
-		print_r($valueCheck);
 		if (in_array(0, $valueCheck)) {
 			$content = $this->showForm($valueCheck);
 			return $content;
@@ -586,8 +585,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			return $confLabel;
 		} else {
 			// Standard Sprache.
-			//$defaultLanguage = 'default';
 			$defaultLanguage = $GLOBALS['TSFE']->config['config']['language'];
+			if (!$defaultLanguage) {
+				$defaultLanguage = 'default';
+			}
 			// LanguageString ermitteln.
 			$languageString = $GLOBALS['TCA']['fe_users']['columns'][$fieldName]['label'];
 			// Languagekey ermitteln z.B. ("LLL:EXT:lang/locallang_general.php:LGL.starttime" => "LGL.starttime").
