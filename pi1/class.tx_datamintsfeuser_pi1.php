@@ -96,6 +96,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	String	$content
 	 */
 	function sendForm() {
+		// Jedes Element trimmen.
+		foreach ($this->piVars as $key => $value) {
+			$this->piVars[$key] = trim($value);
+		}
+
 		// Überprüfen ob Datenbankeinträge mit den übergebenen Daten übereinstimmen.
 		$uniqueCheck = $this->uniqueCheckForm();
 		// Eine Validierung durchführen über alle Felder die eine gesonderte Konfigurtion bekommen haben.
@@ -241,12 +246,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$fieldName = trim($fieldName, '.');
 			// Wenn der im TypoScript angegebene Feldname existiert und ein Wert übergeben wurde, dann validieren.
 			if ($GLOBALS['TCA']['fe_users']['columns'][$fieldName] && $this->piVars[$fieldName]) {
-				$value = trim($this->piVars[$fieldName]);
+				$value = $this->piVars[$fieldName];
 
 				switch ($validate['type']) {
 
 					case 'password':
-						$value_rep = trim($this->piVars[$fieldName . '_rep']);
+						$value_rep = $this->piVars[$fieldName . '_rep'];
 						$arrLength[0] = 6;
 						if ($value == $value_rep) {
 							if ($validate['length']) {
