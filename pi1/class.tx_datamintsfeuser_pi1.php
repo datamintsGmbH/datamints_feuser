@@ -77,7 +77,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				break;
 			case 'redirect':
 				// Wenn Weiterleitung mit Login, dann wird erst eingeloggt und dann weitergeleitet.
-				header('Location: ' . $this->pi_getPageLink($this->conf['register.']['redirect']));
+				if ($this->conf['register.']['redirect']) {
+					header('Location: ' . $this->pi_getPageLink($this->conf['register.']['redirect']));
+				} else {
+					header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id));
+				}
 				break;
 			default:
 				$content = $this->showForm();
@@ -174,7 +178,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				if ($error == 1) {
 					$content = 'Alle Daten erfolgreich eingetragen! Sie werden in wenigen Sekunden weitergeleitet!';
 					// Wenn nach der Registrierung weitergeleitet werden soll.
-					if ($this->conf['register.']['redirect'] && $this->conf['register.']['login']) {
+					if ($this->conf['register.']['login']) {
 						// Weiterleitung mit Login. Zuerst auf die eigene Seite mit Login Parametern und dann auf das Weiterleitungsziel.
 						header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '[submit]=redirect&logintype=login&pid=' . $this->conf['register.']['userfolder'] . '&user=' . $this->piVars['username'] . '&pass=' . $this->piVars['password']);
 					} elseif ($this->conf['register.']['redirect']) {
