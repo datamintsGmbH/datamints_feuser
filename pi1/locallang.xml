@@ -6,25 +6,37 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="username_error_required">There must be a username to be entered!</label>
+			<label index="username_error_unique">This username already exists!</label>
+			<label index="password_error_equal">It must be entered twice to the same password!</label>
+			<label index="password_error_length">The password must be at least 6 characters long!</label>
+			<label index="password_error_required">It must be given a password!</label>
 			<label index="image_delete">Delete current image!</label>
 			<label index="image_error_size">The image is too large!</label>
 			<label index="image_error_type">The uploaded file is not an image!</label>
 			<label index="image_error_upload">The image could not be uploaded!</label>
-			<label index="password_error">It must be entered twice to the same password, and it must be at least 6 characters long!</label>
-			<label index="email_error">There must be a valid e-mail to be entered!</label>
-			<label index="name_error">There must be a valid name to be entered!</label>
+			<label index="email_error_required">There must be a valid e-mail to be entered!</label>
+			<label index="email_error_unique">This email is already in use!</label>
+			<label index="email_error_valid">The entered e-mail is invalid!</label>
+			<label index="name_error_required">There must be a valid name to be entered!</label>
 			<label index="submit_register">Register</label>
 			<label index="submit_edit">Save</label>
 		</languageKey>
 
 		<languageKey index="de" type="array">
+			<label index="username_error_required">Es muss ein Benutzername eingegeben werden!</label>
+			<label index="username_error_unique">Dieser Username ist bereits vorhanden!</label>
+			<label index="password_error_equal">Es muss zwei mal das gleiche Passwort eingegeben werden!</label>
+			<label index="password_error_length">Das Passwort muss mindestens 6 Zeichen lang sein!</label>
+			<label index="password_error_required">Es muss ein Passwort angegeben werden!</label>
 			<label index="image_delete">Vorhandenes Bild löschen!</label>
 			<label index="image_error_size">Das Bild ist zu Groß!</label>
 			<label index="image_error_type">Die Hochgeladene Datei ist kein Bild!</label>
 			<label index="image_error_upload">Das Bild konnte nicht hochgeladen werden!</label>
-			<label index="password_error">Es muss zwei mal das gleiche Passwort eingegeben werden, und es muss mindestens 6 Zeichen lang sein!</label>
-			<label index="email_error">Es muss eine gültige E-Mail eingegeben werden!</label>
-			<label index="name_error">Es muss ein gültiger Name eingegeben werden!</label>
+			<label index="email_error_required">Es muss eine gültige E-Mail eingegeben werden!</label>
+			<label index="email_error_unique">Diese E-Mail wird bereits verwendet!</label>
+			<label index="email_error_valid">Die eingegebene E-Mail ist ungültig!</label>
+			<label index="name_error_required">Es muss ein gültiger Name eingegeben werden!</label>
 			<label index="submit_register">Registrieren</label>
 			<label index="submit_edit">Speichern</label>
 		</languageKey>
