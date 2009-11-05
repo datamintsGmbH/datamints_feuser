@@ -78,7 +78,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			case 'redirect':
 				// Wenn Weiterleitung mit Login, dann wird erst eingeloggt und dann weitergeleitet.
 				if ($this->conf['register.']['redirect']) {
-					header('Location: ' . $this->pi_getPageLink($this->conf['register.']['redirect']) . '?blub=' . $_GET['pass']);
+					header('Location: ' . $this->pi_getPageLink($this->conf['register.']['redirect']));
 				} else {
 					header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id));
 				}
@@ -314,9 +314,15 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	String	$content
 	 */
 	function showForm($valueCheck = Array()) {
+		// Beim editieren der Userdaten, die Felder vorausfüllen.
 		if ($this->conf['showType'] == 'edit') {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . $this->userId , '', '');
             $arrCurrentData = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+		}
+
+		// Wenn das Formular schon einmal abgesendet wurde aber ein Fehler auftrat, dann die bereits vom User übertragenen Userdaten vorausfüllen.
+		if ($this->piVars) {
+			$arrCurrentData = array_merge((Array)$arrCurrentData, (Array)$this->piVars);
 		}
 
 		// Ein Array erzeugen, mit allen zu benutztenden Feldern.
