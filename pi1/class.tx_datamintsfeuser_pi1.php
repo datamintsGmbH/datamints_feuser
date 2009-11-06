@@ -92,7 +92,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Bereitet die die übergeben Daten für den Import in die Datenbank vor, und führt diesen, wenn es keine Fehler gab, aus.
+	 * Bereitet die übergeben Daten für den Import in die Datenbank vor, und führt diesen, wenn es keine Fehler gab, aus.
 	 * @return	String	$content
 	 */
 	function sendForm() {
@@ -194,7 +194,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Erstellt wenn gefordert ein Password, und verschlüsselt dieses oder das übergebene, wenn es verschlüsselt werden soll.
+	 * Erstellt wenn gefordert ein Password, und verschlüsselt dieses, oder das übergebene, wenn es verschlüsselt werden soll.
 	 * @param	String	$password
 	 */
 	function generatePassword($password) {
@@ -505,7 +505,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * The saveDeleteImage method is used to update or delete an image of an address
 	 * @param	String	$fieldName
-	 * @param	Array	$arrUpdate // Call by reference Array.
+	 * @param	Array	$arrUpdate // Call by reference Array mit allen zu updatenden Daten.
 	 * @return	String	$content
 	 */
 	function saveDeleteImage($fieldName, &$arrUpdate) {
