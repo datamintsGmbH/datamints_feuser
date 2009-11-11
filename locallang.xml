@@ -6,12 +6,12 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="pi1_title">datamints feuser</label>
-			<label index="pi1_plus_wiz_description">datamints feuser</label>
+			<label index="pi1_title">Frontend User Management</label>
+			<label index="pi1_plus_wiz_description">Frontend User Management</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-			<label index="pi1_title">datamints feuser</label>
-			<label index="pi1_plus_wiz_description">datamints feuser</label>
+			<label index="pi1_title">Frontend User Verwaltung</label>
+			<label index="pi1_plus_wiz_description">Frontend User Verwaltung</label>
 		</languageKey>
 	</data>
 </T3locallang>
