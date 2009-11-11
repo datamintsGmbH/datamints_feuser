@@ -30,6 +30,70 @@
 					</TCEforms>
 				</showtype>
 
+				<register.emailtemplate>
+					<TCEforms>
+						<label>Registration e-mail template:</label>
+						<config>
+							<type>input</type>
+							<size>20</size>
+							<max>256</max>
+							<checkbox></checkbox>
+							<eval>trim</eval>
+							<wizards type="array">
+								<_PADDING type="integer">2</_PADDING>
+								<link type="array">
+									<type>popup</type>
+									<title>Link</title>
+									<icon>link_popup.gif</icon>
+									<script>browse_links.php?mode=wizard</script>
+									<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+								</link>
+							</wizards>
+						</config>
+					</TCEforms>
+				</register.emailtemplate>
+
+				<register.redirect>
+					<TCEforms>
+						<label>Registration redirect site id:</label>
+						<config>
+							<type>input</type>
+							<size>10</size>
+							<max>256</max>
+							<checkbox></checkbox>
+							<eval>trim</eval>
+							<wizards type="array">
+								<_PADDING type="integer">2</_PADDING>
+								<link type="array">
+									<type>popup</type>
+									<title>Link</title>
+									<icon>link_popup.gif</icon>
+									<script>browse_links.php?mode=wizard</script>
+									<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+								</link>
+							</wizards>
+						</config>
+					</TCEforms>
+				</register.redirect>
+
+				<register.autologin>
+					<TCEforms>
+						<label>Registration autologin?</label>
+						<config>
+							<type>check</type>
+						</config>
+					</TCEforms>
+				</register.autologin>
+
+				<register.doubleoptin>
+					<TCEforms>
+						<label>Registration double-opt-in?</label>
+						<config>
+							<type>check</type>
+						</config>
+					</TCEforms>
+				</register.doubleoptin>
+
 				<usedfields>
 					<TCEforms>
 						<label>Used fields:</label>

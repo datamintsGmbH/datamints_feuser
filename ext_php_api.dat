@@ -1,0 +1,69 @@
+a:2:{s:4:"meta";a:3:{s:5:"title";s:16:"datamints_feuser";s:5:"descr";s:40:"A extension for frontend user mangement.";s:7:"options";a:2:{s:10:"usageCount";N;s:19:"includeCodeAbstract";N;}}s:5:"files";a:2:{s:14:"MD5_2659c86712";a:4:{s:8:"filename";s:35:"class.tx_flexform_getFieldNames.php";s:8:"filesize";i:654;s:6:"header";N;s:3:"DAT";a:2:{i:1;a:4:{s:6:"header";s:33:"class tx_flexform_getFieldNames {";s:5:"class";i:1;s:11:"parentClass";s:25:"tx_flexform_getFieldNames";s:6:"atLine";i:1;}i:3;a:7:{s:6:"header";s:33:"function getFieldNames($config) {";s:11:"parentClass";s:25:"tx_flexform_getFieldNames";s:4:"cDat";a:3:{s:4:"text";s:90:"
+
+The getFields method is used to get the
+fe_users FIELDS into the flexform of the plugin
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:3:"arr";i:1;s:28:"$config: the fields selected";}}s:6:"return";a:2:{i:0;s:3:"arr";i:1;s:7:"$config";}}s:7:"content";s:0:"";s:12:"content_size";i:366;s:13:"content_lines";i:16;s:6:"atLine";i:10;}}}s:14:"MD5_8f66ccd171";a:4:{s:8:"filename";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:8:"filesize";i:37292;s:6:"header";a:5:{s:4:"text";s:66:"
+
+Plugin 'datamints feuser' for the 'datamints_feuser' extension.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:54:"@author	Bernhard baumgartl <b.baumgartl@datamints.com>";i:1;s:14:"@package	TYPO3";i:2;s:30:"@subpackage	tx_datamintsfeuser";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:46:"Bernhard baumgartl <b.baumgartl@datamints.com>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:19:"tx_datamintsfeuser ";}}}s:3:"DAT";a:19:{i:1;a:8:{s:6:"header";s:51:"class tx_datamintsfeuser_pi1 extends tslib_pibase {";s:5:"class";i:1;s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:66:"
+
+Plugin 'datamints feuser' for the 'datamints_feuser' extension.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:54:"@author	Bernhard baumgartl <b.baumgartl@datamints.com>";i:1;s:14:"@package	TYPO3";i:2;s:30:"@subpackage	tx_datamintsfeuser";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:46:"Bernhard baumgartl <b.baumgartl@datamints.com>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:19:"tx_datamintsfeuser ";}}}s:7:"content";s:0:"";s:12:"content_size";i:585;s:13:"content_lines";i:9;s:6:"atLine";i:62;}i:3;a:7:{s:6:"header";s:32:"function main($content, $conf) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:32:"
+
+The main method of the PlugIn
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:28:"$content: The PlugIn content";}i:1;a:2:{i:0;s:5:"array";i:1;s:31:"$conf: The PlugIn configuration";}}s:6:"return";a:2:{i:0;s:3:"The";i:1;s:40:"content that is displayed on the website";}}s:7:"content";s:0:"";s:12:"content_size";i:1975;s:13:"content_lines";i:56;s:6:"atLine";i:79;}i:5;a:7:{s:6:"header";s:21:"function sendForm() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:119:"
+
+Bereitet die übergebenen Daten für den Import in die Datenbank vor, und führt diesen, wenn es keine Fehler gab, aus.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"String";i:1;s:8:"$content";}}s:7:"content";s:0:"";s:12:"content_size";i:6183;s:13:"content_lines";i:126;s:6:"atLine";i:141;}i:7;a:7:{s:6:"header";s:38:"function generatePassword($password) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:122:"
+
+Erstellt wenn gefordert ein Password, und verschlüsselt dieses, oder das übergebene, wenn es verschlüsselt werden soll.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"String";i:1;s:9:"$password";}}s:6:"return";a:2:{i:0;s:6:"String";i:1;s:9:"$password";}}s:7:"content";s:0:"";s:12:"content_size";i:891;s:13:"content_lines";i:23;s:6:"atLine";i:274;}i:9;a:7:{s:6:"header";s:29:"function requireCheckForm() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:69:"
+
+Überprüft ob alle benötigten Felder mit Inhalten übergeben wurden.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"Array";i:1;s:11:"$valueCheck";}}s:7:"content";s:0:"";s:12:"content_size";i:293;s:13:"content_lines";i:10;s:6:"atLine";i:303;}i:11;a:7:{s:6:"header";s:25:"function validateForm() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:54:"
+
+Überprüft ob alle Validierungen eingehalten wurden.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"Array";i:1;s:11:"$valueCheck";}}s:7:"content";s:0:"";s:12:"content_size";i:2513;s:13:"content_lines";i:79;s:6:"atLine";i:319;}i:13;a:7:{s:6:"header";s:28:"function uniqueCheckForm() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:98:"
+
+Überprüft die übergeben Inhalte, bei bestimmten Feldern, in der Datenbank schon vorhanden sind.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"Array";i:1;s:11:"$valueCheck";}}s:7:"content";s:0:"";s:12:"content_size";i:717;s:13:"content_lines";i:16;s:6:"atLine";i:404;}i:15;a:7:{s:6:"header";s:51:"function saveDeleteImage($fieldName, &$arrUpdate) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:80:"
+
+The saveDeleteImage method is used to update or delete an image of an address
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"String";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"Array";i:1;s:68:"$arrUpdate // Call by reference Array mit allen zu updatenden Daten.";}}s:6:"return";a:2:{i:0;s:6:"String";i:1;s:8:"$content";}}s:7:"content";s:0:"";s:12:"content_size";i:1813;s:13:"content_lines";i:54;s:6:"atLine";i:428;}i:17;a:7:{s:6:"header";s:59:"function sendMail($templatePart, $extraMarkers = Array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:22:"
+
+Sendet die E-Mails.
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"String";i:1;s:13:"$templatePart";}i:1;a:2:{i:0;s:5:"Array";i:1;s:13:"$extraMarkers";}}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}}s:7:"content";s:0:"";s:12:"content_size";i:2050;s:13:"content_lines";i:49;s:6:"atLine";i:490;}i:19;a:7:{s:6:"header";s:28:"function makeDoubleOptIn() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:68:"
+
+Überprüft ob der Double-Opt-In gültig ist und aktiviert den User.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:534;s:13:"content_lines";i:12;s:6:"atLine";i:545;}i:21;a:7:{s:6:"header";s:42:"function showForm($valueCheck = Array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:111:"
+
+Gibt alle im Backend definierten Felder (TypoScipt/Flexform) formatiert und der Anzeigeart entsprechend aus.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"Array";i:1;s:11:"$valueCheck";}}s:6:"return";a:2:{i:0;s:6:"String";i:1;s:8:"$content";}}s:7:"content";s:0:"";s:12:"content_size";i:9366;s:13:"content_lines";i:182;s:6:"atLine";i:564;}i:23;a:7:{s:6:"header";s:29:"function makeHiddenFields() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:75:"
+
+Erstellt Hidden Fields für vordefinierte Parameter die übergeben wurden.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"String";i:1;s:8:"$content";}}s:7:"content";s:0:"";s:12:"content_size";i:314;s:13:"content_lines";i:10;s:6:"atLine";i:752;}i:25;a:7:{s:6:"header";s:29:"function makeHiddenParams() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:75:"
+
+Erstellt GET-Parameter für vordefinierte Parameter die übergeben wurden.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"String";i:1;s:8:"$content";}}s:7:"content";s:0:"";s:12:"content_size";i:457;s:13:"content_lines";i:14;s:6:"atLine";i:768;}i:27;a:7:{s:6:"header";s:38:"function checkIfRequired($fieldName) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:78:"
+
+Überprüft ob das übergebene Feld benötigt wird um erfolgreich zu speichern.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"String";i:1;s:10:"$fieldName";}}s:6:"return";a:2:{i:0;s:6:"String";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:190;s:13:"content_lines";i:8;s:6:"atLine";i:789;}i:29;a:7:{s:6:"header";s:31:"function getLabel($fieldName) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:185:"
+
+Ermittelt ein bestimmtes Label aufgrund des im TCA gespeicherten Languagestrings, des Datenbankfeldnamens oder gibt einfach den übergeben Wert wieder aus, wenn nichts gefunden wurde.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"String";i:1;s:10:"$fieldName";}}s:6:"return";a:2:{i:0;s:6:"String";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1291;s:13:"content_lines";i:34;s:6:"atLine";i:804;}i:31;a:7:{s:6:"header";s:29:"function getConfiguration() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:105:"
+
+Überschreibt eventuell vorhandene TypoScript Konfigurationen mit den Konfigurationen aus der Flexform.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:1:{i:0;s:19:"@global	$this->conf";}s:11:"other_index";a:1:{s:7:"@global";a:1:{i:0;s:12:"$this->conf ";}}}s:7:"content";s:0:"";s:12:"content_size";i:328;s:13:"content_lines";i:11;s:6:"atLine";i:845;}i:33;a:7:{s:6:"header";s:26:"function getFeUsersTca() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:84:"
+
+Überschreibt eventuell vorhandene TCA Konfiguration mit TypoScript Konfiguration.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:1:{i:0;s:25:"@global	$this->feUsersTca";}s:11:"other_index";a:1:{s:7:"@global";a:1:{i:0;s:18:"$this->feUsersTca ";}}}s:7:"content";s:0:"";s:12:"content_size";i:220;s:13:"content_lines";i:4;s:6:"atLine";i:863;}i:35;a:4:{s:6:"header";s:30:"function deletePoint($array) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:74:"
+
+Löscht den Punkt den Typo3 bei TypoScript-Variablen (Arrays) hinzufügt.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"Array";i:1;s:6:"$array";}}s:6:"return";a:2:{i:0;s:5:"Array";i:1;s:9:"$newArray";}}s:6:"atLine";i:874;}i:37;a:7:{s:6:"header";s:49:"function array_merge_replace_recursive($array1) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:4:{s:4:"text";s:232:"
+
+Merges any number of arrays of any dimensions, the later overwriting
+previous keys, unless the key is numeric, in whitch case, duplicated
+values will not be added.
+
+The arrays to be merged are passed as arguments to the function.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"Array";i:1;s:7:"$array1";}}s:6:"return";a:2:{i:0;s:5:"Array";i:1;s:42:"Resulting array, once all have been merged";}s:6:"access";s:6:"public";}s:7:"content";s:0:"";s:12:"content_size";i:1017;s:13:"content_lines";i:33;s:6:"atLine";i:906;}}}}}
