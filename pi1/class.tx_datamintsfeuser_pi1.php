@@ -110,6 +110,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				break;
 			case 'doubleoptin':
 				if ($this->makeDoubleOptIn()) {
+					// Userid ermittln un Global definieren!
+					$this->userId = intval($this->piVars['uid']);
+					// Registrierungsemail schicken.
+					$this->sendMail('registration');
+
 					//if ($this->conf['register.']['autologin']) {
 					//	// Weiterleitung mit Login. Zuerst auf die eigene Seite mit Login Parametern und dann auf das Weiterleitungsziel.
 					//	header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '[submit]=redirect&logintype=login&pid=' . $this->conf['register.']['userfolder'] . '&user=' . $this->piVars['username'] . '&pass=' . $this->piVars['password'] . $this->makeHiddenParams());
@@ -246,10 +251,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				// User erstellen.
 				$error = $GLOBALS['TYPO3_DB']->exec_INSERTquery('fe_users', $arrUpdate);
 				if ($error == 1) {
+					// Userid ermittln un Global definieren!
+					$this->userId = mysql_insert_id();
+
 					// Wenn nach der Registrierung weitergeleitet werden soll.
 					if ($this->conf['register.']['doubleoptin']) {
-						// Userid ermittln un Global definieren!
-						$this->userId = mysql_insert_id();
 						$hash = md5($this->userId . $arrUpdate['username'] . $arrUpdate['email'] . $arrUpdate['tstamp']);
 						$extraMarkers = Array(
 							'registerlink' => $GLOBALS['TSFE']->baseUrl . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '%5Bsubmit%5D=doubleoptin&' . $this->prefixId . '%5Buid%5D=' . $this->userId . '&' . $this->prefixId . '%5Bhash%5D=' . $hash . $this->makeHiddenParams()
@@ -258,6 +264,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						$content = $this->pi_getLL('doubleoptin_sent');
 						return $content;
 					}
+
+					// Registrierungsemail schicken.
+					$this->sendMail('registration');
+
 					if ($this->conf['register.']['autologin']) {
 						// Weiterleitung mit Login. Zuerst auf die eigene Seite mit Login Parametern und dann auf das Weiterleitungsziel.
 						header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '[submit]=redirect&logintype=login&pid=' . $this->conf['register.']['userfolder'] . '&user=' . $this->piVars['username'] . '&pass=' . $this->piVars['password'] . $this->makeHiddenParams());
