@@ -120,9 +120,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						header('Location: ' . $this->pi_getPageLink($this->conf['register.']['redirect']) . '?' . $this->makeHiddenParams());
 						exit;
 					}
-					$content = 'Erfolgreich aktiviert!';
+					$content = $this->pi_getLL('doubleoptin_success');
 				} else {
-					$content = 'Der Aktivierungslink ist nicht gültig!';
+					$content = $this->pi_getLL('doubleoptin_failure');
 				}
 				break;
 			default:
@@ -196,8 +196,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					$arrUpdate[$fieldName] = strtotime($this->piVars[$fieldName]);
 					$isChecked = true;
 				}
-				// Multiple Slectboxen.
+				// Multiple Selectboxen.
 				if ($this->feUsersTca['columns'][$fieldName]['config']['type'] == 'select' && $this->feUsersTca['columns'][$fieldName]['config']['size'] > 1) {
+					foreach ($this->piVars[$fieldName] as $key => $val) {
+						$this->piVars[$fieldName][$key] = intval($val);
+					}
 					$arrUpdate[$fieldName] = implode(',', $this->piVars[$fieldName]);
 					$isChecked = true;
 				}
@@ -224,8 +227,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				// User editieren.
 				$error = $GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , $arrUpdate);
 				if ($error == 1) {
-					$content = 'Alle Daten erfolgreich geupdated! Sie werden in wenigen Sekunden weitergeleitet!';
 					$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '" />';
+					$content = $this->pi_getLL('edit_success');
 				}
 			}
 
@@ -243,7 +246,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				// User erstellen.
 				$error = $GLOBALS['TYPO3_DB']->exec_INSERTquery('fe_users', $arrUpdate);
 				if ($error == 1) {
-					$content = 'Alle Daten erfolgreich eingetragen!';
 					// Wenn nach der Registrierung weitergeleitet werden soll.
 					if ($this->conf['register.']['doubleoptin']) {
 						// Userid ermittln un Global definieren!
@@ -253,6 +255,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 							'registerlink' => $GLOBALS['TSFE']->baseUrl . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '%5Bsubmit%5D=doubleoptin&' . $this->prefixId . '%5Buid%5D=' . $this->userId . '&' . $this->prefixId . '%5Bhash%5D=' . $hash . $this->makeHiddenParams()
 						);
 						$this->sendMail('doubleoptin', $extraMarkers);
+						$content = $this->pi_getLL('doubleoptin_sent');
 						return $content;
 					}
 					if ($this->conf['register.']['autologin']) {
@@ -265,6 +268,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						header('Location: ' . $this->pi_getPageLink($this->conf['register.']['redirect']) . '?' . $this->makeHiddenParams());
 						exit;
 					}
+					$content = $this->pi_getLL('register_success');
 				}
 			}
 		}

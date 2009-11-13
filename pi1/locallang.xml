@@ -22,6 +22,11 @@
 			<label index="name_error_required">There must be a valid name to be entered!</label>
 			<label index="submit_register">Register</label>
 			<label index="submit_edit">Save</label>
+			<label index="edit_success">Your data was successfully changed! They are led in a few seconds back!</label>
+			<label index="register_success">You have successfully registered!</label>
+			<label index="doubleoptin_sent">To activate your account click the activation link in the e-mail we sent you!</label>
+			<label index="doubleoptin_success">Your account has been successfully unlocked!</label>
+			<label index="doubleoptin_failure">Your activation link is unfortunately not valid!</label>
 		</languageKey>
 
 		<languageKey index="de" type="array">
@@ -41,6 +46,11 @@
 			<label index="name_error_required">Es muss ein gültiger Name eingegeben werden!</label>
 			<label index="submit_register">Registrieren</label>
 			<label index="submit_edit">Speichern</label>
+			<label index="edit_success">Ihre Daten wurde erfolgreich geändert! Sie werden in wenigen Sekunden zurück geleitet!</label>
+			<label index="register_success">Sie haben sich erfolgreich registriert!</label>
+			<label index="doubleoptin_sent">Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wurde!</label>
+			<label index="doubleoptin_success">Ihr Account wurde erfolgreich freigeschaltet!</label>
+			<label index="doubleoptin_failure">Ihr Aktivierungslink ist leider nicht gültig!</label>
 		</languageKey>
 	</data>
 </T3locallang>
