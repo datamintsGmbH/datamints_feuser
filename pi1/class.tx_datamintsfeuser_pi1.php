@@ -551,26 +551,16 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$template = $this->cObj->fileResource($templateFile);
 		$template = $this->cObj->getSubpart($template, '###' . strtoupper($templatePart) . '###');
 		$template = $this->cObj->substituteMarkerArray($template, $markerArray, '###|###', 1);
-		// Content spliten um erste Zeile zu ermitteln.
-		$arrTemplate = preg_split('/(\\r\\n|\\r|\\n)/', $template);
-		// Erste Zeile ermitteln und als Betreff speichern.
-		for ($i = 0; $i < count($arrTemplate); $i++) {
-			if (trim($arrTemplate[$i])) {
-				$subject = $arrTemplate[$i];
-				unset($arrTemplate[$i]);
-				break;
-			} else {
-				unset($arrTemplate[$i]);
-			}
-		}
+		// Betreff ermitteln und aus dem E-Mail Content entfernen.
+		$subject = trim($this->cObj->getSubpart($template, '###SUBJECT###'));
+		$template = $this->cObj->substituteSubpart($template, '###SUBJECT###', '');
 
 		// Restlichen Content wieder zusammenfügen.
 		if ($this->conf['register.']['mailtype'] == 'html') {
-			$template = implode('<br />', $arrTemplate);
 			$mailtype = 'text/html';
 		} else {
-			$template = implode("\r\n", $arrTemplate);
 			$mailtype = 'text/plain';
+			$template = trim(strip_tags($template));
 		}
 
 		// Zusätzliche Header User-Mail.
