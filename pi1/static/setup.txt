@@ -2,5 +2,24 @@ page.includeCSS.datamints_feuser_css = EXT:datamints_feuser/res/datamints_feuser
 seite.includeCSS.datamints_feuser_css < page.includeCSS.datamints_feuser_css
 
 plugin.tx_datamints_feuser_pi1 {
-	showType = register
+
+   ### Die Felder die im Frontend ausgegeben werden.
+   usedfields = username,password,image,--separator--,name,address,zip,city,--separator--,email,www
+   ### Die Felder die ausgefüllt werden müssen.
+   requiredfields = username,password,name,email
+   ### Felder die nicht 2mal vorkommen dürfen (Auf Datenbankebene und pro PID).
+   uniquefields = username,email
+
+   validate {
+      ### Das Feld "password" soll mit der vordefinierten Validierung "password" validiert werden. Außerdem soll das Passwort mindestens 6 Zeichen haben.
+      password.type = password
+      password.length = 6
+      ### Das Feld "email" soll mit der vordefinierten Validierung "email" validiert werden.
+      email.type = email
+      ### Das Feld "username" soll mit einer selbst definierten Regular Expression validiert werden.
+      username.type = custom
+      ### Indiesem fall soll der Username kein Leerzeichen enthalten.
+      username.regexp = /^[^ ]*$/
+   }
+
 }

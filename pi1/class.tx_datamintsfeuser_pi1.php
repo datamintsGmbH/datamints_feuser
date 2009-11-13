@@ -141,7 +141,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	function sendForm() {
 		// Jedes Element trimmen.
 		foreach ($this->piVars as $key => $value) {
-			$this->piVars[$key] = trim($value);
+			if (!is_array($value)) {
+				$this->piVars[$key] = trim($value);
+			}
 		}
 
 		// Überprüfen ob Datenbankeinträge mit den übergebenen Daten übereinstimmen.
@@ -192,6 +194,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				// Datumsfelder behandeln.
 				if (strpos($this->feUsersTca['columns'][$fieldName]['config']['eval'], 'date') !== false) {
 					$arrUpdate[$fieldName] = strtotime($this->piVars[$fieldName]);
+					$isChecked = true;
+				}
+				// Multiple Slectboxen.
+				if ($this->feUsersTca['columns'][$fieldName]['config']['type'] == 'select' && $this->feUsersTca['columns'][$fieldName]['config']['size'] > 1) {
+					$arrUpdate[$fieldName] = implode(',', $this->piVars[$fieldName]);
 					$isChecked = true;
 				}
 
@@ -292,6 +299,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$password = $tx_saltedpasswords->getHashedPassword($password);
 			}
 		}
+		// Wenn "md5passwords" installiert ist wird wenn aktiviert, das Password md5 verschlüsselt.
+		if (t3lib_extMgm::isLoaded('md5passwords')) {
+			$arrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['md5passwords']);
+			if ($arrConf['activate'] == 1) {
+				$password = md5($password);
+			}
+		}
 		return $password;
 	}
 
@@ -370,21 +384,43 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 					case 'custom':
 						if ($validate['regexp']) {
-							if (!preg_match($validate['regexp'], $value)) {
-								$valueCheck[$fieldName] = 'valid';
+							if (is_array($value)) {
+								foreach ($value as $subValue) {
+									if (!preg_match($validate['regexp'], $subValue)) {
+										$valueCheck[$fieldName] = 'valid';
+									}
+								}
+							} else {
+								if (!preg_match($validate['regexp'], $value)) {
+									$valueCheck[$fieldName] = 'valid';
+								}
 							}
 						}
 						if ($validate['length']) {
 							$arrLength = explode(',', str_replace(' ', '', $validate['length']));
-							if ($arrLength[1]) {
-								// Wenn eine Maximallänge festgelegt wurde.
-								if (strlen($value) < $arrLength[0] && strlen($value) > $arrLength[1]) {
-									$valueCheck[$fieldName] = 'length';
+							if (is_array($value)) {
+								if ($arrLength[1]) {
+									// Wenn eine Maximallänge festgelegt wurde.
+									if (count($value) < $arrLength[0] && count($value) > $arrLength[1]) {
+										$valueCheck[$fieldName] = 'length';
+									}
+								} else {
+									// Wenn nur eine Minimallänge festgelegt wurde.
+									if (count($value) < $arrLength[0]) {
+										$valueCheck[$fieldName] = 'length';
+									}
 								}
 							} else {
-								// Wenn nur eine Minimallänge festgelegt wurde.
-								if (strlen($value) < $arrLength[0]) {
-									$valueCheck[$fieldName] = 'length';
+								if ($arrLength[1]) {
+									// Wenn eine Maximallänge festgelegt wurde.
+									if (strlen($value) < $arrLength[0] && strlen($value) > $arrLength[1]) {
+										$valueCheck[$fieldName] = 'length';
+									}
+								} else {
+									// Wenn nur eine Minimallänge festgelegt wurde.
+									if (strlen($value) < $arrLength[0]) {
+										$valueCheck[$fieldName] = 'length';
+									}
 								}
 							}
 						}
@@ -648,7 +684,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						// Select-Item aus Konfigurtion holen.
 						$countSelectfields = count($this->feUsersTca['columns'][$fieldName]['config']['items']);
 						for ($j = 0; $j < $countSelectfields; $j++) {
-							$selected = ($arrCurrentData[$fieldName] == $j) ? ' selected="selected"' : '';
+							//$selected = ($arrCurrentData[$fieldName] == $j) ? ' selected="selected"' : '';
+							$selected = (strpos($arrCurrentData[$fieldName], $j) !== false || in_array($j, $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
 							$optionlist .= '<option value="' . $this->feUsersTca['columns'][$fieldName]['config']['items'][$j][1] . '"' . $selected . '>' . $this->getLabel($this->feUsersTca['columns'][$fieldName]['config']['items'][$j][0]) . '</option>';
 						}
 						// Wenn Tabelle angegeben zusätzlich aus DB holen.
@@ -660,7 +697,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 							$whr = (trim(strtolower(substr($whr, 0, 8))) == 'order by') ? '1 ' . $whr : $whr;
 							$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($sel , $tab, $whr, '', '');
 							while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-								$selected = ($arrCurrentData[$fieldName] == $row['uid']) ? ' selected="selected"' : '';
+								//$selected = ($arrCurrentData[$fieldName] == $row['uid']) ? ' selected="selected"' : '';
+								$selected = (strpos($arrCurrentData[$fieldName], $row['uid']) !== false || in_array($row['uid'], $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
 								$optionlist .= '<option value="' . $row['uid'] . '"' . $selected . '>' . $row[$GLOBALS['TCA'][$tab]['ctrl']['label']] . '</option>';
 							}
 						}
@@ -669,6 +707,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						// Einzeiliges Select (Dropdown).
 						if ($this->feUsersTca['columns'][$fieldName]['config']['size'] == 1) {
 							$content .= '<select id="' . $this->prefixId . '_' . $fieldName . '" name=' . $this->prefixId . '[' . $fieldName . ']">';
+							$content .= $optionlist;
+							$content .= '</select>';
+						} else {
+							$content .= '<select id="' . $this->prefixId . '_' . $fieldName . '" name=' . $this->prefixId . '[' . $fieldName . '][]" size="' . $this->feUsersTca['columns'][$fieldName]['config']['size'] . '" multiple="multiple">';
 							$content .= $optionlist;
 							$content .= '</select>';
 						}
