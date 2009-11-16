@@ -396,6 +396,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						}
 						break;
 
+					case 'username':
+						if (!preg_match('/^[^ ]*$/')) {
+							$valueCheck[$fieldName] = 'valid';
+						}
+						break;
+
 					case 'custom':
 						if ($validate['regexp']) {
 							if (is_array($value)) {

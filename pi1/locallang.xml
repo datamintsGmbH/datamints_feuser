@@ -6,6 +6,8 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="tx_datamintsfeuser_firstname_error_required">There must be a firstname to be entered!</label>
+			<label index="tx_datamintsfeuser_surname_error_required">There must be a surname to be entered!</label>
 			<label index="username_error_required">There must be a username to be entered!</label>
 			<label index="username_error_unique">This username already exists!</label>
 			<label index="username_error_valid">The username must not contain any spaces!</label>
@@ -30,6 +32,8 @@
 		</languageKey>
 
 		<languageKey index="de" type="array">
+			<label index="tx_datamintsfeuser_firstname_error_required">Es muss ein Vorname eingegeben werden!</label>
+			<label index="tx_datamintsfeuser_surname_error_required">Es muss ein Nachname eingegeben werden!</label>
 			<label index="username_error_required">Es muss ein Benutzername eingegeben werden!</label>
 			<label index="username_error_unique">Dieser Username ist bereits vorhanden!</label>
 			<label index="username_error_valid">Der Benutzername darf keine Leerzeichen beinhalten!</label>

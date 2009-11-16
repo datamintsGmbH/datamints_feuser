@@ -3,12 +3,23 @@ seite.includeCSS.datamints_feuser_css < page.includeCSS.datamints_feuser_css
 
 plugin.tx_datamints_feuser_pi1 {
 
+   ### Anzeigetyp.
+   showtype = register
    ### Die Felder die im Frontend ausgegeben werden.
    usedfields = username,password,image,--separator--,name,address,zip,city,--separator--,email,www
    ### Die Felder die ausgefüllt werden müssen.
    requiredfields = username,password,name,email
    ### Felder die nicht 2mal vorkommen dürfen (Auf Datenbankebene und pro PID).
    uniquefields = username,email
+
+   register {
+	  ### Passwort automatisch generieren JA/NEIN?
+	  generatepassword.mode = 0
+      ### Wie lang soll das generierte Passwort sein?
+      generatepassword.length = 8
+	  ### Der Content-Typ in der die Emails gesendet werden sollen (text/html).
+      mailtype = text
+   }
 
    validate {
       ### Das Feld "password" soll mit der vordefinierten Validierung "password" validiert werden. Außerdem soll das Passwort mindestens 6 Zeichen haben.
