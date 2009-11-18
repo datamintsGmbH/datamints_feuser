@@ -20,7 +20,7 @@ class tx_flexform_getFieldNames {
 			$fieldList[] = array( $key, $key);
 		}
 
-		$config['items'] = array_merge($config['items'],$fieldList);
+		$config['items'] = array_merge($config['items'], $fieldList);
 		return $config;
 	}
 

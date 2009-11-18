@@ -24,28 +24,27 @@
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
- *   64: class tx_datamintsfeuser_pi1 extends tslib_pibase
- *   81:     function main($content, $conf)
- *  143:     function sendForm()
- *  276:     function generatePassword($password)
- *  305:     function requireCheckForm()
- *  321:     function validateForm()
- *  406:     function uniqueCheckForm()
- *  430:     function saveDeleteImage($fieldName, &$arrUpdate)
- *  492:     function sendMail($templatePart, $extraMarkers = Array())
- *  547:     function makeDoubleOptIn()
- *  566:     function showForm($valueCheck = Array())
- *  754:     function makeHiddenFields()
- *  770:     function makeHiddenParams()
- *  791:     function checkIfRequired($fieldName)
- *  806:     function getLabel($fieldName)
- *  847:     function getConfiguration()
- *  865:     function getFeUsersTca()
- *  876:     function deletePoint($array)
- *  908:     function array_merge_replace_recursive($array1)
+ *   61: class tx_datamintsfeuser_pi1 extends tslib_pibase
+ *   79:     function main($content, $conf)
+ *  146:     function sendForm()
+ *  295:     function generatePassword($password)
+ *  331:     function requireCheckForm()
+ *  347:     function validateForm()
+ *  460:     function uniqueCheckForm()
+ *  484:     function saveDeleteImage($fieldName, &$arrUpdate)
+ *  545:     function sendMail($templatePart, $extraMarkers = Array())
+ *  590:     function makeDoubleOptIn()
+ *  609:     function showForm($valueCheck = Array())
+ *  803:     function makeHiddenFields()
+ *  819:     function makeHiddenParams()
+ *  840:     function checkIfRequired($fieldName)
+ *  855:     function getLabel($fieldName)
+ *  895:     function getConfiguration()
+ *  912:     function getFeUsersTca()
+ *  926:     function deletePoint($array)
+ *  958:     function array_merge_replace_recursive($array1)
  *
  * TOTAL FUNCTIONS: 18
- * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
 
@@ -64,6 +63,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	var $scriptRelPath = 'pi1/class.tx_datamintsfeuser_pi1.php';	// Path to this script relative to the extension dir.
 	var $extKey        = 'datamints_feuser';	// The extension key.
 	var $pi_checkCHash = true;
+	var $feUsersTca = Array();
 	var $confTypes = Array('showtype', 'usedfields', 'requiredfields', 'register.emailtemplate', 'register.autologin', 'register.redirect', 'register.doubleoptin');		// Konfigurationen, die von Flexformkonfiguration überschrieben werden können.
 	var $conf = Array();
 	var $lang = Array();
@@ -397,7 +397,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						break;
 
 					case 'username':
-						if (!preg_match('/^[^ ]*$/')) {
+						if (!preg_match('/^[^ ]*$/', $value)) {
 							$valueCheck[$fieldName] = 'valid';
 						}
 						break;
@@ -462,7 +462,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$uniqueFields = explode(',', str_replace(' ', '', $this->conf['uniquefields']));
 		// Wenn User eingeloggt, dann den eigenen Datensatz nicht durchsuchen.
 		if ($this->userId) {
-			$where = ' uid <> ' . $this->userId;
+			$where = ' uid <> ' . $this->userId . 'AND deleted = 0';
 		}
 		foreach ($uniqueFields as $fieldName) {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . $this->conf['register.']['userfolder'] . ' AND ' . $fieldName . ' = "' . mysql_real_escape_string(strip_tags($this->piVars[$fieldName])) . '"' . $where, '', '');
@@ -577,7 +577,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Verschicke User-Mail.
 		mail($dataArray['name'] . ' <' . $dataArray['email'] . '>', $subject, $template, $header);
 		// Verschicke Admin-Mail.
-		if ($this->conf['register.']['adminmail']) {
+		if ($this->conf['register.']['adminname'] && $this->conf['register.']['adminmail'] && $templatePart != 'doubleoptin') {
 			mail($this->conf['register.']['adminname'] . ' <' . $this->conf['register.']['adminmail'] . '>', $subject, $template, $header);
 		}
 	}
@@ -910,8 +910,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @global	$this->feUsersTca
 	 */
 	function getFeUsersTca() {
+		$GLOBALS['TSFE']->includeTCA();
 		$this->feUsersTca = $GLOBALS['TCA']['fe_users'];
-		$this->feUsersTca['columns'] = $this->array_merge_replace_recursive((Array)$this->feUsersTca['columns'], (Array)$this->deletePoint($this->conf['fieldconfig.']));
+		if ($this->conf['fieldconfig.']) {
+			$this->feUsersTca['columns'] = $this->array_merge_replace_recursive((Array)$this->feUsersTca['columns'], (Array)$this->deletePoint($this->conf['fieldconfig.']));
+		}
 	}
 
 	/**
