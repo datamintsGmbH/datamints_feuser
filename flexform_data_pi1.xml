@@ -113,6 +113,10 @@
 									<numIndex index="0">--separator--</numIndex>
 									<numIndex index="1">--separator--</numIndex>
 								</numIndex>
+								<numIndex index="1" type="array">
+									<numIndex index="0">--infoitem--</numIndex>
+									<numIndex index="1">--infoitem--</numIndex>
+								</numIndex>
 							</items>
 						</config>
 					</TCEforms>

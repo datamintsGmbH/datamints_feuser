@@ -27,22 +27,22 @@
  *   61: class tx_datamintsfeuser_pi1 extends tslib_pibase
  *   79:     function main($content, $conf)
  *  146:     function sendForm()
- *  295:     function generatePassword($password)
- *  331:     function requireCheckForm()
- *  347:     function validateForm()
- *  460:     function uniqueCheckForm()
- *  484:     function saveDeleteImage($fieldName, &$arrUpdate)
- *  545:     function sendMail($templatePart, $extraMarkers = Array())
- *  590:     function makeDoubleOptIn()
- *  609:     function showForm($valueCheck = Array())
- *  803:     function makeHiddenFields()
- *  819:     function makeHiddenParams()
- *  840:     function checkIfRequired($fieldName)
- *  855:     function getLabel($fieldName)
- *  895:     function getConfiguration()
- *  912:     function getFeUsersTca()
- *  926:     function deletePoint($array)
- *  958:     function array_merge_replace_recursive($array1)
+ *  301:     function generatePassword($password)
+ *  337:     function requireCheckForm()
+ *  353:     function validateForm()
+ *  466:     function uniqueCheckForm()
+ *  490:     function saveDeleteImage($fieldName, &$arrUpdate)
+ *  551:     function sendMail($templatePart, $extraMarkers = Array())
+ *  611:     function makeDoubleOptIn()
+ *  630:     function showForm($valueCheck = Array())
+ *  839:     function makeHiddenFields()
+ *  855:     function makeHiddenParams()
+ *  876:     function checkIfRequired($fieldName)
+ *  891:     function getLabel($fieldName)
+ *  931:     function getConfiguration()
+ *  948:     function getFeUsersTca()
+ *  962:     function deletePoint($array)
+ *  994:     function array_merge_replace_recursive($array1)
  *
  * TOTAL FUNCTIONS: 18
  *
@@ -82,8 +82,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$this->pi_loadLL();
 
 		// Debug.
-		$GLOBALS['TSFE']->set_no_cache();
-		$GLOBALS['TYPO3_DB']->debugOutput = true;
+		//$GLOBALS['TSFE']->set_no_cache();
+		//$GLOBALS['TYPO3_DB']->debugOutput = true;
 
 		// Flexform und Configurationen laden.
 		$this->pi_initPIflexForm();
@@ -159,7 +159,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$requireCheck = $this->requireCheckForm();
 		// Wenn bei der Validierung ein Feld nicht den Anforderungen entspricht noch einmal die Form anzeigen und entsprechende Felder markieren.
 		$valueCheck = array_merge((Array)$uniqueCheck, (Array)$validCheck, (Array)$requireCheck);
-		if (in_array(0, $valueCheck)) {
+		if (count($valueCheck) > 0) {
 			$content = $this->showForm($valueCheck);
 			return $content;
 		}
@@ -244,9 +244,14 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					$arrUpdate['disable'] = '1';
 				}
 				// Standartkonfigurationen anwenden.
-				$arrUpdate['pid'] = $this->conf['register.']['userfolder'];
+				$arrUpdate['pid'] = ($this->conf['register.']['userfolder']) ? $this->conf['register.']['userfolder'] : '0';
 				$arrUpdate['usergroup'] = ($arrUpdate['usergroup']) ? $arrUpdate['usergroup'] : $this->conf['register.']['usergroup'];
 				$arrUpdate['crdate'] = $arrUpdate['tstamp'];
+
+				// Extra Erstellungsdatumsfelder hinzufügen.
+				foreach (explode(',', str_replace(' ', '', $this->conf['register.']['crdatefields'])) as $val) {
+					$arrUpdate[$val] = $arrUpdate['crdate'];
+				}
 
 				// User erstellen.
 				$error = $GLOBALS['TYPO3_DB']->exec_INSERTquery('fe_users', $arrUpdate);
@@ -257,8 +262,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					// Wenn nach der Registrierung weitergeleitet werden soll.
 					if ($this->conf['register.']['doubleoptin']) {
 						$hash = md5($this->userId . $arrUpdate['username'] . $arrUpdate['email'] . $arrUpdate['tstamp']);
+						$pageLink = (strpos($this->pi_getPageLink($GLOBALS['TSFE']->id), '?') !== false) ? $this->pi_getPageLink($GLOBALS['TSFE']->id) . '&' : $this->pi_getPageLink($GLOBALS['TSFE']->id) . '&';
 						$extraMarkers = Array(
-							'registerlink' => $GLOBALS['TSFE']->baseUrl . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '%5Bsubmit%5D=doubleoptin&' . $this->prefixId . '%5Buid%5D=' . $this->userId . '&' . $this->prefixId . '%5Bhash%5D=' . $hash . $this->makeHiddenParams()
+							'registerlink' => $GLOBALS['TSFE']->baseUrl . $pageLink . $this->prefixId . '%5Bsubmit%5D=doubleoptin&' . $this->prefixId . '%5Buid%5D=' . $this->userId . '&' . $this->prefixId . '%5Bhash%5D=' . $hash . $this->makeHiddenParams()
 						);
 						$this->sendMail('doubleoptin', $extraMarkers);
 						$content = $this->pi_getLL('doubleoptin_sent');
@@ -462,10 +468,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$uniqueFields = explode(',', str_replace(' ', '', $this->conf['uniquefields']));
 		// Wenn User eingeloggt, dann den eigenen Datensatz nicht durchsuchen.
 		if ($this->userId) {
-			$where = ' uid <> ' . $this->userId . 'AND deleted = 0';
+			$where = ' uid <> ' . $this->userId;
 		}
 		foreach ($uniqueFields as $fieldName) {
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . $this->conf['register.']['userfolder'] . ' AND ' . $fieldName . ' = "' . mysql_real_escape_string(strip_tags($this->piVars[$fieldName])) . '"' . $where, '', '');
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . $this->conf['register.']['userfolder'] . ' AND ' . $fieldName . ' = "' . mysql_real_escape_string(strip_tags($this->piVars[$fieldName])) . '"' . $where . ' AND deleted = 0', '', '');
             $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 			if ($row['count'] >= 1) {
 				$valueCheck[$fieldName] = 'unique';
@@ -578,6 +584,21 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		mail($dataArray['name'] . ' <' . $dataArray['email'] . '>', $subject, $template, $header);
 		// Verschicke Admin-Mail.
 		if ($this->conf['register.']['adminname'] && $this->conf['register.']['adminmail'] && $templatePart != 'doubleoptin') {
+			// Template laden.
+			$template = $this->cObj->fileResource($templateFile);
+			$template = $this->cObj->getSubpart($template, '###ADMINNOTIFICATION###');
+			$template = $this->cObj->substituteMarkerArray($template, $markerArray, '###|###', 1);
+			// Betreff ermitteln und aus dem E-Mail Content entfernen.
+			$subject = trim($this->cObj->getSubpart($template, '###SUBJECT###'));
+			$template = $this->cObj->substituteSubpart($template, '###SUBJECT###', '');
+
+			// Restlichen Content wieder zusammenfügen.
+			if ($this->conf['register.']['mailtype'] == 'html') {
+				$mailtype = 'text/html';
+			} else {
+				$mailtype = 'text/plain';
+				$template = trim(strip_tags($template));
+			}
 			mail($this->conf['register.']['adminname'] . ' <' . $this->conf['register.']['adminmail'] . '>', $subject, $template, $header);
 		}
 	}
@@ -631,9 +652,15 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Formular start.
 		$content = '<form name="' . $this->prefixId . '" action="' . $requestLink . '" method="post" enctype="multipart/form-data"><fieldset class="form_part_1">';
 
+		// Wenn eine Lgende für das erste Fieldset definiert wurde, diese ausgeben.
+		if ($this->conf['separatorheads.'][1]) {
+			$content .= '<legend class="legends legend_1">' . $this->conf['separatorheads.'][1] . '</legend>';
+		}
+
 		// ID zähler für Items und Fieldsets.
 		$iItem = 1;
 		$iFieldset = 1;
+		$iInfoItem = 1;
 
 		// Alle ausgewählten Felder durchgehen.
 		foreach ($arrUsedFields as $fieldName) {
@@ -775,6 +802,15 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			} elseif ($fieldName == '--separator--') {
 				$iFieldset++;
 				$content .= '</fieldset><fieldset class="fieldset_' . $iFieldset . '">';
+				// Wenn eine Lgende für das Fieldset definiert wurde, diese ausgeben.
+				if ($this->conf['separatorheads.'][$iFieldset]) {
+					$content .= '<legend class="legends legend_' . $iFieldset . '">' . $this->conf['separatorheads.'][$iFieldset] . '</legend>';
+				}
+			} elseif ($fieldName == '--infoitem--') {
+				if ($this->conf['infoitems.'][$iInfoItem]) {
+					$content .= '<div class="infoitems infoitem_' . $iInfoItem . '">' . $this->conf['infoitems.'][$iInfoItem] . '</div>';
+				}
+				$iInfoItem++;
 			}
 
 		}
