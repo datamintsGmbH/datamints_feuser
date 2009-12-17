@@ -24,25 +24,26 @@
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
- *   61: class tx_datamintsfeuser_pi1 extends tslib_pibase
- *   79:     function main($content, $conf)
- *  146:     function sendForm()
- *  301:     function generatePassword($password)
- *  337:     function requireCheckForm()
- *  353:     function validateForm()
- *  466:     function uniqueCheckForm()
- *  490:     function saveDeleteImage($fieldName, &$arrUpdate)
- *  551:     function sendMail($templatePart, $extraMarkers = Array())
- *  611:     function makeDoubleOptIn()
- *  630:     function showForm($valueCheck = Array())
- *  839:     function makeHiddenFields()
- *  855:     function makeHiddenParams()
- *  876:     function checkIfRequired($fieldName)
- *  891:     function getLabel($fieldName)
- *  931:     function getConfiguration()
- *  948:     function getFeUsersTca()
- *  962:     function deletePoint($array)
- *  994:     function array_merge_replace_recursive($array1)
+ *   62: class tx_datamintsfeuser_pi1 extends tslib_pibase
+ *  101:     function main($content, $conf)
+ *  168:     function sendForm()
+ *  325:     function generatePassword($password)
+ *  361:     function requireCheckForm()
+ *  377:     function validateForm()
+ *  490:     function uniqueCheckForm()
+ *  516:     function saveDeleteImage($fieldName, &$arrUpdate)
+ *  577:     function sendMail($templatePart, $extraMarkers = Array())
+ *  637:     function makeDoubleOptIn()
+ *  656:     function showForm($valueCheck = Array())
+ *  867:     function makeHiddenFields()
+ *  883:     function makeHiddenParams()
+ *  904:     function checkIfRequired($fieldName)
+ *  919:     function getLabel($fieldName)
+ *  959:     function getConfiguration()
+ *  979:     function setFlexformConfiguration($key, $value)
+ * 1003:     function getFeUsersTca()
+ * 1017:     function deletePoint($array)
+ * 1049:     function array_merge_replace_recursive($array1)
  *
  * TOTAL FUNCTIONS: 18
  *
@@ -64,7 +65,28 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	var $extKey        = 'datamints_feuser';	// The extension key.
 	var $pi_checkCHash = true;
 	var $feUsersTca = Array();
-	var $confTypes = Array('showtype', 'usedfields', 'requiredfields', 'register.emailtemplate', 'register.autologin', 'register.redirect', 'register.doubleoptin');		// Konfigurationen, die von Flexformkonfiguration überschrieben werden können.
+	// Konfigurationen, die von Flexformkonfiguration überschrieben werden können.
+	var $confTypes = Array(
+		'showtype',
+		'usedfields',
+		'requiredfields',
+		'uniquefields',
+		'sREG' => Array(
+			'register.emailtemplate',
+			'register.doubleoptin',
+			'register.userfolder',
+			'register.usergroup',
+			'register.generatepassword.mode',
+			'register.generatepassword.length',
+			'register.redirect',
+			'register.autologin',
+			'register.mailtype',
+			'register.sendername',
+			'register.sendermail',
+			'register.adminname',
+			'register.adminmail'
+			)
+		);
 	var $conf = Array();
 	var $lang = Array();
 	var $userId = 0;
@@ -164,7 +186,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			return $content;
 		}
 
-		// Wenn der Bearbeitungsmodus, die Zielseite, und der User stimmen, dann wird in die Datenbank schreiben.
+		// Wenn der Bearbeitungsmodus, die Zielseite, und der User stimmen, dann wird in die Datenbank geschrieben.
 		if ($this->piVars['submitmode'] == $this->conf['showtype'] && intval($this->piVars['pageid']) == $GLOBALS['TSFE']->id && intval($this->piVars['userid']) == $this->userId) {
 			// Sonderfälle!
 			$usedFields = explode(',', str_replace(' ', '', $this->conf['usedfields']));
@@ -250,7 +272,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 				// Extra Erstellungsdatumsfelder hinzufügen.
 				foreach (explode(',', str_replace(' ', '', $this->conf['register.']['crdatefields'])) as $val) {
-					$arrUpdate[$val] = $arrUpdate['crdate'];
+					if (trim($val)) {
+						$arrUpdate[trim($val)] = $arrUpdate['crdate'];
+					}
 				}
 
 				// User erstellen.
@@ -262,7 +286,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					// Wenn nach der Registrierung weitergeleitet werden soll.
 					if ($this->conf['register.']['doubleoptin']) {
 						$hash = md5($this->userId . $arrUpdate['username'] . $arrUpdate['email'] . $arrUpdate['tstamp']);
-						$pageLink = (strpos($this->pi_getPageLink($GLOBALS['TSFE']->id), '?') !== false) ? $this->pi_getPageLink($GLOBALS['TSFE']->id) . '&' : $this->pi_getPageLink($GLOBALS['TSFE']->id) . '&';
+						$pageLink = (strpos($this->pi_getPageLink($GLOBALS['TSFE']->id), '?') !== false) ? $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' : $this->pi_getPageLink($GLOBALS['TSFE']->id) . '&';
 						$extraMarkers = Array(
 							'registerlink' => $GLOBALS['TSFE']->baseUrl . $pageLink . $this->prefixId . '%5Bsubmit%5D=doubleoptin&' . $this->prefixId . '%5Buid%5D=' . $this->userId . '&' . $this->prefixId . '%5Bhash%5D=' . $hash . $this->makeHiddenParams()
 						);
@@ -459,7 +483,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Überprüft die übergeben Inhalte, bei bestimmten Feldern, in der Datenbank schon vorhanden sind.
+	 * Überprüft die übergebenen Inhalte, bei bestimmten Feldern, ob diese in der Datenbank schon vorhanden sind.
 	 *
 	 * @return	Array		$valueCheck
 	 */
@@ -471,10 +495,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$where = ' uid <> ' . $this->userId;
 		}
 		foreach ($uniqueFields as $fieldName) {
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . $this->conf['register.']['userfolder'] . ' AND ' . $fieldName . ' = "' . mysql_real_escape_string(strip_tags($this->piVars[$fieldName])) . '"' . $where . ' AND deleted = 0', '', '');
-            $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-			if ($row['count'] >= 1) {
-				$valueCheck[$fieldName] = 'unique';
+			if (trim(mysql_real_escape_string(strip_tags($this->piVars[$fieldName])))) {
+				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . $this->conf['register.']['userfolder'] . ' AND ' . $fieldName . ' = "' . trim(mysql_real_escape_string(strip_tags($this->piVars[$fieldName]))) . '"' . $where . ' AND deleted = 0', '', '');
+				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+				if ($row['count'] >= 1) {
+					$valueCheck[$fieldName] = 'unique';
+				}
 			}
 		}
 		return $valueCheck;
@@ -643,8 +669,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$arrUsedFields = explode(',', str_replace(' ', '', $this->conf['usedfields']));
 
 		// Seite, die den Request entgegennimmt (TypoLink).
-		$requestLink = $this->pi_getPageLink($this->conf['requestPid']);
-		if (!$this->conf['requestPid']) {
+		$requestLink = $this->pi_getPageLink($this->conf['requestpid']);
+		if (!$this->conf['requestpid']) {
 			// Wenn keine Seite per TypoScript angegeben ist, wird die aktuelle Seite verwendet.
 			$requestLink = $this->pi_getPageLink($GLOBALS['TSFE']->id);
 		}
@@ -691,13 +717,15 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 							$content .= '<input type="password" id="' . $this->prefixId . '_' . $fieldName . '_2" name="' . $this->prefixId . '[' . $fieldName . '_rep]" value="" />';
 							break;
 						}
+						$readOnly = ($this->feUsersTca['columns'][$fieldName]['config']['readOnly'] == 1) ? ' readonly="readonly"' : '';
 						// Normales Inputfeld.
-						$content .= '<input type="text" id="' . $this->prefixId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" value="' . $arrCurrentData[$fieldName] . '" />';
+						$content .= '<input type="text" id="' . $this->prefixId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" value="' . $arrCurrentData[$fieldName] . '"' . $readOnly . ' />';
 						break;
 
 					case 'text':
+						$readOnly = ($this->feUsersTca['columns'][$fieldName]['config']['readOnly'] == 1) ? ' readonly="readonly"' : '';
 						// Textarea.
-						$content .= '<textarea id="' . $this->prefixId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']">' . $arrCurrentData[$fieldName] . '</textarea>';
+						$content .= '<textarea id="' . $this->prefixId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']"' . $readOnly . '>' . $arrCurrentData[$fieldName] . '</textarea>';
 						break;
 
 					case 'check':
@@ -924,19 +952,46 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Überschreibt eventuell vorhandene TypoScript Konfigurationen mit den Konfigurationen aus der Flexform.
+	 * Holt Konfigurationen aus der Flexform (Tab-bedingt) und ersetzt diese pro Konfiguration in der TypoScript Konfiguration.
 	 *
 	 * @global	$this->conf
 	 */
 	function getConfiguration() {
-		foreach ($this->confTypes as $key) {
-			$value = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $key, 'sDEF');
-			if (strpos($key, '.') !== false && $value) {
-				$arrKey = explode('.', $key);
-				$this->conf[$arrKey[0] . '.'][$arrKey[1]] = $value;
-			} elseif ($value) {
-				$this->conf[$key] = $value;
+		foreach ($this->confTypes as $tabKey => $key) {
+			if (is_array($key)) {
+				foreach ($key as $newKey) {
+					$value = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $newKey, $tabKey);
+					$this->setFlexformConfiguration($newKey, $value);
+				}
+			} else {
+				$value = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $key, 'sDEF');
+				$this->setFlexformConfiguration($key, $value);
 			}
+		}
+	}
+
+	/**
+	 * Überschreibt eventuell vorhandene TypoScript Konfigurationen mit den Konfigurationen aus der Flexform.
+	 *
+	 * @param	String		$key
+	 * @param	String		$value
+	 */
+	function setFlexformConfiguration($key, $value) {
+		if (strpos($key, '.') !== false && $value) {
+			$arrKey = explode('.', $key);
+			for ($i = count($arrKey) - 1; $i >= 0; $i--) {
+				if ($i == count($arrKey) - 1) {
+					$newValue[$arrKey[$i]] = $value;
+				} else {
+					$newValue[$arrKey[$i] . '.'] = $value;
+				}
+				$value = $newValue;
+				// Muss
+				unset($newValue);
+			}
+			$this->conf = $this->array_merge_replace_recursive($this->conf, $value);
+		} elseif ($value) {
+			$this->conf[$key] = $value;
 		}
 	}
 
