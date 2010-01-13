@@ -400,7 +400,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 								$arrLength = explode(',', str_replace(' ', '', $validate['length']));
 								if ($arrLength[1]) {
 									// Wenn eine Maximallänge festgelegt wurde.
-									if (strlen($value) < $arrLength[0] && strlen($value) > $arrLength[1]) {
+									if (strlen($value) < $arrLength[0] || strlen($value) > $arrLength[1]) {
 										$valueCheck[$fieldName] = 'length';
 									}
 								} else {
@@ -451,7 +451,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 							if (is_array($value)) {
 								if ($arrLength[1]) {
 									// Wenn eine Maximallänge festgelegt wurde.
-									if (count($value) < $arrLength[0] && count($value) > $arrLength[1]) {
+									if (count($value) < $arrLength[0] || count($value) > $arrLength[1]) {
 										$valueCheck[$fieldName] = 'length';
 									}
 								} else {
@@ -463,7 +463,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 							} else {
 								if ($arrLength[1]) {
 									// Wenn eine Maximallänge festgelegt wurde.
-									if (strlen($value) < $arrLength[0] && strlen($value) > $arrLength[1]) {
+									if (strlen($value) < $arrLength[0] || strlen($value) > $arrLength[1]) {
 										$valueCheck[$fieldName] = 'length';
 									}
 								} else {
@@ -676,7 +676,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Formular start.
-		$content = '<form name="' . $this->prefixId . '" action="' . $requestLink . '" method="post" enctype="multipart/form-data"><fieldset class="form_part_1">';
+		$content = '<form id="' . $this->prefixId . '_form" name="' . $this->prefixId . '" action="' . $requestLink . '" method="post" enctype="multipart/form-data"><fieldset class="form_part_1">';
 
 		// Wenn eine Lgende für das erste Fieldset definiert wurde, diese ausgeben.
 		if ($this->conf['separatorheads.'][1]) {
@@ -693,7 +693,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Wenn das im Flexform ausgewählte Feld existiert, dann dieses Feld ausgeben.
 			if ($this->feUsersTca['columns'][$fieldName]) {
 				// Form Item Anfang.
-				$content .= '<div class="form_item form_item_' . $iItem . ' form_type_' . $this->feUsersTca['columns'][$fieldName]['config']['type'] . '">';
+				$content .= '<div id="' . $this->prefixId . '_' . $fieldName . '_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $this->feUsersTca['columns'][$fieldName]['config']['type'] . '">';
 
 				// Label schreiben.
 				$label = $this->getLabel($fieldName);
