@@ -29,6 +29,7 @@
 			<label index="doubleoptin_sent">To activate your account click the activation link in the e-mail we sent you!</label>
 			<label index="doubleoptin_success">Your account has been successfully unlocked!</label>
 			<label index="doubleoptin_failure">Your activation link is unfortunately not valid!</label>
+			<label index="edit_error_no_login">You can not edit the user data if you are not logged in!</label>
 		</languageKey>
 
 		<languageKey index="de" type="array">
@@ -55,6 +56,7 @@
 			<label index="doubleoptin_sent">Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wurde!</label>
 			<label index="doubleoptin_success">Ihr Account wurde erfolgreich freigeschaltet!</label>
 			<label index="doubleoptin_failure">Ihr Aktivierungslink ist leider nicht gültig!</label>
+			<label index="edit_error_no_login">Die Userdaten können nicht bearbeitet werden wenn man nicht eingelogt ist!</label>
 		</languageKey>
 	</data>
 </T3locallang>

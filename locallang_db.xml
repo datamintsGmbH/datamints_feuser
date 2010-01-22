@@ -6,9 +6,9 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tt_content.list_type_pi1">Frontend User Management</label>
-			<label index="fe_users.tx_datamintsfeuser_firstname">Firstname:</label>
-			<label index="fe_users.tx_datamintsfeuser_surname">Surname:</label>
+			<label index="tt_content.list_type_pi1">Frontend user management</label>
+			<label index="fe_users.tx_datamintsfeuser_firstname">firstname</label>
+			<label index="fe_users.tx_datamintsfeuser_surname">surname</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="tt_content.list_type_pi1">Frontend User Verwaltung</label>

@@ -28,26 +28,26 @@
  *
  *   65: class tx_datamintsfeuser_pi1 extends tslib_pibase
  *  107:     function main($content, $conf)
- *  181:     function sendForm()
- *  340:     function generatePassword($password)
- *  376:     function requireCheckForm()
- *  392:     function validateForm()
- *  505:     function uniqueCheckForm()
- *  531:     function saveDeleteImage($fieldName, &$arrUpdate)
- *  593:     function sendMail($templatePart, $extraMarkers = Array())
- *  653:     function makeDoubleOptIn()
- *  672:     function showForm($valueCheck = Array())
- *  886:     function makeHiddenFields()
- *  902:     function makeHiddenParams()
- *  923:     function checkIfRequired($fieldName)
- *  938:     function getLabel($fieldName)
- *  979:     function getConfiguration()
- * 1000:     function setFlexformConfiguration($key, $value)
- * 1024:     function getJSValidationConfiguration()
- * 1070:     function getFeUsersTca()
- * 1084:     function getStoragePid()
- * 1098:     function deletePoint($array)
- * 1129:     function array_merge_replace_recursive($array1)
+ *  184:     function sendForm()
+ *  343:     function generatePassword($password)
+ *  379:     function requireCheckForm()
+ *  395:     function validateForm()
+ *  508:     function uniqueCheckForm()
+ *  534:     function saveDeleteImage($fieldName, &$arrUpdate)
+ *  596:     function sendMail($templatePart, $extraMarkers = Array())
+ *  656:     function makeDoubleOptIn()
+ *  675:     function showForm($valueCheck = Array())
+ *  889:     function makeHiddenFields()
+ *  905:     function makeHiddenParams()
+ *  926:     function checkIfRequired($fieldName)
+ *  941:     function getLabel($fieldName)
+ *  982:     function getConfiguration()
+ * 1003:     function setFlexformConfiguration($key, $value)
+ * 1027:     function getJSValidationConfiguration()
+ * 1073:     function getFeUsersTca()
+ * 1087:     function getStoragePid()
+ * 1101:     function deletePoint($array)
+ * 1132:     function array_merge_replace_recursive($array1)
  *
  * TOTAL FUNCTIONS: 21
  *
@@ -129,6 +129,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Userid ermitteln.
 		$this->userId = $GLOBALS['TSFE']->fe_user->user['uid'];
 
+		// Wenn nicht eingeloggt kann man auch nicht editieren!
+		if ($this->conf['showtype'] == 'edit' && !$this->userId) return $this->pi_wrapInBaseClass('<div class="edit_error_no_login">' . $this->pi_getLL('edit_error_no_login') . '</div>');
+
 		switch ($this->piVars['submit']) {
 			case 'send':
 				$content = $this->sendForm();
@@ -152,7 +155,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 					//if ($this->conf['register.']['autologin']) {
 					//	// Weiterleitung mit Login. Zuerst auf die eigene Seite mit Login Parametern und dann auf das Weiterleitungsziel.
-					//	header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '[submit]=redirect&logintype=login&pid=' . $this->conf['register.']['userfolder'] . '&user=' . $this->piVars['username'] . '&pass=' . $this->piVars['password'] . $this->makeHiddenParams());
+					//	header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '[submit]=redirect&logintype=login&pid=' . $this->storagePid . '&user=' . $this->piVars['username'] . '&pass=' . $this->piVars['password'] . $this->makeHiddenParams());
 					//	exit;
 					//}
 					if ($this->conf['register.']['redirect']) {
@@ -315,7 +318,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 					if ($this->conf['register.']['autologin']) {
 						// Weiterleitung mit Login. Zuerst auf die eigene Seite mit Login Parametern und dann auf das Weiterleitungsziel. Username wird per $arrUpdate übergeben, weil dieser Wert schon bereinigt ist.
-						header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '[submit]=redirect&logintype=login&pid=' . $this->conf['register.']['userfolder'] . '&user=' . $arrUpdate['username'] . '&pass=' . urlencode($this->piVars['password']) . $this->makeHiddenParams());
+						header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '[submit]=redirect&logintype=login&pid=' . $this->storagePid . '&user=' . $arrUpdate['username'] . '&pass=' . urlencode($this->piVars['password']) . $this->makeHiddenParams());
 						exit;
 					}
 					if ($this->conf['register.']['redirect']) {
@@ -506,12 +509,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Check unique Fields.
 		$uniqueFields = explode(',', str_replace(' ', '', $this->conf['uniquefields']));
 		// Wenn User eingeloggt, dann den eigenen Datensatz nicht durchsuchen.
-		if ($this->userId) {
-			$where = ' uid <> ' . $this->userId;
+		if ($this->conf['showtype'] == 'edit' && $this->userId) {
+			$where = ' AND uid <> ' . $this->userId;
 		}
 		foreach ($uniqueFields as $fieldName) {
 			if (trim(strip_tags($this->piVars[$fieldName]))) {
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . $this->conf['register.']['userfolder'] . ' AND ' . $fieldName . ' = "' . trim(strip_tags($this->piVars[$fieldName])) . '"' . $where . ' AND deleted = 0', '', '');
+				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . $this->storagePid . ' AND ' . $fieldName . ' = "' . trim(strip_tags($this->piVars[$fieldName])) . '"' . $where . ' AND deleted = 0', '', '');
 				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 				if ($row['count'] >= 1) {
 					$valueCheck[$fieldName] = 'unique';
