@@ -1,6 +1,3 @@
-page.includeCSS.datamints_feuser_css = EXT:datamints_feuser/res/datamints_feuser.css
-seite.includeCSS.datamints_feuser_css < page.includeCSS.datamints_feuser_css
-
 plugin.tx_datamintsfeuser_pi1 {
 
    ### Anzeigetyp.

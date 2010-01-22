@@ -21,36 +21,39 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+
 /**
+ *
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
- *   62: class tx_datamintsfeuser_pi1 extends tslib_pibase
- *  101:     function main($content, $conf)
- *  168:     function sendForm()
- *  325:     function generatePassword($password)
- *  361:     function requireCheckForm()
- *  377:     function validateForm()
- *  490:     function uniqueCheckForm()
- *  516:     function saveDeleteImage($fieldName, &$arrUpdate)
- *  577:     function sendMail($templatePart, $extraMarkers = Array())
- *  637:     function makeDoubleOptIn()
- *  656:     function showForm($valueCheck = Array())
- *  867:     function makeHiddenFields()
- *  883:     function makeHiddenParams()
- *  904:     function checkIfRequired($fieldName)
- *  919:     function getLabel($fieldName)
- *  959:     function getConfiguration()
- *  979:     function setFlexformConfiguration($key, $value)
- * 1003:     function getFeUsersTca()
- * 1017:     function deletePoint($array)
- * 1049:     function array_merge_replace_recursive($array1)
+ *   65: class tx_datamintsfeuser_pi1 extends tslib_pibase
+ *  107:     function main($content, $conf)
+ *  181:     function sendForm()
+ *  340:     function generatePassword($password)
+ *  376:     function requireCheckForm()
+ *  392:     function validateForm()
+ *  505:     function uniqueCheckForm()
+ *  531:     function saveDeleteImage($fieldName, &$arrUpdate)
+ *  593:     function sendMail($templatePart, $extraMarkers = Array())
+ *  653:     function makeDoubleOptIn()
+ *  672:     function showForm($valueCheck = Array())
+ *  886:     function makeHiddenFields()
+ *  902:     function makeHiddenParams()
+ *  923:     function checkIfRequired($fieldName)
+ *  938:     function getLabel($fieldName)
+ *  979:     function getConfiguration()
+ * 1000:     function setFlexformConfiguration($key, $value)
+ * 1024:     function getJSValidationConfiguration()
+ * 1070:     function getFeUsersTca()
+ * 1084:     function getStoragePid()
+ * 1098:     function deletePoint($array)
+ * 1129:     function array_merge_replace_recursive($array1)
  *
- * TOTAL FUNCTIONS: 18
+ * TOTAL FUNCTIONS: 21
  *
  */
 
 require_once(PATH_tslib.'class.tslib_pibase.php');
-
 
 /**
  * Plugin 'datamints feuser' for the 'datamints_feuser' extension.
@@ -65,12 +68,15 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	var $extKey        = 'datamints_feuser';	// The extension key.
 	var $pi_checkCHash = true;
 	var $feUsersTca = Array();
+	var $storagePid = 0;
 	// Konfigurationen, die von Flexformkonfiguration überschrieben werden können.
 	var $confTypes = Array(
 		'showtype',
 		'usedfields',
 		'requiredfields',
 		'uniquefields',
+		'stylesheetpath',
+		'disablestylesheet',
 		'sREG' => Array(
 			'register.emailtemplate',
 			'register.doubleoptin',
@@ -96,7 +102,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 *
 	 * @param	string		$content: The PlugIn content
 	 * @param	array		$conf: The PlugIn configuration
-	 * @return	The content that is displayed on the website
+	 * @return	string		The content that is displayed on the website
 	 */
 	function main($content, $conf) {
 		$this->conf = $conf;
@@ -111,7 +117,14 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$this->pi_initPIflexForm();
 		$this->getConfiguration();
 		$this->getFeUsersTca();
-		//print_r($this->feUsersTca['columns']);
+		$this->getStoragePid();
+
+		// Javascripts in den Head einbinden.
+		$GLOBALS['TSFE']->setJS($this->extKey, $this->getJSValidationConfiguration());
+		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId] .= '<script type="text/javascript" src="' . (($this->conf['jsvalidatorpath']) ? $this->conf['jsvalidatorpath'] : t3lib_extMgm::extRelPath($this->extKey) . 'res/validator.js') . '"></script>' . "\n";
+
+		// Stylesheets in den Head einbinden.
+		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId] .= ($this->conf['disablestylesheet']) ? '' : '<link rel="stylesheet" type="text/css" href="' . (($this->conf['stylesheetpath']) ? $this->conf['stylesheetpath'] : t3lib_extMgm::extRelPath($this->extKey) . 'res/datamints_feuser.css') . '" />' . "\n";
 
 		// Userid ermitteln.
 		$this->userId = $GLOBALS['TSFE']->fe_user->user['uid'];
@@ -163,7 +176,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Bereitet die übergebenen Daten für den Import in die Datenbank vor, und führt diesen, wenn es keine Fehler gab, aus.
 	 *
-	 * @return	String		$content
+	 * @return	string		$content
 	 */
 	function sendForm() {
 		// Jedes Element trimmen.
@@ -191,58 +204,60 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Sonderfälle!
 			$usedFields = explode(',', str_replace(' ', '', $this->conf['usedfields']));
 			foreach ($usedFields as $fieldName) {
-				// Ist das Feld schon gesäubert worden (MySQL, PHP, HTML, ...).
-				$isChecked = false;
+				if ($this->feUsersTca['columns'][$fieldName]) {
+					// Ist das Feld schon gesäubert worden (MySQL, PHP, HTML, ...).
+					$isChecked = false;
 
-				// Passwordfelder behandeln.
-				if (strpos($this->feUsersTca['columns'][$fieldName]['config']['eval'], 'password') !== false) {
-					// Password generieren und verschlüsseln je nach Einstellung.
-					$arrUpdate[$fieldName] = $this->generatePassword($this->piVars[$fieldName]);
-					// Wenn kein Password übergeben wurde auch keins schreiben.
-					if ($arrUpdate[$fieldName] == '') {
-						unset($arrUpdate[$fieldName]);
+					// Passwordfelder behandeln.
+					if (strpos($this->feUsersTca['columns'][$fieldName]['config']['eval'], 'password') !== false) {
+						// Password generieren und verschlüsseln je nach Einstellung.
+						$arrUpdate[$fieldName] = $this->generatePassword($this->piVars[$fieldName]);
+						// Wenn kein Password übergeben wurde auch keins schreiben.
+						if ($arrUpdate[$fieldName] == '') {
+							unset($arrUpdate[$fieldName]);
+						}
+						$isChecked = true;
 					}
-					$isChecked = true;
-				}
-				// Bildfelder behandeln.
-				if ($this->feUsersTca['columns'][$fieldName]['config']['internal_type'] == 'file' && ($_FILES[$this->prefixId]['type'][$fieldName] || $this->piVars[$fieldName . '_delete'])) {
-					// Das Bild hochladen oder löschen. Gibt einen Fehlerstring zurück falls ein Fehler auftritt.
-					$valueCheck[$fieldName] = $this->saveDeleteImage($fieldName, $arrUpdate);
-					if ($valueCheck[$fieldName]) {
-						$content = $this->showForm($valueCheck);
-						return $content;
+					// Bildfelder behandeln.
+					if ($this->feUsersTca['columns'][$fieldName]['config']['internal_type'] == 'file' && ($_FILES[$this->prefixId]['type'][$fieldName] || $this->piVars[$fieldName . '_delete'])) {
+						// Das Bild hochladen oder löschen. Gibt einen Fehlerstring zurück falls ein Fehler auftritt. $arrUpdate wird per Referenz übergeben und innerhalb der Funktion geändert!
+						$valueCheck[$fieldName] = $this->saveDeleteImage($fieldName, $arrUpdate);
+						if ($valueCheck[$fieldName]) {
+							$content = $this->showForm($valueCheck);
+							return $content;
+						}
+						$isChecked = true;
 					}
-					$isChecked = true;
-				}
-				// Checkboxen behandeln.
-				if ($this->feUsersTca['columns'][$fieldName]['config']['type'] == 'check' && !$this->piVars[$fieldName]) {
-					$arrUpdate[$fieldName] = '0';
-				}
-				// Datumsfelder behandeln.
-				if (strpos($this->feUsersTca['columns'][$fieldName]['config']['eval'], 'date') !== false) {
-					$arrUpdate[$fieldName] = strtotime($this->piVars[$fieldName]);
-					$isChecked = true;
-				}
-				// Multiple Selectboxen.
-				if ($this->feUsersTca['columns'][$fieldName]['config']['type'] == 'select' && $this->feUsersTca['columns'][$fieldName]['config']['size'] > 1) {
-					foreach ($this->piVars[$fieldName] as $key => $val) {
-						$this->piVars[$fieldName][$key] = intval($val);
+					// Checkboxen behandeln.
+					if ($this->feUsersTca['columns'][$fieldName]['config']['type'] == 'check' && !$this->piVars[$fieldName]) {
+						$arrUpdate[$fieldName] = '0';
 					}
-					$arrUpdate[$fieldName] = implode(',', $this->piVars[$fieldName]);
-					$isChecked = true;
-				}
+					// Datumsfelder behandeln.
+					if (strpos($this->feUsersTca['columns'][$fieldName]['config']['eval'], 'date') !== false) {
+						$arrUpdate[$fieldName] = strtotime($this->piVars[$fieldName]);
+						$isChecked = true;
+					}
+					// Multiple Selectboxen.
+					if ($this->feUsersTca['columns'][$fieldName]['config']['type'] == 'select' && $this->feUsersTca['columns'][$fieldName]['config']['size'] > 1) {
+						foreach ($this->piVars[$fieldName] as $key => $val) {
+							$this->piVars[$fieldName][$key] = intval($val);
+						}
+						$arrUpdate[$fieldName] = implode(',', $this->piVars[$fieldName]);
+						$isChecked = true;
+					}
 
-				// Wenn noch nicht gesäubert dann nachholen!
-				if (!$isChecked && $this->piVars[$fieldName]) {
-					// Typ ermitteln und anhand dessen das Feld säubern.
-					$type = $this->feUsersTca['columns'][$fieldName]['config']['type'];
-					$size = $this->feUsersTca['columns'][$fieldName]['config']['size'];
-					if ($type == 'check' || ($type == 'select' && $size == 1)) {
-						// Wenn eine Checkbox oder eine einfache Selectbox, dann darf nur eine Zahl kommen!
-						$arrUpdate[$fieldName] = intval($this->piVars[$fieldName]);
+					// Wenn noch nicht gesäubert dann nachholen!
+					if (!$isChecked && $this->piVars[$fieldName]) {
+						// Typ ermitteln und anhand dessen das Feld säubern.
+						$type = $this->feUsersTca['columns'][$fieldName]['config']['type'];
+						$size = $this->feUsersTca['columns'][$fieldName]['config']['size'];
+						if ($type == 'check' || ($type == 'select' && $size == 1)) {
+							// Wenn eine Checkbox oder eine einfache Selectbox, dann darf nur eine Zahl kommen!
+							$arrUpdate[$fieldName] = intval($this->piVars[$fieldName]);
+						}
+						// Ansonsten Standardsäuberung.
+						$arrUpdate[$fieldName] = strip_tags($this->piVars[$fieldName]);
 					}
-					// Ansonsten Standardsäuberung.
-					$arrUpdate[$fieldName] = mysql_real_escape_string(strip_tags($this->piVars[$fieldName]));
 				}
 			}
 
@@ -266,7 +281,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					$arrUpdate['disable'] = '1';
 				}
 				// Standartkonfigurationen anwenden.
-				$arrUpdate['pid'] = ($this->conf['register.']['userfolder']) ? $this->conf['register.']['userfolder'] : '0';
+				$arrUpdate['pid'] = $this->storagePid;
 				$arrUpdate['usergroup'] = ($arrUpdate['usergroup']) ? $arrUpdate['usergroup'] : $this->conf['register.']['usergroup'];
 				$arrUpdate['crdate'] = $arrUpdate['tstamp'];
 
@@ -286,7 +301,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					// Wenn nach der Registrierung weitergeleitet werden soll.
 					if ($this->conf['register.']['doubleoptin']) {
 						$hash = md5($this->userId . $arrUpdate['username'] . $arrUpdate['email'] . $arrUpdate['tstamp']);
-						$pageLink = (strpos($this->pi_getPageLink($GLOBALS['TSFE']->id), '?') !== false) ? $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' : $this->pi_getPageLink($GLOBALS['TSFE']->id) . '&';
+						$pageLink = (strpos($this->pi_getPageLink($GLOBALS['TSFE']->id), '?') === false) ? $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' : $this->pi_getPageLink($GLOBALS['TSFE']->id) . '&';
 						$extraMarkers = Array(
 							'registerlink' => $GLOBALS['TSFE']->baseUrl . $pageLink . $this->prefixId . '%5Bsubmit%5D=doubleoptin&' . $this->prefixId . '%5Buid%5D=' . $this->userId . '&' . $this->prefixId . '%5Bhash%5D=' . $hash . $this->makeHiddenParams()
 						);
@@ -299,8 +314,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					$this->sendMail('registration');
 
 					if ($this->conf['register.']['autologin']) {
-						// Weiterleitung mit Login. Zuerst auf die eigene Seite mit Login Parametern und dann auf das Weiterleitungsziel.
-						header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '[submit]=redirect&logintype=login&pid=' . $this->conf['register.']['userfolder'] . '&user=' . $this->piVars['username'] . '&pass=' . $this->piVars['password'] . $this->makeHiddenParams());
+						// Weiterleitung mit Login. Zuerst auf die eigene Seite mit Login Parametern und dann auf das Weiterleitungsziel. Username wird per $arrUpdate übergeben, weil dieser Wert schon bereinigt ist.
+						header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '[submit]=redirect&logintype=login&pid=' . $this->conf['register.']['userfolder'] . '&user=' . $arrUpdate['username'] . '&pass=' . urlencode($this->piVars['password']) . $this->makeHiddenParams());
 						exit;
 					}
 					if ($this->conf['register.']['redirect']) {
@@ -319,8 +334,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Erstellt wenn gefordert ein Password, und verschlüsselt dieses, oder das übergebene, wenn es verschlüsselt werden soll.
 	 *
-	 * @param	String		$password
-	 * @return	String		$password
+	 * @param	string		$password
+	 * @return	string		$password
 	 */
 	function generatePassword($password) {
 		// Erstellt ein Password.
@@ -356,7 +371,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Überprüft ob alle benötigten Felder mit Inhalten übergeben wurden.
 	 *
-	 * @return	Array		$valueCheck
+	 * @return	array		$valueCheck
 	 */
 	function requireCheckForm() {
 		// Alle ausgewählten Felder durchgehen.
@@ -372,7 +387,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Überprüft ob alle Validierungen eingehalten wurden.
 	 *
-	 * @return	Array		$valueCheck
+	 * @return	array		$valueCheck
 	 */
 	function validateForm() {
 		// Alle ausgewählten Felder durchgehen.
@@ -485,7 +500,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Überprüft die übergebenen Inhalte, bei bestimmten Feldern, ob diese in der Datenbank schon vorhanden sind.
 	 *
-	 * @return	Array		$valueCheck
+	 * @return	array		$valueCheck
 	 */
 	function uniqueCheckForm() {
 		// Check unique Fields.
@@ -495,8 +510,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$where = ' uid <> ' . $this->userId;
 		}
 		foreach ($uniqueFields as $fieldName) {
-			if (trim(mysql_real_escape_string(strip_tags($this->piVars[$fieldName])))) {
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . $this->conf['register.']['userfolder'] . ' AND ' . $fieldName . ' = "' . trim(mysql_real_escape_string(strip_tags($this->piVars[$fieldName]))) . '"' . $where . ' AND deleted = 0', '', '');
+			if (trim(strip_tags($this->piVars[$fieldName]))) {
+				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . $this->conf['register.']['userfolder'] . ' AND ' . $fieldName . ' = "' . trim(strip_tags($this->piVars[$fieldName])) . '"' . $where . ' AND deleted = 0', '', '');
 				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 				if ($row['count'] >= 1) {
 					$valueCheck[$fieldName] = 'unique';
@@ -509,13 +524,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * The saveDeleteImage method is used to update or delete an image of an address
 	 *
-	 * @param	String		$fieldName
-	 * @param	Array		$arrUpdate // Call by reference Array mit allen zu updatenden Daten.
-	 * @return	String		$content
+	 * @param	string		$fieldName
+	 * @param	array		$arrUpdate // Call by reference Array mit allen zu updatenden Daten.
+	 * @return	string		$content
 	 */
 	function saveDeleteImage($fieldName, &$arrUpdate) {
-		// Bild löschen.
-		if ($this->piVars[$fieldName . '_delete']) {
+		// Bild löschen und überprüfen ob wirklich eine Bilddatei übergeben wurde.
+		if ($this->piVars[$fieldName . '_delete'] && preg_match("/\.(jpg|gif|bmp|tif|png)$/i", $this->piVars[$fieldName . '_delete'])) {
 			$arrUpdate[$fieldName] = '';
 			// Bild aus dem Filesystem löschen, wenn vorhanden.
 			if (file_exists($this->piVars[$fieldName . '_delete'])) {
@@ -552,7 +567,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 
 			// Bildname generieren.
-			$fileName = mysql_real_escape_string(strip_tags($this->piVars['username'])) . '_' . time() . $imageType;
+			$fileName = strip_tags($this->piVars['username']) . '_' . time() . $imageType;
 			// Kompletter Bildpfad.
 			$uploadFile = $uploadFolder . $fileName;
 
@@ -569,10 +584,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Sendet die E-Mails.
+	 * Sendet die E-Mails mit dem übergebenen Template und falls angegeben, auch mit den extra Markern.
 	 *
-	 * @param	String		$templatePart
-	 * @param	Array		$extraMarkers
+	 * @param	string		$templatePart
+	 * @param	array		$extraMarkers
+	 * @return	void
 	 */
 	function sendMail($templatePart, $extraMarkers = Array()) {
 		// Userdaten holen.
@@ -650,8 +666,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Gibt alle im Backend definierten Felder (TypoScipt/Flexform) formatiert und der Anzeigeart entsprechend aus.
 	 *
-	 * @param	Array		$valueCheck
-	 * @return	String		$content
+	 * @param	array		$valueCheck
+	 * @return	string		$content
 	 */
 	function showForm($valueCheck = Array()) {
 		// Beim editieren der Userdaten, die Felder vorausfüllen.
@@ -662,6 +678,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Wenn das Formular schon einmal abgesendet wurde aber ein Fehler auftrat, dann die bereits vom User übertragenen Userdaten vorausfüllen.
 		if ($this->piVars) {
+			foreach ($this->piVars as $key => $val) {
+				$this->piVars[$key] = strip_tags($val);
+			}
 			$arrCurrentData = array_merge((Array)$arrCurrentData, (Array)$this->piVars);
 		}
 
@@ -862,14 +881,14 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Erstellt Hidden Fields für vordefinierte Parameter die übergeben wurden.
 	 *
-	 * @return	String		$content
+	 * @return	string		$content
 	 */
 	function makeHiddenFields() {
 		$content = '';
 		$hiddenParams = explode(',', str_replace(' ', '', $this->conf['hiddenparams']));
 		foreach ($hiddenParams as $paramName) {
 			if ($_REQUEST[$paramName]) {
-				$content .= '<input type="hidden" name="' . $paramName . '" value="' . $_REQUEST[$paramName] . '" />';
+				$content .= '<input type="hidden" name="' . $paramName . '" value="' . strip_tags($_REQUEST[$paramName]) . '" />';
 			}
 		}
 		return $content;
@@ -878,7 +897,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Erstellt GET-Parameter für vordefinierte Parameter die übergeben wurden.
 	 *
-	 * @return	String		$content
+	 * @return	string		$content
 	 */
 	function makeHiddenParams() {
 		$content = '';
@@ -889,7 +908,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			//	$paramName = substr($paramName, 0, strpos($paramName, ']'));
 			//}
 			if ($_REQUEST[$paramName]) {
-				$content .= '&' . urlencode($paramName) . '=' . urlencode($_REQUEST[$paramName]);
+				$content .= '&' . urlencode($paramName) . '=' . urlencode(strip_tags(preg_replace("/[\r\n]/", '', $_REQUEST[$paramName])));
 			}
 		}
 		return $content;
@@ -898,8 +917,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Überprüft ob das übergebene Feld benötigt wird um erfolgreich zu speichern.
 	 *
-	 * @param	String		$fieldName
-	 * @return	String
+	 * @param	string		$fieldName
+	 * @return	string
 	 */
 	function checkIfRequired($fieldName) {
 		$arrRequiredFields = explode(',', str_replace(' ', '', $this->conf['requiredfields']));
@@ -913,8 +932,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Ermittelt ein bestimmtes Label aufgrund des im TCA gespeicherten Languagestrings, des Datenbankfeldnamens oder gibt einfach den übergeben Wert wieder aus, wenn nichts gefunden wurde.
 	 *
-	 * @param	String		$fieldName
-	 * @return	String
+	 * @param	string		$fieldName
+	 * @return	string		$label
 	 */
 	function getLabel($fieldName) {
 		if (strpos($fieldName, 'LLL:') === false) {
@@ -954,6 +973,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Holt Konfigurationen aus der Flexform (Tab-bedingt) und ersetzt diese pro Konfiguration in der TypoScript Konfiguration.
 	 *
+	 * @return	void
 	 * @global	$this->conf
 	 */
 	function getConfiguration() {
@@ -973,8 +993,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Überschreibt eventuell vorhandene TypoScript Konfigurationen mit den Konfigurationen aus der Flexform.
 	 *
-	 * @param	String		$key
-	 * @param	String		$value
+	 * @param	string		$key
+	 * @param	string		$value
+	 * @return	void
 	 */
 	function setFlexformConfiguration($key, $value) {
 		if (strpos($key, '.') !== false && $value) {
@@ -996,8 +1017,54 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
+	 * Gibt die komplette Validierungskonfiguration für die JavaScript Frontendvalidierung zurück.
+	 *
+	 * @return	string		$configuration
+	 */
+	function getJSValidationConfiguration() {
+		$configuration = 'var config = new Array(); ';
+		$arrValidationFields = Array();
+		$usedFields = explode(',', str_replace(' ', '', $this->conf['usedfields']));
+		$requiredFields = explode(',', str_replace(' ', '', $this->conf['requiredfields']));
+		foreach ($usedFields as $fieldName) {
+			if ($this->feUsersTca['columns'][$fieldName] && (is_array($this->conf['validate.'][$fieldName . '.']) || in_array($fieldName, $requiredFields))) {
+					if ($this->conf['validate.'][$fieldName . '.']['type'] == 'password') {
+						$arrValidationFields[] = $this->prefixId . '_' . $fieldName . '_1';
+						$arrValidationFields[] = $this->prefixId . '_' . $fieldName . '_2';
+					} else {
+						$arrValidationFields[] = $this->prefixId . '_' . $fieldName;
+					}
+					$configuration .= "config['" . $fieldName . "'] = new Array(); ";
+					if (is_array($this->conf['validate.'][$fieldName . '.'])) {
+						$configuration .= "config['" . $fieldName . "']['validation'] = new Array(); ";
+						foreach ($this->conf['validate.'][$fieldName . '.'] as $key => $val) {
+							if ($key == 'length') {
+								$configuration .= "config['" . $fieldName . "']['validation']['size'] = '" . $val . "'; ";
+								$configuration .= "config['" . $fieldName . "']['size'] = '" . $this->getLabel($fieldName . '_error_length') . "'; ";
+							} else {
+								$configuration .= "config['" . $fieldName . "']['validation']['" . $key . "'] = '" . $val . "'; ";
+							}
+							if ($key == 'type' && $val == 'password') {
+								$configuration .= "config['" . $fieldName . "']['equal'] = '" . $this->getLabel($fieldName . '_error_equal') . "'; ";
+							}
+						}
+						if ($this->conf['validate.'][$fieldName . '.']['type'] != 'password') {
+							$configuration .= "config['" . $fieldName . "']['valid'] = '" . $this->getLabel($fieldName . '_error_valid') . "'; ";
+						}
+					}
+					if (in_array($fieldName, $requiredFields)) {
+						$configuration .= "config['" . $fieldName . "']['required'] = '" . $this->getLabel($fieldName . '_error_required') . "'; ";
+					}
+			}
+		}
+		$configuration .= "var inputids = new Array('" . implode("', '", $arrValidationFields) . "');";
+		return $configuration;
+	}
+
+	/**
 	 * Überschreibt eventuell vorhandene TCA Konfiguration mit TypoScript Konfiguration.
 	 *
+	 * @return	void
 	 * @global	$this->feUsersTca
 	 */
 	function getFeUsersTca() {
@@ -1009,10 +1076,24 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
+	 * Ermittelt die General Record Storage Pid bzw. den vom User festgelegten Userfolder.
+	 *
+	 * @return	void
+	 * @global	$this->storagePid
+	 */
+	function getStoragePid() {
+		$this->storagePid = $this->conf['register.']['userfolder'];
+		if (!$this->storagePid) {
+			$arrayRootPids = $GLOBALS['TSFE']->getStorageSiterootPids();
+			$this->storagePid = $arrayRootPids['_STORAGE_PID'];
+		}
+	}
+
+	/**
 	 * Löscht den Punkt den Typo3 bei TypoScript-Variablen (Arrays) hinzufügt.
 	 *
-	 * @param	Array		$array
-	 * @return	Array		$newArray
+	 * @param	array		$array
+	 * @return	array		$newArray
 	 */
 	function deletePoint($array) {
 		// Neues Array erstellen um das alte Array nicht zu überschreiben.
@@ -1042,9 +1123,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 *
 	 * The arrays to be merged are passed as arguments to the function.
 	 *
-	 * @param	Array		$array1
-	 * @return	Array		Resulting array, once all have been merged
-	 * @access public
+	 * @param	array		$array1
+	 * @return	array		Resulting array, once all have been merged
 	 */
 	function array_merge_replace_recursive($array1) {
 		// Holds all the arrays passed.

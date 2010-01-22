@@ -1,25 +1,4 @@
 
-var inputids = new Array('tx_datamintsfeuser_pi1_username', 'tx_datamintsfeuser_pi1_password_1', 'tx_datamintsfeuser_pi1_password_2', 'tx_datamintsfeuser_pi1_tx_datamintsfeuser_firstname', 'tx_datamintsfeuser_pi1_email');
-var config = new Array();
-config['username'] = new Array();
-config['username']['validation'] = new Array();
-config['username']['validation']['type'] = 'username';
-config['username']['required'] = 'Es muss ein Benutzername eingegeben werden!';
-config['username']['unique'] = 'Dieser Username ist bereits vorhanden!';
-config['username']['valid'] = 'Der Benutzername darf keine Leerzeichen beinhalten!';
-config['password'] = new Array();
-config['password']['validation'] = new Array();
-config['password']['validation']['type'] = 'password';
-config['password']['validation']['size'] = '6,10';
-config['password']['required'] = 'Es muss ein Passwort angegeben werden!';
-config['password']['equal'] = 'Es muss zwei mal das gleiche Passwort eingegeben werden!';
-config['password']['size'] = 'Das Passwort muss mindestens 6 Zeichen lang sein!';
-config['email'] = new Array();
-config['email']['validation'] = new Array();
-config['email']['validation']['type'] = 'email';
-config['email']['required'] = 'Es muss eine gültige E-Mail eingegeben werden!';
-config['email']['valid'] = 'Die eingegebene E-Mail ist ungültig!';
-
 window.onload = function() {
 	var form = document.getElementById('tx_datamintsfeuser_pi1_form');
 	addEvent(form, 'submit', formCheck);
@@ -68,7 +47,7 @@ function inputItemCheck(evt, input) {
 		var validate = config[fieldName]['validation'];
 		if (config[fieldName]['required'] && value == '') {
 			error_item = input;
-			if (validate['type'] == 'password') {
+			if (validate && validate['type'] == 'password') {
 				if (input.id.split('_').reverse()[0] == '1') {
 					input_rep = document.getElementById(input.id.slice(0, input.id.length - 1) + '2');
 					error_item = input_rep;
@@ -77,7 +56,7 @@ function inputItemCheck(evt, input) {
 			ret = true;
 			removeInfo(fieldName);
 			showInfo(error_item, fieldName, 'required');
-		} else {
+		} else if (validate) {
 
 			switch (validate['type']) {
 
