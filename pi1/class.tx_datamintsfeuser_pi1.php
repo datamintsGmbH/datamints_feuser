@@ -26,30 +26,31 @@
  *
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
- *   65: class tx_datamintsfeuser_pi1 extends tslib_pibase
- *  107:     function main($content, $conf)
- *  184:     function sendForm()
- *  343:     function generatePassword($password)
- *  379:     function requireCheckForm()
- *  395:     function validateForm()
- *  508:     function uniqueCheckForm()
- *  534:     function saveDeleteImage($fieldName, &$arrUpdate)
- *  596:     function sendMail($templatePart, $extraMarkers = Array())
- *  656:     function makeDoubleOptIn()
- *  675:     function showForm($valueCheck = Array())
- *  889:     function makeHiddenFields()
- *  905:     function makeHiddenParams()
- *  926:     function checkIfRequired($fieldName)
- *  941:     function getLabel($fieldName)
- *  982:     function getConfiguration()
- * 1003:     function setFlexformConfiguration($key, $value)
- * 1027:     function getJSValidationConfiguration()
- * 1073:     function getFeUsersTca()
- * 1087:     function getStoragePid()
- * 1101:     function deletePoint($array)
- * 1132:     function array_merge_replace_recursive($array1)
+ *   66: class tx_datamintsfeuser_pi1 extends tslib_pibase
+ *  108:     function main($content, $conf)
+ *  185:     function sendForm()
+ *  349:     function generatePassword($password)
+ *  385:     function requireCheckForm()
+ *  401:     function validateForm()
+ *  514:     function uniqueCheckForm()
+ *  540:     function saveDeleteImage($fieldName, &$arrUpdate)
+ *  604:     function sendMail($templatePart, $extraMarkers = Array())
+ *  664:     function makeDoubleOptIn()
+ *  683:     function showForm($valueCheck = Array())
+ *  903:     function makeHiddenFields()
+ *  919:     function makeHiddenParams()
+ *  940:     function cleanHeaderUrlData($data)
+ *  951:     function checkIfRequired($fieldName)
+ *  966:     function getLabel($fieldName)
+ * 1007:     function getConfiguration()
+ * 1028:     function setFlexformConfiguration($key, $value)
+ * 1052:     function getJSValidationConfiguration()
+ * 1098:     function getFeUsersTca()
+ * 1112:     function getStoragePid()
+ * 1126:     function deletePoint($array)
+ * 1157:     function array_merge_replace_recursive($array1)
  *
- * TOTAL FUNCTIONS: 21
+ * TOTAL FUNCTIONS: 22
  *
  */
 
@@ -267,6 +268,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Zusatzfelder setzten, die nicht aus der Form übergeben wurden.
 			$arrUpdate['tstamp'] = time();
 
+			// Konvertiert alle möglichen Zeichen die für die Ausgabe angepasst wurden zurück.
+			foreach ($arrUpdate as $key => $val) {
+				$arrUpdate[$key] = htmlspecialchars_decode($val);
+			}
+
 			// Der User hat seine Daten editiert.
 			if ($this->conf['showtype'] == 'edit') {
 				// User editieren.
@@ -318,7 +324,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 					if ($this->conf['register.']['autologin']) {
 						// Weiterleitung mit Login. Zuerst auf die eigene Seite mit Login Parametern und dann auf das Weiterleitungsziel. Username wird per $arrUpdate übergeben, weil dieser Wert schon bereinigt ist.
-						header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '[submit]=redirect&logintype=login&pid=' . $this->storagePid . '&user=' . $arrUpdate['username'] . '&pass=' . urlencode($this->piVars['password']) . $this->makeHiddenParams());
+						header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->prefixId . '[submit]=redirect&logintype=login&pid=' . $this->storagePid . '&user=' . $this->cleanHeaderUrlData($arrUpdate['username']) . '&pass=' . $this->cleanHeaderUrlData($this->piVars['password']) . $this->makeHiddenParams());
 						exit;
 					}
 					if ($this->conf['register.']['redirect']) {
@@ -514,7 +520,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 		foreach ($uniqueFields as $fieldName) {
 			if (trim(strip_tags($this->piVars[$fieldName]))) {
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . $this->storagePid . ' AND ' . $fieldName . ' = "' . trim(strip_tags($this->piVars[$fieldName])) . '"' . $where . ' AND deleted = 0', '', '');
+				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . intval($this->storagePid) . ' AND ' . $fieldName . ' = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr(strip_tags($this->piVars[$fieldName], 'fe_users')) . $where . ' AND deleted = 0', '', '');
 				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 				if ($row['count'] >= 1) {
 					$valueCheck[$fieldName] = 'unique';
@@ -532,12 +538,20 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	string		$content
 	 */
 	function saveDeleteImage($fieldName, &$arrUpdate) {
-		// Bild löschen und überprüfen ob wirklich eine Bilddatei übergeben wurde.
-		if ($this->piVars[$fieldName . '_delete'] && preg_match("/\.(jpg|gif|bmp|tif|png)$/i", $this->piVars[$fieldName . '_delete'])) {
+		// Verzeichniss ermitteln.
+		$uploadFolder = $this->feUsersTca['columns'][$fieldName]['config']['uploadfolder'];
+		if (substr($uploadFolder, -1) != '/') {
+			$uploadFolder = $uploadFolder . '/';
+		}
+
+		// Bild löschen und überprüfen ob das Bild auch wirklich existiert.
+		if ($this->piVars[$fieldName . '_delete']) {
 			$arrUpdate[$fieldName] = '';
-			// Bild aus dem Filesystem löschen, wenn vorhanden.
-			if (file_exists($this->piVars[$fieldName . '_delete'])) {
-				unlink($this->piVars[$fieldName . '_delete']);
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($fieldName, 'fe_users', 'uid = ' . $this->userId , '', '');
+			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+			$imagePath = t3lib_div::getFileAbsFileName($uploadFolder . $row[$fieldName]);
+			if ($imagePath && file_exists($imagePath)) {
+				unlink($imagePath);
 			}
 			return '';
 		}
@@ -563,14 +577,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Nur wenn eine Datei ausgewählt wurde [image] und diese den obigen mime-typen enstpricht[$type], dann wird die datei gespeichert
 		if ($_FILES[$this->prefixId]['name'][$fieldName]) {
-			// Verzeichniss ermitteln.
-			$uploadFolder = $this->feUsersTca['columns'][$fieldName]['config']['uploadfolder'];
-			if (substr($uploadFolder, -1) != '/') {
-				$uploadFolder = $uploadFolder . '/';
-			}
-
 			// Bildname generieren.
-			$fileName = strip_tags($this->piVars['username']) . '_' . time() . $imageType;
+			$fileName = preg_replace("/[^a-zA-Z0-9]/", '', $this->piVars['username']) . '_' . time() . $imageType;
 			// Kompletter Bildpfad.
 			$uploadFile = $uploadFolder . $fileName;
 
@@ -687,6 +695,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$arrCurrentData = array_merge((Array)$arrCurrentData, (Array)$this->piVars);
 		}
 
+		// Konvertiert alle möglichen Zeichen der Ausgabe, die stören könnten (XSS).
+		foreach ($arrCurrentData as $key => $val) {
+			$arrCurrentData[$key] = htmlspecialchars($val);
+		}
+
 		// Ein Array erzeugen, mit allen zu benutztenden Feldern.
 		$arrUsedFields = explode(',', str_replace(' ', '', $this->conf['usedfields']));
 
@@ -747,7 +760,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					case 'text':
 						$readOnly = ($this->feUsersTca['columns'][$fieldName]['config']['readOnly'] == 1) ? ' readonly="readonly"' : '';
 						// Textarea.
-						$content .= '<textarea id="' . $this->prefixId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']"' . $readOnly . '>' . $arrCurrentData[$fieldName] . '</textarea>';
+						$content .= '<textarea id="' . $this->prefixId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" rows="2" cols="42"' . $readOnly . '>' . $arrCurrentData[$fieldName] . '</textarea>';
 						break;
 
 					case 'check':
@@ -781,8 +794,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 							$tab = $this->feUsersTca['columns'][$fieldName]['config']['foreign_table'];
 							$sel = 'uid, ' . $GLOBALS['TCA'][$tab]['ctrl']['label'];
 							$whr = $this->feUsersTca['columns'][$fieldName]['config']['foreign_table_where'];
-							$whr = (trim(strtolower(substr($whr, 0, 8))) == 'order by') ? '1 ' . $whr : $whr;
-							$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($sel , $tab, $whr, '', '');
+							// Wenn OrderBy ganz vorne in $whr steht, dann muss eine 1 davor plaziert werden, da sonst die Abfrage ungültig ist.
+							$whr = (strtolower(substr(trim($whr), 0, 8)) == 'order by') ? '1 ' . $whr : $whr;
+							$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($sel , $tab, $whr);
 							while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 								//$selected = ($arrCurrentData[$fieldName] == $row['uid']) ? ' selected="selected"' : '';
 								$selected = (strpos($arrCurrentData[$fieldName], $row['uid']) !== false || in_array($row['uid'], $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
@@ -816,7 +830,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 								$uploadFolder = $uploadFolder . '/';
 							}
 							// Breite ermitteln.
-							$imageWidth = $this->conf['image.']['maxW'];
+							$imageWidth = $this->conf['image.']['maxwidth'];
 							if (!$imageWidth) {
 								$imageWidth = 100;
 							}
@@ -833,7 +847,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 							if ($arrCurrentData[$fieldName] == '') {
 								$content .= '<input type="file" id="' . $this->prefixId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" />';
 							} else {
-								$content .= '<div class="image_delete"><input type="checkbox" name="' . $this->prefixId . '[' . $fieldName . '_delete]" value="' . $uploadFolder . $arrCurrentData[$fieldName] . '" />' . $this->pi_getLL('image_delete') . '</div>';
+								$content .= '<div class="image_delete"><input type="checkbox" id="' . $this->prefixId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . '_delete]" />' . $this->pi_getLL('image_delete') . '</div>';
 							}
 
 						}
@@ -911,10 +925,21 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			//	$paramName = substr($paramName, 0, strpos($paramName, ']'));
 			//}
 			if ($_REQUEST[$paramName]) {
-				$content .= '&' . urlencode($paramName) . '=' . urlencode(strip_tags(preg_replace("/[\r\n]/", '', $_REQUEST[$paramName])));
+				$content .= '&' . urlencode($paramName) . '=' . $this->cleanHeaderUrlData($_REQUEST[$paramName]);
 			}
 		}
 		return $content;
+	}
+
+	/**
+	 * Konvertiert einen String um ihn in der PHP Funktion header nutzen zu können.
+	 *
+	 * @param	string		$data
+	 * @return	string		$data
+	 */
+	function cleanHeaderUrlData($data) {
+		$data = urlencode(strip_tags(preg_replace("/[\r\n]/", '', $data)));
+		return $data;
 	}
 
 	/**
