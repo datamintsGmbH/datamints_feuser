@@ -606,6 +606,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . $this->userId , '', '');
 		$dataArray = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 		$markerArray = array_merge((Array)$dataArray, (Array)$extraMarkers);
+		foreach ($markerArray as $key => $val) {
+			if (!$this->check_utf8($val)) {
+				$markerArray[$key] = utf8_encode($val);
+			}
+		}
 		// Template holen.
 		if ($this->conf['register.']['emailtemplate']) {
 			$templateFile = $this->conf['register.']['emailtemplate'];
@@ -613,7 +618,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$templateFile = 'typo3conf/ext/datamints_feuser/res/datamints_feuser_mail.html';
 		}
 		// Template laden.
-		$template = $this->cObj->fileResource($templateFile);
+		$template = utf8_encode($this->cObj->fileResource($templateFile));
 		$template = $this->cObj->getSubpart($template, '###' . strtoupper($templatePart) . '###');
 		$template = $this->cObj->substituteMarkerArray($template, $markerArray, '###|###', 1);
 		// Betreff ermitteln und aus dem E-Mail Content entfernen.
@@ -630,7 +635,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Zusätzliche Header User-Mail.
 		$header  = 'MIME-Version: 1.0' . "\r\n";
-		$header .= 'Content-type: ' . $mailtype . '; charset=iso-8859-1' . "\r\n";
+		$header .= 'Content-type: ' . $mailtype . '; charset=utf-8' . "\r\n";
 		$header .= 'From: ' . $this->conf['register.']['sendername'] . ' <' . $this->conf['register.']['sendermail'] . '>' . "\r\n";
 		$header .= 'X-Mailer: PHP/' . phpversion();
 		// Verschicke User-Mail.
@@ -1178,6 +1183,34 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 		}
 		return $array1;
+	}
+
+	/**
+	 * Checks if a string is utf8 encoded or not.
+	 *
+	 * @param	string		$str
+	 * @return	boolean
+	 */
+	function check_utf8($str) {
+		$len = strlen($str);
+		for($i = 0; $i < $len; $i++){
+			$c = ord($str[$i]);
+			if ($c > 128) {
+				if (($c > 247)) return false;
+				elseif ($c > 239) $bytes = 4;
+				elseif ($c > 223) $bytes = 3;
+				elseif ($c > 191) $bytes = 2;
+				else return false;
+				if (($i + $bytes) > $len) return false;
+				while ($bytes > 1) {
+					$i++;
+					$b = ord($str[$i]);
+					if ($b < 128 || $b > 191) return false;
+					$bytes--;
+				}
+			}
+		}
+		return true;
 	}
 
 }
