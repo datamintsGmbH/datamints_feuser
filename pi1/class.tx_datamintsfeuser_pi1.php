@@ -26,31 +26,32 @@
  *
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
- *   66: class tx_datamintsfeuser_pi1 extends tslib_pibase
- *  108:     function main($content, $conf)
- *  185:     function sendForm()
- *  349:     function generatePassword($password)
- *  385:     function requireCheckForm()
- *  401:     function validateForm()
- *  514:     function uniqueCheckForm()
- *  540:     function saveDeleteImage($fieldName, &$arrUpdate)
- *  604:     function sendMail($templatePart, $extraMarkers = Array())
- *  664:     function makeDoubleOptIn()
- *  683:     function showForm($valueCheck = Array())
- *  903:     function makeHiddenFields()
- *  919:     function makeHiddenParams()
- *  940:     function cleanHeaderUrlData($data)
- *  951:     function checkIfRequired($fieldName)
- *  966:     function getLabel($fieldName)
- * 1007:     function getConfiguration()
- * 1028:     function setFlexformConfiguration($key, $value)
- * 1052:     function getJSValidationConfiguration()
- * 1098:     function getFeUsersTca()
- * 1112:     function getStoragePid()
- * 1126:     function deletePoint($array)
- * 1157:     function array_merge_replace_recursive($array1)
+ *   67: class tx_datamintsfeuser_pi1 extends tslib_pibase
+ *  109:     function main($content, $conf)
+ *  186:     function sendForm()
+ *  350:     function generatePassword($password)
+ *  386:     function requireCheckForm()
+ *  402:     function validateForm()
+ *  515:     function uniqueCheckForm()
+ *  541:     function saveDeleteImage($fieldName, &$arrUpdate)
+ *  605:     function sendMail($templatePart, $extraMarkers = Array())
+ *  670:     function makeDoubleOptIn()
+ *  689:     function showForm($valueCheck = Array())
+ *  909:     function makeHiddenFields()
+ *  925:     function makeHiddenParams()
+ *  946:     function cleanHeaderUrlData($data)
+ *  957:     function checkIfRequired($fieldName)
+ *  972:     function getLabel($fieldName)
+ * 1013:     function getConfiguration()
+ * 1034:     function setFlexformConfiguration($key, $value)
+ * 1058:     function getJSValidationConfiguration()
+ * 1104:     function getFeUsersTca()
+ * 1118:     function getStoragePid()
+ * 1132:     function deletePoint($array)
+ * 1163:     function array_merge_replace_recursive($array1)
+ * 1195:     function check_utf8($str)
  *
- * TOTAL FUNCTIONS: 22
+ * TOTAL FUNCTIONS: 23
  *
  */
 
@@ -70,6 +71,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	var $pi_checkCHash = true;
 	var $feUsersTca = Array();
 	var $storagePid = 0;
+	var $contentUid = 0;
 	// Konfigurationen, die von Flexformkonfiguration überschrieben werden können.
 	var $confTypes = Array(
 		'showtype',
@@ -107,6 +109,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function main($content, $conf) {
 		$this->conf = $conf;
+		$this->contentUid = $this->cObj->data['uid'];
 		$this->pi_setPiVarDefaults();
 		$this->pi_loadLL();
 
@@ -278,7 +281,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				// User editieren.
 				$error = $GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , $arrUpdate);
 				if ($error == 1) {
-					$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '" />';
+					$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=/' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '" />';
 					$content = $this->pi_getLL('edit_success');
 				}
 			}
@@ -715,29 +718,29 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$requestLink = $this->pi_getPageLink($GLOBALS['TSFE']->id);
 		}
 
-		// Formular start.
-		$content = '<form id="' . $this->prefixId . '_form" name="' . $this->prefixId . '" action="' . $requestLink . '" method="post" enctype="multipart/form-data"><fieldset class="form_part_1">';
-
-		// Wenn eine Lgende für das erste Fieldset definiert wurde, diese ausgeben.
-		if ($this->conf['separatorheads.'][1]) {
-			$content .= '<legend class="legends legend_1">' . $this->conf['separatorheads.'][1] . '</legend>';
-		}
-
 		// ID zähler für Items und Fieldsets.
 		$iItem = 1;
 		$iFieldset = 1;
 		$iInfoItem = 1;
+
+		// Formular start.
+		$content = '<form id="' . $this->extKey . '_' . $this->contentUid . '_form" name="' . $this->prefixId . '" action="' . $requestLink . '" method="post" enctype="multipart/form-data"><fieldset class="form_fieldset_' . $iFieldset . '">';
+
+		// Wenn eine Lgende für das erste Fieldset definiert wurde, diese ausgeben.
+		if ($this->conf['separatorheads.'][$iFieldset]) {
+			$content .= '<legend class="form_legend_' . $iFieldset . '">' . $this->conf['separatorheads.'][$iFieldset] . '</legend>';
+		}
 
 		// Alle ausgewählten Felder durchgehen.
 		foreach ($arrUsedFields as $fieldName) {
 			// Wenn das im Flexform ausgewählte Feld existiert, dann dieses Feld ausgeben.
 			if ($this->feUsersTca['columns'][$fieldName]) {
 				// Form Item Anfang.
-				$content .= '<div id="' . $this->prefixId . '_' . $fieldName . '_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $this->feUsersTca['columns'][$fieldName]['config']['type'] . '">';
+				$content .= '<div id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $this->feUsersTca['columns'][$fieldName]['config']['type'] . '">';
 
 				// Label schreiben.
 				$label = $this->getLabel($fieldName);
-				$content .= '<label for="' . $this->prefixId . '_' . $fieldName . '">' . $label . $this->checkIfRequired($fieldName) . '</label> ';
+				$content .= '<label for="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '">' . $label . $this->checkIfRequired($fieldName) . '</label>';
 
 				switch ($this->feUsersTca['columns'][$fieldName]['config']['type']) {
 
@@ -748,35 +751,35 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 								// Timestamp zu "tt.mm.jjjj" machen.
 								$datum = strftime('%d.%m.%Y', $arrCurrentData[$fieldName]);
                             }
-							$content .= '<input type="text" id="' . $this->prefixId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" value="' . $datum . '" />';
+							$content .= '<input type="text" id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" value="' . $datum . '" />';
 							break;
 						}
 						if (strpos($this->feUsersTca['columns'][$fieldName]['config']['eval'], 'password') !== false) {
 							// Passwordfeld.
-							$content .= '<input type="password" id="' . $this->prefixId . '_' . $fieldName . '_1" name="' . $this->prefixId . '[' . $fieldName . ']" value="" />';
-							$content .= '<input type="password" id="' . $this->prefixId . '_' . $fieldName . '_2" name="' . $this->prefixId . '[' . $fieldName . '_rep]" value="" />';
+							$content .= '<input type="password" id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" value="" />';
+							$content .= '<input type="password" id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '_rep" name="' . $this->prefixId . '[' . $fieldName . '_rep]" value="" />';
 							break;
 						}
 						$readOnly = ($this->feUsersTca['columns'][$fieldName]['config']['readOnly'] == 1) ? ' readonly="readonly"' : '';
 						// Normales Inputfeld.
-						$content .= '<input type="text" id="' . $this->prefixId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" value="' . $arrCurrentData[$fieldName] . '"' . $readOnly . ' />';
+						$content .= '<input type="text" id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" value="' . $arrCurrentData[$fieldName] . '"' . $readOnly . ' />';
 						break;
 
 					case 'text':
 						$readOnly = ($this->feUsersTca['columns'][$fieldName]['config']['readOnly'] == 1) ? ' readonly="readonly"' : '';
 						// Textarea.
-						$content .= '<textarea id="' . $this->prefixId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" rows="2" cols="42"' . $readOnly . '>' . $arrCurrentData[$fieldName] . '</textarea>';
+						$content .= '<textarea id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" rows="2" cols="42"' . $readOnly . '>' . $arrCurrentData[$fieldName] . '</textarea>';
 						break;
 
 					case 'check':
 						$checked = ($arrCurrentData[$fieldName] == 1) ? ' checked="checked"' : '';
-						$content .= '<div class="check_item"><input type="checkbox" id="' . $this->prefixId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" value="1"' . $checked . ' /></div>';
+						$content .= '<input type="checkbox" id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" value="1"' . $checked . ' />';
 						break;
 /*
 					case 'radio':
 						for ($j = 0; $j < count($this->feUsersTca['columns'][$fieldName]['config']['items']); $j++) {
 							$checked = ($arrCurrentData[$fieldName] == $this->feUsersTca['columns'][$fieldName]['config']['items'][$j][1]) ? ' checked="checked"' : '';
-							$content .= '<input type="radio" id="' . $this->prefixId . '_' . $fieldName . '_' . $j . '" name="' . $this->prefixId . '[' . $fieldName . ']" value="' . $this->feUsersTca['columns'][$fieldName]['config']['items'][$j][1] . '"' . $checked . ' class="radiobutton" />';
+							$content .= '<input type="radio" id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '_' . $j . '" name="' . $this->prefixId . '[' . $fieldName . ']" value="' . $this->feUsersTca['columns'][$fieldName]['config']['items'][$j][1] . '"' . $checked . ' class="radiobutton" />';
 							$content .= '<label class="radio_label" for="' . $this->prefixId . '_' . $fieldName . '_' . $j . '">';
 							$content .= $this->getLabel($this->feUsersTca['columns'][$fieldName]['config']['items'][$j][0]);
 							$content .= '</label>';
@@ -808,25 +811,20 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 								$optionlist .= '<option value="' . $row['uid'] . '"' . $selected . '>' . $row[$GLOBALS['TCA'][$tab]['ctrl']['label']] . '</option>';
 							}
 						}
-						// Element generieren.
-						$content .= '<div class="select_item">';
 						// Einzeiliges Select (Dropdown).
 						if ($this->feUsersTca['columns'][$fieldName]['config']['size'] == 1) {
-							$content .= '<select id="' . $this->prefixId . '_' . $fieldName . '" name=' . $this->prefixId . '[' . $fieldName . ']">';
+							$content .= '<select id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '" name=' . $this->prefixId . '[' . $fieldName . ']">';
 							$content .= $optionlist;
 							$content .= '</select>';
 						} else {
-							$content .= '<select id="' . $this->prefixId . '_' . $fieldName . '" name=' . $this->prefixId . '[' . $fieldName . '][]" size="' . $this->feUsersTca['columns'][$fieldName]['config']['size'] . '" multiple="multiple">';
+							$content .= '<select id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '" name=' . $this->prefixId . '[' . $fieldName . '][]" size="' . $this->feUsersTca['columns'][$fieldName]['config']['size'] . '" multiple="multiple">';
 							$content .= $optionlist;
 							$content .= '</select>';
 						}
-						$content .= '</div>';
 						break;
 
 					case 'group':
 						// GROUP (z.B. externe Tabellen).
-						$content .= '<div class="group_item">';
-
 						// Wenn es sich um den "internal_type" FILE handelt && es ein Bild ist, dann ein Vorschaubild erstellen und ein Fiel-Inputfeld anzeigen.
 						if ($this->feUsersTca['columns'][$fieldName]['config']['internal_type'] == 'file') {
 							// Verzeichniss ermitteln.
@@ -846,18 +844,18 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 							$imgTSConfig['titleText'] = 'Bild';
 							$image = $this->cObj->IMAGE($imgTSConfig);
 							// Bild anzeigen.
-							$content .= '<div class="image_preview">' . $image . '</div>';
+							if ($image) {
+								$content .= '<div class="image_preview">' . $image . '</div>';
+							}
 
 							// Wenn kein Bild vorhanden ist, das Upload-Feld anzeigen.
 							if ($arrCurrentData[$fieldName] == '') {
-								$content .= '<input type="file" id="' . $this->prefixId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" />';
+								$content .= '<input type="file" id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" />';
 							} else {
-								$content .= '<div class="image_delete"><input type="checkbox" id="' . $this->prefixId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . '_delete]" />' . $this->pi_getLL('image_delete') . '</div>';
+								$content .= '<div class="image_delete"><input type="checkbox" id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . '_delete]" />' . $this->pi_getLL('image_delete') . '</div>';
 							}
 
 						}
-
-						$content .= '</div>';
 						break;
 
 				}
@@ -870,14 +868,14 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$iItem++;
 			} elseif ($fieldName == '--separator--') {
 				$iFieldset++;
-				$content .= '</fieldset><fieldset class="fieldset_' . $iFieldset . '">';
+				$content .= '</fieldset><fieldset class="form_fieldset_' . $iFieldset . '">';
 				// Wenn eine Lgende für das Fieldset definiert wurde, diese ausgeben.
 				if ($this->conf['separatorheads.'][$iFieldset]) {
-					$content .= '<legend class="legends legend_' . $iFieldset . '">' . $this->conf['separatorheads.'][$iFieldset] . '</legend>';
+					$content .= '<legend class="form_legend_' . $iFieldset . '">' . $this->conf['separatorheads.'][$iFieldset] . '</legend>';
 				}
 			} elseif ($fieldName == '--infoitem--') {
 				if ($this->conf['infoitems.'][$iInfoItem]) {
-					$content .= '<div class="infoitems infoitem_' . $iInfoItem . '">' . $this->conf['infoitems.'][$iInfoItem] . '</div>';
+					$content .= '<div class="form_infoitem_' . $iInfoItem . '">' . $this->conf['infoitems.'][$iInfoItem] . '</div>';
 				}
 				$iInfoItem++;
 			}
@@ -891,7 +889,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$content .= '<input type="hidden" name="' . $this->prefixId . '[submitmode]" value="' . $this->conf['showtype'] . '" />';
 		$content .= $this->makeHiddenFields();
 		// Submitbutton.
-		$content .= '<div class="submit_item"><input type="submit" value="' . $this->pi_getLL('submit_' . $this->conf['showtype']) . '"/></div>';
+		$content .= '<div id="' . $this->extKey . '_' . $this->contentUid . '_submit_wrapper" class="form_item form_item_' . $iItem . ' form_type_submit"><input id="' . $this->extKey . '_' . $this->contentUid . '_submit" type="submit" value="' . $this->pi_getLL('submit_' . $this->conf['showtype']) . '"/></div>';
 
 		$content .= '</fieldset>';
 		$content .= '</form>';
@@ -1055,42 +1053,80 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	string		$configuration
 	 */
 	function getJSValidationConfiguration() {
-		$configuration = 'var config = new Array(); ';
+		// Hier eine fertig generierte Konfiguration:
+		// var config = new Array(); 
+		// config['username'] = new Array(); 
+		// config['username']['validation'] = new Array(); 
+		// config['username']['validation']['type'] = 'username'; 
+		// config['username']['valid'] = 'Der Benutzername darf keine Leerzeichen beinhalten!'; 
+		// config['username']['required'] = 'Es muss ein Benutzername eingegeben werden!'; 
+		// config['password'] = new Array(); 
+		// config['password']['validation'] = new Array(); 
+		// config['password']['validation']['type'] = 'password'; 
+		// config['password']['equal'] = 'Es muss zwei mal das gleiche Passwort eingegeben werden!'; 
+		// config['password']['validation']['size'] = '6'; 
+		// config['password']['size'] = 'Das Passwort muss mindestens 6 Zeichen lang sein!'; 
+		// config['password']['required'] = 'Es muss ein Passwort angegeben werden!'; 
+		// var inputids = new Array('tx_datamintsfeuser_pi1_username', 'tx_datamintsfeuser_pi1_password_1', 'tx_datamintsfeuser_pi1_password_2');
+
+		$configuration = "var config = new Array(); ";
 		$arrValidationFields = Array();
 		$usedFields = explode(',', str_replace(' ', '', $this->conf['usedfields']));
-		$requiredFields = explode(',', str_replace(' ', '', $this->conf['requiredfields']));
+		$requiredFields = explode(',', str_replace(' ', '', $this->conf['requiredfields']));#
+		// Bei jedem Durchgang der Schliefe wird die Konfiguration für ein Datenbankfeld geschrieben. Ausnahmen sind hierbei Passwordfelder.
+		// Gleichzeitig werden die ID's der Felder in ein Array geschrieben und am Ende zusammen gesetzt "inputids".
 		foreach ($usedFields as $fieldName) {
 			if ($this->feUsersTca['columns'][$fieldName] && (is_array($this->conf['validate.'][$fieldName . '.']) || in_array($fieldName, $requiredFields))) {
 					if ($this->conf['validate.'][$fieldName . '.']['type'] == 'password') {
-						$arrValidationFields[] = $this->prefixId . '_' . $fieldName . '_1';
-						$arrValidationFields[] = $this->prefixId . '_' . $fieldName . '_2';
+						$arrValidationFields[] = $this->extKey . '_' . $this->contentUid . '_' . $fieldName;
+						$arrValidationFields[] = $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '_rep';
 					} else {
-						$arrValidationFields[] = $this->prefixId . '_' . $fieldName;
+						$arrValidationFields[] = $this->extKey . '_' . $this->contentUid . '_' . $fieldName;
 					}
 					$configuration .= "config['" . $fieldName . "'] = new Array(); ";
 					if (is_array($this->conf['validate.'][$fieldName . '.'])) {
 						$configuration .= "config['" . $fieldName . "']['validation'] = new Array(); ";
+						// Da es mehrere Validierungskonfiguration pro Feld geben kann, muss hier jede einzeln durchgelaufen werden.
 						foreach ($this->conf['validate.'][$fieldName . '.'] as $key => $val) {
 							if ($key == 'length') {
-								$configuration .= "config['" . $fieldName . "']['validation']['size'] = '" . $val . "'; ";
-								$configuration .= "config['" . $fieldName . "']['size'] = '" . $this->getLabel($fieldName . '_error_length') . "'; ";
+								$configuration .= "config['" . $fieldName . "']['validation']['size'] = '" . str_replace("'", "\\'", $val) . "'; ";
+								$configuration .= "config['" . $fieldName . "']['size'] = '" . str_replace("'", "\\'", $this->getLabel($fieldName . '_error_length')) . "'; ";
+							} elseif ($key == 'regexp') {
+								// Da In JavaScript die Regulären Ausdrücke nicht in einem String vorkommen dürfen diese entsprechen konvertieren (Slash am Anfang und am Ende).
+								// Um Fehler im Regulären Ausdruck zu vermeiden, werden hier alle Slashes entfernt, "\/" wird debei nicht berücksichtigt!
+								// Als erstes den hinteren Slash entfernen und den eventuell vorhandenen Modifier merken.
+								$matches = array();
+								if (preg_match("/\/[a-z]*$/", $val, $matches)) {
+									$regexpEnd = substr($val, - strlen($matches[0]));
+									$val = substr($val, 0, strlen($val) - strlen($matches[0]));
+								} else {
+									$regexpEnd = '/';
+								}
+								// Einen eventuell vorhandenen Slash am Anfang ebenfalls entfernen.
+								$regexpStart = '/';
+								if (preg_match("/^\//", $val)) {
+									$val = substr($val, 1);
+								}
+								// Dann alle Slashes aus dem String entfernen, unter berücksichtigung von "\/"!
+								$val = preg_replace('/([^\\\])\//', '$1', $val);
+								$configuration .= "config['" . $fieldName . "']['validation']['" . $key . "'] = " . $regexpStart . $val . $regexpEnd . "; ";
 							} else {
-								$configuration .= "config['" . $fieldName . "']['validation']['" . $key . "'] = '" . $val . "'; ";
+								$configuration .= "config['" . $fieldName . "']['validation']['" . $key . "'] = '" . str_replace("'", "\\'", $val) . "'; ";
 							}
 							if ($key == 'type' && $val == 'password') {
-								$configuration .= "config['" . $fieldName . "']['equal'] = '" . $this->getLabel($fieldName . '_error_equal') . "'; ";
+								$configuration .= "config['" . $fieldName . "']['equal'] = '" . str_replace("'", "\\'", $this->getLabel($fieldName . '_error_equal')) . "'; ";
 							}
 						}
 						if ($this->conf['validate.'][$fieldName . '.']['type'] != 'password') {
-							$configuration .= "config['" . $fieldName . "']['valid'] = '" . $this->getLabel($fieldName . '_error_valid') . "'; ";
+							$configuration .= "config['" . $fieldName . "']['valid'] = '" . str_replace("'", "\\'", $this->getLabel($fieldName . '_error_valid')) . "'; ";
 						}
 					}
 					if (in_array($fieldName, $requiredFields)) {
-						$configuration .= "config['" . $fieldName . "']['required'] = '" . $this->getLabel($fieldName . '_error_required') . "'; ";
+						$configuration .= "config['" . $fieldName . "']['required'] = '" . str_replace('\'', '\\\'', $this->getLabel($fieldName . '_error_required')) . "'; ";
 					}
 			}
 		}
-		$configuration .= "var inputids = new Array('" . implode("', '", $arrValidationFields) . "');";
+		$configuration .= "var inputids = new Array('" . implode("', '", $arrValidationFields) . "'); var contentid = " . $this->contentUid . ";";
 		return $configuration;
 	}
 

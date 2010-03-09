@@ -31,25 +31,19 @@ div.tx-datamintsfeuser-pi1 form fieldset div.form_item input {
 div.tx-datamintsfeuser-pi1 form fieldset div.form_item input[type="checkbox"] {
 	width:auto;
 }
+div.tx-datamintsfeuser-pi1 form fieldset div.form_item input[type="password"] {
+	width:144px;
+	margin-right:10px;
+}
 div.tx-datamintsfeuser-pi1 form fieldset div.form_item textarea {
 	width:300px;
 }
-div.tx-datamintsfeuser-pi1 input#tx_datamintsfeuser_pi1_password_1 {
-	width:144px;
-}
-div.tx-datamintsfeuser-pi1 input#tx_datamintsfeuser_pi1_password_2 {
-	width:144px;
-	margin-left:10px;
-}
-div.tx-datamintsfeuser-pi1 form fieldset div.form_item div.group_item {
-	float:left;
-	margin-bottom:10px;
-}
-div.tx-datamintsfeuser-pi1 form fieldset div.submit_item {
+div.tx-datamintsfeuser-pi1 form fieldset div.form_type_submit {
 	clear:both;
 	margin-top:20px;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.submit_item input {
+div.tx-datamintsfeuser-pi1 form fieldset div.form_type_submit input {
+	width:100px;
 	margin-left:160px;
 }
 
