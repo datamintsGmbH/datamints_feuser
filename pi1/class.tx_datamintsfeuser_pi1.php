@@ -254,7 +254,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					}
 
 					// Wenn noch nicht gesäubert dann nachholen!
-					if (!$isChecked && $this->piVars[$fieldName]) {
+					if (!$isChecked && isset($this->piVars[$fieldName])) {
 						// Typ ermitteln und anhand dessen das Feld säubern.
 						$type = $this->feUsersTca['columns'][$fieldName]['config']['type'];
 						$size = $this->feUsersTca['columns'][$fieldName]['config']['size'];
@@ -281,7 +281,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				// User editieren.
 				$error = $GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , $arrUpdate);
 				if ($error == 1) {
-					$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=/' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '" />';
+					//$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=/' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '" />';
 					$content = $this->pi_getLL('edit_success');
 				}
 			}
@@ -305,17 +305,17 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				}
 
 				// User erstellen.
-				$error = $GLOBALS['TYPO3_DB']->exec_INSERTquery('fe_users', $arrUpdate);
-				if ($error == 1) {
+				$success = $GLOBALS['TYPO3_DB']->exec_INSERTquery('fe_users', $arrUpdate);
+				if ($success == 1) {
 					// Userid ermittln un Global definieren!
-					$this->userId = mysql_insert_id();
+					$this->userId = $GLOBALS['TYPO3_DB']->sql_insert_id();
 
 					// Wenn nach der Registrierung weitergeleitet werden soll.
 					if ($this->conf['register.']['doubleoptin']) {
 						$hash = md5($this->userId . $arrUpdate['username'] . $arrUpdate['email'] . $arrUpdate['tstamp']);
 						$pageLink = (strpos($this->pi_getPageLink($GLOBALS['TSFE']->id), '?') === false) ? $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' : $this->pi_getPageLink($GLOBALS['TSFE']->id) . '&';
 						$extraMarkers = Array(
-							'registerlink' => $GLOBALS['TSFE']->baseUrl . $pageLink . $this->prefixId . '%5Bsubmit%5D=doubleoptin&' . $this->prefixId . '%5Buid%5D=' . $this->userId . '&' . $this->prefixId . '%5Bhash%5D=' . $hash . $this->makeHiddenParams()
+							'registerlink' => t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $pageLink . $this->prefixId . '%5Bsubmit%5D=doubleoptin&' . $this->prefixId . '%5Buid%5D=' . $this->userId . '&' . $this->prefixId . '%5Bhash%5D=' . $hash . $this->makeHiddenParams()
 						);
 						$this->sendMail('doubleoptin', $extraMarkers);
 						$content = $this->pi_getLL('doubleoptin_sent');
