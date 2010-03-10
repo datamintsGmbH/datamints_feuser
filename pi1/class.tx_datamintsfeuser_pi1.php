@@ -281,7 +281,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				// User editieren.
 				$error = $GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , $arrUpdate);
 				if ($error == 1) {
-					//$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=/' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '" />';
+					$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=/' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '" />';
 					$content = $this->pi_getLL('edit_success');
 				}
 			}
