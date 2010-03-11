@@ -560,7 +560,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Wenn die Datei zu groß ist.
-		if ($_FILES[$this->prefixId]['error'][$fieldName] == '2') {
+		if ($this->conf['maximagesize'] && $_FILES[$this->prefixId]['size']['image'] > $this->conf['maximagesize']) {
+			// Konfigurierte maximal Dateigröße überschritten.
+			return 'size';
+		} else if ($_FILES[$this->prefixId]['error'][$fieldName] == '2') {
+			// Der Upload war nicht vollständig, da Datei zu groß (Zeitüberschreitung).
 			return 'size';
 		}
 
