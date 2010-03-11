@@ -122,7 +122,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$this->getConfiguration();
 		$this->getFeUsersTca();
 		$this->getStoragePid();
-
+print_r($this->feUsersTca['columns']['image']);
 		// Javascripts in den Head einbinden.
 		$GLOBALS['TSFE']->setJS($this->extKey, $this->getJSValidationConfiguration());
 		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId] .= '<script type="text/javascript" src="' . (($this->conf['jsvalidatorpath']) ? $this->conf['jsvalidatorpath'] : t3lib_extMgm::extRelPath($this->extKey) . 'res/validator.js') . '"></script>' . "\n";
@@ -560,8 +560,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Wenn die Datei zu groß ist.
-		if ($this->conf['maximagesize'] && $_FILES[$this->prefixId]['size']['image'] > $this->conf['maximagesize']) {
-			// Konfigurierte maximal Dateigröße überschritten.
+		$maxSize = $this->feUsersTca['columns'][$fieldName]['config']['max_size'];
+		if ($maxSize && $_FILES[$this->prefixId]['size'][$fieldName] > $maxSize) {
+			// Konfigurierte maximale Dateigröße überschritten.
 			return 'size';
 		} else if ($_FILES[$this->prefixId]['error'][$fieldName] == '2') {
 			// Der Upload war nicht vollständig, da Datei zu groß (Zeitüberschreitung).
