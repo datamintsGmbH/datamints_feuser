@@ -122,7 +122,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$this->getConfiguration();
 		$this->getFeUsersTca();
 		$this->getStoragePid();
-print_r($this->feUsersTca['columns']['image']);
+
 		// Javascripts in den Head einbinden.
 		$GLOBALS['TSFE']->setJS($this->extKey, $this->getJSValidationConfiguration());
 		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId] .= '<script type="text/javascript" src="' . (($this->conf['jsvalidatorpath']) ? $this->conf['jsvalidatorpath'] : t3lib_extMgm::extRelPath($this->extKey) . 'res/validator.js') . '"></script>' . "\n";
