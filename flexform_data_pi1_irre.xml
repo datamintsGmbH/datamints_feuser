@@ -1,0 +1,353 @@
+<T3DataStructure>
+  <sheets>
+
+	<sDEF>
+		<ROOT>
+			<TCEforms>
+				<sheetTitle>Main settings</sheetTitle>
+			</TCEforms>
+			<type>array</type>
+			<el>
+
+				<showtype>
+					<TCEforms>
+						<label>Type of view:</label>
+						<config>
+							<type>select</type>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0">Register</numIndex>
+									<numIndex index="1">register</numIndex>
+								</numIndex>
+								<numIndex index="1" type="array">
+									<numIndex index="0">Edit</numIndex>
+									<numIndex index="1">edit</numIndex>
+								</numIndex>
+							</items>
+							<maxitems>1</maxitems>
+							<size>1</size>
+						</config>
+					</TCEforms>
+				</showtype>
+
+				<databasefields>
+					<section>1</section>
+					<type>array</type>
+					<el>
+
+						<databasefield>
+							<tx_templavoila type="array">
+								<title>Databasefield</title>
+							</tx_templavoila>
+							<type>array</type>
+							<el>
+
+								<field>
+									<TCEforms>
+										<label>Field:</label>
+										<config>
+											<type>select</type>
+											<minitems>0</minitems>
+											<maxitems>1</maxitems>
+											<size>1</size>
+											<itemsProcFunc>tx_flexform_getFieldNames->getFieldNames</itemsProcFunc>
+											<allowNonIdValues>1</allowNonIdValues>
+										</config>
+									</TCEforms>
+								</field>
+
+								<required>
+									<TCEforms>
+										<label>Required field?</label>
+										<config>
+											<type>check</type>
+										</config>
+									</TCEforms>
+								</required>
+
+								<unique>
+									<TCEforms>
+										<label>Unique field?</label>
+										<config>
+											<type>check</type>
+										</config>
+									</TCEforms>
+								</unique>
+
+							</el>
+						</databasefield>
+
+						<separator>
+							<tx_templavoila type="array">
+								<title>Separator</title>
+							</tx_templavoila>
+							<type>array</type>
+							<el>
+
+								<separator>
+									<vDEF>separator</vDEF>
+									<TCEforms>
+										<label>Legend text:</label>
+										<config>
+											<type>input</type>
+										</config>
+									</TCEforms>
+								</separator>
+
+							</el>
+						</separator>
+
+						<infoitem>
+							<tx_templavoila type="array">
+								<title>Infoitem</title>
+							</tx_templavoila>
+							<type>array</type>
+							<el>
+
+								<infoitem>
+									<TCEforms>
+										<label>Infoitem text:</label>
+										<config>
+											<type>text</type>
+										</config>
+									</TCEforms>
+								</infoitem>
+
+							</el>
+						</infoitem>
+
+					</el>
+				</databasefields>
+
+				<disablestylesheet>
+					<TCEforms>
+						<label>Disable local stylesheet:</label>
+						<config>
+							<type>check</type>
+						</config>
+					</TCEforms>
+				</disablestylesheet>
+
+				<stylesheetpath>
+					<TCEforms>
+						<label>Stylesheet path:</label>
+						<config>
+							<type>input</type>
+							<size>20</size>
+							<max>256</max>
+							<eval>trim</eval>
+							<wizards type="array">
+								<_PADDING type="integer">2</_PADDING>
+								<link type="array">
+									<type>popup</type>
+									<title>Stylesheet path</title>
+									<icon>link_popup.gif</icon>
+									<script>browse_links.php?act=file&amp;mode=wizard</script>
+									<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+								</link>
+							</wizards>
+						</config>
+					</TCEforms>
+				</stylesheetpath>
+
+			</el>
+		</ROOT>
+	</sDEF>
+
+	<sREG>
+		<ROOT>
+			<TCEforms>
+				<sheetTitle>Registration settings</sheetTitle>
+			</TCEforms>
+			<type>array</type>
+			<el>
+
+				<register.emailtemplate>
+					<TCEforms>
+						<label>Registration e-mail template:</label>
+						<config>
+							<type>input</type>
+							<size>20</size>
+							<max>256</max>
+							<eval>trim</eval>
+							<wizards type="array">
+								<_PADDING type="integer">2</_PADDING>
+								<link type="array">
+									<type>popup</type>
+									<title>Registration e-mail template</title>
+									<icon>link_popup.gif</icon>
+									<script>browse_links.php?act=file&amp;mode=wizard</script>
+									<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+								</link>
+							</wizards>
+						</config>
+					</TCEforms>
+				</register.emailtemplate>
+
+				<register.doubleoptin>
+					<TCEforms>
+						<label>Registration double-opt-in?</label>
+						<config>
+							<type>check</type>
+						</config>
+					</TCEforms>
+				</register.doubleoptin>
+
+				<register.userfolder>
+					<TCEforms>
+						<label>Registration default userfolder id:</label>
+						<config>
+							<type>group</type>
+							<internal_type>db</internal_type>
+							<allowed>pages</allowed>
+							<size>1</size>
+							<maxitems>1</maxitems>
+							<minitems>0</minitems>
+						</config>
+					</TCEforms>
+				</register.userfolder>
+
+				<register.usergroup>
+					<TCEforms>
+						<label>Registration default usergroup id:</label>
+						<config>
+							<type>select</type>
+							<size>3</size>
+							<autoSizeMax>5</autoSizeMax>
+							<minitems>0</minitems>
+							<maxitems>100</maxitems>
+							<selectedListStyle>width:250px</selectedListStyle>
+							<itemListStyle>width:250px</itemListStyle>
+							<foreign_table>fe_groups</foreign_table>
+							<allowNonIdValues>1</allowNonIdValues>
+						</config>
+					</TCEforms>
+				</register.usergroup>
+
+				<register.generatepassword.mode>
+					<TCEforms>
+						<label>Registration generate password?</label>
+						<config>
+							<type>check</type>
+						</config>
+					</TCEforms>
+				</register.generatepassword.mode>
+
+				<register.generatepassword.length>
+					<TCEforms>
+						<label>Registration generate password length:</label>
+						<config>
+							<type>input</type>
+							<size>5</size>
+							<max>100</max>
+							<eval>int</eval>
+						</config>
+					</TCEforms>
+				</register.generatepassword.length>
+
+				<register.redirect>
+					<TCEforms>
+						<label>Registration redirect site id:</label>
+						<config>
+							<type>input</type>
+							<size>5</size>
+							<max>100</max>
+							<eval>int</eval>
+							<wizards type="array">
+								<_PADDING type="integer">2</_PADDING>
+								<link type="array">
+									<type>popup</type>
+									<title>Link</title>
+									<icon>link_popup.gif</icon>
+									<script>browse_links.php?act=page&amp;mode=wizard</script>
+									<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+								</link>
+							</wizards>
+						</config>
+					</TCEforms>
+				</register.redirect>
+
+				<register.autologin>
+					<TCEforms>
+						<label>Registration autologin?</label>
+						<config>
+							<type>check</type>
+						</config>
+					</TCEforms>
+				</register.autologin>
+
+				<register.mailtype>
+					<TCEforms>
+						<label>Registration mail type:</label>
+						<config>
+							<type>select</type>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0">Text</numIndex>
+									<numIndex index="1">text</numIndex>
+								</numIndex>
+								<numIndex index="1" type="array">
+									<numIndex index="0">HTML</numIndex>
+									<numIndex index="1">html</numIndex>
+								</numIndex>
+							</items>
+							<maxitems>1</maxitems>
+							<size>1</size>
+						</config>
+					</TCEforms>
+				</register.mailtype>
+
+				<register.sendername>
+					<TCEforms>
+						<label>Registration email sender name:</label>
+						<config>
+							<type>input</type>
+							<size>10</size>
+							<max>256</max>
+							<eval>trim</eval>
+						</config>
+					</TCEforms>
+				</register.sendername>
+
+				<register.sendermail>
+					<TCEforms>
+						<label>Registration email sender email-address:</label>
+						<config>
+							<type>input</type>
+							<size>10</size>
+							<max>256</max>
+							<eval>trim</eval>
+						</config>
+					</TCEforms>
+				</register.sendermail>
+
+				<register.adminname>
+					<TCEforms>
+						<label>Registration email admin name:</label>
+						<config>
+							<type>input</type>
+							<size>10</size>
+							<max>256</max>
+							<eval>trim</eval>
+						</config>
+					</TCEforms>
+				</register.adminname>
+
+				<register.adminmail>
+					<TCEforms>
+						<label>Registration email admin email-address:</label>
+						<config>
+							<type>input</type>
+							<size>10</size>
+							<max>256</max>
+							<eval>trim</eval>
+						</config>
+					</TCEforms>
+				</register.adminmail>
+
+			</el>
+		</ROOT>
+	</sREG>
+
+  </sheets>
+</T3DataStructure>

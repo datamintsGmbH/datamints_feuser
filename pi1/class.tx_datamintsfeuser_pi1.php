@@ -72,34 +72,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	var $feUsersTca = Array();
 	var $storagePid = 0;
 	var $contentUid = 0;
-	// Konfigurationen, die von Flexformkonfiguration überschrieben werden können.
-	var $confTypes = Array(
-		'showtype',
-		'usedfields',
-		'requiredfields',
-		'uniquefields',
-		'stylesheetpath',
-		'disablestylesheet',
-		'sREG' => Array(
-			'register.emailtemplate',
-			'register.doubleoptin',
-			'register.userfolder',
-			'register.usergroup',
-			'register.generatepassword.mode',
-			'register.generatepassword.length',
-			'register.redirect',
-			'register.autologin',
-			'register.mailtype',
-			'register.sendername',
-			'register.sendermail',
-			'register.adminname',
-			'register.adminmail'
-			)
-		);
 	var $conf = Array();
+	var $extConf = Array();
 	var $lang = Array();
 	var $userId = 0;
-	
+
 	/**
 	 * The main method of the PlugIn
 	 *
@@ -1002,7 +979,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Das Label zurückliefern.
 			return $label;
 		}
-		// Wenn gar nichts gefunden wurde den übergeben Wert wieder zurückliefern.
+		// Wenn gar nichts gefunden wurde den übergebenen Wert wieder zurückliefern.
 		return $fieldName;
 	}
 
@@ -1013,18 +990,55 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @global	$this->conf
 	 */
 	function getConfiguration() {
-		foreach ($this->confTypes as $tabKey => $key) {
-			if (is_array($key)) {
-				foreach ($key as $newKey) {
-					$value = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $newKey, $tabKey);
-					$this->setFlexformConfiguration($newKey, $value);
-				}
+		// Extension configuration holen.
+		$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extKey]);
+		// Alle Tabs durchgehn.
+		foreach ($this->cObj->data['pi_flexform']['data'] as $tabKey => $val) {
+			$this->readFlexformMainTab($this->cObj->data['pi_flexform'], $conf, $tabKey);
+		}
+		// Alle gesammelten Konfigurationen in $this->conf übertragen.
+		foreach ($conf as $key => $val) {
+			if (is_array($val) && $this->extConf['useIRRE']) {
+				// Wenn IRRE Konfiguration übergeben wurde und in der Extension Konfiguration gesetzt ist...
+				$this->conf[$key] = $this->array_merge_replace_recursive($this->conf[$key], $val);
 			} else {
-				$value = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $key, 'sDEF');
-				$this->setFlexformConfiguration($key, $value);
+				// Alle anderen Konfigurationen...
+				$this->setFlexformConfiguration($key, $val);
 			}
 		}
 	}
+
+	/**
+	 * Parsd das Flexform Konfigurations Array und schreibt alle Werte in $conf.
+	 *
+	 * @param	array		$flexData
+	 * @param	array		$conf
+	 * @param	string		$sType
+	 */
+	function readFlexformMainTab($flexData, &$conf, $sTab) {
+		 if (is_array($flexData)) {
+			 if (isset($flexData['data'][$sTab]['lDEF'])) {
+				 $flexData = $flexData['data'][$sTab]['lDEF'];
+			 }
+
+			 foreach ($flexData as $key => $value) {
+				 if (is_array($value['el']) && count($value['el']) > 0) {
+					 foreach ($value['el'] as $ekey => $element) {
+						 if (isset($element['vDEF'])) {
+							 $conf[$ekey] = $element['vDEF'];
+						 } else {
+							 $this->readFlexformMainTab($element, $conf[$key][$ekey], $sTab);
+						 }
+					 }
+				 } else {
+					 $this->readFlexformMainTab($value['el'], $conf, $sTab);
+				 }
+				 if ($value['vDEF']) {
+					 $conf[$key] = $value['vDEF'];
+				 }
+			 }
+		 }
+	 }
 
 	/**
 	 * Überschreibt eventuell vorhandene TypoScript Konfigurationen mit den Konfigurationen aus der Flexform.
@@ -1037,14 +1051,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		if (strpos($key, '.') !== false && $value) {
 			$arrKey = explode('.', $key);
 			for ($i = count($arrKey) - 1; $i >= 0; $i--) {
+				$newValue = array();
 				if ($i == count($arrKey) - 1) {
 					$newValue[$arrKey[$i]] = $value;
 				} else {
 					$newValue[$arrKey[$i] . '.'] = $value;
 				}
 				$value = $newValue;
-				// Muss
-				unset($newValue);
 			}
 			$this->conf = $this->array_merge_replace_recursive($this->conf, $value);
 		} elseif ($value) {
@@ -1059,19 +1072,19 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function getJSValidationConfiguration() {
 		// Hier eine fertig generierte Konfiguration:
-		// var config = new Array(); 
-		// config['username'] = new Array(); 
-		// config['username']['validation'] = new Array(); 
-		// config['username']['validation']['type'] = 'username'; 
-		// config['username']['valid'] = 'Der Benutzername darf keine Leerzeichen beinhalten!'; 
-		// config['username']['required'] = 'Es muss ein Benutzername eingegeben werden!'; 
-		// config['password'] = new Array(); 
-		// config['password']['validation'] = new Array(); 
-		// config['password']['validation']['type'] = 'password'; 
-		// config['password']['equal'] = 'Es muss zwei mal das gleiche Passwort eingegeben werden!'; 
-		// config['password']['validation']['size'] = '6'; 
-		// config['password']['size'] = 'Das Passwort muss mindestens 6 Zeichen lang sein!'; 
-		// config['password']['required'] = 'Es muss ein Passwort angegeben werden!'; 
+		// var config = new Array();
+		// config['username'] = new Array();
+		// config['username']['validation'] = new Array();
+		// config['username']['validation']['type'] = 'username';
+		// config['username']['valid'] = 'Der Benutzername darf keine Leerzeichen beinhalten!';
+		// config['username']['required'] = 'Es muss ein Benutzername eingegeben werden!';
+		// config['password'] = new Array();
+		// config['password']['validation'] = new Array();
+		// config['password']['validation']['type'] = 'password';
+		// config['password']['equal'] = 'Es muss zwei mal das gleiche Passwort eingegeben werden!';
+		// config['password']['validation']['size'] = '6';
+		// config['password']['size'] = 'Das Passwort muss mindestens 6 Zeichen lang sein!';
+		// config['password']['required'] = 'Es muss ein Passwort angegeben werden!';
 		// var inputids = new Array('tx_datamintsfeuser_pi1_username', 'tx_datamintsfeuser_pi1_password_1', 'tx_datamintsfeuser_pi1_password_2');
 
 		$configuration = "var config = new Array(); ";
@@ -1253,6 +1266,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 		return true;
 	}
+
 
 }
 
