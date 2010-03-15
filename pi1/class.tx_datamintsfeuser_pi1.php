@@ -1,57 +1,61 @@
 <?php
+
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2009 Bernhard baumgartl <b.baumgartl@datamints.com>
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2009 Bernhard baumgartl <b.baumgartl@datamints.com>
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 /**
  *
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
- *   67: class tx_datamintsfeuser_pi1 extends tslib_pibase
- *  109:     function main($content, $conf)
- *  186:     function sendForm()
- *  350:     function generatePassword($password)
- *  386:     function requireCheckForm()
- *  402:     function validateForm()
- *  515:     function uniqueCheckForm()
- *  541:     function saveDeleteImage($fieldName, &$arrUpdate)
- *  605:     function sendMail($templatePart, $extraMarkers = Array())
- *  670:     function makeDoubleOptIn()
- *  689:     function showForm($valueCheck = Array())
- *  909:     function makeHiddenFields()
- *  925:     function makeHiddenParams()
- *  946:     function cleanHeaderUrlData($data)
- *  957:     function checkIfRequired($fieldName)
- *  972:     function getLabel($fieldName)
- * 1013:     function getConfiguration()
- * 1034:     function setFlexformConfiguration($key, $value)
- * 1058:     function getJSValidationConfiguration()
- * 1104:     function getFeUsersTca()
- * 1118:     function getStoragePid()
- * 1132:     function deletePoint($array)
- * 1163:     function array_merge_replace_recursive($array1)
- * 1195:     function check_utf8($str)
  *
- * TOTAL FUNCTIONS: 23
+ *   71: class tx_datamintsfeuser_pi1 extends tslib_pibase
+ *   91:     function main($content, $conf)
+ *  169:     function sendForm()
+ *  333:     function generatePassword($password)
+ *  369:     function requireCheckForm()
+ *  385:     function validateForm()
+ *  498:     function uniqueCheckForm()
+ *  524:     function saveDeleteImage($fieldName, &$arrUpdate)
+ *  593:     function sendMail($templatePart, $extraMarkers = Array())
+ *  658:     function makeDoubleOptIn()
+ *  677:     function showForm($valueCheck = Array())
+ *  892:     function makeHiddenFields()
+ *  908:     function makeHiddenParams()
+ *  929:     function cleanHeaderUrlData($data)
+ *  940:     function checkIfRequired($fieldName)
+ *  955:     function getLabel($fieldName)
+ *  996:     function getConfiguration()
+ * 1023:     function readFlexformMainTab($flexData, &$conf, $sTab)
+ * 1055:     function setFlexformConfiguration($key, $value)
+ * 1078:     function getJSValidationConfiguration()
+ * 1162:     function getFeUsersTca()
+ * 1176:     function getStoragePid()
+ * 1190:     function deletePoint($array)
+ * 1221:     function array_merge_replace_recursive($array1)
+ * 1253:     function check_utf8($str)
+ *
+ *
+ * TOTAL FUNCTIONS: 24
  *
  */
 
@@ -1014,6 +1018,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @param	array		$flexData
 	 * @param	array		$conf
 	 * @param	string		$sType
+	 * @return	void
 	 */
 	function readFlexformMainTab($flexData, &$conf, $sTab) {
 		 if (is_array($flexData)) {
