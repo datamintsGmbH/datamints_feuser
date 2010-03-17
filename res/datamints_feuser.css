@@ -31,10 +31,6 @@ div.tx-datamintsfeuser-pi1 form fieldset div.form_item input {
 div.tx-datamintsfeuser-pi1 form fieldset div.form_item input[type="checkbox"] {
 	width:auto;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_item input[type="password"] {
-	width:144px;
-	margin-right:10px;
-}
 div.tx-datamintsfeuser-pi1 form fieldset div.form_item textarea {
 	width:300px;
 }
