@@ -741,8 +741,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 							break;
 						}
 						if (strpos($this->feUsersTca['columns'][$fieldName]['config']['eval'], 'password') !== false) {
-							// Passwordfeld.
+							// Passwordfelder.
 							$content .= '<input type="password" id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']" value="" />';
+							$content .= '</div><div id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '_rep_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $this->feUsersTca['columns'][$fieldName]['config']['type'] . '">';
+							$content .= '<label for="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '_rep">' . $this->getLabel($fieldName . '_rep') . $this->checkIfRequired($fieldName) . '</label>';
 							$content .= '<input type="password" id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '_rep" name="' . $this->prefixId . '[' . $fieldName . '_rep]" value="" />';
 							break;
 						}
@@ -991,6 +993,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * Holt Konfigurationen aus der Flexform (Tab-bedingt) und ersetzt diese pro Konfiguration in der TypoScript Konfiguration.
 	 *
 	 * @return	void
+	 * @global	$this->extConf
 	 * @global	$this->conf
 	 */
 	function getConfiguration() {
@@ -1004,11 +1007,15 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		foreach ($conf as $key => $val) {
 			if (is_array($val) && $this->extConf['useIRRE']) {
 				// Wenn IRRE Konfiguration übergeben wurde und in der Extension Konfiguration gesetzt ist...
-				$this->conf[$key] = $this->array_merge_replace_recursive($this->conf[$key], $val);
+				$this->conf[$key] = $val;
 			} else {
 				// Alle anderen Konfigurationen...
 				$this->setFlexformConfiguration($key, $val);
 			}
+		}
+		// Die IRRE Konfiguration abarbeiten.
+		if ($this->extConf['useIRRE'] && $this->conf['databasefields']) {
+			$this->setIrreConfiguration();
 		}
 	}
 
@@ -1051,6 +1058,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @param	string		$key
 	 * @param	string		$value
 	 * @return	void
+	 * @global	$this->conf
 	 */
 	function setFlexformConfiguration($key, $value) {
 		if (strpos($key, '.') !== false && $value) {
@@ -1068,6 +1076,51 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		} elseif ($value) {
 			$this->conf[$key] = $value;
 		}
+	}
+
+	/**
+	 * Überschreibt eventuell vorhandene TypoScript Konfigurationen oder Flexform Konfigurationen mit den Konfigurationen aus IRRE.
+	 *
+	 * @global	$this->conf
+	 */
+	function setIrreConfiguration() {
+		$fieldsets = 2;
+		$infoitems = 1;
+		unset($this->conf['infoitems.']);
+		unset($this->conf['separatorheads.']);
+
+		foreach ($this->conf['databasefields'] as $position => $field) {
+			if ($field['field']) {
+				// Datenbankfelder abarbeiten.
+				$usedfields[] = $field['field'];
+				if ($field['required']) {
+					$requiredfields[] = $field['field'];
+				}
+				if ($field['unique']) {
+					$uniquefields[] = $field['field'];
+				}
+			} elseif ($field['infoitem']) {
+				// Infoitems abarbeiten.
+				$usedfields[] = '--infoitem--';
+				$this->conf['infoitems.'][$infoitems] = $field['infoitem'];
+				$infoitems++;
+			} elseif ($field['separator']) {
+				// Separators abarbeiten.
+				if ($position == 0) {
+					// Beim aller ersten Separator / Legend bloß die Legend setzten!
+					$this->conf['separatorheads.']['1'] = $field['separator'];
+				} else {
+					$usedfields[] = '--separator--';
+					$this->conf['separatorheads.'][$fieldsets] = $field['separator'];
+					$fieldsets++;
+				}
+			}
+		}
+
+		// In Konfiguration übertragen.
+		$this->conf['usedfields'] = implode(',', $usedfields);
+		$this->conf['requiredfields'] = implode(',', $requiredfields);
+		$this->conf['uniquefields'] = implode(',', $uniquefields);
 	}
 
 	/**
