@@ -79,7 +79,7 @@
 
 						<separator>
 							<tx_templavoila type="array">
-								<title>Separator</title>
+								<title>Separator/Legend</title>
 							</tx_templavoila>
 							<type>array</type>
 							<el>
