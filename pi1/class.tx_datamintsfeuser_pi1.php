@@ -1072,7 +1072,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				}
 				$value = $newValue;
 			}
-			$this->conf = $this->array_merge_replace_recursive($this->conf, $value);
+			$this->conf = t3lib_div::array_merge_recursive_overrule($this->conf, $value);
 		} elseif ($value) {
 			$this->conf[$key] = $value;
 		}
@@ -1217,7 +1217,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$GLOBALS['TSFE']->includeTCA();
 		$this->feUsersTca = $GLOBALS['TCA']['fe_users'];
 		if ($this->conf['fieldconfig.']) {
-			$this->feUsersTca['columns'] = $this->array_merge_replace_recursive((Array)$this->feUsersTca['columns'], (Array)$this->deletePoint($this->conf['fieldconfig.']));
+			$this->feUsersTca['columns'] = t3lib_div::array_merge_recursive_overrule((Array)$this->feUsersTca['columns'], (Array)$this->deletePoint($this->conf['fieldconfig.']));
 		}
 	}
 
@@ -1260,42 +1260,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$newArray[$newKey] = $newVal;
 		}
 		return $newArray;
-	}
-
-	/**
-	 * Merges any number of arrays of any dimensions, the later overwriting
-	 * previous keys, unless the key is numeric, in whitch case, duplicated
-	 * values will not be added.
-	 *
-	 * The arrays to be merged are passed as arguments to the function.
-	 *
-	 * @param	array		$array1
-	 * @return	array		Resulting array, once all have been merged
-	 */
-	function array_merge_replace_recursive($array1) {
-		// Holds all the arrays passed.
-		$params = & func_get_args();
-		// Merge all arrays on the first array.
-		foreach ($params as $array) {
-			foreach ($array as $key => $value) {
-				// Numeric keyed values are added (unless already there).
-				if (is_numeric($key) && !in_array($value, $array1)) {
-					if (is_array($value)) {
-						$array1[] = $this->array_merge_replace_recursive($array1[$key], $value);
-					} else {
-						$array1[] = $value;
-					}
-				// String keyed values are replaced.
-				} else {
-					if (isset($array1[$key]) && is_array($value) && is_array($array1[$key])) {
-						$array1[$key] = $this->array_merge_replace_recursive($array1[$key], $value);
-					} else {
-						$array1[$key] = $value;
-					}
-				}
-			}
-		}
-		return $array1;
 	}
 
 	/**
