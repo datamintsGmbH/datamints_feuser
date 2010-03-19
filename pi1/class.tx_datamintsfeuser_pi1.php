@@ -1086,6 +1086,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	function setIrreConfiguration() {
 		$fieldsets = 2;
 		$infoitems = 1;
+		$firstkey = key($this->conf['databasefields']);
 		unset($this->conf['infoitems.']);
 		unset($this->conf['separatorheads.']);
 
@@ -1106,7 +1107,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$infoitems++;
 			} elseif ($field['separator']) {
 				// Separators abarbeiten.
-				if ($position == 0) {
+				if ($position == $firstkey) {
 					// Beim aller ersten Separator / Legend bloß die Legend setzten!
 					$this->conf['separatorheads.']['1'] = $field['separator'];
 				} else {
