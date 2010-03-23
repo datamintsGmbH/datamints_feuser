@@ -6,7 +6,7 @@ window.onload = function() {
 	var input;
 	for (var i = 0; i < inputids.length; i++) {
 		input = document.getElementById(inputids[i]);
-		// Wenn Input Typ eine Checkbox ist ein Klickevent setzten, da der IE bei onchange das Event erst  nach verlieren des Focus auslöst.
+		// Wenn Input Typ eine Checkbox ist ein Klickevent setzten, da der IE bei onchange das Event erst  nach verlieren des Focus auslï¿½st.
 		if (input.type == 'checkbox') {
 			addEvent(input, 'click', inputItemCheck);
 		} else {
@@ -59,7 +59,7 @@ function inputItemCheck(evt, input) {
 		fieldName = fieldName.split('_')[0];
 	}
 
-	// Den Error Dialog löschen, damit er wenn die Validierung korrekt ist nicht mehr da ist.
+	// Den Error Dialog lï¿½schen, damit er wenn die Validierung korrekt ist nicht mehr da ist.
 	removeInfo(fieldName);
 
 	if (config[fieldName] != null) {
@@ -69,7 +69,7 @@ function inputItemCheck(evt, input) {
 			error_item = input;
 			if (validate && validate['type'] == 'password') {
 				if (input.id.split('_').reverse()[0] != 'rep') {
-					input_rep = document.getElementById(input.id + '_rep');
+					var input_rep = document.getElementById(input.id + '_rep');
 					error_item = input_rep;
 				}
 			}
@@ -90,20 +90,20 @@ function inputItemCheck(evt, input) {
 						error_item = input;
 					}
 					var value_rep = input_rep.value;
-					if (value != '' && value_rep != '') {
+					if (value != '' || value_rep != '') {
 						arrLength = new Array('6');
 						if (value == value_rep) {
 							if (validate['size']) {
 								arrLength = validate['size'].replace(' ', '').split(',');
 								if (arrLength[1]) {
-									// Wenn eine Maximallänge festgelegt wurde.
+									// Wenn eine Maximallï¿½nge festgelegt wurde.
 									if (value.length < arrLength[0] || value.length > arrLength[1]) {
 										ret = true;
 										removeInfo(fieldName);
 										showInfo(error_item, fieldName, 'size');
 									}
 								} else {
-									// Wenn nur eine Minimallänge festgelegt wurde.
+									// Wenn nur eine Minimallï¿½nge festgelegt wurde.
 									if (value.length < arrLength[0]) {
 										ret = true;
 										removeInfo(fieldName);
@@ -111,7 +111,7 @@ function inputItemCheck(evt, input) {
 									}
 								}
 							} else {
-								// Wenn nur eine Minimallänge festgelegt wurde.
+								// Wenn nur eine Minimallï¿½nge festgelegt wurde.
 								if (value.length < arrLength[0]) {
 									ret = true;
 									removeInfo(fieldName);
@@ -167,14 +167,14 @@ function inputItemCheck(evt, input) {
 					if (validate['size']) {
 						arrLength = validate['size'].replace(' ', '').split(',');
 						if (arrLength[1]) {
-							// Wenn eine Maximallänge festgelegt wurde.
+							// Wenn eine Maximallï¿½nge festgelegt wurde.
 							if (value.length < arrLength[0] || value.length > arrLength[1]) {
 								ret = true;
 								removeInfo(fieldName);
 								showInfo(error_item, fieldName, 'size');
 							}
 						} else {
-							// Wenn nur eine Minimallänge festgelegt wurde.
+							// Wenn nur eine Minimallï¿½nge festgelegt wurde.
 							if (value.length < arrLength[0]) {
 								ret = true;
 								removeInfo(fieldName);
@@ -200,7 +200,11 @@ function showInfo(input, fieldName, error) {
 }
 
 function removeInfo(fieldName) {
-	var error_item_father = document.getElementById('datamints_feuser_' + contentid + '_' + fieldName + '_wrapper');
+	var fieldNameWrapper = fieldName;
+	if (config[fieldName]['validation']['type'] == 'password') {
+		fieldNameWrapper = fieldName + '_rep';
+	}
+	var error_item_father = document.getElementById('datamints_feuser_' + contentid + '_' + fieldNameWrapper + '_wrapper');
 	if (error_item_father != undefined && error_item_father.lastChild.className == 'form_error ' + fieldName + '_error') {
 		error_item_father.removeChild(error_item_father.lastChild);
 	}
