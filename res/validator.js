@@ -201,7 +201,7 @@ function showInfo(input, fieldName, error) {
 
 function removeInfo(fieldName) {
 	var fieldNameWrapper = fieldName;
-	if (config[fieldName]['validation']['type'] == 'password') {
+	if (config[fieldName]['validation'] && config[fieldName]['validation']['type'] == 'password') {
 		fieldNameWrapper = fieldName + '_rep';
 	}
 	var error_item_father = document.getElementById('datamints_feuser_' + contentid + '_' + fieldNameWrapper + '_wrapper');
