@@ -348,7 +348,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$saltedpasswords = tx_saltedpasswords_div::returnExtConf();
 			if ($saltedpasswords['enabled'] == 1) {
 				$tx_saltedpasswords = new $saltedpasswords['saltedPWHashingMethod']();
-				$password = $tx_saltedpasswords->getHashedPassword($password); echo '2:' . $password . "\n";
+				$password = $tx_saltedpasswords->getHashedPassword($password);
 			}
 		}
 		// Wenn "md5passwords" installiert ist wird wenn aktiviert, das Password md5 verschluesselt.
@@ -364,7 +364,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			if (tx_t3secsaltedpw_div::isUsageEnabled()) {
 				require_once t3lib_extMgm::extPath('t3sec_saltedpw').'res/lib/class.tx_t3secsaltedpw_phpass.php';
 				$objPHPass = t3lib_div::makeInstance('tx_t3secsaltedpw_phpass');
-				$password = $objPHPass->getHashedPassword($password); echo '3:' . $password . "\n";
+				$password = $objPHPass->getHashedPassword($password);
 			}
 		}
 		return $password;
