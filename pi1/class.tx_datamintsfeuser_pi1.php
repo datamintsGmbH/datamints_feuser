@@ -360,9 +360,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 		// Wenn "t3sec_saltedpw" installiert ist wird wenn aktiviert, das Password gehashed.
 		if (t3lib_extMgm::isLoaded('t3sec_saltedpw')) {
-			require_once t3lib_extMgm::extPath('t3sec_saltedpw').'res/staticlib/class.tx_t3secsaltedpw_div.php';
+			require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/staticlib/class.tx_t3secsaltedpw_div.php';
 			if (tx_t3secsaltedpw_div::isUsageEnabled()) {
-				require_once t3lib_extMgm::extPath('t3sec_saltedpw').'res/lib/class.tx_t3secsaltedpw_phpass.php';
+				require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/lib/class.tx_t3secsaltedpw_phpass.php';
 				$objPHPass = t3lib_div::makeInstance('tx_t3secsaltedpw_phpass');
 				$password = $objPHPass->getHashedPassword($password);
 			}
@@ -810,11 +810,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						}
 						// Einzeiliges Select (Dropdown).
 						if ($this->feUsersTca['columns'][$fieldName]['config']['size'] == 1) {
-							$content .= '<select id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '" name=' . $this->prefixId . '[' . $fieldName . ']">';
+							$content .= '<select id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . ']">';
 							$content .= $optionlist;
 							$content .= '</select>';
 						} else {
-							$content .= '<select id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '" name=' . $this->prefixId . '[' . $fieldName . '][]" size="' . $this->feUsersTca['columns'][$fieldName]['config']['size'] . '" multiple="multiple">';
+							$content .= '<select id="' . $this->extKey . '_' . $this->contentUid . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $fieldName . '][]" size="' . $this->feUsersTca['columns'][$fieldName]['config']['size'] . '" multiple="multiple">';
 							$content .= $optionlist;
 							$content .= '</select>';
 						}
