@@ -199,7 +199,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					// Passwordfelder behandeln.
 					if (strpos($this->feUsersTca['columns'][$fieldName]['config']['eval'], 'password') !== false) {
 						// Password generieren und verschluesseln je nach Einstellung.
-						$arrUpdate[$fieldName] = $this->generatePassword($this->piVars[$fieldName]);
+						$arrUpdate[$fieldName] = $this->generatePassword($fieldName);
 						// Wenn kein Password uebergeben wurde auch keins schreiben.
 						if ($arrUpdate[$fieldName] == '') {
 							unset($arrUpdate[$fieldName]);
@@ -262,7 +262,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				// User editieren.
 				$error = $GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , $arrUpdate);
 				if ($error == 1) {
-					$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=/' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '" />';
+					$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '" />';
 					$content = $this->pi_getLL('edit_success');
 				}
 			}
@@ -327,10 +327,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Erstellt wenn gefordert ein Password, und verschluesselt dieses, oder das uebergebene, wenn es verschluesselt werden soll.
 	 *
-	 * @param	string		$password
+	 * @param	string		$fieldName
 	 * @return	string		$password
 	 */
-	function generatePassword($password) {
+	function generatePassword($fieldName) {
 		// Erstellt ein Password.
 		if ($this->conf['register.']['generatepassword.']['mode']) {
 			$chars = '234567890abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -341,21 +341,21 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$i++;
 			}
 			// Unverschluesseltes Password aufheben.
-			$this->piVars['password'] = $password;
-		} echo '1:' . $password . "\n";
+			$this->piVars[$fieldName] = $password;
+		}
 		// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password verschluesselt.
 		if (t3lib_extMgm::isLoaded('saltedpasswords')) {
 			$saltedpasswords = tx_saltedpasswords_div::returnExtConf();
 			if ($saltedpasswords['enabled'] == 1) {
 				$tx_saltedpasswords = new $saltedpasswords['saltedPWHashingMethod']();
-				$password = $tx_saltedpasswords->getHashedPassword($password);
+				$password = $tx_saltedpasswords->getHashedPassword($this->piVars[$fieldName]);
 			}
 		}
 		// Wenn "md5passwords" installiert ist wird wenn aktiviert, das Password md5 verschluesselt.
 		if (t3lib_extMgm::isLoaded('md5passwords')) {
 			$arrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['md5passwords']);
 			if ($arrConf['activate'] == 1) {
-				$password = md5($password);
+				$password = md5($this->piVars[$fieldName]);
 			}
 		}
 		// Wenn "t3sec_saltedpw" installiert ist wird wenn aktiviert, das Password gehashed.
@@ -364,7 +364,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			if (tx_t3secsaltedpw_div::isUsageEnabled()) {
 				require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/lib/class.tx_t3secsaltedpw_phpass.php';
 				$objPHPass = t3lib_div::makeInstance('tx_t3secsaltedpw_phpass');
-				$password = $objPHPass->getHashedPassword($password);
+				$password = $objPHPass->getHashedPassword($this->piVars[$fieldName]);
 			}
 		}
 		return $password;
@@ -613,7 +613,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		if ($this->conf['register.']['emailtemplate']) {
 			$templateFile = $this->conf['register.']['emailtemplate'];
 		} else {
-			$templateFile = 'typo3conf/ext/datamints_feuser/res/datamints_feuser_mail.html';
+			$templateFile = t3lib_extMgm::extPath('datamints_feuser') . 'res/datamints_feuser_mail.html';
 		}
 		// Template laden.
 		$template = utf8_encode($this->cObj->fileResource($templateFile));
