@@ -613,7 +613,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		if ($this->conf['register.']['emailtemplate']) {
 			$templateFile = $this->conf['register.']['emailtemplate'];
 		} else {
-			$templateFile = t3lib_extMgm::extPath('datamints_feuser') . 'res/datamints_feuser_mail.html';
+			$templateFile = 'EXT:datamints_feuser/res/datamints_feuser_mail.html';
 		}
 		// Template laden.
 		$template = utf8_encode($this->cObj->fileResource($templateFile));
