@@ -347,7 +347,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		if (t3lib_extMgm::isLoaded('saltedpasswords')) {
 			$saltedpasswords = tx_saltedpasswords_div::returnExtConf();
 			if ($saltedpasswords['enabled'] == 1) {
-				$tx_saltedpasswords = new $saltedpasswords['saltedPWHashingMethod']();
+				$tx_saltedpasswords = t3lib_div::makeInstance($saltedpasswords['saltedPWHashingMethod']);
 				$password = $tx_saltedpasswords->getHashedPassword($this->piVars[$fieldName]);
 			}
 		}
@@ -363,8 +363,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/staticlib/class.tx_t3secsaltedpw_div.php';
 			if (tx_t3secsaltedpw_div::isUsageEnabled()) {
 				require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/lib/class.tx_t3secsaltedpw_phpass.php';
-				$objPHPass = t3lib_div::makeInstance('tx_t3secsaltedpw_phpass');
-				$password = $objPHPass->getHashedPassword($this->piVars[$fieldName]);
+				$tx_t3secsaltedpw_phpass = t3lib_div::makeInstance('tx_t3secsaltedpw_phpass');
+				$password = $tx_t3secsaltedpw_phpass->getHashedPassword($this->piVars[$fieldName]);
 			}
 		}
 		return $password;
@@ -905,7 +905,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$hiddenParams = explode(',', str_replace(' ', '', $this->conf['hiddenparams']));
 		foreach ($hiddenParams as $paramName) {
 			if ($_REQUEST[$paramName]) {
-				$content .= '<input type="hidden" name="' . $paramName . '" value="' . strip_tags($_REQUEST[$paramName]) . '" />';
+				$content .= '<input type="hidden" name="' . $paramName . '" value="' . htmlspecialchars($_REQUEST[$paramName]) . '" />';
 			}
 		}
 		return $content;
