@@ -28,34 +28,35 @@
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
  *
- *   71: class tx_datamintsfeuser_pi1 extends tslib_pibase
- *   91:     function main($content, $conf)
- *  169:     function sendForm()
- *  333:     function generatePassword($password)
- *  378:     function requireCheckForm()
- *  394:     function validateForm()
- *  507:     function uniqueCheckForm()
- *  533:     function saveDeleteImage($fieldName, &$arrUpdate)
- *  602:     function sendMail($templatePart, $extraMarkers = Array())
- *  667:     function makeDoubleOptIn()
- *  686:     function showForm($valueCheck = Array())
- *  903:     function makeHiddenFields()
- *  919:     function makeHiddenParams()
- *  940:     function cleanHeaderUrlData($data)
- *  951:     function checkIfRequired($fieldName)
- *  966:     function getLabel($fieldName)
- * 1008:     function getConfiguration()
- * 1039:     function readFlexformMainTab($flexData, &$conf, $sTab)
- * 1072:     function setFlexformConfiguration($key, $value)
- * 1096:     function setIrreConfiguration()
- * 1142:     function getJSValidationConfiguration()
- * 1226:     function getFeUsersTca()
- * 1240:     function getStoragePid()
- * 1254:     function deletePoint($array)
- * 1281:     function check_utf8($str)
+ *   72: class tx_datamintsfeuser_pi1 extends tslib_pibase
+ *   92:     function main($content, $conf)
+ *  170:     function sendForm()
+ *  334:     function generatePassword($fieldName)
+ *  379:     function requireCheckForm()
+ *  395:     function validateForm()
+ *  508:     function uniqueCheckForm()
+ *  534:     function saveDeleteImage($fieldName, &$arrUpdate)
+ *  603:     function sendMail($templatePart, $extraMarkers = Array())
+ *  660:     function getTemplateSubpart($templatePart, $markerArray = Array())
+ *  681:     function makeDoubleOptIn()
+ *  700:     function showForm($valueCheck = Array())
+ *  917:     function makeHiddenFields()
+ *  933:     function makeHiddenParams()
+ *  954:     function cleanHeaderUrlData($data)
+ *  965:     function checkIfRequired($fieldName)
+ *  980:     function getLabel($fieldName)
+ * 1022:     function getConfiguration()
+ * 1053:     function readFlexformMainTab($flexData, &$conf, $sTab)
+ * 1086:     function setFlexformConfiguration($key, $value)
+ * 1110:     function setIrreConfiguration()
+ * 1156:     function getJSValidationConfiguration()
+ * 1240:     function getFeUsersTca()
+ * 1254:     function getStoragePid()
+ * 1268:     function deletePoint($array)
+ * 1295:     function check_utf8($str)
  *
  *
- * TOTAL FUNCTIONS: 24
+ * TOTAL FUNCTIONS: 25
  *
  */
 
@@ -653,6 +654,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * Holt einen Subpart des Standardtemplates und ersetzt uebergeben Marker.
 	 *
 	 * @param	string		$templatePart
+	 * @param	array		$markerArray
 	 * @return	string
 	 */
 	function getTemplateSubpart($templatePart, $markerArray = Array()) {
