@@ -609,18 +609,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$markerArray[$key] = utf8_encode($val);
 			}
 		}
-		// Template holen.
-		$templateFile = $this->conf['register.']['emailtemplate'];
-		if (!$templateFile) {
-			$templateFile = 'EXT:datamints_feuser/res/datamints_feuser_mail.html';
-		}
 		// Template laden.
-		$template = $this->cObj->fileResource($templateFile);
-		$template = $this->cObj->getSubpart($template, '###' . strtoupper($templatePart) . '###');
-		if (!$this->check_utf8($template)) {
-			$template = utf8_encode($template);
-		}
-		$template = $this->cObj->substituteMarkerArray($template, $markerArray, '###|###', 1);
+		$template = $this->getTemplateSubpart($templatePart, $markerArray);
 		// Betreff ermitteln und aus dem E-Mail Content entfernen.
 		$subject = trim($this->cObj->getSubpart($template, '###SUBJECT###'));
 		$template = $this->cObj->substituteSubpart($template, '###SUBJECT###', '');
@@ -643,9 +633,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Verschicke Admin-Mail.
 		if ($this->conf['register.']['adminname'] && $this->conf['register.']['adminmail'] && $templatePart != 'doubleoptin') {
 			// Template laden.
-			$template = $this->cObj->fileResource($templateFile);
-			$template = $this->cObj->getSubpart($template, '###ADMINNOTIFICATION###');
-			$template = $this->cObj->substituteMarkerArray($template, $markerArray, '###|###', 1);
+			$template = $this->getTemplateSubpart('adminnotification', $markerArray);
 			// Betreff ermitteln und aus dem E-Mail Content entfernen.
 			$subject = trim($this->cObj->getSubpart($template, '###SUBJECT###'));
 			$template = $this->cObj->substituteSubpart($template, '###SUBJECT###', '');
@@ -659,6 +647,28 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 			mail($this->conf['register.']['adminname'] . ' <' . $this->conf['register.']['adminmail'] . '>', $subject, $template, $header);
 		}
+	}
+
+	/**
+	 * Holt einen Subpart des Standardtemplates und ersetzt uebergeben Marker.
+	 *
+	 * @param	string		$templatePart
+	 * @return	string
+	 */
+	function getTemplateSubpart($templatePart, $markerArray = Array()) {
+		// Template holen.
+		$templateFile = $this->conf['register.']['emailtemplate'];
+		if (!$templateFile) {
+			$templateFile = 'EXT:datamints_feuser/res/datamints_feuser_mail.html';
+		}
+		// Template laden.
+		$template = $this->cObj->fileResource($templateFile);
+		$template = $this->cObj->getSubpart($template, '###' . strtoupper($templatePart) . '###');
+		if (!$this->check_utf8($template)) {
+			$template = utf8_encode($template);
+		}
+		$template = $this->cObj->substituteMarkerArray($template, $markerArray, '###|###', 1);
+		return $template;
 	}
 
 	/**
