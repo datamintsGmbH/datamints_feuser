@@ -610,14 +610,16 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 		}
 		// Template holen.
-		if ($this->conf['register.']['emailtemplate']) {
-			$templateFile = $this->conf['register.']['emailtemplate'];
-		} else {
+		$templateFile = $this->conf['register.']['emailtemplate'];
+		if (!$templateFile) {
 			$templateFile = 'EXT:datamints_feuser/res/datamints_feuser_mail.html';
 		}
 		// Template laden.
-		$template = utf8_encode($this->cObj->fileResource($templateFile));
+		$template = $this->cObj->fileResource($templateFile);
 		$template = $this->cObj->getSubpart($template, '###' . strtoupper($templatePart) . '###');
+		if (!$this->check_utf8($template)) {
+			$template = utf8_encode($template);
+		}
 		$template = $this->cObj->substituteMarkerArray($template, $markerArray, '###|###', 1);
 		// Betreff ermitteln und aus dem E-Mail Content entfernen.
 		$subject = trim($this->cObj->getSubpart($template, '###SUBJECT###'));

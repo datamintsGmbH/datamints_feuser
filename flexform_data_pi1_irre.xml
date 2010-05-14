@@ -283,10 +283,14 @@
 							<type>select</type>
 							<items type="array">
 								<numIndex index="0" type="array">
+									<numIndex index="0"></numIndex>
+									<numIndex index="1"></numIndex>
+								</numIndex>
+								<numIndex index="1" type="array">
 									<numIndex index="0">Text</numIndex>
 									<numIndex index="1">text</numIndex>
 								</numIndex>
-								<numIndex index="1" type="array">
+								<numIndex index="2" type="array">
 									<numIndex index="0">HTML</numIndex>
 									<numIndex index="1">html</numIndex>
 								</numIndex>
