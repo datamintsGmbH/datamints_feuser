@@ -124,14 +124,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				break;
 			case 'redirect':
 				// Wenn Weiterleitung mit Login, dann wird erst eingeloggt und dann weitergeleitet.
+				$pageId = $GLOBALS['TSFE']->id;
 				if ($this->conf['register.']['redirect']) {
-					header('Location: ' . $this->pi_getPageLink($this->conf['register.']['redirect']) . '?' . $this->makeHiddenParams());
-					exit;
-				} else {
-					header('Location: ' . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '?' . $this->makeHiddenParams());
-					exit;
+					$pageId = $this->conf['register.']['redirect'];
 				}
-				break;
+				header('Location: ' . $this->pi_getPageLink($pageId) . '?' . $this->makeHiddenParams());
+				exit;
 			case 'doubleoptin':
 				if ($this->makeDoubleOptIn()) {
 					// Userid ermittln un Global definieren!
@@ -332,6 +330,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	string		$password
 	 */
 	function generatePassword($fieldName) {
+		// Uebergebenes Password setzten.
+		$password = $this->piVars[$fieldName];
 		// Erstellt ein Password.
 		if ($this->conf['register.']['generatepassword.']['mode']) {
 			$chars = '234567890abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -713,8 +713,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Konvertiert alle moeglichen Zeichen der Ausgabe, die stoeren koennten (XSS).
-		foreach ($arrCurrentData as $key => $val) {
-			$arrCurrentData[$key] = htmlspecialchars($val);
+		if ($arrCurrentData) {
+			foreach ($arrCurrentData as $key => $val) {
+				$arrCurrentData[$key] = htmlspecialchars($val);
+			}
 		}
 
 		// Ein Array erzeugen, mit allen zu benutztenden Feldern.
