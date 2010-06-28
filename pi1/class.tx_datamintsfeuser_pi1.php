@@ -107,7 +107,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Javascripts in den Head einbinden.
 		$GLOBALS['TSFE']->setJS($this->extKey, $this->getJSValidationConfiguration());
-		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId] .= '<script type="text/javascript" src="' . (($this->conf['jsvalidatorpath']) ? $this->conf['jsvalidatorpath'] : t3lib_extMgm::extRelPath($this->extKey) . 'res/validator.js') . '"></script>' . "\n";
+		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId] .= '<script type="text/javascript" src="' . (($this->conf['jsvalidatorpath']) ? $this->conf['jsvalidatorpath'] : t3lib_extMgm::extRelPath($this->extKey) . 'res/validator.min.js') . '"></script>' . "\n";
 
 		// Stylesheets in den Head einbinden.
 		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId] .= ($this->conf['disablestylesheet']) ? '' : '<link rel="stylesheet" type="text/css" href="' . (($this->conf['stylesheetpath']) ? $this->conf['stylesheetpath'] : t3lib_extMgm::extRelPath($this->extKey) . 'res/datamints_feuser.css') . '" />' . "\n";
@@ -1157,22 +1157,23 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function getJSValidationConfiguration() {
 		// Hier eine fertig generierte Konfiguration:
-		// var config = new Array();
-		// config['username'] = new Array();
-		// config['username']['validation'] = new Array();
-		// config['username']['validation']['type'] = 'username';
-		// config['username']['valid'] = 'Der Benutzername darf keine Leerzeichen beinhalten!';
-		// config['username']['required'] = 'Es muss ein Benutzername eingegeben werden!';
-		// config['password'] = new Array();
-		// config['password']['validation'] = new Array();
-		// config['password']['validation']['type'] = 'password';
-		// config['password']['equal'] = 'Es muss zwei mal das gleiche Passwort eingegeben werden!';
-		// config['password']['validation']['size'] = '6';
-		// config['password']['size'] = 'Das Passwort muss mindestens 6 Zeichen lang sein!';
-		// config['password']['required'] = 'Es muss ein Passwort angegeben werden!';
-		// var inputids = new Array('tx_datamintsfeuser_pi1_username', 'tx_datamintsfeuser_pi1_password_1', 'tx_datamintsfeuser_pi1_password_2');
+		// var config=[];
+		// config.username=[];
+		// config.username.validation=[];
+		// config.username.validation.type="username";
+		// config.username.valid="Der Benutzername darf keine Leerzeichen beinhalten!";
+		// config.username.required="Es muss ein Benutzername eingegeben werden!";
+		// config.password=[];
+		// config.password.validation=[];
+		// config.password.validation.type="password";
+		// config.password.equal="Es muss zwei mal das gleiche Passwort eingegeben werden!";
+		// config.password.validation.size="6";
+		// config.password.size="Das Passwort muss mindestens 6 Zeichen lang sein!";
+		// config.password.required="Es muss ein Passwort angegeben werden!";
+		// var inputids = new Array("tx_datamintsfeuser_pi1_username", "tx_datamintsfeuser_pi1_password_1", "tx_datamintsfeuser_pi1_password_2");
+		// var contentid = 11;
 
-		$configuration = "var config = new Array(); ";
+		$configuration = 'var config=[];';
 		$arrValidationFields = Array();
 		$usedFields = explode(',', str_replace(' ', '', $this->conf['usedfields']));
 		$requiredFields = explode(',', str_replace(' ', '', $this->conf['requiredfields']));#
@@ -1186,14 +1187,14 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					} else {
 						$arrValidationFields[] = $this->extKey . '_' . $this->contentUid . '_' . $fieldName;
 					}
-					$configuration .= "config['" . $fieldName . "'] = new Array(); ";
+					$configuration .= 'config.' . $fieldName . '=[];';
 					if (is_array($this->conf['validate.'][$fieldName . '.'])) {
-						$configuration .= "config['" . $fieldName . "']['validation'] = new Array(); ";
+						$configuration .= 'config.' . $fieldName . '.validation=[];';
 						// Da es mehrere Validierungskonfiguration pro Feld geben kann, muss hier jede einzeln durchgelaufen werden.
 						foreach ($this->conf['validate.'][$fieldName . '.'] as $key => $val) {
 							if ($key == 'length') {
-								$configuration .= "config['" . $fieldName . "']['validation']['size'] = '" . str_replace("'", "\\'", $val) . "'; ";
-								$configuration .= "config['" . $fieldName . "']['size'] = '" . str_replace("'", "\\'", $this->getLabel($fieldName . '_error_length')) . "'; ";
+								$configuration .= 'config.' . $fieldName . '.validation.size="' . str_replace('"', '\\"', $val) . '";';
+								$configuration .= 'config.' . $fieldName . '.size="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_length')) . '";';
 							} elseif ($key == 'regexp') {
 								// Da In JavaScript die regulaeren Ausdruecke nicht in einem String vorkommen duerfen diese entsprechen konvertieren (Slash am Anfang und am Ende).
 								// Um Fehler im regulaeren Ausdruck zu vermeiden, werden hier alle Slashes entfernt, "\/" wird debei nicht beruecksichtigt!
@@ -1212,24 +1213,24 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 								}
 								// Dann alle Slashes aus dem String entfernen, unter beruecksichtigung von "\/"!
 								$val = preg_replace('/([^\\\])\//', '$1', $val);
-								$configuration .= "config['" . $fieldName . "']['validation']['" . $key . "'] = " . $regexpStart . $val . $regexpEnd . "; ";
+								$configuration .= 'config.' . $fieldName . '.validation.' . $key . '=' . $regexpStart . $val . $regexpEnd . ';';
 							} else {
-								$configuration .= "config['" . $fieldName . "']['validation']['" . $key . "'] = '" . str_replace("'", "\\'", $val) . "'; ";
+								$configuration .= 'config.' . $fieldName . '.validation.' . $key . '="' . str_replace('"', '\\"', $val) . '";';
 							}
 							if ($key == 'type' && $val == 'password') {
-								$configuration .= "config['" . $fieldName . "']['equal'] = '" . str_replace("'", "\\'", $this->getLabel($fieldName . '_error_equal')) . "'; ";
+								$configuration .= 'config.' . $fieldName . '.equal="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_equal')) . '";';
 							}
 						}
 						if ($this->conf['validate.'][$fieldName . '.']['type'] != 'password') {
-							$configuration .= "config['" . $fieldName . "']['valid'] = '" . str_replace("'", "\\'", $this->getLabel($fieldName . '_error_valid')) . "'; ";
+							$configuration .= 'config.' . $fieldName . '.valid="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_valid')) . '";';
 						}
 					}
 					if (in_array($fieldName, $requiredFields)) {
-						$configuration .= "config['" . $fieldName . "']['required'] = '" . str_replace('\'', '\\\'', $this->getLabel($fieldName . '_error_required')) . "'; ";
+						$configuration .= 'config.' . $fieldName . '.required="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_required')) . '";';
 					}
 			}
 		}
-		$configuration .= "var inputids = new Array('" . implode("', '", $arrValidationFields) . "'); var contentid = " . $this->contentUid . ";";
+		$configuration .= 'var inputids=new Array("' . implode('","', $arrValidationFields) . '");var contentid=' . $this->contentUid . ';';
 		return $configuration;
 	}
 

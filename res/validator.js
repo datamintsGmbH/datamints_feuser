@@ -6,7 +6,7 @@ window.onload = function() {
 	var input;
 	for (var i = 0; i < inputids.length; i++) {
 		input = document.getElementById(inputids[i]);
-		// Wenn Input Typ eine Checkbox ist ein Klickevent setzten, da der IE bei onchange das Event erst  nach verlieren des Focus ausl�st.
+		// Wenn Input Typ eine Checkbox ist ein Klickevent setzten, da der IE bei onchange das Event erst nach verlieren des Focus ausloest.
 		if (input.type == 'checkbox') {
 			addEvent(input, 'click', inputItemCheck);
 		} else {
@@ -59,7 +59,7 @@ function inputItemCheck(evt, input) {
 		fieldName = fieldName.split('_')[0];
 	}
 
-	// Den Error Dialog l�schen, damit er wenn die Validierung korrekt ist nicht mehr da ist.
+	// Den Error Dialog loeschen, damit er wenn die Validierung korrekt ist nicht mehr da ist.
 	removeInfo(fieldName);
 
 	if (config[fieldName] != null) {
@@ -96,14 +96,14 @@ function inputItemCheck(evt, input) {
 							if (validate['size']) {
 								arrLength = validate['size'].replace(' ', '').split(',');
 								if (arrLength[1]) {
-									// Wenn eine Maximall�nge festgelegt wurde.
+									// Wenn eine Maximallaenge festgelegt wurde.
 									if (value.length < arrLength[0] || value.length > arrLength[1]) {
 										ret = true;
 										removeInfo(fieldName);
 										showInfo(error_item, fieldName, 'size');
 									}
 								} else {
-									// Wenn nur eine Minimall�nge festgelegt wurde.
+									// Wenn nur eine Minimallaenge festgelegt wurde.
 									if (value.length < arrLength[0]) {
 										ret = true;
 										removeInfo(fieldName);
@@ -111,7 +111,7 @@ function inputItemCheck(evt, input) {
 									}
 								}
 							} else {
-								// Wenn nur eine Minimall�nge festgelegt wurde.
+								// Wenn nur eine Minimallaenge festgelegt wurde.
 								if (value.length < arrLength[0]) {
 									ret = true;
 									removeInfo(fieldName);
@@ -167,14 +167,14 @@ function inputItemCheck(evt, input) {
 					if (validate['size']) {
 						arrLength = validate['size'].replace(' ', '').split(',');
 						if (arrLength[1]) {
-							// Wenn eine Maximall�nge festgelegt wurde.
+							// Wenn eine Maximallaenge festgelegt wurde.
 							if (value.length < arrLength[0] || value.length > arrLength[1]) {
 								ret = true;
 								removeInfo(fieldName);
 								showInfo(error_item, fieldName, 'size');
 							}
 						} else {
-							// Wenn nur eine Minimall�nge festgelegt wurde.
+							// Wenn nur eine Minimallaenge festgelegt wurde.
 							if (value.length < arrLength[0]) {
 								ret = true;
 								removeInfo(fieldName);
