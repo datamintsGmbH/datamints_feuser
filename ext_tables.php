@@ -23,17 +23,17 @@ $tempColumns = array (
 		'exclude' => 0,		
 		'label' => 'LLL:EXT:datamints_feuser/locallang_db.xml:fe_users.tx_datamintsfeuser_firstname',		
 		'config' => array (
-			'type' => 'input',	
-			'size' => '30',	
+			'type' => 'input',
+			'size' => '30',
 			'eval' => 'trim',
 		)
 	),
 	'tx_datamintsfeuser_surname' => array (		
-		'exclude' => 0,		
-		'label' => 'LLL:EXT:datamints_feuser/locallang_db.xml:fe_users.tx_datamintsfeuser_surname',		
+		'exclude' => 0,
+		'label' => 'LLL:EXT:datamints_feuser/locallang_db.xml:fe_users.tx_datamintsfeuser_surname',
 		'config' => array (
-			'type' => 'input',	
-			'size' => '30',	
+			'type' => 'input',
+			'size' => '30',
 			'eval' => 'trim',
 		)
 	),
@@ -42,8 +42,10 @@ $tempColumns = array (
 
 t3lib_div::loadTCA('fe_users');
 t3lib_extMgm::addTCAcolumns('fe_users',$tempColumns,1);
-$TCA['fe_users']['types'][0]['showitem'] = str_replace('name;;1;;1-1-1,', 'name;;1;;1-1-1, tx_datamintsfeuser_firstname, tx_datamintsfeuser_surname,', $TCA['fe_users']['types'][0]['showitem']);
-//t3lib_extMgm::addToAllTCAtypes('fe_users','tx_datamintsfeuser_firstname;;;;1-1-1, tx_datamintsfeuser_surname');
+
+//$TCA['fe_users']['types'][0]['showitem'] = str_replace('name;;1;;1-1-1,', 'name;;1;;1-1-1, tx_datamintsfeuser_firstname, tx_datamintsfeuser_surname,', $TCA['fe_users']['types'][0]['showitem']);
+t3lib_extMgm::addToAllTCAtypes('fe_users','tx_datamintsfeuser_firstname, tx_datamintsfeuser_surname', '', 'after:name');
+//t3lib_extMgm::addFieldsToAllPalettesOfField('fe_users', 'name', 'tx_datamintsfeuser_firstname, tx_datamintsfeuser_surname, --linebreak--', 'before:title,before:first_name');
 
 t3lib_extMgm::addStaticFile($_EXTKEY,'pi1/static/', 'datamints feuser styles');
 

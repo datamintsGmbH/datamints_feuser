@@ -551,7 +551,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Wenn die Datei zu gross ist.
-		$maxSize = $this->feUsersTca['columns'][$fieldName]['config']['max_size'];
+		$maxSize = $this->feUsersTca['columns'][$fieldName]['config']['max_size'] * 1024;
 		if ($maxSize && $_FILES[$this->prefixId]['size'][$fieldName] > $maxSize) {
 			// Konfigurierte maximale Dateigroesse ueberschritten.
 			return 'size';
