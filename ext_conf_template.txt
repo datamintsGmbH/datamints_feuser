@@ -1,2 +1,2 @@
 # cat=basic/enableUsed; type=boolean; label=Enable IRRE:Enable the use of IRRE in plugin configuration.
-useIRRE = 0
+useIRRE = 1

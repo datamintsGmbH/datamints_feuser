@@ -1,16 +1,24 @@
 
+var formId = 0;
+var config = [];
+var inputids = [];
+var contentids = [];
+
 window.onload = function() {
-	var form = document.getElementById('datamints_feuser_' + contentid + '_form');
-	addEvent(form, 'submit', formCheck);
-	form.getElementsByTagName('input');
-	var input;
-	for (var i = 0; i < inputids.length; i++) {
-		input = document.getElementById(inputids[i]);
-		// Wenn Input Typ eine Checkbox ist ein Klickevent setzten, da der IE bei onchange das Event erst nach verlieren des Focus ausloest.
-		if (input.type == 'checkbox') {
-			addEvent(input, 'click', inputItemCheck);
-		} else {
-			addEvent(input, 'change', inputItemCheck);
+	for (formId in contentids) {
+		if (typeof(contentids[formId]) == 'function') continue;
+		var form = document.getElementById('datamints_feuser_' + formId + '_form');
+		addEvent(form, 'submit', formCheck);
+		form.getElementsByTagName('input');
+		var input;
+		for (var i = 0; i < inputids[formId].length; i++) {
+			input = document.getElementById(inputids[formId][i]);
+			// Wenn Input Typ eine Checkbox ist ein Klickevent setzten, da der IE bei onchange das Event erst nach verlieren des Focus ausloest.
+			if (input.type == 'checkbox') {
+				addEvent(input, 'click', inputItemCheck);
+			} else {
+				addEvent(input, 'change', inputItemCheck);
+			}
 		}
 	}
 }
@@ -19,9 +27,12 @@ function formCheck(evt) {
 	var error;
 	var ret = false;
 
-	for (fieldId in inputids) {
-		if (typeof(inputids[fieldId]) == 'function') continue;
-		error = inputItemCheck(null, document.getElementById(inputids[fieldId]));
+	// ID des aktuell verwendeten Formulars ueber das aktuell verwendete Input Element ermitteln.
+	formId = getEventTarget(evt).id.split('_')[2];
+
+	for (fieldId in inputids[formId]) {
+		if (typeof(inputids[formId][fieldId]) == 'function') continue;
+		error = inputItemCheck(null, document.getElementById(inputids[formId][fieldId]), formId);
 		if (error == true && ret == false) {
 			ret = true;
 			window.event ? event.returnValue = false : evt.preventDefault();
@@ -33,11 +44,7 @@ function inputItemCheck(evt, input) {
 	var ret = false;
 	var arrLength = null;
 	if (evt != null) {
-		if (evt.target) {
-			input = evt.target;
-		} else {
-			input = evt.srcElement;
-		}
+		input = getEventTarget(evt);
 	}
 	var value = input.value;
 	if (input.type == 'select-one' || input.type == 'select-multiple') {
@@ -54,18 +61,21 @@ function inputItemCheck(evt, input) {
 	if (input.type == 'checkbox') {
 		value = input.checked;
 	}
-	var fieldName = input.name.split('[')[1].split(']')[0];
-	if (fieldName.split('_')[1] == 'rep') {
-		fieldName = fieldName.split('_')[0];
+	var fieldName = input.name.split('[')[2].split(']')[0];
+	if (fieldName.split('_').reverse()[0] == 'rep') {
+		fieldName = fieldName.slice(0, fieldName.length - 4);
 	}
+
+	// ID des aktuell verwendeten Formulars ueber das aktuell verwendete Input Element ermitteln.
+	formId = input.id.split('_')[2];
 
 	// Den Error Dialog loeschen, damit er wenn die Validierung korrekt ist nicht mehr da ist.
 	removeInfo(fieldName);
 
-	if (config[fieldName] != null) {
+	if (config[formId][fieldName] != null) {
 		var error_item;
-		var validate = config[fieldName]['validation'];
-		if (config[fieldName]['required'] && (!value || (typeof(value) == 'object' && !value.length))) {
+		var validate = config[formId][fieldName]['validation'];
+		if (config[formId][fieldName]['required'] && (!value || (typeof(value) == 'object' && !value.length))) {
 			error_item = input;
 			if (validate && validate['type'] == 'password') {
 				if (input.id.split('_').reverse()[0] != 'rep') {
@@ -192,19 +202,27 @@ function inputItemCheck(evt, input) {
 	return ret;
 }
 
+function getEventTarget(evt) {
+	if (evt.target) {
+		return evt.target;
+	} else {
+		return evt.srcElement;
+	}
+}
+
 function showInfo(input, fieldName, error) {
 	var div = document.createElement('div');
 	div.className = 'form_error ' + fieldName + '_error';
-	div.innerHTML = config[fieldName][error];
+	div.innerHTML = config[formId][fieldName][error];
 	input.parentNode.insertBefore(div, input.nextSibling);
 }
 
 function removeInfo(fieldName) {
 	var fieldNameWrapper = fieldName;
-	if (config[fieldName]['validation'] && config[fieldName]['validation']['type'] == 'password') {
+	if (config[formId][fieldName]['validation'] && config[formId][fieldName]['validation']['type'] == 'password') {
 		fieldNameWrapper = fieldName + '_rep';
 	}
-	var error_item_father = document.getElementById('datamints_feuser_' + contentid + '_' + fieldNameWrapper + '_wrapper');
+	var error_item_father = document.getElementById('datamints_feuser_' + formId + '_' + fieldNameWrapper + '_wrapper');
 	if (error_item_father != undefined && error_item_father.lastChild.className == 'form_error ' + fieldName + '_error') {
 		error_item_father.removeChild(error_item_father.lastChild);
 	}

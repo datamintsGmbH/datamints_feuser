@@ -23,175 +23,215 @@ The getFields method is used to get the "fe_users" field names into the flexform
 
 }
 
-?>";i:1;i:0;}s:12:"content_size";i:367;s:13:"content_lines";i:16;s:6:"atLine";i:38;}}s:10:"usageCount";a:2:{s:12:"H_3521012205";a:2:{s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:33:"class tx_flexform_getFieldNames {";}s:12:"H_f8248cbb61";a:2:{s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:33:"function getFieldNames($config) {";}}}s:14:"MD5_8f66ccd171";a:5:{s:8:"filename";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:8:"filesize";i:55621;s:6:"header";a:5:{s:4:"text";s:66:"
+?>";i:1;i:0;}s:12:"content_size";i:367;s:13:"content_lines";i:16;s:6:"atLine";i:38;}}s:10:"usageCount";a:2:{s:12:"H_3521012205";a:2:{s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:33:"class tx_flexform_getFieldNames {";}s:12:"H_f8248cbb61";a:2:{s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:33:"function getFieldNames($config) {";}}}s:14:"MD5_8f66ccd171";a:5:{s:8:"filename";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:8:"filesize";i:79275;s:6:"header";a:5:{s:4:"text";s:74:"
 
-Plugin 'datamints feuser' for the 'datamints_feuser' extension.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:54:"@author	Bernhard baumgartl <b.baumgartl@datamints.com>";i:1;s:14:"@package	TYPO3";i:2;s:30:"@subpackage	tx_datamintsfeuser";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:46:"Bernhard baumgartl <b.baumgartl@datamints.com>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:19:"tx_datamintsfeuser ";}}}s:3:"DAT";a:26:{i:1;a:8:{s:6:"header";s:51:"class tx_datamintsfeuser_pi1 extends tslib_pibase {";s:5:"class";i:1;s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:66:"
+Plugin 'Frontend User Management' for the 'datamints_feuser' extension.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:54:"@author	Bernhard baumgartl <b.baumgartl@datamints.com>";i:1;s:14:"@package	TYPO3";i:2;s:30:"@subpackage	tx_datamintsfeuser";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:46:"Bernhard baumgartl <b.baumgartl@datamints.com>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:19:"tx_datamintsfeuser ";}}}s:3:"DAT";a:44:{i:1;a:8:{s:6:"header";s:51:"class tx_datamintsfeuser_pi1 extends tslib_pibase {";s:5:"class";i:1;s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:74:"
 
-Plugin 'datamints feuser' for the 'datamints_feuser' extension.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:54:"@author	Bernhard baumgartl <b.baumgartl@datamints.com>";i:1;s:14:"@package	TYPO3";i:2;s:30:"@subpackage	tx_datamintsfeuser";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:46:"Bernhard baumgartl <b.baumgartl@datamints.com>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:19:"tx_datamintsfeuser ";}}}s:7:"content";a:2:{i:0;s:440:"	var $prefixId      = 'tx_datamintsfeuser_pi1';		// Same as class name
+Plugin 'Frontend User Management' for the 'datamints_feuser' extension.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:54:"@author	Bernhard baumgartl <b.baumgartl@datamints.com>";i:1;s:14:"@package	TYPO3";i:2;s:30:"@subpackage	tx_datamintsfeuser";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:46:"Bernhard baumgartl <b.baumgartl@datamints.com>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:19:"tx_datamintsfeuser ";}}}s:7:"content";a:2:{i:0;s:572:"	var $prefixId      = 'tx_datamintsfeuser_pi1';		// Same as class name
 	var $scriptRelPath = 'pi1/class.tx_datamintsfeuser_pi1.php';	// Path to this script relative to the extension dir.
 	var $extKey        = 'datamints_feuser';	// The extension key.
 	var $pi_checkCHash = true;
-	var $feUsersTca = Array();
+	var $feUsersTca = array();
 	var $storagePid = 0;
 	var $contentUid = 0;
-	var $conf = Array();
-	var $extConf = Array();
-	var $lang = Array();
+	var $conf = array();
+	var $extConf = array();
+	var $lang = array();
 	var $userId = 0;
+	var $arrUsedFields = array();
+	var $arrRequiredFields = array();
+	var $arrUniqueFields = array();
+	var $arrHiddenParams = array();
 
-	";i:1;i:-1;}s:12:"content_size";i:440;s:13:"content_lines";i:12;s:6:"atLine";i:70;}i:3;a:7:{s:6:"header";s:32:"function main($content, $conf) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:32:"
+	";i:1;i:-1;}s:12:"content_size";i:572;s:13:"content_lines";i:16;s:6:"atLine";i:88;}i:3;a:7:{s:6:"header";s:32:"function main($content, $conf) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:32:"
 
 The main method of the PlugIn
 ";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:28:"$content: The PlugIn content";}i:1;a:2:{i:0;s:5:"array";i:1;s:31:"$conf: The PlugIn configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:44:"The content that is displayed on the website";}}s:7:"content";a:2:{i:0;s:507:"		$this->conf = $conf;
-		$this->contentUid = $this->cObj->data['uid'];
-		$this->pi_setPiVarDefaults();
-		$this->pi_loadLL();
 
 		// Debug.
 		//$GLOBALS['TSFE']->set_no_cache();
 		//$GLOBALS['TYPO3_DB']->debugOutput = true;
 
+		// ContentId ermitteln.
+		$this->contentId = $this->cObj->data['uid'];
+
+		// UserId ermitteln.
+		$this->userId = $GLOBALS['TSFE']->fe_user->user['uid'];
+
 		// Flexform und Configurationen laden.
-		$this->pi_initPIflexForm();
-		$this->getConfiguration();
-		$this->getFeUsersTca();
-		$this->getStoragePid();
-
+		$this->pi_setPiVarDefaults();
+		$this->pi_initPIflexFor
 [...]
+			break;
 
-				break;
 			default:
 				$content = $this->showForm();
 				break;
+
 		}
 
 		return $this->pi_wrapInBaseClass($content);
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:3143;s:13:"content_lines";i:72;s:6:"atLine";i:90;}i:5;a:7:{s:6:"header";s:21:"function sendForm() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:122:"
+	";i:1;i:1;}s:12:"content_size";i:2080;s:13:"content_lines";i:53;s:6:"atLine";i:112;}i:5;a:7:{s:6:"header";s:21:"function sendForm() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:122:"
 
 Bereitet die uebergebenen Daten fuer den Import in die Datenbank vor, und fuehrt diesen, wenn es keine Fehler gab, aus.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		// Jedes Element trimmen.
-		foreach ($this->piVars as $key => $value) {
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		$mode = '';
+		$submode = '';
+		$params = array();
+
+		// Jedes Element trimmen.
+		foreach ($this->piVars[$this->contentId] as $key => $value) {
 			if (!is_array($value)) {
-				$this->piVars[$key] = trim($value);
+				$this->piVars[$this->contentId][$key] = trim($value);
 			}
 		}
 
 		// Ueberpruefen ob Datenbankeintraege mit den uebergebenen Daten uebereinstimmen.
 		$uniqueCheck = $this->uniqueCheckForm();
-		// Eine Validierung durchfuehren ueber alle Felder die eine gesonderte Konfigurtion bekommen h
+
+		// E
 [...]
-enParams());
-						exit;
-					}
-					$content = $this->pi_getLL('register_success');
+rname' => $arrUpdate['username']);
 				}
 			}
 		}
 
-		return $content;
+		return $this->showMessageOutputRedirect($mode, $submode, $params);
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:7618;s:13:"content_lines";i:157;s:6:"atLine";i:168;}i:7;a:7:{s:6:"header";s:39:"function generatePassword($fieldName) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:125:"
-
-Erstellt wenn gefordert ein Password, und verschluesselt dieses, oder das uebergebene, wenn es verschluesselt werden soll.
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:9:"$password";}}s:7:"content";a:2:{i:0;s:507:"		// Erstellt ein Password.
-		if ($this->conf['register.']['generatepassword.']['mode']) {
-			$chars = '234567890abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-			$i = 1;
-			$password = '';
-			while ($i <= $this->conf['register.']['generatepassword.']['length']) {
-				$password .= $chars{mt_rand(0, strlen($chars))};
-				$i++;
-			}
-			// Unverschluesseltes Password a
-[...]
-);
-				$password = $tx_t3secsaltedpw_phpass->getHashedPassword($this->piVars[$fieldName]);
-			}
-		}
-		return $password;
-	}
-
-	";i:1;i:1;}s:12:"content_size";i:1830;s:13:"content_lines";i:39;s:6:"atLine";i:332;}i:9;a:7:{s:6:"header";s:29:"function requireCheckForm() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:73:"
-
-Ueberprueft ob alle benoetigten Felder mit Inhalten uebergeben wurden.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:7:"content";a:2:{i:0;s:294:"		// Alle ausgewaehlten Felder durchgehen.
-		$requiredFields = explode(',', str_replace(' ', '', $this->conf['requiredfields']));
-		foreach ($requiredFields as $fieldName) {
-			if ($this->piVars[$fieldName] == '') {
-				$valueCheck[$fieldName] = 'required';
-			}
-		}
-		return $valueCheck;
-	}
-
-	";i:1;i:0;}s:12:"content_size";i:294;s:13:"content_lines";i:10;s:6:"atLine";i:377;}i:11;a:7:{s:6:"header";s:25:"function validateForm() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:56:"
-
-Ueberprueft ob alle Validierungen eingehalten wurden.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:7:"content";a:2:{i:0;s:507:"		// Alle ausgewaehlten Felder durchgehen.
-		foreach ($this->conf['validate.'] as $fieldName => $validate) {
-			$fieldName = trim($fieldName, '.');
-
-			// Wenn der im TypoScript angegebene Feldname existiert,
-			if ($this->feUsersTca['columns'][$fieldName]
-					// ein Wert uebergeben wurde,
-					&& $this->piVars[$fieldName] !== ''
-					// der Konfigurierte Modus stimmt,
-		
-[...]
-eCheck[$fieldName] = 'length';
-									}
-								}
-							}
-						}
-						break;
-
-				}
-			}
-		}
-		return $valueCheck;
-	}
-
-	";i:1;i:1;}s:12:"content_size";i:3352;s:13:"content_lines";i:107;s:6:"atLine";i:393;}i:13;a:7:{s:6:"header";s:28:"function uniqueCheckForm() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:112:"
+	";i:1;i:1;}s:12:"content_size";i:9590;s:13:"content_lines";i:222;s:6:"atLine";i:171;}i:7;a:7:{s:6:"header";s:28:"function uniqueCheckForm() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:112:"
 
 Ueberprueft die uebergebenen Inhalte, bei bestimmten Feldern, ob diese in der Datenbank schon vorhanden sind.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:7:"content";a:2:{i:0;s:507:"		// Check unique Fields.
-		$uniqueFields = explode(',', str_replace(' ', '', $this->conf['uniquefields']));
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:7:"content";a:2:{i:0;s:507:"		$valueCheck = array();
+
+		// Check unique Fields.
+		$arrUniqueFields = $this->cleanArray(t3lib_div::trimExplode(',', $this->conf['uniquefields']));
+
 		// Wenn User eingeloggt, dann den eigenen Datensatz nicht durchsuchen.
 		if ($this->conf['showtype'] == 'edit' && $this->userId) {
 			$where = ' AND uid <> ' . $this->userId;
 		}
-		foreach ($uniqueFields as $fieldName) {
-			if (trim(strip_tags($this->piVars[$field
+
+		foreach ($arrUniqueFields as $fieldName)
 [...]
-ssoc($res);
+oc($res);
+
 				if ($row['count'] >= 1) {
 					$valueCheck[$fieldName] = 'unique';
 				}
 			}
 		}
+
 		return $valueCheck;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:836;s:13:"content_lines";i:18;s:6:"atLine";i:506;}i:15;a:7:{s:6:"header";s:51:"function saveDeleteImage($fieldName, &$arrUpdate) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:80:"
+	";i:1;i:1;}s:12:"content_size";i:882;s:13:"content_lines";i:24;s:6:"atLine";i:399;}i:9;a:7:{s:6:"header";s:25:"function validateForm() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:56:"
+
+Ueberprueft ob alle Validierungen eingehalten wurden.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:7:"content";a:2:{i:0;s:507:"		$valueCheck = array();
+
+		// Alle ausgewaehlten Felder durchgehen.
+		foreach ($this->arrUsedFields as $fieldName) {
+			 $validate = $this->conf['validate.'][$fieldName . '.'];
+
+			// Wenn der im TypoScript angegebene Feldname existiert,
+			if ($this->feUsersTca['columns'][$fieldName]
+					// ein Wert uebergeben wurde,
+					&& $this->piVars[$this->contentId][$fieldName]
+	
+[...]
+;
+
+					if ($row['count'] < 1) {
+						$valueCheck[$fieldName] = 'valid';
+					}
+				}
+			}
+
+		}
+
+		return $valueCheck;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:4608;s:13:"content_lines";i:137;s:6:"atLine";i:429;}i:11;a:7:{s:6:"header";s:29:"function requireCheckForm() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:73:"
+
+Ueberprueft ob alle benoetigten Felder mit Inhalten uebergeben wurden.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:7:"content";a:2:{i:0;s:445:"		$valueCheck = array();
+
+		// Geht alle benoetigten Felder durch und ermittelt fehlende.
+		foreach ($this->arrRequiredFields as $fieldName) {
+			// Ueberpruefen, ob das Feld ueberhaupt benoetigt wird, und ob ein Wert uebergeben wurde.
+			if (in_array($fieldName, $this->arrUsedFields) && !$this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)]) {
+				$valueCheck[$fieldName] = 'required';
+			}
+		}
+
+		return $valueCheck;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:445;s:13:"content_lines";i:13;s:6:"atLine";i:572;}i:13;a:7:{s:6:"header";s:65:"function generatePassword($fieldName, $generatePassword = true) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:125:"
+
+Erstellt wenn gefordert ein Password, und verschluesselt dieses, oder das uebergebene, wenn es verschluesselt werden soll.
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:7:"boolean";i:1;s:17:"$generatePassword";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:9:"$password";}}s:7:"content";a:2:{i:0;s:507:"		// Uebergebenes Password setzten.
+		$password = $this->piVars[$this->contentId][$fieldName];
+
+		// Erstellt ein Password.
+		if ($this->conf['register.']['generatepassword.']['mode'] && $generatePassword) {
+			$i = 1;
+			$password = '';
+			$chars = '234567890abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+			while ($i <= $this->conf['register.']['generatepassword.'
+[...]
+$tx_t3secsaltedpw_phpass->getHashedPassword($this->piVars[$this->contentId][$fieldName]);
+			}
+		}
+
+		return $password;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:2028;s:13:"content_lines";i:51;s:6:"atLine";i:593;}i:15;a:7:{s:6:"header";s:62:"function checkPassword($submitedPassword, $originalPassword) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:172:"
+
+Ueberprueft anhand der aktuellen Verschluesselungsextension, ob das uebergebene unverschluesselte Passwort mit dem uebergebenen verschluesselten Passwort uebereinstimmt.
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:17:"$submitedPassword";}i:1;a:2:{i:0;s:6:"string";i:1;s:17:"$originalPassword";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		$check = false;
+
+		// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password ueberprueft.
+		if (t3lib_extMgm::isLoaded('saltedpasswords')) {
+			$saltedpasswords = tx_saltedpasswords_div::returnExtConf();
+
+			if ($saltedpasswords['enabled'] == 1) {
+				$tx_saltedpasswords = t3lib_div::makeInstance($saltedpasswords['sal
+[...]
+dpw_phpass->checkPassword($submitedPassword, $originalPassword)) {
+					$check = true;
+				}
+			}
+		}
+
+		return $check;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:1502;s:13:"content_lines";i:41;s:6:"atLine";i:652;}i:17;a:7:{s:6:"header";s:51:"function saveDeleteImage($fieldName, &$arrUpdate) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:80:"
 
 The saveDeleteImage method is used to update or delete an image of an address
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:68:"$arrUpdate // Call by reference Array mit allen zu updatenden Daten.";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		// Verzeichniss ermitteln.
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:68:"$arrUpdate // Call by reference Array mit allen zu updatenden Daten.";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		// Verzeichniss ermitteln.
 		$uploadFolder = $this->feUsersTca['columns'][$fieldName]['config']['uploadfolder'];
+
 		if (substr($uploadFolder, -1) != '/') {
 			$uploadFolder = $uploadFolder . '/';
 		}
 
 		// Bild loeschen und ueberpruefen ob das Bild auch wirklich existiert.
-		if ($this->piVars[$fieldName . '_delete']) {
+		if ($this->piVars[$this->contentId][$fieldName . '_delete']) {
 			$arrUpdate[$fieldName] = '';
-			$res = $GLOBALS['T
+
+	
 [...]
-e;
+;
+
 				// Wenn Das Bild erfolgreich hochgeladen wurde, nichts zurueckgeben.
 				return '';
 			}
@@ -200,164 +240,401 @@ e;
 		return 'upload';
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:2333;s:13:"content_lines";i:61;s:6:"atLine";i:532;}i:17;a:7:{s:6:"header";s:59:"function sendMail($templatePart, $extraMarkers = Array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:100:"
+	";i:1;i:1;}s:12:"content_size";i:2486;s:13:"content_lines";i:73;s:6:"atLine";i:701;}i:19;a:7:{s:6:"header";s:77:"function showMessageOutputRedirect($mode, $submode = '', $params = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:174:"
+
+Erledigt allen Output der nichts mit dem eigendlichen Formular zu tun hat.
+Fuer besondere Faelle kann hier eine Ausnahme, oder zusaetzliche Konfigurationen gesetzt werden.
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"string";i:1;s:5:"$mode";}i:1;a:2:{i:0;s:6:"string";i:1;s:8:"$submode";}i:2;a:2:{i:0;s:5:"array";i:1;s:7:"$params";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		$redirect = true;
+
+		// Label ermitteln
+		$label = $this->getLabel($mode . (($submode) ? '_' . $submode : ''));
+
+		// Zusaetzliche Konfigurationen die gesetzt werden, bevor die Ausgabe oder der Redirect ausgefuehrt werden.
+		switch ($mode) {
+
+			case 'register':
+				// Login vollziehen, falls eine Redirectseite angegeben ist, wird dorthin automatisch umgeleitet.
+				if (
+[...]
+ct && $this->conf['redirect.'][$mode]) {
+			$this->userRedirect($this->conf['redirect.'][$mode]);
+		}
+
+		return $label;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:2157;s:13:"content_lines";i:60;s:6:"atLine";i:784;}i:21;a:7:{s:6:"header";s:35:"function userAutoLogin($username) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:43:"
+
+Vollzieht einen Login ohne ein Passwort.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:9:"$username";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:373:"		// Login vollziehen.
+		$GLOBALS['TSFE']->fe_user->checkPid = 0;
+		$info = $GLOBALS['TSFE']->fe_user->getAuthInfoArray();
+		$user = $GLOBALS['TSFE']->fe_user->fetchUserRecord($info['db_user'], $username);
+		$GLOBALS['TSFE']->fe_user->createUserSession($user);
+
+		// Umleiten, damit der Login wirksam wird.
+		$this->userRedirect($this->conf['redirect.']['register']);
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:373;s:13:"content_lines";i:10;s:6:"atLine";i:851;}i:23;a:7:{s:6:"header";s:36:"function userRedirect($pageId = 0) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:82:"
+
+Vollzieht einen Redirect mit der Seite die benutzt wird, oder auf die aktuelle.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:3:"int";i:1;s:7:"$pageId";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:297:"		// Normalen Redirect, oder Redirect auf die gewuenschte Seite.
+		if (!$pageId) {
+			$pageId = $GLOBALS['TSFE']->id;
+		}
+
+		$pageLink = $this->pi_getPageLink($pageId);
+		header('Location: ' . $pageLink . ((strpos($pageLink, '?') === false) ? '?' : '&') . $this->makeHiddenParams());
+		exit;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:297;s:13:"content_lines";i:10;s:6:"atLine";i:868;}i:25;a:7:{s:6:"header";s:38:"function sendActivationMail($userId) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:56:"
+
+Sendet die Aktivierungsmail an den uebergebenen User.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:3:"int";i:1;s:7:"$userId";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		// Neuen Timestamp setzten, damit jede Aktivierungsmail einen anderen Hash hat.
+		$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . intval($userId),array('tstamp' => time()));
+
+		// Userdaten ermitteln.
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tstamp, username, email, tx_datamintsfeuser_approval_level', 'fe_users', 'uid = ' . intval($userId), '',
+[...]
+rs);
+
+		// Cookie fuer das erneute zusenden des Aktivierungslinks setzten.
+		$this->setNotActivatedCookie($row['uid']);
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:1791;s:13:"content_lines";i:29;s:6:"atLine";i:885;}i:27;a:7:{s:6:"header";s:37:"function makeApprovalCheck($userId) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:88:"
+
+Ueberprueft ob die Linkestaetigung gueltig ist und aktiviert gegebenenfalls den User.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:3:"int";i:1;s:7:"$userId";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		// Userdaten ermitteln.
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tstamp, username, email, tx_datamintsfeuser_approval_level', 'fe_users', 'uid = ' . $userId, '', '', '1');
+		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+
+		// Genehmigungstyp ermitteln um die richtige E-Mail zu senden, bzw. die richtige Ausgabe zu ermitteln.
+		$arrApprovalTypes = $this-
+[...]
+ss';
+			$params = array('userId' => $userId);
+		}
+
+		return $this->showMessageOutputRedirect($mode, $submode, $params);
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:2166;s:13:"content_lines";i:51;s:6:"atLine";i:921;}i:29;a:7:{s:6:"header";s:29:"function getApprovalTypes() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:36:"
+
+Ermittelt alle Genehmigungstypen.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:417:"		// Genhemigungstypen aufsteigend sortiert ermitteln. Das ist nötig um das Level dem richtigen Typ zuordnen zu können.
+		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig lässt.
+		return array_values($this->cleanArray(t3lib_div::trimExplode(',', $this->conf['register.']['approvalcheck'])));
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:417;s:13:"content_lines";i:5;s:6:"atLine";i:978;}i:31;a:7:{s:6:"header";s:37:"function isAdminMail($approvalType) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:177:"
+
+Ueberprueft anhand des Genehmigungstyps ob die Mail eine Adminmail oder eine Usermail ist. Wenn 'admin' im Namen des Genehmigungstyps steht, dann ist die Mail eine Adminmail.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:13:"$approvalType";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:73:"		return (strpos($approvalType, 'admin') === false) ? false : true;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:73;s:13:"content_lines";i:3;s:6:"atLine";i:990;}i:33;a:7:{s:6:"header";s:41:"function setNotActivatedCookie($userId) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:90:"
+
+Setzt einen Cookie fuer den neu angelegten Account, falls dieser aktiviert werden muss.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:3:"int";i:1;s:7:"$userId";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:213:"		$arrNotActivated = $this->getNotActivatedCookieArray();
+		$arrNotActivated[] = intval($userId);
+		setcookie($this->prefixId . '[not_activated]', implode(',', $arrNotActivated), time() + 60 * 60 * 24 * 30);
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:213;s:13:"content_lines";i:5;s:6:"atLine";i:1000;}i:35;a:7:{s:6:"header";s:39:"function getNotActivatedCookieArray() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:55:"
+
+Ermittelt alle nicht aktivierten Accounts des Users.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		$arrNotActivated = array();
+
+		// Nicht aktivierte User ueber den Cookie ermitteln, und vor missbrauch schuetzen.
+		$arrNotActivatedCookie = $this->cleanArray(t3lib_div::trimExplode(',', $_COOKIE[$this->prefixId . '[not_activated]']));
+
+		foreach ($arrNotActivatedCookie as $key => $val) {
+			$arrNotActivatedCookie[$key] = intval($val);
+		}
+
+		// Wenn nach dem reinigen no
+[...]
+LOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+				$arrNotActivated[] = $row['uid'];
+			}
+		}
+
+		return $arrNotActivated;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:850;s:13:"content_lines";i:22;s:6:"atLine";i:1011;}i:37;a:7:{s:6:"header";s:87:"function sendMail($userId, $templatePart, $adminMail = true, $extraMarkers = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:100:"
 
 Sendet die E-Mails mit dem uebergebenen Template und falls angegeben, auch mit den extra Markern.
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:13:"$templatePart";}i:1;a:2:{i:0;s:5:"array";i:1;s:13:"$extraMarkers";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		// Userdaten holen.
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . $this->userId , '', '');
-		$dataArray = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-		$markerArray = array_merge((Array)$dataArray, (Array)$extraMarkers);
+";s:5:"param";a:4:{i:0;a:2:{i:0;s:3:"int";i:1;s:7:"$userId";}i:1;a:2:{i:0;s:6:"string";i:1;s:13:"$templatePart";}i:2;a:2:{i:0;s:7:"boolean";i:1;s:10:"$adminMail";}i:3;a:2:{i:0;s:5:"array";i:1;s:13:"$extraMarkers";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		// Userdaten ermitteln.
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . intval($userId), '', '', '1');
+		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+
+		$markerArray = array_merge((array)$row, (array)$extraMarkers);
+
 		foreach ($markerArray as $key => $val) {
-			if (!$this->check_utf8($val)) {
+			if (!$this->checkUtf8($val)) {
 				$markerArray[$key] = utf8_encode($val);
+
 [...]
-conf['register.']['adminname'] . ' <' . $this->conf['register.']['adminmail'] . '>', $subject, $template, $header);
+ion();
+
+		// Verschicke E-Mail.
+		if ($email) {
+			mail($name . ' <' . $email . '>', $subject, $template, $header);
 		}
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:2182;s:13:"content_lines";i:49;s:6:"atLine";i:601;}i:19;a:7:{s:6:"header";s:68:"function getTemplateSubpart($templatePart, $markerArray = Array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:74:"
+	";i:1;i:1;}s:12:"content_size";i:1838;s:13:"content_lines";i:53;s:6:"atLine";i:1043;}i:39;a:7:{s:6:"header";s:68:"function getTemplateSubpart($templatePart, $markerArray = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:74:"
 
 Holt einen Subpart des Standardtemplates und ersetzt uebergeben Marker.
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:13:"$templatePart";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"$markerArray";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:550:"		// Template holen.
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:13:"$templatePart";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"$markerArray";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:559:"		// Template holen.
 		$templateFile = $this->conf['register.']['emailtemplate'];
+
 		if (!$templateFile) {
-			$templateFile = 'EXT:datamints_feuser/res/datamints_feuser_mail.html';
+			$templateFile = 'EXT:' . $this->extKey . '/res/datamints_feuser_mail.html';
 		}
+
 		// Template laden.
 		$template = $this->cObj->fileResource($templateFile);
 		$template = $this->cObj->getSubpart($template, '###' . strtoupper($templatePart) . '###');
-		if (!$this->check_utf8($template)) {
+
+		if (!$this->checkUtf8($template)) {
 			$template = utf8_encode($template);
 		}
+
 		$template = $this->cObj->substituteMarkerArray($template, $markerArray, '###|###', 1);
+
 		return $template;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:550;s:13:"content_lines";i:15;s:6:"atLine";i:658;}i:21;a:7:{s:6:"header";s:28:"function makeDoubleOptIn() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:71:"
-
-Ueberprueft ob der Double-Opt-In gueltig ist und aktiviert den User.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:534:"		// Userdaten holen.
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, username, email, tstamp', 'fe_users', 'uid = ' . intval($this->piVars['uid']) , '', '');
-		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-		$hash = md5($row['uid'] . $row['username'] . $row['email'] . $row['tstamp']);
-		if ($this->piVars['hash'] == $hash) {
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . intval($this->piVars['uid']) , Array('tstamp' => time(), 'disable' => '0'));
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	";i:1;i:0;}s:12:"content_size";i:534;s:13:"content_lines";i:12;s:6:"atLine";i:679;}i:23;a:7:{s:6:"header";s:42:"function showForm($valueCheck = Array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:111:"
+	";i:1;i:0;}s:12:"content_size";i:559;s:13:"content_lines";i:20;s:6:"atLine";i:1104;}i:41;a:7:{s:6:"header";s:42:"function showForm($valueCheck = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:111:"
 
 Gibt alle im Backend definierten Felder (TypoScipt/Flexform) formatiert und der Anzeigeart entsprechend aus.
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		// Beim editieren der Userdaten, die Felder vorausfuellen.
-		if ($this->conf['showtype'] == 'edit') {
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . $this->userId , '', '');
-            $arrCurrentData = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		$arrCurrentData = array();
+
+		// Beim editieren der Userdaten, die Felder vorausfuellen.
+		if ($this->conf['showtype'] == 'edit' && $this->userId) {
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . $this->userId , '', '', '1');
+            $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+
+			$arrCurrentData = $row;
 		}
 
-		// Wenn das Formular schon einmal abgesendet wurde aber ein Fehler auftrat, dann die be
+		// Wenn das Formul
 [...]
-' . $this->conf['showtype']) . '"/></div>';
+>';
+		$content .= $this->makeHiddenFields();
 
 		$content .= '</fieldset>';
 		$content .= '</form>';
 
 		return $content;
-
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:12329;s:13:"content_lines";i:211;s:6:"atLine";i:698;}i:25;a:7:{s:6:"header";s:29:"function makeHiddenFields() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:77:"
+	";i:1;i:1;}s:12:"content_size";i:9021;s:13:"content_lines";i:189;s:6:"atLine";i:1131;}i:43;a:7:{s:6:"header";s:43:"function cleanSpecialFieldKey($fieldName) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:113:"
+
+Ersetzt die beim Eingeben angegebenen '--' Zeichen vor und hinter dem eigendlichen Feldnamen, falls vorhanden.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:134:"		if (preg_match('/^--.*--$/', $fieldName)) {
+			return preg_replace('/^--(.*)--$/', '\1', $fieldName);
+		}
+		return $fieldName;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:134;s:13:"content_lines";i:6;s:6:"atLine";i:1327;}i:45;a:7:{s:6:"header";s:57:"function showInput($fieldName, $arrCurrentData, $iItem) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:23:"
+
+Rendert Inputfelder.
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:15:"$arrCurrentData";}i:2;a:2:{i:0;s:3:"int";i:1;s:6:"$iItem";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		$content = '';
+
+		// Datumsfeld.
+		if (strpos($this->feUsersTca['columns'][$fieldName]['config']['eval'], 'date') !== false) {
+			// Timestamp zu "tt.mm.jjjj" machen.
+			if ($arrCurrentData[$fieldName] != 0) {
+				$datum = strftime('%d.%m.%Y', $arrCurrentData[$fieldName]);
+			}
+
+			$content .= '<input type="text" id="' . $this->extKey . '_' . $this->contentId . '_' . $fi
+[...]
+ntentId . '][' . $fieldName . ']" value="' . $arrCurrentData[$fieldName] . '"' . $readOnly . ' />';
+
+		return $content;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:1911;s:13:"content_lines";i:31;s:6:"atLine";i:1342;}i:47;a:7:{s:6:"header";s:48:"function showText($fieldName, $arrCurrentData) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:21:"
+
+Rendert Textareas.
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:15:"$arrCurrentData";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:416:"		$content = '';
+
+		$readOnly = ($this->feUsersTca['columns'][$fieldName]['config']['readOnly'] == 1) ? ' readonly="readonly"' : '';
+		$content .= '<textarea id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . ']" rows="2" cols="42"' . $readOnly . '>' . $arrCurrentData[$fieldName] . '</textarea>';
+
+		return $content;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:416;s:13:"content_lines";i:8;s:6:"atLine";i:1381;}i:49;a:7:{s:6:"header";s:49:"function showCheck($fieldName, $arrCurrentData) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:22:"
+
+Rendert Checkboxen.
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:15:"$arrCurrentData";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:337:"		$content = '';
+
+		$checked = ($arrCurrentData[$fieldName] == 1) ? ' checked="checked"' : '';
+		$content .= '<input type="checkbox" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . ']" value="1"' . $checked . ' />';
+
+		return $content;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:337;s:13:"content_lines";i:8;s:6:"atLine";i:1397;}i:51;a:7:{s:6:"header";s:50:"function showSelect($fieldName, $arrCurrentData) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:24:"
+
+Rendert Selectfelder.
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:15:"$arrCurrentData";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		$content = '';
+		$optionlist = '';
+		$countSelectFields = count($this->feUsersTca['columns'][$fieldName]['config']['items']);
+
+		// Items, die in der TCA-Konfiguration festgelegt wurden.
+		for ($i = 0; $i < $countSelectFields; $i++) {
+			$selected = (strpos($arrCurrentData[$fieldName], $i) !== false || in_array($i, $arrCurrentData[$fieldName])) ? ' selected="selected"' :
+[...]
+g']['size'] . '" multiple="multiple">';
+			$content .= $optionlist;
+			$content .= '</select>';
+		}
+
+		return $content;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:2416;s:13:"content_lines";i:42;s:6:"atLine";i:1413;}i:53;a:7:{s:6:"header";s:49:"function showGroup($fieldName, $arrCurrentData) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:23:"
+
+Rendert Groupfelder.
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:15:"$arrCurrentData";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		$content = '';
+
+		// GROUP (z.B. externe Tabellen).
+		// Wenn es sich um den "internal_type" FILE handelt && es ein Bild ist, dann ein Vorschaubild erstellen und ein Fiel-Inputfeld anzeigen.
+		if ($this->feUsersTca['columns'][$fieldName]['config']['internal_type'] == 'file') {
+			// Verzeichniss ermitteln.
+			$uploadFolder = $this->feUsersTca['columns'][$fieldName]['conf
+[...]
+ntentId . '][' . $fieldName . '_delete]" />' . $this->getLabel('image_delete') . '</div>';
+			}
+		}
+
+		return $content;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:1618;s:13:"content_lines";i:42;s:6:"atLine";i:1463;}i:55;a:7:{s:6:"header";s:29:"function makeHiddenFields() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:77:"
 
 Erstellt Hidden Fields fuer vordefinierte Parameter die uebergeben wurden.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:332:"		$content = '';
-		$hiddenParams = explode(',', str_replace(' ', '', $this->conf['hiddenparams']));
-		foreach ($hiddenParams as $paramName) {
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:260:"		$content = '';
+
+		foreach ($this->arrHiddenParams as $paramName) {
 			if ($_REQUEST[$paramName]) {
 				$content .= '<input type="hidden" name="' . $paramName . '" value="' . htmlspecialchars($_REQUEST[$paramName]) . '" />';
 			}
 		}
+
 		return $content;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:332;s:13:"content_lines";i:10;s:6:"atLine";i:915;}i:27;a:7:{s:6:"header";s:29:"function makeHiddenParams() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:77:"
+	";i:1;i:0;}s:12:"content_size";i:260;s:13:"content_lines";i:11;s:6:"atLine";i:1511;}i:57;a:7:{s:6:"header";s:29:"function makeHiddenParams() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:77:"
 
 Erstellt GET-Parameter fuer vordefinierte Parameter die uebergeben wurden.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:473:"		$content = '';
-		$hiddenParams = explode(',', str_replace(' ', '', $this->conf['hiddenparams']));
-		foreach ($hiddenParams as $paramName) {
-			//if (strpos($paramName, '[') !== false) {
-			//	$paramName = strstr($paramName, '[');
-			//	$paramName = substr($paramName, 0, strpos($paramName, ']'));
-			//}
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:7:"$params";}}s:7:"content";a:2:{i:0;s:234:"		$params = '';
+
+		foreach ($this->arrHiddenParams as $paramName) {
 			if ($_REQUEST[$paramName]) {
-				$content .= '&' . urlencode($paramName) . '=' . $this->cleanHeaderUrlData($_REQUEST[$paramName]);
+				$params .= '&' . urlencode($paramName) . '=' . $this->cleanHeaderUrlData($_REQUEST[$paramName]);
 			}
 		}
-		return $content;
+
+		return $params;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:473;s:13:"content_lines";i:14;s:6:"atLine";i:931;}i:29;a:7:{s:6:"header";s:36:"function cleanHeaderUrlData($data) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:80:"
+	";i:1;i:0;}s:12:"content_size";i:234;s:13:"content_lines";i:11;s:6:"atLine";i:1528;}i:59;a:7:{s:6:"header";s:36:"function cleanHeaderUrlData($data) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:80:"
 
 Konvertiert einen String um ihn in der PHP Funktion header nutzen zu koennen.
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:5:"$data";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:5:"$data";}}s:7:"content";a:2:{i:0;s:91:"		$data = urlencode(strip_tags(preg_replace("/[\r\n]/", '', $data)));
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:5:"$data";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:5:"$data";}}s:7:"content";a:2:{i:0;s:92:"		$data = urlencode(strip_tags(preg_replace("/[\r\n]/", '', $data)));
+
 		return $data;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:91;s:13:"content_lines";i:4;s:6:"atLine";i:952;}i:31;a:7:{s:6:"header";s:38:"function checkIfRequired($fieldName) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:82:"
+	";i:1;i:0;}s:12:"content_size";i:92;s:13:"content_lines";i:5;s:6:"atLine";i:1546;}i:61;a:7:{s:6:"header";s:38:"function checkIfRequired($fieldName) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:82:"
 
 Ueberprueft ob das uebergebene Feld benoetigt wird um erfolgreich zu speichern.
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:190:"		$arrRequiredFields = explode(',', str_replace(' ', '', $this->conf['requiredfields']));
-		if (in_array($fieldName, $arrRequiredFields)) {
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:106:"		if (in_array($fieldName, $this->arrRequiredFields)) {
 			return ' *';
 		} else {
 			return '';
 		}
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:190;s:13:"content_lines";i:8;s:6:"atLine";i:963;}i:33;a:7:{s:6:"header";s:31:"function getLabel($fieldName) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:186:"
+	";i:1;i:0;}s:12:"content_size";i:106;s:13:"content_lines";i:7;s:6:"atLine";i:1558;}i:63;a:7:{s:6:"header";s:31:"function getLabel($fieldName) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:186:"
 
 Ermittelt ein bestimmtes Label aufgrund des im TCA gespeicherten Languagestrings, des Datenbankfeldnamens oder gibt einfach den uebergeben Wert wieder aus, wenn nichts gefunden wurde.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:6:"$label";}}s:7:"content";a:2:{i:0;s:507:"		if (strpos($fieldName, 'LLL:') === false) {
 			// Label aus der Konfiguration holen basierend auf dem Datenbankfeldnamen.
 			$label = $this->pi_getLL($fieldName);
+
+			// Das Label zurueckliefern, falls vorhanden.
 			if ($label) {
-				// Das Label zurueckliefern.
-				return $label;
+				return $label . $this->checkIfRequired($fieldName);
 			}
+
 			// LanguageString ermitteln.
-			$languageString = $this->feUsersTca['columns'][$fieldName]['label'];
-		} else {
-			$languageString = 
+			$languageString = $this->feUsersTca['columns']
 [...]
-eturn $label;
-		}
-		// Wenn gar nichts gefunden wurde den uebergebenen Wert wieder zurueckliefern.
-		return $fieldName;
+s gefunden wurde den uebergebenen Wert wieder zurueckliefern.
+		return $fieldName . $this->checkIfRequired($fieldName);
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:1298;s:13:"content_lines";i:34;s:6:"atLine";i:978;}i:35;a:7:{s:6:"header";s:29:"function getConfiguration() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:123:"
+	";i:1;i:1;}s:12:"content_size";i:1362;s:13:"content_lines";i:35;s:6:"atLine";i:1572;}i:65;a:7:{s:6:"header";s:49:"function getErrorLabel($fieldName, $valueCheck) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:47:"
+
+Ermittelt das Error Lebel aus dem feldnamen.
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:310:"		$label = '';
+
+		// Extra Error Label ermitteln.
+		if (array_key_exists($fieldName, $valueCheck) && is_string($valueCheck[$fieldName])) {
+			$label = '<div class="form_error ' . $fieldName . '_error">' . $this->getLabel($fieldName . '_error_' . $valueCheck[$fieldName]) . '</div>';
+		}
+
+		return $label;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:310;s:13:"content_lines";i:10;s:6:"atLine";i:1615;}i:67;a:7:{s:6:"header";s:31:"function getDefaultLanguage() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:34:"
+
+Ermittelt die Standard Sprache.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:16:"$defaultLanguage";}}s:7:"content";a:2:{i:0;s:190:"		// Standard Sprache.
+		$defaultLanguage = $GLOBALS['TSFE']->config['config']['language'];
+
+		if (!$defaultLanguage) {
+			$defaultLanguage = 'default';
+		}
+
+		return $defaultLanguage;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:190;s:13:"content_lines";i:10;s:6:"atLine";i:1631;}i:69;a:7:{s:6:"header";s:29:"function getConfiguration() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:123:"
 
 Holt Konfigurationen aus der Flexform (Tab-bedingt) und ersetzt diese pro Konfiguration in der TypoScript Konfiguration.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}s:5:"other";a:2:{i:0;s:22:"@global	$this->extConf";i:1;s:19:"@global	$this->conf";}s:11:"other_index";a:1:{s:7:"@global";a:2:{i:0;s:15:"$this->extConf ";i:1;s:12:"$this->conf ";}}}s:7:"content";a:2:{i:0;s:507:"		// Extension configuration holen.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}s:5:"other";a:2:{i:0;s:22:"@global	$this->extConf";i:1;s:19:"@global	$this->conf";}s:11:"other_index";a:1:{s:7:"@global";a:2:{i:0;s:15:"$this->extConf ";i:1;s:12:"$this->conf ";}}}s:7:"content";a:2:{i:0;s:507:"		$conf = array();
+
+		// Extension Konfiguration ermitteln.
 		$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extKey]);
-		// Alle Tabs durchgehn.
+
+		// Alle Tabs der Flexformkonfiguration durchgehn.
 		foreach ($this->cObj->data['pi_flexform']['data'] as $tabKey => $val) {
-			$this->readFlexformMainTab($this->cObj->data['pi_flexform'], $conf, $tabKey);
+			$this->readFlexformTab($this->cObj->data['pi_flexform'], $conf, $tabKey);
 		}
-		// Alle gesammelten Konfigurationen in $this->conf uebertr
+
+		// Alle ge
 [...]
-n abarbeiten.
-		if ($this->extConf['useIRRE'] && $this->conf['databasefields']) {
-			$this->setIrreConfiguration();
-		}
+namen sind fuer konfigurierte Felder und fuer input Felder).
+		$this->arrRequiredFields[] = '--passwordconfirmation--';
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:859;s:13:"content_lines";i:22;s:6:"atLine";i:1020;}i:37;a:7:{s:6:"header";s:56:"function readFlexformMainTab($flexData, &$conf, $sTab) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:76:"
+	";i:1;i:1;}s:12:"content_size";i:1590;s:13:"content_lines";i:36;s:6:"atLine";i:1649;}i:71;a:7:{s:6:"header";s:52:"function readFlexformTab($flexData, &$conf, $sTab) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:76:"
 
-Parsd das Flexform Konfigurations Array und schreibt alle Werte in $conf.
-";s:5:"param";a:3:{i:0;a:2:{i:0;s:5:"array";i:1;s:9:"$flexData";}i:1;a:2:{i:0;s:5:"array";i:1;s:5:"$conf";}i:2;a:2:{i:0;s:6:"string";i:1;s:6:"$sType";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		 if (is_array($flexData)) {
+Parst das Flexform Konfigurations Array und schreibt alle Werte in $conf.
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:5:"array";i:1;s:9:"$flexData";}i:1;a:2:{i:0;s:5:"array";i:1;s:63:"$conf // Call by reference Array mit allen zu updatenden Daten.";}i:2;a:2:{i:0;s:6:"string";i:1;s:6:"$sType";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		 if (is_array($flexData)) {
 			 if (isset($flexData['data'][$sTab]['lDEF'])) {
 				 $flexData = $flexData['data'][$sTab]['lDEF'];
 			 }
@@ -368,8 +645,9 @@ Parsd das Flexform Konfigurations Array und schreibt alle Werte in $conf.
 						 if (isset($element['vDEF'])) {
 							 $conf[$ekey] = $element['vDEF'];
 [...]
-b($value['el'], $conf, $sTab);
+($value['el'], $conf, $sTab);
 				 }
+
 				 if ($value['vDEF']) {
 					 $conf[$key] = $value['vDEF'];
 				 }
@@ -377,72 +655,78 @@ b($value['el'], $conf, $sTab);
 		 }
 	 }
 
-	";i:1;i:1;}s:12:"content_size";i:652;s:13:"content_lines";i:24;s:6:"atLine";i:1051;}i:39;a:7:{s:6:"header";s:49:"function setFlexformConfiguration($key, $value) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:106:"
+	";i:1;i:1;}s:12:"content_size";i:645;s:13:"content_lines";i:25;s:6:"atLine";i:1694;}i:73;a:7:{s:6:"header";s:49:"function setFlexformConfiguration($key, $value) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:106:"
 
 Ueberschreibt eventuell vorhandene TypoScript Konfigurationen mit den Konfigurationen aus der Flexform.
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:4:"$key";}i:1;a:2:{i:0;s:6:"string";i:1;s:6:"$value";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}s:5:"other";a:1:{i:0;s:19:"@global	$this->conf";}s:11:"other_index";a:1:{s:7:"@global";a:1:{i:0;s:12:"$this->conf ";}}}s:7:"content";a:2:{i:0;s:464:"		if (strpos($key, '.') !== false && $value) {
-			$arrKey = explode('.', $key);
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:4:"$key";}i:1;a:2:{i:0;s:6:"string";i:1;s:6:"$value";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}s:5:"other";a:1:{i:0;s:19:"@global	$this->conf";}s:11:"other_index";a:1:{s:7:"@global";a:1:{i:0;s:12:"$this->conf ";}}}s:7:"content";a:2:{i:0;s:483:"		if (strpos($key, '.') !== false && $value) {
+			$arrKey = t3lib_div::trimExplode('.', $key);
+
 			for ($i = count($arrKey) - 1; $i >= 0; $i--) {
 				$newValue = array();
+
 				if ($i == count($arrKey) - 1) {
 					$newValue[$arrKey[$i]] = $value;
 				} else {
 					$newValue[$arrKey[$i] . '.'] = $value;
 				}
+
 				$value = $newValue;
 			}
+
 			$this->conf = t3lib_div::array_merge_recursive_overrule($this->conf, $value);
 		} elseif ($value) {
 			$this->conf[$key] = $value;
 		}
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:464;s:13:"content_lines";i:17;s:6:"atLine";i:1084;}i:41;a:7:{s:6:"header";s:33:"function setIrreConfiguration() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:128:"
+	";i:1;i:0;}s:12:"content_size";i:483;s:13:"content_lines";i:21;s:6:"atLine";i:1728;}i:75;a:7:{s:6:"header";s:33:"function setIrreConfiguration() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:128:"
 
 Ueberschreibt eventuell vorhandene TypoScript Konfigurationen oder Flexform Konfigurationen mit den Konfigurationen aus IRRE.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}s:5:"other";a:1:{i:0;s:19:"@global	$this->conf";}s:11:"other_index";a:1:{s:7:"@global";a:1:{i:0;s:12:"$this->conf ";}}}s:7:"content";a:2:{i:0;s:507:"		$fieldsets = 2;
-		$infoitems = 1;
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}s:5:"other";a:1:{i:0;s:19:"@global	$this->conf";}s:11:"other_index";a:1:{s:7:"@global";a:1:{i:0;s:12:"$this->conf ";}}}s:7:"content";a:2:{i:0;s:507:"		$infoitems = 1;
+		$fieldsets = 2;
+		$userdeleteCounter = 0;
+		$passwordconfirmationCounter = 0;
+		$resendactivationCounter = 0;
+		$usedfields = array();
+		$requiredfields = array();
+		$uniquefields = array();
 		$firstkey = key($this->conf['databasefields']);
-		unset($this->conf['infoitems.']);
-		unset($this->conf['separatorheads.']);
 
 		foreach ($this->conf['databasefields'] as $position => $field) {
-			if ($field['field']) {
-				// Datenbankfelder abarbeiten.
-				$usedfields[] = $field['field'];
-				if ($field['required']) {
-					$requiredfi
+			// Datenbankfelder abarbeiten.
+			if ($fiel
 [...]
 s->conf['requiredfields'] = implode(',', $requiredfields);
 		$this->conf['uniquefields'] = implode(',', $uniquefields);
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:1278;s:13:"content_lines";i:40;s:6:"atLine";i:1108;}i:43;a:7:{s:6:"header";s:41:"function getJSValidationConfiguration() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:96:"
+	";i:1;i:1;}s:12:"content_size";i:3532;s:13:"content_lines";i:123;s:6:"atLine";i:1756;}i:77;a:7:{s:6:"header";s:41:"function getJSValidationConfiguration() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:96:"
 
 Gibt die komplette Validierungskonfiguration fuer die JavaScript Frontendvalidierung zurueck.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:14:"$configuration";}}s:7:"content";a:2:{i:0;s:507:"		// Hier eine fertig generierte Konfiguration:
-		// var config = new Array();
-		// config['username'] = new Array();
-		// config['username']['validation'] = new Array();
-		// config['username']['validation']['type'] = 'username';
-		// config['username']['valid'] = 'Der Benutzername darf keine Leerzeichen beinhalten!';
-		// config['username']['required'] = 'Es muss ein Ben
+		// config[11]=[];
+		// config[11]["username"]=[];
+		// config[11]["username"]["validation"]=[];
+		// config[11]["username"]["validation"]["type"]="username";
+		// config[11]["username"]["valid"]="Der Benutzername darf keine Leerzeichen beinhalten!";
+		// config[11]["username"]["required"]="Es muss ein Benutzername eingegebe
 [...]
-'" . implode("', '", $arrValidationFields) . "'); var contentid = " . $this->contentUid . ";";
+ $arrValidationFields) . '");contentids[' . $this->contentId . ']=' . $this->contentId . ';';
+
 		return $configuration;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:4971;s:13:"content_lines";i:77;s:6:"atLine";i:1154;}i:45;a:7:{s:6:"header";s:26:"function getFeUsersTca() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:85:"
+	";i:1;i:1;}s:12:"content_size";i:5072;s:13:"content_lines";i:89;s:6:"atLine";i:1885;}i:79;a:7:{s:6:"header";s:26:"function getFeUsersTca() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:85:"
 
 Ueberschreibt eventuell vorhandene TCA Konfiguration mit TypoScript Konfiguration.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}s:5:"other";a:1:{i:0;s:25:"@global	$this->feUsersTca";}s:11:"other_index";a:1:{s:7:"@global";a:1:{i:0;s:18:"$this->feUsersTca ";}}}s:7:"content";a:2:{i:0;s:301:"		$GLOBALS['TSFE']->includeTCA();
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}s:5:"other";a:1:{i:0;s:25:"@global	$this->feUsersTca";}s:11:"other_index";a:1:{s:7:"@global";a:1:{i:0;s:18:"$this->feUsersTca ";}}}s:7:"content";a:2:{i:0;s:311:"		$GLOBALS['TSFE']->includeTCA();
 		$this->feUsersTca = $GLOBALS['TCA']['fe_users'];
 		if ($this->conf['fieldconfig.']) {
-			$this->feUsersTca['columns'] = t3lib_div::array_merge_recursive_overrule((Array)$this->feUsersTca['columns'], (Array)$this->deletePoint($this->conf['fieldconfig.']));
+			$this->feUsersTca['columns'] = t3lib_div::array_merge_recursive_overrule((array)$this->feUsersTca['columns'], (array)$this->deletePointInArrayKey($this->conf['fieldconfig.']));
 		}
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:301;s:13:"content_lines";i:7;s:6:"atLine";i:1238;}i:47;a:7:{s:6:"header";s:26:"function getStoragePid() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:86:"
+	";i:1;i:0;}s:12:"content_size";i:311;s:13:"content_lines";i:7;s:6:"atLine";i:1981;}i:81;a:7:{s:6:"header";s:26:"function getStoragePid() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:86:"
 
 Ermittelt die General Record Storage Pid bzw. den vom User festgelegten Userfolder.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}s:5:"other";a:1:{i:0;s:25:"@global	$this->storagePid";}s:11:"other_index";a:1:{s:7:"@global";a:1:{i:0;s:18:"$this->storagePid ";}}}s:7:"content";a:2:{i:0;s:218:"		$this->storagePid = $this->conf['register.']['userfolder'];
@@ -452,29 +736,53 @@ Ermittelt die General Record Storage Pid bzw. den vom User festgelegten Userfold
 		}
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:218;s:13:"content_lines";i:7;s:6:"atLine";i:1252;}i:49;a:4:{s:6:"header";s:30:"function deletePoint($array) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:76:"
+	";i:1;i:0;}s:12:"content_size";i:218;s:13:"content_lines";i:7;s:6:"atLine";i:1995;}i:83;a:7:{s:6:"header";s:40:"function deletePointInArrayKey($array) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:76:"
 
 Loescht den Punkt den Typo3 bei TypoScript-Variablen (Arrays) hinzufuegt.
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:6:"$array";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:9:"$newArray";}}s:6:"atLine";i:1266;}i:51;a:7:{s:6:"header";s:27:"function check_utf8($str) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:45:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:6:"$array";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:9:"$newArray";}}s:7:"content";a:2:{i:0;s:507:"		// Neues Array erstellen um das alte Array nicht zu ueberschreiben.
+		$newArray = array();
+
+		// Alle Elemente des Arrays durchgehen.
+		foreach ($array as $key => $val) {
+			if (is_array($val)) {
+				// Wenn der Inhalt des Elements ein Array ist, letztes Zeichen entfernen (Punkt).
+				$newKey = substr($key, 0, -1);
+
+				// Da das Array recursiv sein kann Funktion erneut 
+[...]
+ = $key;
+				$newVal = $val;
+			}
+
+			// Neues Array fuellen.
+			$newArray[$newKey] = $newVal;
+		}
+
+		return $newArray;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:661;s:13:"content_lines";i:24;s:6:"atLine";i:2009;}i:85;a:4:{s:6:"header";s:26:"function checkUtf8($str) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:45:"
 
 Checks if a string is utf8 encoded or not.
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:4:"$str";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		$len = strlen($str);
-		for($i = 0; $i < $len; $i++){
-			$c = ord($str[$i]);
-			if ($c > 128) {
-				if (($c > 247)) return false;
-				elseif ($c > 239) $bytes = 4;
-				elseif ($c > 223) $bytes = 3;
-				elseif ($c > 191) $bytes = 2;
-				else return false;
-				if (($i + $bytes) > $len) return false;
-				while ($bytes > 1) {
-					$i++;
-					$b = ord($str[$i]);
-					if ($b < 
-[...]
-)	{
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:4:"$str";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:0:"";}}s:6:"atLine";i:2040;}i:87;a:7:{s:6:"header";s:29:"function cleanArray($array) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:43:"
+
+Cleans an array from all empty elements.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:6:"$array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:368:"		foreach ($array as $key => $val) {
+			if (!$val) {
+				unset($array[$key]);
+			}
+		}
+
+		return $array;
+	}
+
+
+}
+
+
+
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/pi1/class.tx_datamintsfeuser_pi1.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/pi1/class.tx_datamintsfeuser_pi1.php']);
 }
 
-?>";i:1;i:1;}s:12:"content_size";i:714;s:13:"content_lines";i:30;s:6:"atLine";i:1293;}}s:10:"usageCount";a:26:{s:12:"H_6670368143";a:2:{s:24:"_searchtime_milliseconds";d:39;s:15:"_functionHeader";s:51:"class tx_datamintsfeuser_pi1 extends tslib_pibase {";}s:12:"H_12a661a898";a:2:{s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:32:"function main($content, $conf) {";}s:12:"H_da0e5daf7b";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:21:"function sendForm() {";}s:12:"H_848a953766";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:39:"function generatePassword($fieldName) {";}s:12:"H_43e13b34ec";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:29:"function requireCheckForm() {";}s:12:"H_3fb0fa095c";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:25:"function validateForm() {";}s:12:"H_e94cbdddc4";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:28:"function uniqueCheckForm() {";}s:12:"H_03a6558032";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:51:"function saveDeleteImage($fieldName, &$arrUpdate) {";}s:12:"H_6ecd619147";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:59:"function sendMail($templatePart, $extraMarkers = Array()) {";}s:12:"H_e5ff06ce7d";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:68:"function getTemplateSubpart($templatePart, $markerArray = Array()) {";}s:12:"H_30cdbcab5c";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:28:"function makeDoubleOptIn() {";}s:12:"H_3fe45be608";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:42:"function showForm($valueCheck = Array()) {";}s:12:"H_f2e5e0153c";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:8;s:15:"_functionHeader";s:29:"function makeHiddenFields() {";}s:12:"H_9b86b03ef8";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:7;s:5:"TOTAL";i:7;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:7;s:5:"TOTAL";i:7;}s:24:"_searchtime_milliseconds";d:3;s:15:"_functionHeader";s:29:"function makeHiddenParams() {";}s:12:"H_68634eff2e";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:9;s:15:"_functionHeader";s:36:"function cleanHeaderUrlData($data) {";}s:12:"H_2d8afb1caa";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:38:"function checkIfRequired($fieldName) {";}s:12:"H_8e24527376";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:9;s:5:"TOTAL";i:9;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:9;s:5:"TOTAL";i:9;}s:24:"_searchtime_milliseconds";d:8;s:15:"_functionHeader";s:31:"function getLabel($fieldName) {";}s:12:"H_76555fc26a";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:29:"function getConfiguration() {";}s:12:"H_798b029a61";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:10;s:15:"_functionHeader";s:56:"function readFlexformMainTab($flexData, &$conf, $sTab) {";}s:12:"H_1a2ebda792";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:21;s:15:"_functionHeader";s:49:"function setFlexformConfiguration($key, $value) {";}s:12:"H_3a73837f90";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:10;s:15:"_functionHeader";s:33:"function setIrreConfiguration() {";}s:12:"H_ca61886d00";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:3;s:15:"_functionHeader";s:41:"function getJSValidationConfiguration() {";}s:12:"H_d62445db92";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:26:"function getFeUsersTca() {";}s:12:"H_6ec39f97bc";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:26:"function getStoragePid() {";}s:12:"H_748e8456a9";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:9;s:15:"_functionHeader";s:30:"function deletePoint($array) {";}s:12:"H_a2892f4282";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:27:"function check_utf8($str) {";}}}}}
+?>";i:1;i:0;}s:12:"content_size";i:368;s:13:"content_lines";i:18;s:6:"atLine";i:2084;}}s:10:"usageCount";a:44:{s:12:"H_6670368143";a:2:{s:24:"_searchtime_milliseconds";d:31;s:15:"_functionHeader";s:51:"class tx_datamintsfeuser_pi1 extends tslib_pibase {";}s:12:"H_12a661a898";a:2:{s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:32:"function main($content, $conf) {";}s:12:"H_da0e5daf7b";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:21:"function sendForm() {";}s:12:"H_e94cbdddc4";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:28:"function uniqueCheckForm() {";}s:12:"H_3fb0fa095c";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:25:"function validateForm() {";}s:12:"H_43e13b34ec";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:29:"function requireCheckForm() {";}s:12:"H_e04402cb3d";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:65:"function generatePassword($fieldName, $generatePassword = true) {";}s:12:"H_921cd090f1";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:62:"function checkPassword($submitedPassword, $originalPassword) {";}s:12:"H_03a6558032";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:51:"function saveDeleteImage($fieldName, &$arrUpdate) {";}s:12:"H_5ca8c95dc2";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:5;s:5:"TOTAL";i:5;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:5;s:5:"TOTAL";i:5;}s:24:"_searchtime_milliseconds";d:10;s:15:"_functionHeader";s:77:"function showMessageOutputRedirect($mode, $submode = '', $params = array()) {";}s:12:"H_58ba8c9bc9";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:35:"function userAutoLogin($username) {";}s:12:"H_500dc08da5";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:36:"function userRedirect($pageId = 0) {";}s:12:"H_bfaeaa89c4";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:38:"function sendActivationMail($userId) {";}s:12:"H_eaaa1762fc";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:37:"function makeApprovalCheck($userId) {";}s:12:"H_fcef8d1a47";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:29:"function getApprovalTypes() {";}s:12:"H_006a316cc0";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:37:"function isAdminMail($approvalType) {";}s:12:"H_6a64dddd97";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:7;s:15:"_functionHeader";s:41:"function setNotActivatedCookie($userId) {";}s:12:"H_ecdf40ddcc";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:11;s:15:"_functionHeader";s:39:"function getNotActivatedCookieArray() {";}s:12:"H_9ef958a193";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:5;s:5:"TOTAL";i:5;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:5;s:5:"TOTAL";i:5;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:87:"function sendMail($userId, $templatePart, $adminMail = true, $extraMarkers = array()) {";}s:12:"H_dad4240acd";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:7;s:15:"_functionHeader";s:68:"function getTemplateSubpart($templatePart, $markerArray = array()) {";}s:12:"H_14be5b66fd";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:42:"function showForm($valueCheck = array()) {";}s:12:"H_bac26dec65";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:12;s:5:"TOTAL";i:12;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:12;s:5:"TOTAL";i:12;}s:24:"_searchtime_milliseconds";d:10;s:15:"_functionHeader";s:43:"function cleanSpecialFieldKey($fieldName) {";}s:12:"H_07e0150ccb";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:57:"function showInput($fieldName, $arrCurrentData, $iItem) {";}s:12:"H_11d491b1ee";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:48:"function showText($fieldName, $arrCurrentData) {";}s:12:"H_021e4f532c";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:49:"function showCheck($fieldName, $arrCurrentData) {";}s:12:"H_dde7d2ec74";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:50:"function showSelect($fieldName, $arrCurrentData) {";}s:12:"H_a271bb8626";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:49:"function showGroup($fieldName, $arrCurrentData) {";}s:12:"H_f2e5e0153c";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:9;s:15:"_functionHeader";s:29:"function makeHiddenFields() {";}s:12:"H_9b86b03ef8";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:29:"function makeHiddenParams() {";}s:12:"H_68634eff2e";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:10;s:15:"_functionHeader";s:36:"function cleanHeaderUrlData($data) {";}s:12:"H_2d8afb1caa";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:24:"_searchtime_milliseconds";d:10;s:15:"_functionHeader";s:38:"function checkIfRequired($fieldName) {";}s:12:"H_8e24527376";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:15;s:5:"TOTAL";i:15;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:15;s:5:"TOTAL";i:15;}s:24:"_searchtime_milliseconds";d:9;s:15:"_functionHeader";s:31:"function getLabel($fieldName) {";}s:12:"H_8d24a6b0ba";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:24:"_searchtime_milliseconds";d:7;s:15:"_functionHeader";s:49:"function getErrorLabel($fieldName, $valueCheck) {";}s:12:"H_59c95d6e14";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:6;s:5:"TOTAL";i:6;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:6;s:5:"TOTAL";i:6;}s:24:"_searchtime_milliseconds";d:12;s:15:"_functionHeader";s:31:"function getDefaultLanguage() {";}s:12:"H_76555fc26a";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:29:"function getConfiguration() {";}s:12:"H_4c3903bc2e";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:10;s:15:"_functionHeader";s:52:"function readFlexformTab($flexData, &$conf, $sTab) {";}s:12:"H_1a2ebda792";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:17;s:15:"_functionHeader";s:49:"function setFlexformConfiguration($key, $value) {";}s:12:"H_3a73837f90";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:12;s:15:"_functionHeader";s:33:"function setIrreConfiguration() {";}s:12:"H_ca61886d00";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:41:"function getJSValidationConfiguration() {";}s:12:"H_d62445db92";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:26:"function getFeUsersTca() {";}s:12:"H_6ec39f97bc";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:26:"function getStoragePid() {";}s:12:"H_9aaa386603";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:14;s:15:"_functionHeader";s:40:"function deletePointInArrayKey($array) {";}s:12:"H_8c58dc9f10";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:26:"function checkUtf8($str) {";}s:12:"H_748d8d533e";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:8;s:5:"TOTAL";i:8;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:8;s:5:"TOTAL";i:8;}s:24:"_searchtime_milliseconds";d:9;s:15:"_functionHeader";s:29:"function cleanArray($array) {";}}}}}
