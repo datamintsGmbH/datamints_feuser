@@ -25,3 +25,6 @@
 		New fieldtypes are implemented (“--userdelete--”, “--passwordconfirmation--”, “--resendactivation--”, “--submit--”).
 		ATTENTION: Moved “register.redirect” to “redirect.register” and added  a redirect page configuration for each step.
 		Multilingual plugin flexform configuration (english/german).
+0.4.1	Fixed password save problem with no encryption extension.
+		Fixed bugs in language file.
+		Updated the manual, changelog, readme, and function index.
