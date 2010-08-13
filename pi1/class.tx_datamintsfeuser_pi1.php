@@ -625,6 +625,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		}
 
+		// Unverschluesselte Passwort uebertragen.
+		$password['encrypted'] = $password['normal'];
+
 		// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password verschluesselt.
 		if (t3lib_extMgm::isLoaded('saltedpasswords')) {
 			$saltedpasswords = tx_saltedpasswords_div::returnExtConf();
