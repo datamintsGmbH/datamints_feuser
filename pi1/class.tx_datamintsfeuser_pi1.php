@@ -35,44 +35,44 @@
  *  446:     function validateForm()
  *  589:     function requireCheckForm()
  *  609:     function generatePassword($fieldName)
- *  667:     function generatePasswordForMail($userId)
- *  686:     function checkPassword($submitedPassword, $originalPassword)
- *  735:     function saveDeleteImage($fieldName, &$arrUpdate)
- *  818:     function showMessageOutputRedirect($mode, $submode = '', $params = array())
- *  886:     function userAutoLogin($username, $mode = '')
- *  903:     function userRedirect($pageId = 0)
- *  920:     function sendActivationMail($userId)
- *  956:     function makeApprovalCheck($userId)
- * 1016:     function getApprovalTypes()
- * 1028:     function isAdminMail($approvalType)
- * 1038:     function setNotActivatedCookie($userId)
- * 1050:     function getNotActivatedUserArray($arrNotActivated = array())
- * 1084:     function sendMail($userId, $templatePart, $adminMail = true, $extraMarkers = array())
- * 1145:     function getTemplateSubpart($templatePart, $markerArray = array())
- * 1172:     function showForm($valueCheck = array())
- * 1379:     function cleanSpecialFieldKey($fieldName)
- * 1394:     function showInput($fieldName, $arrCurrentData, $iItem)
- * 1433:     function showText($fieldName, $arrCurrentData)
- * 1449:     function showCheck($fieldName, $arrCurrentData)
- * 1465:     function showSelect($fieldName, $arrCurrentData)
- * 1515:     function showGroup($fieldName, $arrCurrentData)
- * 1563:     function makeHiddenFields()
- * 1580:     function makeHiddenParams()
- * 1598:     function cleanHeaderUrlData($data)
- * 1610:     function checkIfRequired($fieldName)
- * 1624:     function getLabel($fieldName)
- * 1667:     function getErrorLabel($fieldName, $valueCheck)
- * 1683:     function getDefaultLanguage()
- * 1701:     function getConfiguration()
- * 1746:     function readFlexformTab($flexData, &$conf, $sTab)
- * 1780:     function setFlexformConfiguration($key, $value)
- * 1808:     function setIrreConfiguration()
- * 1937:     function getJSValidationConfiguration()
- * 2033:     function getFeUsersTca()
- * 2047:     function getStoragePid()
- * 2061:     function deletePointInArrayKey($array)
- * 2092:     function checkUtf8($str)
- * 2136:     function cleanArray($array)
+ *  670:     function generatePasswordForMail($userId)
+ *  689:     function checkPassword($submitedPassword, $originalPassword)
+ *  738:     function saveDeleteImage($fieldName, &$arrUpdate)
+ *  821:     function showMessageOutputRedirect($mode, $submode = '', $params = array())
+ *  889:     function userAutoLogin($username, $mode = '')
+ *  906:     function userRedirect($pageId = 0)
+ *  923:     function sendActivationMail($userId)
+ *  959:     function makeApprovalCheck($userId)
+ * 1019:     function getApprovalTypes()
+ * 1031:     function isAdminMail($approvalType)
+ * 1041:     function setNotActivatedCookie($userId)
+ * 1053:     function getNotActivatedUserArray($arrNotActivated = array())
+ * 1087:     function sendMail($userId, $templatePart, $adminMail = true, $extraMarkers = array())
+ * 1148:     function getTemplateSubpart($templatePart, $markerArray = array())
+ * 1175:     function showForm($valueCheck = array())
+ * 1382:     function cleanSpecialFieldKey($fieldName)
+ * 1397:     function showInput($fieldName, $arrCurrentData, $iItem)
+ * 1436:     function showText($fieldName, $arrCurrentData)
+ * 1452:     function showCheck($fieldName, $arrCurrentData)
+ * 1468:     function showSelect($fieldName, $arrCurrentData)
+ * 1518:     function showGroup($fieldName, $arrCurrentData)
+ * 1566:     function makeHiddenFields()
+ * 1583:     function makeHiddenParams()
+ * 1601:     function cleanHeaderUrlData($data)
+ * 1613:     function checkIfRequired($fieldName)
+ * 1627:     function getLabel($fieldName)
+ * 1670:     function getErrorLabel($fieldName, $valueCheck)
+ * 1686:     function getDefaultLanguage()
+ * 1704:     function getConfiguration()
+ * 1749:     function readFlexformTab($flexData, &$conf, $sTab)
+ * 1783:     function setFlexformConfiguration($key, $value)
+ * 1811:     function setIrreConfiguration()
+ * 1940:     function getJSValidationConfiguration()
+ * 2036:     function getFeUsersTca()
+ * 2050:     function getStoragePid()
+ * 2064:     function deletePointInArrayKey($array)
+ * 2095:     function checkUtf8($str)
+ * 2139:     function cleanArray($array)
  *
  *
  * TOTAL FUNCTIONS: 44
@@ -206,7 +206,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		if ($this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)] && in_array($fieldName, $this->arrUsedFields)) {
 			$fieldName = $this->cleanSpecialFieldKey($fieldName);
 
-			// Falls der Anzeigetyp "list" (List der im Cookie gespeicherten User), jeden uebergebenen User saeubern und alle ermitteln, ansonsten den einzelnen betroffenen User ermitteln.
+			// Falls der Anzeigetyp "list" ist (Liste der im Cookie gespeicherten User), alle uebergebenen User ermitteln und fuer das erneute zusenden verwenden. Ansonsten die uebergebene E-Mail verwenden.
 			//if ($this->conf['shownotactivated'] == 'list') {
 			//	$arrNotActivated = $this->getNotActivatedUserArray($this->piVars[$this->contentId][$fieldName]);
 			//	$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tx_datamintsfeuser_approval_level', 'fe_users', 'pid = ' . intval($this->storagePid) . ' AND uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
@@ -900,7 +900,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Vollzieht einen Redirect mit der Seite die benutzt wird, oder auf die aktuelle.
 	 *
-	 * @param	int			$pageId
+	 * @param	integer		$pageId
 	 * @return	void
 	 */
 	function userRedirect($pageId = 0) {
@@ -917,7 +917,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Sendet die Aktivierungsmail an den uebergebenen User.
 	 *
-	 * @param	int			$userId
+	 * @param	integer		$userId
 	 * @return	void
 	 */
 	function sendActivationMail($userId) {
@@ -951,9 +951,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Ueberprueft ob die Linkestaetigung gueltig ist und aktiviert gegebenenfalls den User.
+	 * Ueberprueft ob die Linkbestaetigung gueltig ist und aktiviert gegebenenfalls den User.
 	 *
-	 * @param	int			$userId
+	 * @param	integer		$userId
 	 * @return	string
 	 */
 	function makeApprovalCheck($userId) {
@@ -1035,7 +1035,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Setzt einen Cookie fuer den neu angelegten Account, falls dieser aktiviert werden muss.
 	 *
-	 * @param	int			$userId
+	 * @param	integer		$userId
 	 * @return	void
 	 */
 	function setNotActivatedCookie($userId) {
@@ -1078,7 +1078,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Sendet die E-Mails mit dem uebergebenen Template und falls angegeben, auch mit den extra Markern.
 	 *
-	 * @param	int			$userId
+	 * @param	integer		$userId
 	 * @param	string		$templatePart
 	 * @param	boolean		$adminMail
 	 * @param	array		$extraMarkers
@@ -1324,7 +1324,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			if ($fieldName == '--resendactivation--') {
 				$fieldName = $this->cleanSpecialFieldKey($fieldName);
 
-				// Noch nicht fertig gestellte Listenansicht der nichta aktivierten User.
+				// Noch nicht fertig gestellte Listenansicht der nicht aktivierten User.
 				//if ($this->conf['shownotactivated'] == 'list') {
 				//	$arrNotActivated = $this->getNotActivatedUserArray();
 				//	$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, username', 'fe_users', 'pid = ' . intval($this->storagePid) . ' AND uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
@@ -1391,7 +1391,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 *
 	 * @param	string		$fieldName
 	 * @param	array		$arrCurrentData
-	 * @param	int			$iItem
+	 * @param	integer		$iItem
 	 * @return	string		$content
 	 */
 	function showInput($fieldName, $arrCurrentData, $iItem) {

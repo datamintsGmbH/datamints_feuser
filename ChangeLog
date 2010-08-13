@@ -1,3 +1,27 @@
-2009-10-29 Bernhard baumgartl  <b.baumgartl@datamints.com>
+2009-10-29 Bernhard Baumgartl  <b.baumgartl@datamints.com>
 
-	* initial code generated with kickstarter
+0.0.0	Initial code generated with kickstarter.
+0.1.0	First version released.
+0.1.1	An editable legend to each fieldset.
+0.1.2	Configurable info item to show between input items.
+0.1.4	Definable aditional crdate fields.
+0.2.0	Added new Flexform configuration methods.
+0.2.1	Fixed caching problem und updated the manual.
+0.2.2	Updates in validation system.
+0.2.3	Fixed security issues.
+0.3.0	Added stand-alone frontend JavaScript validation, new stylesheet definitions, new backend flexform configuration and some fixed bugs.
+0.3.1	New manual.
+		Fixed flexform error with email type.
+		New charset check for email template.
+		PLEASE check sent emails!
+0.3.2	Internal changes.
+		Check for reentered data, because of PHP log warning.
+		Fixed password save problem with no encryption extension.
+		JavaScript optimization.
+0.4.0	Fixed bug with IRRE separators.
+		Added label input to IRRE Elements.
+		Added new approval type “adminapproval” and new approval check system (ATTENTION: You have to move “doubleoptin” configuration to “approvalcheck” configuration in TypoScript. Please check the Flexform configuration).
+		You can add more than one plugin/form to a site.
+		New fieldtypes are implemented (“--userdelete--”, “--passwordconfirmation--”, “--resendactivation--”, “--submit--”).
+		ATTENTION: Moved “register.redirect” to “redirect.register” and added  a redirect page configuration for each step.
+		Multilingual plugin flexform configuration (english/german).
