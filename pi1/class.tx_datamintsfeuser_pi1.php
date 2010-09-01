@@ -1103,15 +1103,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$template = $this->getTemplateSubpart($templatePart . '_admin', $markerArray);
 
 			// E-Mail und Name ermitteln.
-			$email = $this->conf['register.']['adminmail'];
-			$name = ($this->conf['register.']['adminname']) ? $this->conf['register.']['adminname'] : $email;
+			$email = ($this->conf['register.']['adminname']) ? $this->conf['register.']['adminname'] . ' <' . $this->conf['register.']['adminmail'] . '>' : $this->conf['register.']['adminmail'];
 		} else {
 			// Template laden.
 			$template = $this->getTemplateSubpart($templatePart, $markerArray);
 
 			// E-Mail und Name ermitteln.
-			$email = $row['email'];
-			$name = ($row['name']) ? $row['name'] : $email;
+			$email = ($row['name']) ? $row['name'] . ' <' . $row['email'] . '>' : $row['email'];
 		}
 
 		// Betreff ermitteln und aus dem E-Mail Content entfernen.
@@ -1134,7 +1132,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Verschicke E-Mail.
 		if ($email) {
-			mail($name . ' <' . $email . '>', $subject, $template, $header);
+			mail($email, $subject, $template, $header);
 		}
 	}
 
