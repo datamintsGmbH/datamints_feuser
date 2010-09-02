@@ -1,31 +1,15 @@
 plugin.tx_datamintsfeuser_pi1 {
 
-	### Anzeigetyp.
 	showtype = register
-	### Die Felder die im Frontend ausgegeben werden.
 	usedfields = username,password,image,--separator--,tx_datamintsfeuser_firstname,tx_datamintsfeuser_surname,address,zip,city,--separator--,email,www,--submit--
-	### Die Felder die ausgefüllt werden müssen.
 	requiredfields = username,password,tx_datamintsfeuser_firstname,tx_datamintsfeuser_surname,email
-	### Felder die nicht 2mal vorkommen dürfen (Auf Datenbankebene und pro PID).
 	uniquefields = username,email
 
-	register {
-		### Passwort automatisch generieren JA/NEIN?
-		generatepassword.mode = 0
-		### Wie lang soll das generierte Passwort sein?
-		generatepassword.length = 8
-		### Der Content-Typ in der die Emails gesendet werden sollen (text/html).
-		mailtype = text
-	}
-
 	validate {
-		### Das Feld "password" soll mit der vordefinierten Validierung "password" validiert werden. Außerdem soll das Passwort mindestens 6 Zeichen haben.
+		username.type = username
 		password.type = password
 		password.length = 6
-		### Das Feld "email" soll mit der vordefinierten Validierung "email" validiert werden.
 		email.type = email
-		### Das Feld "username" soll mit der vordefinierten Validierung "username" validiert werden.
-		username.type = username
 	}
 
 }

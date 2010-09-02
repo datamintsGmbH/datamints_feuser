@@ -335,6 +335,19 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				// User editieren.
 				$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , $arrUpdate);
 
+				// User und Admin Benachrichtigung schicken, aber nur wenn etwas geaendert wurde.
+				if ($this->conf['edit.']['sendusermail'] || $this->conf['edit.']['sendadminmail']) {
+					$extraMarkers = $this->getChangedForMail($arrUpdate, $this->conf['edit.']);
+
+					if ($this->conf['edit.']['sendusermail'] && !isset ($extraMarkers['nothing_changed'])) {
+						$this->sendMail($this->userId, 'edit', false, $this->conf['edit.'], $extraMarkers);
+					}
+
+					if ($this->conf['edit.']['sendadminmail'] && !isset ($extraMarkers['nothing_changed'])) {
+						$this->sendMail($this->userId, 'edit', true, $this->conf['edit.'], $extraMarkers);
+					}
+				}
+
 				// Ausgabe vorbereiten.
 				$mode = $this->conf['showtype'];
 				$submode = 'success';
@@ -389,14 +402,14 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					$mode = $approvalType;
 					$submode = implode('_', array_shift($arrApprovalTypes));
 					$submode .= ($submode) ? '_sent' : 'sent';
-					$params = array('mode' => 'register');
+					$params = array('mode' => $this->conf['showtype']);
 				} else {
 					// Erstellt ein neues Passwort, falls Passwort generieren eingestellt ist. Das Passwort kannn dann ueber den Marker "###PASSWORD###" mit der Registrierungsmail gesendet werden.
 					$extraMarkers = $this->generatePasswordForMail($userId);
 
-					// Registrierungsemail schicken.
-					$this->sendMail($userId, 'registration', true);
-					$this->sendMail($userId, 'registration', false, $extraMarkers);
+					// Registrierungs E-Mail schicken.
+					$this->sendMail($userId, 'registration', true, $this->conf['register.']);
+					$this->sendMail($userId, 'registration', false, $this->conf['register.'], $extraMarkers);
 
 					$mode = $this->conf['showtype'];
 					$submode = 'success';
@@ -618,7 +631,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$password['normal'] = '';
 			$chars = '234567890abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-			while ($i <= $this->conf['register.']['generatepassword.']['length']) {
+			while ($i <= (($this->conf['register.']['generatepassword.']['length']) ? $this->conf['register.']['generatepassword.']['length'] : 8)) {
 				$password['normal'] .= $chars{mt_rand(0, strlen($chars))};
 				$i++;
 			}
@@ -665,7 +678,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * Erstellt ein neues Passwort, falls Passwort generieren eingestellt ist. Das Passwort kannn dann ueber den Marker "###PASSWORD###" mit der Registrierungsmail gesendet werden.
 	 *
 	 * @param	string		$userId
-	 * @return	array
+	 * @return	array		$extraMarkers
 	 */
 	function generatePasswordForMail($userId) {
 		$extraMarkers = array();
@@ -684,7 +697,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 *
 	 * @param	string		$submitedPassword
 	 * @param	string		$originalPassword
-	 * @return	boolean
+	 * @return	boolean		$check
 	 */
 	function checkPassword($submitedPassword, $originalPassword) {
 		$check = false;
@@ -816,7 +829,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @param	string		$mode
 	 * @param	string		$submode
 	 * @param	array		$params
-	 * @return	string
+	 * @return	string		$label
 	 */
 	function showMessageOutputRedirect($mode, $submode = '', $params = array()) {
 		$redirect = true;
@@ -910,7 +923,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		$pageLink = $this->pi_getPageLink($pageId);
-		header('Location: ' . $pageLink . ((strpos($pageLink, '?') === false) ? '?' : '&') . $this->makeHiddenParams());
+		header('Location: ' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $pageLink . ((strpos($pageLink, '?') === false) ? '?' : '&') . $this->makeHiddenParams());
 		exit;
 	}
 
@@ -944,7 +957,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		);
 
 		// E-Mail senden.
-		$this->sendMail($row['uid'], $approvalType, $this->isAdminMail($approvalType), $extraMarkers);
+		$this->sendMail($row['uid'], $approvalType, $this->isAdminMail($approvalType), $this->conf['register.'], $extraMarkers);
 
 		// Cookie fuer das erneute zusenden des Aktivierungslinks setzten.
 		$this->setNotActivatedCookie($row['uid']);
@@ -999,9 +1012,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// User aktivieren.
 			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $userId ,array('tstamp' => $time, 'disable' => '0', 'tx_datamintsfeuser_approval_level' => '0'));
 
-			// Registrierungsemail schicken.
-			$this->sendMail($userId, 'registration', true);
-			$this->sendMail($userId, 'registration', false, $extraMarkers);
+			// Registrierungs E-Mail schicken.
+			$this->sendMail($userId, 'registration', true, $this->conf['register.']);
+			$this->sendMail($userId, 'registration', false, $this->conf['register.'], $extraMarkers);
 
 			// Ausgabe vorbereiten.
 			$submode = 'success';
@@ -1048,7 +1061,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * Ermittelt alle nicht aktivierten Accounts des Users, falls .
 	 *
 	 * @param	array		$arrNotActivated
-	 * @return	array
+	 * @return	array		$arrNotActivatedCleaned
 	 */
 	function getNotActivatedUserArray($arrNotActivated = array()) {
 		$arrNotActivatedCleaned = array();
@@ -1081,10 +1094,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @param	integer		$userId
 	 * @param	string		$templatePart
 	 * @param	boolean		$adminMail
+	 * @param	array		$config
 	 * @param	array		$extraMarkers
+	 * @param	array		$extraSuparts
 	 * @return	void
 	 */
-	function sendMail($userId, $templatePart, $adminMail = true, $extraMarkers = array()) {
+	function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array()) {
 		// Userdaten ermitteln.
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . intval($userId), '', '', '1');
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
@@ -1100,39 +1115,53 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Wenn die Mail fuer den Admin bestimmt ist.
 		if ($adminMail) {
 			// Template laden.
-			$template = $this->getTemplateSubpart($templatePart . '_admin', $markerArray);
+			$template = $this->getTemplateSubpart($templatePart . '_admin', $config, $markerArray);
+
+			// Empfaengername vorbereiten.
+			$name = '=?UTF-8?B?' . base64_encode(($config['adminname']) ? $config['adminname'] : $config['adminmail']) . '?=';
 
 			// E-Mail und Name ermitteln.
-			$email = ($this->conf['register.']['adminname']) ? $this->conf['register.']['adminname'] . ' <' . $this->conf['register.']['adminmail'] . '>' : $this->conf['register.']['adminmail'];
+			$recipient = $name . ' <' . $config['adminmail'] . '>';
 		} else {
 			// Template laden.
-			$template = $this->getTemplateSubpart($templatePart, $markerArray);
+			$template = $this->getTemplateSubpart($templatePart, $config, $markerArray);
+
+			// Empfaengername vorbereiten.
+			$name = '=?UTF-8?B?' . base64_encode(($row['username']) ? $row['username'] : $row['email']) . '?=';
 
 			// E-Mail und Name ermitteln.
-			$email = ($row['name']) ? $row['name'] . ' <' . $row['email'] . '>' : $row['email'];
+			$recipient = $name . ' <' . $row['email'] . '>';
 		}
 
 		// Betreff ermitteln und aus dem E-Mail Content entfernen.
 		$subject = trim($this->cObj->getSubpart($template, '###SUBJECT###'));
 		$template = $this->cObj->substituteSubpart($template, '###SUBJECT###', '');
 
+		// Extra Subparts erstzten.
+		foreach ($extraSuparts as $key => $val) {
+			$template = $this->cObj->substituteSubpart($template, '###' . strtoupper($key) . '###', $val);
+		}
+
 		// Restlichen Content wieder zusammenfuegen.
-		if ($this->conf['register.']['mailtype'] == 'html') {
+		if ($config['mailtype'] == 'html') {
 			$mailtype = 'text/html';
 		} else {
 			$mailtype = 'text/plain';
 			$template = trim(strip_tags($template));
 		}
 
+		// Absendername vorbereiten.
+		$name = '=?UTF-8?B?' . base64_encode(($config['sendername']) ? $config['sendername'] : $config['sendermail']) . '?=';
+
 		// Zusaetzliche Header User-Mail.
 		$header  = 'MIME-Version: 1.0' . "\r\n";
 		$header .= 'Content-type: ' . $mailtype . '; charset=utf-8' . "\r\n";
-		$header .= 'From: ' . $this->conf['register.']['sendername'] . ' <' . $this->conf['register.']['sendermail'] . '>' . "\r\n";
+		$header .= 'From: ' . $name . ' <' . $config['sendermail'] . '>' . "\r\n";
 		$header .= 'X-Mailer: PHP/' . phpversion();
 
 		// Verschicke E-Mail.
-		if ($email) {
-			mail($email, $subject, $template, $header);
+		if ($recipient) {
+			mail($recipient, $subject, $template, $header);
 		}
 	}
 
@@ -1140,12 +1169,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * Holt einen Subpart des Standardtemplates und ersetzt uebergeben Marker.
 	 *
 	 * @param	string		$templatePart
+	 * @param	array		$config
 	 * @param	array		$markerArray
-	 * @return	string
+	 * @return	string		$template
 	 */
-	function getTemplateSubpart($templatePart, $markerArray = array()) {
+	function getTemplateSubpart($templatePart, $config, $markerArray = array()) {
 		// Template holen.
-		$templateFile = $this->conf['register.']['emailtemplate'];
+		$templateFile = $config['emailtemplate'];
 
 		if (!$templateFile) {
 			$templateFile = 'EXT:' . $this->extKey . '/res/datamints_feuser_mail.html';
@@ -1162,6 +1192,46 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$template = $this->cObj->substituteMarkerArray($template, $markerArray, '###|###', 1);
 
 		return $template;
+	}
+
+	/**
+	 * Ermittlet alle geänderten Daten und schreibt sie in ein Markerarray.
+	 *
+	 * @param	array		$arrNewData
+	 * @param	array		$config
+	 * @return	array		$extraMarkers
+	 */
+	function getChangedForMail($arrNewData, $config) {
+		$count = 0;
+		$extraMarkers = array();
+		$template =  $this->getTemplateSubpart('changed_items', $config);
+
+		foreach ($arrNewData as $key => $val) {
+			if (in_array($key, $this->arrUsedFields)) {
+				if ($val != $GLOBALS['TSFE']->fe_user->user[$key]) {
+					$markerArray = array();
+					$markerArray['value_old'] = $GLOBALS['TSFE']->fe_user->user[$key];
+					$markerArray['value_new'] = $val;
+
+					$subpart = $this->cObj->getSubpart($template, '###' . strtoupper($key) . '###');
+
+					if ($subpart) {
+						$count++;
+						$extraMarkers['changed_item_' . $key] = $this->cObj->substituteMarkerArray($subpart, $markerArray, '###|###', 1);
+					} else {
+						$extraMarkers['changed_item_' . $key] = '';
+					}
+				} else {
+					$extraMarkers['changed_item_' . $key] = '';
+				}
+			}
+		}
+
+		if (!$count) {
+			$extraMarkers['nothing_changed'] = 'nothing_changed';
+		}
+
+		return $extraMarkers;
 	}
 
 	/**
@@ -1220,6 +1290,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Alle ausgewaehlten Felder durchgehen.
 		foreach ($this->arrUsedFields as $fieldName) {
+			// Standardkonfigurationen laden.
+			if (!$arrCurrentData[$fieldName] && $this->feUsersTca['columns'][$fieldName]['config']['default']) {
+				$arrCurrentData[$fieldName] = $this->feUsersTca['columns'][$fieldName]['config']['default'];
+			}
+
 			// Wenn das im Flexform ausgewaehlte Feld existiert, dann dieses Feld ausgeben, alle anderen Felder werden ignoriert.
 			if ($this->feUsersTca['columns'][$fieldName]) {
 				// Form Item Anfang.
@@ -1470,7 +1545,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Items, die in der TCA-Konfiguration festgelegt wurden.
 		for ($i = 0; $i < $countSelectFields; $i++) {
-			$selected = (strpos($arrCurrentData[$fieldName], $i) !== false || in_array($i, $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
+			$selected = (strpos($arrCurrentData[$fieldName], $i) !== false || in_array($i, (array)$arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
 			$optionlist .= '<option value="' . $this->feUsersTca['columns'][$fieldName]['config']['items'][$i][1] . '"' . $selected . '>' . $this->getLabel($this->feUsersTca['columns'][$fieldName]['config']['items'][$i][0]) . '</option>';
 		}
 

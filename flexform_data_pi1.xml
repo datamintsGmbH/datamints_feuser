@@ -182,101 +182,6 @@
 					</TCEforms>
 				</register.generatepassword.length>
 
-				<register.mailtype>
-					<TCEforms>
-						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.mailtype</label>
-						<config>
-							<type>select</type>
-							<items type="array">
-								<numIndex index="0" type="array">
-									<numIndex index="0"></numIndex>
-									<numIndex index="1"></numIndex>
-								</numIndex>
-								<numIndex index="1" type="array">
-									<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.mailtype.text</numIndex>
-									<numIndex index="1">text</numIndex>
-								</numIndex>
-								<numIndex index="2" type="array">
-									<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.mailtype.html</numIndex>
-									<numIndex index="1">html</numIndex>
-								</numIndex>
-							</items>
-							<maxitems>1</maxitems>
-							<size>1</size>
-						</config>
-					</TCEforms>
-				</register.mailtype>
-
-				<register.emailtemplate>
-					<TCEforms>
-						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.emailtemplate</label>
-						<config>
-							<type>input</type>
-							<size>20</size>
-							<max>256</max>
-							<eval>trim</eval>
-							<wizards type="array">
-								<_PADDING type="integer">2</_PADDING>
-								<link type="array">
-									<type>popup</type>
-									<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.emailtemplate</title>
-									<icon>link_popup.gif</icon>
-									<script>browse_links.php?act=file&amp;mode=wizard</script>
-									<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
-								</link>
-							</wizards>
-						</config>
-					</TCEforms>
-				</register.emailtemplate>
-
-				<register.sendername>
-					<TCEforms>
-						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.sendername</label>
-						<config>
-							<type>input</type>
-							<size>10</size>
-							<max>256</max>
-							<eval>trim</eval>
-						</config>
-					</TCEforms>
-				</register.sendername>
-
-				<register.sendermail>
-					<TCEforms>
-						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.sendermail</label>
-						<config>
-							<type>input</type>
-							<size>10</size>
-							<max>256</max>
-							<eval>trim</eval>
-						</config>
-					</TCEforms>
-				</register.sendermail>
-
-				<register.adminname>
-					<TCEforms>
-						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.adminname</label>
-						<config>
-							<type>input</type>
-							<size>10</size>
-							<max>256</max>
-							<eval>trim</eval>
-						</config>
-					</TCEforms>
-				</register.adminname>
-
-				<register.adminmail>
-					<TCEforms>
-						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.adminmail</label>
-						<config>
-							<type>input</type>
-							<size>10</size>
-							<max>256</max>
-							<eval>trim</eval>
-						</config>
-					</TCEforms>
-				</register.adminmail>
-
 				<register.autologin>
 					<TCEforms>
 						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.autologin</label>
@@ -312,9 +217,229 @@
 					</TCEforms>
 				</register.approvalcheck>
 
+				<register.mailtype>
+					<TCEforms>
+						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.mailtype</label>
+						<config>
+							<type>select</type>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0"></numIndex>
+									<numIndex index="1"></numIndex>
+								</numIndex>
+								<numIndex index="1" type="array">
+									<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.mailtype.text</numIndex>
+									<numIndex index="1">text</numIndex>
+								</numIndex>
+								<numIndex index="2" type="array">
+									<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.mailtype.html</numIndex>
+									<numIndex index="1">html</numIndex>
+								</numIndex>
+							</items>
+							<maxitems>1</maxitems>
+							<size>1</size>
+						</config>
+					</TCEforms>
+				</register.mailtype>
+
+				<register.emailtemplate>
+					<TCEforms>
+						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.emailtemplate</label>
+						<config>
+							<type>input</type>
+							<size>20</size>
+							<max>256</max>
+							<eval>trim</eval>
+							<wizards type="array">
+								<_PADDING type="integer">2</_PADDING>
+								<link type="array">
+									<type>popup</type>
+									<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.emailtemplate</title>
+									<icon>link_popup.gif</icon>
+									<script>browse_links.php?act=file&amp;mode=wizard</script>
+									<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+								</link>
+							</wizards>
+						</config>
+					</TCEforms>
+				</register.emailtemplate>
+
+				<register.sendername>
+					<TCEforms>
+						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sendername</label>
+						<config>
+							<type>input</type>
+							<size>10</size>
+							<max>256</max>
+							<eval>trim</eval>
+						</config>
+					</TCEforms>
+				</register.sendername>
+
+				<register.sendermail>
+					<TCEforms>
+						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sendermail</label>
+						<config>
+							<type>input</type>
+							<size>10</size>
+							<max>256</max>
+							<eval>trim</eval>
+						</config>
+					</TCEforms>
+				</register.sendermail>
+
+				<register.adminname>
+					<TCEforms>
+						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.adminname</label>
+						<config>
+							<type>input</type>
+							<size>10</size>
+							<max>256</max>
+							<eval>trim</eval>
+						</config>
+					</TCEforms>
+				</register.adminname>
+
+				<register.adminmail>
+					<TCEforms>
+						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.adminmail</label>
+						<config>
+							<type>input</type>
+							<size>10</size>
+							<max>256</max>
+							<eval>trim</eval>
+						</config>
+					</TCEforms>
+				</register.adminmail>
+
 			</el>
 		</ROOT>
 	</sREG>
+
+	<sEDI>
+		<ROOT>
+			<TCEforms>
+				<sheetTitle>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sheet.edit</sheetTitle>
+			</TCEforms>
+			<type>array</type>
+			<el>
+
+				<edit.sendusermail>
+					<TCEforms>
+						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.edit.sendusermail</label>
+						<config>
+							<type>check</type>
+						</config>
+					</TCEforms>
+				</edit.sendusermail>
+
+				<edit.sendadminmail>
+					<TCEforms>
+						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.edit.sendadminmail</label>
+						<config>
+							<type>check</type>
+						</config>
+					</TCEforms>
+				</edit.sendadminmail>
+
+				<edit.mailtype>
+					<TCEforms>
+						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.mailtype</label>
+						<config>
+							<type>select</type>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0"></numIndex>
+									<numIndex index="1"></numIndex>
+								</numIndex>
+								<numIndex index="1" type="array">
+									<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.mailtype.text</numIndex>
+									<numIndex index="1">text</numIndex>
+								</numIndex>
+								<numIndex index="2" type="array">
+									<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.mailtype.html</numIndex>
+									<numIndex index="1">html</numIndex>
+								</numIndex>
+							</items>
+							<maxitems>1</maxitems>
+							<size>1</size>
+						</config>
+					</TCEforms>
+				</edit.mailtype>
+
+				<edit.emailtemplate>
+					<TCEforms>
+						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.emailtemplate</label>
+						<config>
+							<type>input</type>
+							<size>20</size>
+							<max>256</max>
+							<eval>trim</eval>
+							<wizards type="array">
+								<_PADDING type="integer">2</_PADDING>
+								<link type="array">
+									<type>popup</type>
+									<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.emailtemplate</title>
+									<icon>link_popup.gif</icon>
+									<script>browse_links.php?act=file&amp;mode=wizard</script>
+									<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+								</link>
+							</wizards>
+						</config>
+					</TCEforms>
+				</edit.emailtemplate>
+
+				<edit.sendername>
+					<TCEforms>
+						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sendername</label>
+						<config>
+							<type>input</type>
+							<size>10</size>
+							<max>256</max>
+							<eval>trim</eval>
+						</config>
+					</TCEforms>
+				</edit.sendername>
+
+				<edit.sendermail>
+					<TCEforms>
+						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sendermail</label>
+						<config>
+							<type>input</type>
+							<size>10</size>
+							<max>256</max>
+							<eval>trim</eval>
+						</config>
+					</TCEforms>
+				</edit.sendermail>
+
+				<edit.adminname>
+					<TCEforms>
+						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.adminname</label>
+						<config>
+							<type>input</type>
+							<size>10</size>
+							<max>256</max>
+							<eval>trim</eval>
+						</config>
+					</TCEforms>
+				</edit.adminname>
+
+				<edit.adminmail>
+					<TCEforms>
+						<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.adminmail</label>
+						<config>
+							<type>input</type>
+							<size>10</size>
+							<max>256</max>
+							<eval>trim</eval>
+						</config>
+					</TCEforms>
+				</edit.adminmail>
+
+			</el>
+		</ROOT>
+	</sEDI>
 
 	<sRED>
 		<ROOT>
