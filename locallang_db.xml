@@ -35,7 +35,7 @@
 			<label index="tt_content.pi_flexform.legend">Legend Text:</label>
 			<label index="tt_content.pi_flexform.infoitemtext">Info Item Text:</label>
 			<label index="tt_content.pi_flexform.caption">Caption:</label>
-			<label index="tt_content.pi_flexform.mailtype">Registration E-Mail Type:</label>
+			<label index="tt_content.pi_flexform.mailtype">E-Mail Type:</label>
 			<label index="tt_content.pi_flexform.mailtype.text">Text</label>
 			<label index="tt_content.pi_flexform.mailtype.html">HTML</label>
 			<label index="tt_content.pi_flexform.emailtemplate">Own E-Mail Template:</label>
