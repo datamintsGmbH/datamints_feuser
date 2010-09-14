@@ -28,11 +28,23 @@ div.tx-datamintsfeuser-pi1 form fieldset div.form_item label {
 div.tx-datamintsfeuser-pi1 form fieldset div.form_item input {
 	width:300px;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_item input[type="checkbox"] {
+div.tx-datamintsfeuser-pi1 form fieldset div.form_type_check input {
 	width:auto;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_item textarea {
+div.tx-datamintsfeuser-pi1 form fieldset div.form_type_text textarea {
 	width:300px;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.form_type_radio div.radio_item_wrapper {
+	padding-left:260px;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.form_type_radio div.radio_item label {
+	display:inline;
+	width:auto;
+	float:none;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.form_type_radio div.radio_item input {
+	width:auto;
+	float:left;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_submit {
 	clear:both;
