@@ -667,7 +667,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$password['normal'] = $this->piVars[$this->contentId][$fieldName];
 
 		// Erstellt ein Password.
-		if ($this->conf['register.']['generatepassword.']['mode']) {
+		if ($this->conf['showtype'] == 'register' && $this->conf['register.']['generatepassword.']['mode']) {
 			$i = 1;
 			$password['normal'] = '';
 			$chars = '234567890abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
