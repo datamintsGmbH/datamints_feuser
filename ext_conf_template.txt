@@ -1,2 +1,4 @@
-# cat=basic/enableUsed; type=boolean; label=Enable IRRE:Enable the use of IRRE in plugin configuration.
+# cat=basic/enableUsed; type=boolean; label=Enable IRRE:Enables the use of IRRE in the plugin configuration. If you use IRRE "usedfields", "requiredfields" and "uniquefields" in TypoScript will stop working!
 useIRRE = 1
+# cat=basic/enableUsed; type=string; label=Encryption Key:This is the encryption key of the approval links. Please generate your own after extension installation. If you change it the old approval links will stop working!
+encryptionKey = b98OQ8c5hhmH1dwVyk3po8K8I9kQ0KHm

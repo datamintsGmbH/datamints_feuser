@@ -45,6 +45,8 @@
 			<label index="adminapproval_doubleoptin_sent">To activate your account, the Administrator have to unlock it! Then click the activation link in the e-mail we will sent you!</label>
 			<label index="doubleoptin_success">Your account has been successfully unlocked!</label>
 			<label index="adminapproval_success">The customers account has been successfully unlocked!</label>
+			<label index="doubleoptin_deleted">Your account has been successfully deleted!</label>
+			<label index="adminapproval_deleted">The customers account has been successfully deleted!</label>
 			<label index="doubleoptin_failure">Your activation link is unfortunately not valid!</label>
 			<label index="adminapproval_failure">The given activation link is unfortunately not valid!</label>
 			<label index="approvalcheck_failure">The given activation link is unfortunately not valid!</label>
@@ -85,12 +87,14 @@
 			<label index="submit_edit">Speichern</label>
 			<label index="edit_success">Ihre Daten wurde erfolgreich geändert! Sie werden in wenigen Sekunden zurück geleitet!</label>
 			<label index="register_success">Sie haben sich erfolgreich registriert!</label>
-			<label index="doubleoptin_sent">Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wurde!</label>
+			<label index="doubleoptin_sent">Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde!</label>
 			<label index="adminapproval_sent">Sie werden durch den Administrator freigeschalten!</label>
-			<label index="doubleoptin_adminapproval_sent">Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wurde! Sobald das geschehen ist, werden Sie durch den Administartors freigeschalten!</label>
+			<label index="doubleoptin_adminapproval_sent">Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde! Sobald das geschehen ist, werden Sie durch den Administartors freigeschalten!</label>
 			<label index="adminapproval_doubleoptin_sent">Um Ihren Account zu aktivieren, müssen Sie auf die Freischaltung des Administartors warten! Sobald das geschehen ist, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wird!</label>
 			<label index="doubleoptin_success">Ihr Account wurde erfolgreich freigeschaltet!</label>
 			<label index="adminapproval_success">Der Useraccount wurde erfolgreich freigeschaltet!</label>
+			<label index="doubleoptin_deleted">Ihr Account wurde erfolgreich gelöscht!</label>
+			<label index="adminapproval_deleted">Der Useraccount wurde erfolgreich gelöscht!</label>
 			<label index="doubleoptin_failure">Ihr Aktivierungslink ist leider nicht gültig!</label>
 			<label index="adminapproval_failure">Der Aktivierungslink ist leider nicht gültig!</label>
 			<label index="approvalcheck_failure">Der Aktivierungslink ist leider nicht gültig!</label>

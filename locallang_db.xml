@@ -25,7 +25,7 @@
 			<label index="tt_content.pi_flexform.separator">Separator / Legend</label>
 			<label index="tt_content.pi_flexform.infoitem">Info Item</label>
 			<label index="tt_content.pi_flexform.userdelete">"Delete User" Checkbox</label>
-			<label index="tt_content.pi_flexform.passwordconfirmation">"Password Confirmation" Field</label>
+			<label index="tt_content.pi_flexform.passwordconfirmation">"Current Password" Field</label>
 			<label index="tt_content.pi_flexform.resendactivation">"Resend Activation" Field</label>
 			<label index="tt_content.pi_flexform.submit">Submit Button</label>
 			<label index="tt_content.pi_flexform.label">Label:</label>
@@ -87,7 +87,7 @@
 			<label index="tt_content.pi_flexform.separator">Trenner / Legende</label>
 			<label index="tt_content.pi_flexform.infoitem">Infoitem</label>
 			<label index="tt_content.pi_flexform.userdelete">"User löschen" Checkbox</label>
-			<label index="tt_content.pi_flexform.passwordconfirmation">"Passwortbestätigung" Feld</label>
+			<label index="tt_content.pi_flexform.passwordconfirmation">"Aktuelles Passwort" Feld</label>
 			<label index="tt_content.pi_flexform.resendactivation">"Aktivierung erneut senden" Feld</label>
 			<label index="tt_content.pi_flexform.submit">Absenden Schaltfläche</label>
 			<label index="tt_content.pi_flexform.label">Etikett:</label>

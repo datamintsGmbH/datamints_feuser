@@ -33,48 +33,48 @@
  *  176:     function sendForm()
  *  431:     function uniqueCheckForm()
  *  461:     function validateForm()
- *  616:     function requireCheckForm()
- *  663:     function generatePassword($fieldName)
- *  724:     function generatePasswordForMail($userId)
- *  743:     function checkPassword($submitedPassword, $originalPassword)
- *  792:     function saveDeleteImage($fieldName, &$arrUpdate)
- *  875:     function showMessageOutputRedirect($mode, $submode = '', $params = array())
- *  943:     function userAutoLogin($username, $mode = '')
- *  960:     function userRedirect($pageId = 0)
- *  977:     function sendActivationMail($userId)
- * 1013:     function makeApprovalCheck($userId)
- * 1073:     function getApprovalTypes()
- * 1085:     function isAdminMail($approvalType)
- * 1095:     function setNotActivatedCookie($userId)
- * 1107:     function getNotActivatedUserArray($arrNotActivated = array())
- * 1143:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
- * 1238:     function getTemplateSubpart($templatePart, $config, $markerArray = array())
- * 1266:     function getChangedForMail($arrNewData, $config)
- * 1305:     function showForm($valueCheck = array())
- * 1523:     function cleanSpecialFieldKey($fieldName)
- * 1538:     function showInput($fieldName, $arrCurrentData, $iItem)
- * 1577:     function showText($fieldName, $arrCurrentData)
- * 1593:     function showCheck($fieldName, $arrCurrentData)
- * 1609:     function showRadio($fieldName, $arrCurrentData)
- * 1639:     function showSelect($fieldName, $arrCurrentData)
- * 1687:     function showGroup($fieldName, $arrCurrentData)
- * 1735:     function makeHiddenFields()
- * 1752:     function makeHiddenParams()
- * 1770:     function cleanHeaderUrlData($data)
- * 1782:     function checkIfRequired($fieldName)
- * 1796:     function getLabel($fieldName)
- * 1839:     function getErrorLabel($fieldName, $valueCheck)
- * 1855:     function getDefaultLanguage()
- * 1873:     function getConfiguration()
- * 1918:     function readFlexformTab($flexData, &$conf, $sTab)
- * 1952:     function setFlexformConfiguration($key, $value)
- * 1980:     function setIrreConfiguration()
- * 2109:     function getJSValidationConfiguration()
- * 2209:     function getFeUsersTca()
- * 2223:     function getStoragePid()
- * 2237:     function deletePointInArrayKey($array)
- * 2268:     function checkUtf8($str)
- * 2312:     function cleanArray($array)
+ *  636:     function requireCheckForm()
+ *  685:     function generatePassword($fieldName)
+ *  746:     function generatePasswordForMail($userId)
+ *  765:     function checkPassword($submitedPassword, $originalPassword)
+ *  821:     function saveDeleteImage($fieldName, &$arrUpdate)
+ *  904:     function showMessageOutputRedirect($mode, $submode = '', $params = array())
+ *  972:     function userAutoLogin($username, $mode = '')
+ *  989:     function userRedirect($pageId = 0)
+ * 1006:     function sendActivationMail($userId)
+ * 1044:     function makeApprovalCheck($userId)
+ * 1114:     function getApprovalTypes()
+ * 1126:     function isAdminMail($approvalType)
+ * 1136:     function setNotActivatedCookie($userId)
+ * 1148:     function getNotActivatedUserArray($arrNotActivated = array())
+ * 1184:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
+ * 1279:     function getTemplateSubpart($templatePart, $config, $markerArray = array())
+ * 1307:     function getChangedForMail($arrNewData, $config)
+ * 1346:     function showForm($valueCheck = array())
+ * 1564:     function cleanSpecialFieldKey($fieldName)
+ * 1579:     function showInput($fieldName, $arrCurrentData, $iItem)
+ * 1618:     function showText($fieldName, $arrCurrentData)
+ * 1634:     function showCheck($fieldName, $arrCurrentData)
+ * 1650:     function showRadio($fieldName, $arrCurrentData)
+ * 1680:     function showSelect($fieldName, $arrCurrentData)
+ * 1728:     function showGroup($fieldName, $arrCurrentData)
+ * 1776:     function makeHiddenFields()
+ * 1793:     function makeHiddenParams()
+ * 1811:     function cleanHeaderUrlData($data)
+ * 1823:     function checkIfRequired($fieldName)
+ * 1837:     function getLabel($fieldName)
+ * 1880:     function getErrorLabel($fieldName, $valueCheck)
+ * 1896:     function getDefaultLanguage()
+ * 1914:     function getConfiguration()
+ * 1959:     function readFlexformTab($flexData, &$conf, $sTab)
+ * 1993:     function setFlexformConfiguration($key, $value)
+ * 2021:     function setIrreConfiguration()
+ * 2150:     function getJSValidationConfiguration()
+ * 2250:     function getFeUsersTca()
+ * 2264:     function getStoragePid()
+ * 2278:     function deletePointInArrayKey($array)
+ * 2309:     function checkUtf8($str)
+ * 2353:     function cleanArray($array)
  *
  *
  * TOTAL FUNCTIONS: 45
@@ -463,128 +463,14 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Alle ausgewaehlten Felder durchgehen.
 		foreach ($this->arrUsedFields as $fieldName) {
-			 $validate = $this->conf['validate.'][$fieldName . '.'];
-
-			// Wenn der im TypoScript angegebene Feldname existiert,
-			if ($this->feUsersTca['columns'][$fieldName]
-					// ein Wert uebergeben wurde,
-					&& isset($this->piVars[$this->contentId][$fieldName])
-					// der Konfigurierte Modus stimmt,
-					&& (!$validate['mode'] || $validate['mode'] == $this->conf['showtype'])
-					// und das Feld ueberhaupt angezeigt wurde, dann validieren.
-					&& in_array($fieldName, $this->arrUsedFields)) {
-
-				$value = $this->piVars[$this->contentId][$fieldName];
-
-				switch ($validate['type']) {
-
-					case 'password':
-						$value_rep = $this->piVars[$this->contentId][$fieldName . '_rep'];
-						$arrLength[0] = 6;
-
-						if ($value == $value_rep) {
-							if ($validate['length']) {
-								$arrLength = t3lib_div::trimExplode(',', $validate['length']);
-
-								if ($arrLength[1]) {
-									// Wenn eine Maximallaenge festgelegt wurde.
-									if (strlen($value) < $arrLength[0] || strlen($value) > $arrLength[1]) {
-										$valueCheck[$fieldName] = 'length';
-									}
-								} else {
-									// Wenn nur eine Minimallaenge festgelegt wurde.
-									if (strlen($value) < $arrLength[0]) {
-										$valueCheck[$fieldName] = 'length';
-									}
-								}
-							} else {
-								// Wenn nur eine Minimallaenge festgelegt wurde.
-								if (strlen($value) < $arrLength[0]) {
-									$valueCheck[$fieldName] = 'length';
-								}
-							}
-						} else {
-							$valueCheck[$fieldName] = 'equal';
-						}
-						break;
-
-					case 'email':
-						if (!preg_match('/^[a-zA-Z0-9\._%+-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,6}$/', $value)) {
-							$valueCheck[$fieldName] = 'valid';
-						}
-						break;
-
-					case 'username':
-						if (!preg_match('/^[^ ]*$/', $value)) {
-							$valueCheck[$fieldName] = 'valid';
-						}
-						break;
-
-					case 'zero':
-						if ($value == '0') {
-							$valueCheck[$fieldName] = 'valid';
-						}
-						break;
-
-					case 'emptystring':
-						if ($value == '') {
-							$valueCheck[$fieldName] = 'valid';
-						}
-						break;
-
-					case 'custom':
-						if ($validate['regexp']) {
-							if (is_array($value)) {
-								foreach ($value as $subValue) {
-									if (!preg_match($validate['regexp'], $subValue)) {
-										$valueCheck[$fieldName] = 'valid';
-									}
-								}
-							} else {
-								if (!preg_match($validate['regexp'], $value)) {
-									$valueCheck[$fieldName] = 'valid';
-								}
-							}
-						}
-						if ($validate['length']) {
-							$arrLength = t3lib_div::trimExplode(',', $validate['length']);
-
-							if (is_array($value)) {
-								if ($arrLength[1]) {
-									// Wenn eine Maximallaenge festgelegt wurde.
-									if (count($value) < $arrLength[0] || count($value) > $arrLength[1]) {
-										$valueCheck[$fieldName] = 'length';
-									}
-								} else {
-									// Wenn nur eine Minimallaenge festgelegt wurde.
-									if (count($value) < $arrLength[0]) {
-										$valueCheck[$fieldName] = 'length';
-									}
-								}
-							} else {
-								if ($arrLength[1]) {
-									// Wenn eine Maximallaenge festgelegt wurde.
-									if (strlen($value) < $arrLength[0] || strlen($value) > $arrLength[1]) {
-										$valueCheck[$fieldName] = 'length';
-									}
-								} else {
-									// Wenn nur eine Minimallaenge festgelegt wurde.
-									if (strlen($value) < $arrLength[0]) {
-										$valueCheck[$fieldName] = 'length';
-									}
-								}
-							}
-						}
-						break;
-
-				}
-			}
+			$value = $this->piVars[$this->contentId][$fieldName];
+			$validate = $this->conf['validate.'][$fieldName . '.'];
 
 			// Besonderes Feld das fest in der Extension verbaut ist (password_confirmation), und ueberprueft werden soll.
 			if ($fieldName == '--passwordconfirmation--' && $this->conf['showtype'] == 'edit' && $this->userId) {
 				$fieldName = $this->cleanSpecialFieldKey($fieldName);
 
-				if (!$this->checkPassword($this->piVars[$this->contentId][$fieldName], $GLOBALS['TSFE']->fe_user->user['password'])) {
+				if (!$this->checkPassword($value, $GLOBALS['TSFE']->fe_user->user['password'])) {
 					$valueCheck[$fieldName] = 'valid';
 				}
 			}
@@ -593,14 +479,148 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			if ($fieldName == '--resendactivation--') {
 				$fieldName = $this->cleanSpecialFieldKey($fieldName);
 
-				if ($this->piVars[$this->contentId][$fieldName]) {
-					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . intval($this->storagePid) . ' AND (uid = ' . intval($this->piVars[$this->contentId][$fieldName]) . ' OR email = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr(strtolower($this->piVars[$this->contentId][$fieldName]), 'fe_users') . ') AND disable = 1 AND deleted = 0');
+				if ($value) {
+					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . intval($this->storagePid) . ' AND (uid = ' . intval($value) . ' OR email = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr(strtolower($value), 'fe_users') . ') AND disable = 1 AND deleted = 0');
 					$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 
 					if ($row['count'] < 1) {
 						$valueCheck[$fieldName] = 'valid';
 					}
 				}
+			}
+
+			// Wenn der im TypoScript angegebene Feldname nicht im TCa ist, dann naechstes Feld vornehmen.
+			if (!$this->feUsersTca['columns'][$fieldName]) {
+				continue;
+			}
+
+			// Wenn das Feld ueberhaupt nicht angezeigt wurde, dann naechstes Feld vornehmen.
+			if (!in_array($fieldName, $this->arrUsedFields)) {
+				continue;
+			}
+
+			// Wenn ein Modus fuer dieses Feld konfiguriert wurde, und der Konfigurierte Modus nicht mit dem Anzeigetyp uebereinstimmt, dann naechstes Feld vornehmen.
+			if ($validate['mode'] && $validate['mode'] != $this->conf['showtype']) {
+				continue;
+			}
+
+			// Wenn ueberhaupt kein Wert / Parameter uebergeben wurde, dann naechstes Feld vornehmen.
+			if (!$value && !isset($value)) {
+				continue;
+			}
+
+			// Wenn kein Inhalt im Parameter steht und wenn der Typ des Feldes nicht check, radio oder select ist, dann naechstes Feld vornehmen.
+			if (!$value && !in_array($this->feUsersTca['columns'][$fieldName]['config']['type'], array('check', 'radio', 'select'))) {
+				continue;
+			}
+
+			// Wenn ueberhaupt kein Parameter angekommen ist und wenn der Typ des Feldes check, radio oder select ist, dann naechstes Feld vornehmen.
+			if (!isset($value) && in_array($this->feUsersTca['columns'][$fieldName]['config']['type'], array('check', 'radio', 'select'))) {
+				continue;
+			}
+
+			// Ansonsten Feldvalidierung anhand des Validierungstyps vornehmen.
+			switch ($validate['type']) {
+
+				case 'password':
+					$value_rep = $this->piVars[$this->contentId][$fieldName . '_rep'];
+					$arrLength[0] = 6;
+
+					if ($value == $value_rep) {
+						if ($validate['length']) {
+							$arrLength = t3lib_div::trimExplode(',', $validate['length']);
+
+							if ($arrLength[1]) {
+								// Wenn eine Maximallaenge festgelegt wurde.
+								if (strlen($value) < $arrLength[0] || strlen($value) > $arrLength[1]) {
+									$valueCheck[$fieldName] = 'length';
+								}
+							} else {
+								// Wenn nur eine Minimallaenge festgelegt wurde.
+								if (strlen($value) < $arrLength[0]) {
+									$valueCheck[$fieldName] = 'length';
+								}
+							}
+						} else {
+							// Wenn nur eine Minimallaenge festgelegt wurde.
+							if (strlen($value) < $arrLength[0]) {
+								$valueCheck[$fieldName] = 'length';
+							}
+						}
+					} else {
+						$valueCheck[$fieldName] = 'equal';
+					}
+					break;
+
+				case 'email':
+					if (!preg_match('/^[a-zA-Z0-9\._%+-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,6}$/', $value)) {
+						$valueCheck[$fieldName] = 'valid';
+					}
+					break;
+
+				case 'username':
+					if (!preg_match('/^[^ ]*$/', $value)) {
+						$valueCheck[$fieldName] = 'valid';
+					}
+					break;
+
+				case 'zero':
+					if ($value == '0') {
+						$valueCheck[$fieldName] = 'valid';
+					}
+					break;
+
+				case 'emptystring':
+					if ($value == '') {
+						$valueCheck[$fieldName] = 'valid';
+					}
+					break;
+
+				case 'custom':
+					if ($validate['regexp']) {
+						if (is_array($value)) {
+							foreach ($value as $subValue) {
+								if (!preg_match($validate['regexp'], $subValue)) {
+									$valueCheck[$fieldName] = 'valid';
+								}
+							}
+						} else {
+							if (!preg_match($validate['regexp'], $value)) {
+								$valueCheck[$fieldName] = 'valid';
+							}
+						}
+					}
+					if ($validate['length']) {
+						$arrLength = t3lib_div::trimExplode(',', $validate['length']);
+
+						if (is_array($value)) {
+							if ($arrLength[1]) {
+								// Wenn eine Maximallaenge festgelegt wurde.
+								if (count($value) < $arrLength[0] || count($value) > $arrLength[1]) {
+									$valueCheck[$fieldName] = 'length';
+								}
+							} else {
+								// Wenn nur eine Minimallaenge festgelegt wurde.
+								if (count($value) < $arrLength[0]) {
+									$valueCheck[$fieldName] = 'length';
+								}
+							}
+						} else {
+							if ($arrLength[1]) {
+								// Wenn eine Maximallaenge festgelegt wurde.
+								if (strlen($value) < $arrLength[0] || strlen($value) > $arrLength[1]) {
+									$valueCheck[$fieldName] = 'length';
+								}
+							} else {
+								// Wenn nur eine Minimallaenge festgelegt wurde.
+								if (strlen($value) < $arrLength[0]) {
+									$valueCheck[$fieldName] = 'length';
+								}
+							}
+						}
+					}
+					break;
+
 			}
 
 		}
@@ -619,35 +639,37 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Geht alle benoetigten Felder durch und ermittelt fehlende.
 		foreach ($this->arrRequiredFields as $fieldName) {
 			// Ueberpruefen, ob das Feld ueberhaupt benoetigt wird.
-			if (in_array($fieldName, $this->arrUsedFields)) {
-				// Ueberpruefen, ob ein Wert uebergeben wurde. Hierbei ist es wichtig um welchen Feldtyp es sich handelt.
-				// Bei Feldern, die der Browser gar nicht als leere Variable sendet, wenn nichts ausgewaehlt wurde, wird ueberprueft ob ueberhaupt etwas angekommen ist "!isset()".
-				// Bei den restlichen Felder schickt der Browser immer eine leere Variable mit, da langt es wenn man ueberprueft, ob ein nicht leerer Wert angekommen ist "!";
-				// Eine Sonderstellung haben einfache Selectboxen dort wird von Haus aus der erste Wert vom Browser ausgewählt, somit muss die Default Wert Ueberpruefung hier zusaetzlich per Validierung gemacht werden ("selectzero", "selectemptystring").
-				// Fuer group Elemente vom Typ file wird eine Ueberpruefung auf ein vorhandenes File gemacht.
-				switch ($this->feUsersTca['columns'][$fieldName]['config']['type']) {
+			if (!in_array($fieldName, $this->arrUsedFields)) {
+				continue;
+			}
 
-					case 'check':
-					case 'radio':
-					case 'select':
-						if (!isset($this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)])) {
-							$valueCheck[$fieldName] = 'required';
-						}
-						break;
+			// Ueberpruefen, ob ein Wert uebergeben wurde. Hierbei ist es wichtig um welchen Feldtyp es sich handelt.
+			// Bei Feldern, die der Browser gar nicht als leere Variable sendet, wenn nichts ausgewaehlt wurde, wird ueberprueft ob ueberhaupt etwas angekommen ist "!isset()".
+			// Bei den restlichen Felder schickt der Browser immer eine leere Variable mit, da langt es wenn man ueberprueft, ob ein nicht leerer Wert angekommen ist "!";
+			// Eine Sonderstellung haben einfache Selectboxen dort wird von Haus aus der erste Wert vom Browser ausgewählt, somit muss die Default Wert Ueberpruefung hier zusaetzlich per Validierung gemacht werden ("selectzero", "selectemptystring").
+			// Fuer group Elemente vom Typ file wird eine Ueberpruefung auf ein vorhandenes File gemacht.
+			switch ($this->feUsersTca['columns'][$fieldName]['config']['type']) {
 
-					case 'group';
-						if ($this->feUsersTca['columns'][$fieldName]['config']['internal_type'] == 'file' && !$_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]) {
-							$valueCheck[$fieldName] = 'required';
-						}
-						break;
+				case 'check':
+				case 'radio':
+				case 'select':
+					if (!isset($this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)])) {
+						$valueCheck[$fieldName] = 'required';
+					}
+					break;
 
-					default:
-						if (!$this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)]) {
-							$valueCheck[$fieldName] = 'required';
-						}
-						break;
+				case 'group';
+					if ($this->feUsersTca['columns'][$fieldName]['config']['internal_type'] == 'file' && !$_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]) {
+						$valueCheck[$fieldName] = 'required';
+					}
+					break;
 
-				}
+				default:
+					if (!$this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)]) {
+						$valueCheck[$fieldName] = 'required';
+					}
+					break;
+
 			}
 		}
 
@@ -693,7 +715,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Wenn "md5passwords" installiert ist wird wenn aktiviert, das Password md5 verschluesselt.
-		if (t3lib_extMgm::isLoaded('md5passwords')) {
+		else if (t3lib_extMgm::isLoaded('md5passwords')) {
 			$arrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['md5passwords']);
 
 			if ($arrConf['activate'] == 1) {
@@ -702,7 +724,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Wenn "t3sec_saltedpw" installiert ist wird wenn aktiviert, das Password gehashed.
-		if (t3lib_extMgm::isLoaded('t3sec_saltedpw')) {
+		else if (t3lib_extMgm::isLoaded('t3sec_saltedpw')) {
 			require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/staticlib/class.tx_t3secsaltedpw_div.php';
 
 			if (tx_t3secsaltedpw_div::isUsageEnabled()) {
@@ -756,7 +778,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Wenn "md5passwords" installiert ist wird wenn aktiviert, das Password ueberprueft.
-		if (t3lib_extMgm::isLoaded('md5passwords')) {
+		else if (t3lib_extMgm::isLoaded('md5passwords')) {
 			$arrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['md5passwords']);
 
 			if ($arrConf['activate'] == 1) {
@@ -767,7 +789,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Wenn "t3sec_saltedpw" installiert ist wird wenn aktiviert, das Password ueberprueft.
-		if (t3lib_extMgm::isLoaded('t3sec_saltedpw')) {
+		else if (t3lib_extMgm::isLoaded('t3sec_saltedpw')) {
 			require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/staticlib/class.tx_t3secsaltedpw_div.php';
 
 			if (tx_t3secsaltedpw_div::isUsageEnabled()) {
@@ -776,6 +798,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				if ($tx_t3secsaltedpw_phpass->checkPassword($submitedPassword, $originalPassword)) {
 					$check = true;
 				}
+			}
+		}
+
+		// Wenn keine der oberen Extensions installiert ist (also keine Verschluesselung).
+		else {
+			if ($submitedPassword == $originalPassword) {
+				$check = true;
 			}
 		}
 
@@ -990,11 +1019,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$approvalType = $arrApprovalTypes[count($arrApprovalTypes) - $row['tx_datamintsfeuser_approval_level']];
 
 		// Mail vorbereiten.
-		$hash = md5($row['uid'] . $row['tstamp'] . $row['username'] . $row['email']);
+		$approvalHash = md5('approval' . $row['uid'] . $row['tstamp'] . $this->extConf['encryptionKey']);
+		$disapprovalHash = md5('disapproval' . $row['uid'] . $row['tstamp'] . $this->extConf['encryptionKey']);
 		$pageLink = $this->pi_getPageLink($GLOBALS['TSFE']->id);
 		$pageLink = (strpos($pageLink, '?') === false) ? $pageLink . '?' : $pageLink . '&';
 		$extraMarkers = array(
-			'approvallink' => t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $pageLink . $this->prefixId . '%5B' . $this->contentId . '%5D%5Bsubmit%5D=approvalcheck&' . $this->prefixId . '%5B' . $this->contentId . '%5D%5Buid%5D=' . $row['uid'] . '&' . $this->prefixId . '%5B' . $this->contentId . '%5D%5Bhash%5D=' . $hash . $this->makeHiddenParams()
+			'approvallink' => t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $pageLink . $this->prefixId . '%5B' . $this->contentId . '%5D%5Bsubmit%5D=approvalcheck&' . $this->prefixId . '%5B' . $this->contentId . '%5D%5Buid%5D=' . $row['uid'] . '&' . $this->prefixId . '%5B' . $this->contentId . '%5D%5Bhash%5D=' . $approvalHash . $this->makeHiddenParams(),
+			'disapprovallink' => t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $pageLink . $this->prefixId . '%5B' . $this->contentId . '%5D%5Bsubmit%5D=approvalcheck&' . $this->prefixId . '%5B' . $this->contentId . '%5D%5Buid%5D=' . $row['uid'] . '&' . $this->prefixId . '%5B' . $this->contentId . '%5D%5Bhash%5D=' . $disapprovalHash . $this->makeHiddenParams()
 		);
 
 		// E-Mail senden.
@@ -1031,10 +1062,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Daten vorbereiten.
 		$time = time();
-		$hash = md5($row['uid'] . $row['tstamp'] . $row['username'] . $row['email']);
+		$hashApproval = md5('approval' . $row['uid'] . $row['tstamp'] . $this->extConf['encryptionKey']);
+		$hashDisapproval = md5('disapproval' . $row['uid'] . $row['tstamp'] . $this->extConf['encryptionKey']);
 
 		// Wenn der Hash richtig ist, des letzte Genehmigungslevel aber noch nicht erreicht ist.
-		if ($this->piVars[$this->contentId]['hash'] == $hash && $row['tx_datamintsfeuser_approval_level'] > 1) {
+		if ($this->piVars[$this->contentId]['hash'] == $hashApproval && $row['tx_datamintsfeuser_approval_level'] > 1) {
 			// Genehmigungslevel updaten.
 			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $userId ,array('tstamp' => $time, 'tx_datamintsfeuser_approval_level' => $row['tx_datamintsfeuser_approval_level'] - 1));
 
@@ -1046,7 +1078,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Wenn der Hash richtig ist, und das letzte Genehmigungslevel erreicht ist.
-		if ($this->piVars[$this->contentId]['hash'] == $hash && $row['tx_datamintsfeuser_approval_level'] == 1) {
+		if ($this->piVars[$this->contentId]['hash'] == $hashApproval && $row['tx_datamintsfeuser_approval_level'] == 1) {
 			// Erstellt ein neues Passwort, falls Passwort generieren eingestellt ist. Das Passwort kannn dann ueber den Marker "###PASSWORD###" mit der Registrierungsmail gesendet werden.
 			$extraMarkers = $this->generatePasswordForMail(intval($this->piVars[$this->contentId]['uid']));
 
@@ -1060,6 +1092,15 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Ausgabe vorbereiten.
 			$submode = 'success';
 			$params = array('userId' => $userId);
+		}
+
+		// Wenn der Hash richtig ist, des letzte Genehmigungslevel aber noch nicht erreicht ist.
+		if ($this->piVars[$this->contentId]['hash'] == $hashDisapproval) {
+			// Genehmigungslevel updaten.
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $userId ,array('tstamp' => $time, 'deleted' => '1'));
+
+			// Ausgabe vorbereiten.
+			$submode = 'deleted';
 		}
 
 		return $this->showMessageOutputRedirect($mode, $submode, $params);
