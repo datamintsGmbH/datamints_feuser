@@ -45,8 +45,8 @@
 			<label index="adminapproval_doubleoptin_sent">To activate your account, the Administrator have to unlock it! Then click the activation link in the e-mail we will sent you!</label>
 			<label index="doubleoptin_success">Your account has been successfully unlocked!</label>
 			<label index="adminapproval_success">The customers account has been successfully unlocked!</label>
-			<label index="doubleoptin_deleted">Your account has been successfully deleted!</label>
-			<label index="adminapproval_deleted">The customers account has been successfully deleted!</label>
+			<label index="doubleoptin_deleted">The activation of our account has been successfully rejected!</label>
+			<label index="adminapproval_deleted">The activation of the customers account has been successfully rejected!</label>
 			<label index="doubleoptin_failure">Your activation link is unfortunately not valid!</label>
 			<label index="adminapproval_failure">The given activation link is unfortunately not valid!</label>
 			<label index="approvalcheck_failure">The given activation link is unfortunately not valid!</label>
@@ -75,7 +75,7 @@
 			<label index="userdelete_success">Der User wurde erfolgreich gelöscht!</label>
 			<label index="passwordconfirmation">Aktuelles Passwort:</label>
 			<label index="passwordconfirmation_error_required">Es muss das aktuelle Passwort eingegeben werden!</label>
-			<label index="passwordconfirmation_error_valid">Das einegebene Passwort stimmt nicht mit dem aktuellen Passwort überein!</label>
+			<label index="passwordconfirmation_error_valid">Das eingegebene Passwort stimmt nicht mit dem aktuellen Passwort überein!</label>
 			<label index="resendactivation">Aktivierungsmail für folgende E-Mail erneut senden:</label>
 			<label index="resendactivation_list">Aktivierungsmail für folgenden User erneut senden:</label>
 			<label index="resendactivation_sent">Es wurde eine neue Aktivierungsmail an die von Ihnen angegebene E-Mail geschickt!</label>
@@ -93,8 +93,8 @@
 			<label index="adminapproval_doubleoptin_sent">Um Ihren Account zu aktivieren, müssen Sie auf die Freischaltung des Administartors warten! Sobald das geschehen ist, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wird!</label>
 			<label index="doubleoptin_success">Ihr Account wurde erfolgreich freigeschaltet!</label>
 			<label index="adminapproval_success">Der Useraccount wurde erfolgreich freigeschaltet!</label>
-			<label index="doubleoptin_deleted">Ihr Account wurde erfolgreich gelöscht!</label>
-			<label index="adminapproval_deleted">Der Useraccount wurde erfolgreich gelöscht!</label>
+			<label index="doubleoptin_deleted">Die Aktivierung Ihres Accounts wurde erfolgreich abgelehnt!</label>
+			<label index="adminapproval_deleted">Die Aktivierung des Useraccount wurde erfolgreich abgelehnt!</label>
 			<label index="doubleoptin_failure">Ihr Aktivierungslink ist leider nicht gültig!</label>
 			<label index="adminapproval_failure">Der Aktivierungslink ist leider nicht gültig!</label>
 			<label index="approvalcheck_failure">Der Aktivierungslink ist leider nicht gültig!</label>

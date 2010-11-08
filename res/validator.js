@@ -51,7 +51,7 @@ function inputItemCheck(evt, input) {
 		input = getEventTarget(evt);
 	}
 
-	var value = input.value;
+	var value = input.value.replace(/\s+$/, '').replace(/^\s+/, '');
 
 	if (input.type == 'select-multiple') {
 		j = 0;

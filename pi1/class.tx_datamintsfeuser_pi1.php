@@ -33,16 +33,16 @@
  *  176:     function sendForm()
  *  431:     function uniqueCheckForm()
  *  461:     function validateForm()
- *  636:     function requireCheckForm()
- *  685:     function generatePassword($fieldName)
- *  746:     function generatePasswordForMail($userId)
- *  765:     function checkPassword($submitedPassword, $originalPassword)
- *  821:     function saveDeleteImage($fieldName, &$arrUpdate)
- *  904:     function showMessageOutputRedirect($mode, $submode = '', $params = array())
- *  972:     function userAutoLogin($username, $mode = '')
- *  989:     function userRedirect($pageId = 0)
- * 1006:     function sendActivationMail($userId)
- * 1044:     function makeApprovalCheck($userId)
+ *  633:     function requireCheckForm()
+ *  682:     function generatePassword($fieldName)
+ *  743:     function generatePasswordForMail($userId)
+ *  762:     function checkPassword($submitedPassword, $originalPassword)
+ *  818:     function saveDeleteImage($fieldName, &$arrUpdate)
+ *  901:     function showMessageOutputRedirect($mode, $submode = '', $params = array())
+ *  969:     function userAutoLogin($username, $mode = '')
+ *  986:     function userRedirect($pageId = 0)
+ * 1003:     function sendActivationMail($userId)
+ * 1041:     function makeApprovalCheck($userId)
  * 1114:     function getApprovalTypes()
  * 1126:     function isAdminMail($approvalType)
  * 1136:     function setNotActivatedCookie($userId)
@@ -463,22 +463,19 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Alle ausgewaehlten Felder durchgehen.
 		foreach ($this->arrUsedFields as $fieldName) {
-			$value = $this->piVars[$this->contentId][$fieldName];
+			$fieldName = $this->cleanSpecialFieldKey($fieldName);
 			$validate = $this->conf['validate.'][$fieldName . '.'];
+			$value = trim($this->piVars[$this->contentId][$fieldName]);
 
 			// Besonderes Feld das fest in der Extension verbaut ist (password_confirmation), und ueberprueft werden soll.
-			if ($fieldName == '--passwordconfirmation--' && $this->conf['showtype'] == 'edit' && $this->userId) {
-				$fieldName = $this->cleanSpecialFieldKey($fieldName);
-
+			if ($fieldName == 'passwordconfirmation' && $this->conf['showtype'] == 'edit' && $this->userId) {
 				if (!$this->checkPassword($value, $GLOBALS['TSFE']->fe_user->user['password'])) {
 					$valueCheck[$fieldName] = 'valid';
 				}
 			}
 
 			// Besonderes Feld das fest in der Extension verbaut ist (resend_activation), und ueberprueft werden soll.
-			if ($fieldName == '--resendactivation--') {
-				$fieldName = $this->cleanSpecialFieldKey($fieldName);
-
+			if ($fieldName == 'resendactivation') {
 				if ($value) {
 					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . intval($this->storagePid) . ' AND (uid = ' . intval($value) . ' OR email = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr(strtolower($value), 'fe_users') . ') AND disable = 1 AND deleted = 0');
 					$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
@@ -1096,8 +1093,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Wenn der Hash richtig ist, des letzte Genehmigungslevel aber noch nicht erreicht ist.
 		if ($this->piVars[$this->contentId]['hash'] == $hashDisapproval) {
-			// Genehmigungslevel updaten.
+			// User loeschen.
 			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $userId ,array('tstamp' => $time, 'deleted' => '1'));
+
+			// Eine Account-Abgelehnt Mail senden, wenn User ablehnt an den Administrator, oder andersrum.
+			$this->sendMail($userId, 'disapproval', !$this->isAdminMail($approvalType), $this->conf['register.']);
 
 			// Ausgabe vorbereiten.
 			$submode = 'deleted';
@@ -1263,7 +1263,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Verschicke E-Mail.
-		if ($recipient) {
+		if ($recipient && $subject && $template) {
 			mail($recipient, $subject, $template, $header);
 		}
 	}
@@ -1698,7 +1698,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($sel , $tab, $whr);
 
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-				$selected = (strpos($arrCurrentData[$fieldName], $row['uid']) !== false || in_array($row['uid'], $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
+				$selected = (strpos($arrCurrentData[$fieldName], $row['uid']) !== false || in_array($row['uid'], (array)$arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
 				$optionlist .= '<option value="' . $row['uid'] . '"' . $selected . '>' . $row[$GLOBALS['TCA'][$tab]['ctrl']['label']] . '</option>';
 			}
 		}
