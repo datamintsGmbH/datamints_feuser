@@ -368,7 +368,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$arrUpdate['crdate'] = $arrUpdate['tstamp'];
 
 				// Extra Erstellungsdatumsfelder hinzufuegen.
-				$arrCrdateFields = $this->cleanArray(t3lib_div::trimExplode(',', $this->conf['register.']['crdatefields']));
+				$arrCrdateFields = t3lib_div::trimExplode(',', $this->conf['register.']['crdatefields'], true);
 
 				foreach ($arrCrdateFields as $val) {
 					if (trim($val)) {
@@ -431,15 +431,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	function uniqueCheckForm() {
 		$valueCheck = array();
 
-		// Check unique Fields.
-		$arrUniqueFields = $this->cleanArray(t3lib_div::trimExplode(',', $this->conf['uniquefields']));
-
 		// Wenn User eingeloggt, dann den eigenen Datensatz nicht durchsuchen.
 		if ($this->conf['showtype'] == 'edit' && $this->userId) {
 			$where = ' AND uid <> ' . $this->userId;
 		}
 
-		foreach ($arrUniqueFields as $fieldName) {
+		foreach ($this->arrUniqueFields as $fieldName) {
 			if ($this->piVars[$this->contentId][$fieldName]) {
 				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . intval($this->storagePid) . ' AND ' . $fieldName . ' = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($this->piVars[$this->contentId][$fieldName], 'fe_users') . $where . ' AND deleted = 0');
 				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
@@ -1114,7 +1111,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	function getApprovalTypes() {
 		// Genhemigungstypen aufsteigend sortiert ermitteln. Das ist nötig um das Level dem richtigen Typ zuordnen zu können.
 		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig lässt.
-		return array_values($this->cleanArray(t3lib_div::trimExplode(',', $this->conf['register.']['approvalcheck'])));
+		return array_values(t3lib_div::trimExplode(',', $this->conf['register.']['approvalcheck'], true));
 	}
 
 	/**
@@ -1150,7 +1147,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Nicht aktivierte User ueber den Cookie ermitteln, und vor missbrauch schuetzen.
 		if (!$arrNotActivated) {
-			$arrNotActivated = $this->cleanArray(array_unique(t3lib_div::trimExplode(',', $_COOKIE[$this->prefixId]['not_activated'])));
+			$arrNotActivated = array_unique(t3lib_div::trimExplode(',', $_COOKIE[$this->prefixId]['not_activated'], true));
 		}
 
 		foreach ($arrNotActivated as $key => $val) {
@@ -1821,7 +1818,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	string
 	 */
 	function checkIfRequired($fieldName) {
-		if (in_array($fieldName, $this->arrRequiredFields)) {
+		if (array_intersect(array($fieldName, '--' . $fieldName . '--'), $this->arrRequiredFields)) {
 			return ' *';
 		} else {
 			return '';
@@ -1939,10 +1936,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Konfigurationen, die an mehreren Stellen benoetigt werden, in globales Array schreiben.
-		$this->arrUsedFields = $this->cleanArray(t3lib_div::trimExplode(',', $this->conf['usedfields']));
-		$this->arrRequiredFields = $this->cleanArray(array_unique(t3lib_div::trimExplode(',', $this->conf['requiredfields'])));
-		$this->arrUniqueFields = $this->cleanArray(array_unique(t3lib_div::trimExplode(',', $this->conf['uniquefields'])));
-		$this->arrHiddenParams = $this->cleanArray(array_unique(t3lib_div::trimExplode(',', $this->conf['hiddenparams'])));
+		$this->arrUsedFields = t3lib_div::trimExplode(',', $this->conf['usedfields'], true);
+		$this->arrRequiredFields = array_unique(t3lib_div::trimExplode(',', $this->conf['requiredfields'], true));
+		$this->arrUniqueFields = array_unique(t3lib_div::trimExplode(',', $this->conf['uniquefields'], true));
+		$this->arrHiddenParams = array_unique(t3lib_div::trimExplode(',', $this->conf['hiddenparams'], true));
 
 		// Konfigurationen die immer gelten setzten (Feldnamen sind fuer konfigurierte Felder und fuer input Felder).
 		$this->arrRequiredFields[] = '--passwordconfirmation--';
