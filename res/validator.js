@@ -45,6 +45,8 @@ function formCheck(evt) {
 function inputItemCheck(evt, input) {
 	var i = null;
 	var j = null;
+	var name = null;
+	var elements = null;
 	var arrLength = null;
 
 	if (evt != null) {
@@ -65,14 +67,24 @@ function inputItemCheck(evt, input) {
 	}
 
 	if (input.type == 'checkbox') {
-		value = input.checked;
+		if (input.id.lastIndexOf('_item_') >= 0) {
+			value = false;
+			name = input.id.slice(0, input.id.lastIndexOf('_item_'));
+			elements = document.getElementById(name + '_wrapper').getElementsByTagName('input');
+			for (i = 0; i < elements.length; i++) {
+				if (elements[i] != null && elements[i].checked) {
+					value = true;
+				}
+			}
+		} else {
+			value = input.checked;
+		}
 	}
 
 	if (input.type == 'radio') {
 		value = false;
-		var name = input.id.slice(0, input.id.lastIndexOf('_'));
-		name = name.slice(0, name.lastIndexOf('_'));
-		var elements = document.getElementById(name + '_wrapper').getElementsByTagName('input');
+		name = input.id.slice(0, input.id.lastIndexOf('_item_'));
+		elements = document.getElementById(name + '_wrapper').getElementsByTagName('input');
 		for (i = 0; i < elements.length; i++) {
 			if (elements[i] != null && elements[i].checked) {
 				value = true;

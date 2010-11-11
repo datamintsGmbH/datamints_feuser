@@ -36,8 +36,15 @@ div.tx-datamintsfeuser-pi1 form fieldset div.form_type_check input {
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_text textarea {
 	width:300px;
 }
+div.tx-datamintsfeuser-pi1 form fieldset div.form_type_select select {
+	width:300px;
+	max-height:100px;
+}
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_radio div.radio_item_wrapper {
-	padding-left:260px;
+	margin-left:160px;
+	width:300px;
+	max-height:100px;
+	overflow:auto;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_radio div.radio_item label {
 	display:inline;
@@ -45,6 +52,23 @@ div.tx-datamintsfeuser-pi1 form fieldset div.form_type_radio div.radio_item labe
 	float:none;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_radio div.radio_item input {
+	margin-right:4px;
+	width:auto;
+	float:left;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.form_type_group div.group_item_wrapper {
+	margin-left:160px;
+	width:300px;
+	max-height:100px;
+	overflow:auto;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.form_type_group div.group_item label {
+	display:inline;
+	width:auto;
+	float:none;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.form_type_group div.group_item input {
+	margin-right:4px;
 	width:auto;
 	float:left;
 }
