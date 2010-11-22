@@ -28,53 +28,52 @@
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
  *
- *   93: class tx_datamintsfeuser_pi1 extends tslib_pibase
- *  117:     function main($content, $conf)
- *  176:     function sendForm()
- *  478:     function uniqueCheckForm()
- *  505:     function validateForm()
- *  677:     function requireCheckForm()
- *  730:     function generatePassword($fieldName)
- *  791:     function generatePasswordForMail($userId)
- *  810:     function checkPassword($submitedPassword, $originalPassword)
- *  866:     function saveDeleteImage($fieldName, &$arrUpdate)
- *  949:     function showMessageOutputRedirect($mode, $submode = '', $params = array())
- * 1017:     function userAutoLogin($username, $mode = '')
- * 1034:     function userRedirect($pageId = 0)
- * 1051:     function sendActivationMail($userId)
- * 1089:     function makeApprovalCheck($userId)
- * 1162:     function getApprovalTypes()
- * 1174:     function isAdminMail($approvalType)
- * 1184:     function setNotActivatedCookie($userId)
- * 1196:     function getNotActivatedUserArray($arrNotActivated = array())
- * 1232:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
- * 1328:     function getTemplateSubpart($templatePart, $config, $markerArray = array())
- * 1356:     function getChangedForMail($arrNewData, $config)
- * 1395:     function showForm($valueCheck = array())
- * 1613:     function cleanSpecialFieldKey($fieldName)
- * 1628:     function showInput($fieldName, $arrCurrentData, $iItem)
- * 1667:     function showText($fieldName, $arrCurrentData)
- * 1683:     function showCheck($fieldName, $arrCurrentData)
- * 1699:     function showRadio($fieldName, $arrCurrentData)
- * 1729:     function showSelect($fieldName, $arrCurrentData)
- * 1782:     function showGroup($fieldName, $arrCurrentData)
- * 1865:     function makeHiddenFields()
- * 1882:     function makeHiddenParams()
- * 1900:     function cleanHeaderUrlData($data)
- * 1912:     function checkIfRequired($fieldName)
- * 1926:     function getLabel($fieldName)
- * 1969:     function getErrorLabel($fieldName, $valueCheck)
- * 1985:     function getDefaultLanguage()
- * 2003:     function getConfiguration()
- * 2048:     function readFlexformTab($flexData, &$conf, $sTab)
- * 2082:     function setFlexformConfiguration($key, $value)
- * 2110:     function setIrreConfiguration()
- * 2239:     function getJSValidationConfiguration()
- * 2353:     function getFeUsersTca()
- * 2367:     function getStoragePid()
- * 2381:     function deletePointInArrayKey($array)
- * 2412:     function checkUtf8($str)
- * 2456:     function cleanArray($array)
+ *   92: class tx_datamintsfeuser_pi1 extends tslib_pibase
+ *  116:     function main($content, $conf)
+ *  175:     function sendForm()
+ *  477:     function uniqueCheckForm()
+ *  504:     function validateForm()
+ *  676:     function requireCheckForm()
+ *  729:     function generatePassword($fieldName)
+ *  790:     function generatePasswordForMail($userId)
+ *  809:     function checkPassword($submitedPassword, $originalPassword)
+ *  865:     function saveDeleteImage($fieldName, &$arrUpdate)
+ *  948:     function showMessageOutputRedirect($mode, $submode = '', $params = array())
+ * 1016:     function userAutoLogin($username, $mode = '')
+ * 1033:     function userRedirect($pageId = 0)
+ * 1050:     function sendActivationMail($userId)
+ * 1088:     function makeApprovalCheck($userId)
+ * 1161:     function getApprovalTypes()
+ * 1173:     function isAdminMail($approvalType)
+ * 1183:     function setNotActivatedCookie($userId)
+ * 1195:     function getNotActivatedUserArray($arrNotActivated = array())
+ * 1231:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
+ * 1327:     function getTemplateSubpart($templatePart, $config, $markerArray = array())
+ * 1355:     function getChangedForMail($arrNewData, $config)
+ * 1394:     function showForm($valueCheck = array())
+ * 1612:     function cleanSpecialFieldKey($fieldName)
+ * 1627:     function showInput($fieldName, $arrCurrentData, $iItem)
+ * 1666:     function showText($fieldName, $arrCurrentData)
+ * 1682:     function showCheck($fieldName, $arrCurrentData)
+ * 1698:     function showRadio($fieldName, $arrCurrentData)
+ * 1728:     function showSelect($fieldName, $arrCurrentData)
+ * 1781:     function showGroup($fieldName, $arrCurrentData)
+ * 1864:     function makeHiddenFields()
+ * 1881:     function makeHiddenParams()
+ * 1899:     function cleanHeaderUrlData($data)
+ * 1911:     function checkIfRequired($fieldName)
+ * 1925:     function getLabel($fieldName)
+ * 1960:     function getErrorLabel($fieldName, $valueCheck)
+ * 1978:     function getConfiguration()
+ * 2023:     function readFlexformTab($flexData, &$conf, $sTab)
+ * 2057:     function setFlexformConfiguration($key, $value)
+ * 2085:     function setIrreConfiguration()
+ * 2214:     function getJSValidationConfiguration()
+ * 2328:     function getFeUsersTca()
+ * 2342:     function getStoragePid()
+ * 2356:     function deletePointInArrayKey($array)
+ * 2387:     function checkUtf8($str)
+ * 2431:     function cleanArray($array)
  *
  *
  * TOTAL FUNCTIONS: 45
@@ -1939,16 +1938,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$languageString = $fieldName;
 		}
 
-		// Standard Sprache.
-		$defaultLanguage = $this->getDefaultLanguage();
-		// Languagekey ermitteln z.B. ("LLL:EXT:lang/locallang_general.php:LGL.starttime" => "LGL.starttime").
-		$languageKey = substr($languageString, strripos($languageString, ':') + 1);
-		// Languagefile ermitteln z.B. ("LLL:EXT:lang/locallang_general.php:LGL.starttime" => "EXT:lang/locallang_general.php").
-		$languageFilePath = substr($languageString, 4, strripos($languageString, ':') - 4);
-		// LanguageFile laden.
-		$languageFile = $GLOBALS['TSFE']->readLLfile($languageFilePath);
 		// Das Label zurueckliefern.
-		$label = $languageFile[$defaultLanguage][$languageKey];
+		$label = $GLOBALS['TSFE']->sL($languageString);
 
 		// Das Label zurueckliefern, falls vorhanden.
 		if ($label) {
@@ -1975,22 +1966,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		return $label;
-	}
-
-	/**
-	 * Ermittelt die Standard Sprache.
-	 *
-	 * @return	string		$defaultLanguage
-	 */
-	function getDefaultLanguage() {
-		// Standard Sprache.
-		$defaultLanguage = $GLOBALS['TSFE']->config['config']['language'];
-
-		if (!$defaultLanguage) {
-			$defaultLanguage = 'default';
-		}
-
-		return $defaultLanguage;
 	}
 
 	/**
@@ -2135,7 +2110,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 				// Label setzten falls angegeben.
 				if ($field['label']) {
-					$this->conf['_LOCAL_LANG.'][$this->getDefaultLanguage() . '.'][$field['field']] = $field['label'];
+					$this->conf['_LOCAL_LANG.'][$GLOBALS['TSFE']->lang . '.'][$field['field']] = $field['label'];
 				}
 			}
 
@@ -2179,7 +2154,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 				// Label setzten falls angegeben.
 				if ($field['userdelete']) {
-					$this->conf['_LOCAL_LANG.'][$this->getDefaultLanguage() . '.']['userdelete'] = $field['userdelete'];
+					$this->conf['_LOCAL_LANG.'][$GLOBALS['TSFE']->lang . '.']['userdelete'] = $field['userdelete'];
 				}
 
 				$userdeleteCounter++;
@@ -2191,7 +2166,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 				// Label setzten falls angegeben.
 				if ($field['passwordconfirmation']) {
-					$this->conf['_LOCAL_LANG.'][$this->getDefaultLanguage() . '.']['passwordconfirmation'] = $field['passwordconfirmation'];
+					$this->conf['_LOCAL_LANG.'][$GLOBALS['TSFE']->lang . '.']['passwordconfirmation'] = $field['passwordconfirmation'];
 				}
 
 				$passwordconfirmationCounter++;
@@ -2208,7 +2183,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 				// Label setzten falls angegeben.
 				if ($field['resendactivation']) {
-					$this->conf['_LOCAL_LANG.'][$this->getDefaultLanguage() . '.']['resendactivation'] = $field['resendactivation'];
+					$this->conf['_LOCAL_LANG.'][$GLOBALS['TSFE']->lang . '.']['resendactivation'] = $field['resendactivation'];
 				}
 
 				$resendactivationCounter++;
@@ -2220,7 +2195,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 				// Label setzten falls angegeben.
 				if ($field['submit']) {
-					$this->conf['_LOCAL_LANG.'][$this->getDefaultLanguage() . '.']['submit_' . $this->conf['showtype']] = $field['submit'];
+					$this->conf['_LOCAL_LANG.'][$GLOBALS['TSFE']->lang . '.']['submit_' . $this->conf['showtype']] = $field['submit'];
 				}
 			}
 		}
