@@ -244,7 +244,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			foreach ($this->arrUsedFields as $fieldName) {
 				if ($this->feUsersTca['columns'][$fieldName]) {
 					$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
-					$fieldType = $fieldConfig['type'];
 
 					// Ist das Feld schon gesaeubert worden (MySQL, PHP, HTML, ...).
 					$isChecked = false;
@@ -270,24 +269,52 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					}
 
 					// Checkboxen behandeln.
-					if ($fieldType == 'check' && !$this->piVars[$this->contentId][$fieldName]) {
-						$arrUpdate[$fieldName] = '0';
+					if ($fieldConfig['type'] == 'check') {
+						$countCheckFields = count($fieldConfig['items']);
+
+						// Mehrere Checkboxen oder eine Checkbox.
+						if ($countCheckFields > 1) {
+							$binString = '';
+
+							for ($i = 0; $i < $countCheckFields; $i++) {
+								if (in_array($i, $this->piVars[$this->contentId][$fieldName])) {
+									$binString .= '1';
+								} else {
+									$binString .= '0';
+								}
+							}
+
+							$arrUpdate[$fieldName] = bindec(strrev($binString));
+						} else {
+							if ($this->piVars[$this->contentId][$fieldName]) {
+								$arrUpdate[$fieldName] = '1';
+							} else {
+								$arrUpdate[$fieldName] = '0';
+							}
+						}
+
+						$isChecked = true;
 					}
 
 					// Multiple Selectboxen.
-					if ($fieldType == 'select' && $fieldConfig['size'] > 1) {
+					if ($fieldConfig['type'] == 'select' && $fieldConfig['size'] > 1) {
 						$arrCleanedValues = array();
 
-						foreach ($this->piVars[$this->contentId][$fieldName] as $val) {
-							$arrCleanedValues[] = intval($val);
+						// Wenn nichts ausgewählt wurde, wird auch dieser Parameter nicht übergeben, daher zuerst überprüfen, ob etwas vorhanden ist.
+						if($this->piVars[$this->contentId][$fieldName]){
+							foreach ($this->piVars[$this->contentId][$fieldName] as $val) {
+								$arrCleanedValues[] = intval($val);
+							}
 						}
+
+						// TODO: maxitems wird noch nicht berücksichtigt!
 
 						$arrUpdate[$fieldName] = implode(',', $arrCleanedValues);
 						$isChecked = true;
 					}
 
 					// Group, Bildfelder behandeln.
-					if ($fieldType == 'group' && $fieldConfig['internal_type'] == 'file' && ($_FILES[$this->prefixId]['type'][$this->contentId][$fieldName] || $this->piVars[$this->contentId][$fieldName . '_delete'])) {
+					if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'file' && ($_FILES[$this->prefixId]['type'][$this->contentId][$fieldName] || $this->piVars[$this->contentId][$fieldName . '_delete'])) {
 						// Das Bild hochladen oder loeschen. Gibt einen Fehlerstring zurueck falls ein Fehler auftritt. $arrUpdate wird per Referenz uebergeben und innerhalb der Funktion geaendert!
 						$valueCheck[$fieldName] = $this->saveDeleteImage($fieldName, $arrUpdate);
 
@@ -299,7 +326,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					}
 
 					// Group, Multiple Checkboxen.
-					if ($fieldType == 'group' && $fieldConfig['internal_type'] == 'db') {
+					if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db') {
 						$arrCleanedValues = array();
 						$arrAllowed = t3lib_div::trimExplode(',', $fieldConfig['allowed'], true);
 
@@ -431,7 +458,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 					// Ausgabe fuer gemischte Genehmigungstypen erstellen (z.B. erst adminapproval und dann doubleoptin).
 					$mode = $approvalType;
-					$submode = implode('_', array_shift($arrApprovalTypes));
+					$submode = implode('_', (array)array_shift($arrApprovalTypes));
 					$submode .= ($submode) ? '_sent' : 'sent';
 					$params = array('mode' => $this->conf['showtype']);
 				} else {
@@ -507,8 +534,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Alle ausgewaehlten Felder durchgehen.
 		foreach ($this->arrUsedFields as $fieldName) {
 			$fieldName = $this->cleanSpecialFieldKey($fieldName);
-			$validate = $this->conf['validate.'][$fieldName . '.'];
+			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
+
 			$value = trim($this->piVars[$this->contentId][$fieldName]);
+			$validate = $this->conf['validate.'][$fieldName . '.'];
 
 			// Besonderes Feld das fest in der Extension verbaut ist (password_confirmation), und ueberprueft werden soll.
 			if ($fieldName == 'passwordconfirmation' && $this->conf['showtype'] == 'edit' && $this->userId) {
@@ -550,12 +579,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 
 			// Wenn kein Inhalt im Parameter steht und wenn der Typ des Feldes nicht check, radio oder select ist, dann naechstes Feld vornehmen.
-			if (!$value && !in_array($this->feUsersTca['columns'][$fieldName]['config']['type'], array('check', 'radio', 'select'))) {
+			if (!$value && !in_array($fieldConfig['type'], array('check', 'radio', 'select'))) {
 				continue;
 			}
 
 			// Wenn ueberhaupt kein Parameter angekommen ist und wenn der Typ des Feldes check, radio oder select ist, dann naechstes Feld vornehmen.
-			if (!isset($value) && in_array($this->feUsersTca['columns'][$fieldName]['config']['type'], array('check', 'radio', 'select'))) {
+			if (!isset($value) && in_array($fieldConfig['type'], array('check', 'radio', 'select'))) {
 				continue;
 			}
 
@@ -678,6 +707,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Geht alle benoetigten Felder durch und ermittelt fehlende.
 		foreach ($this->arrRequiredFields as $fieldName) {
+			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
+
 			// Ueberpruefen, ob das Feld ueberhaupt benoetigt wird.
 			if (!in_array($fieldName, $this->arrUsedFields)) {
 				continue;
@@ -688,7 +719,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Bei den restlichen Felder schickt der Browser immer eine leere Variable mit, da langt es wenn man ueberprueft, ob ein nicht leerer Wert angekommen ist "!";
 			// Eine Sonderstellung haben einfache Selectboxen dort wird von Haus aus der erste Wert vom Browser ausgewählt, somit muss die Default Wert Ueberpruefung hier zusaetzlich per Validierung gemacht werden ("selectzero", "selectemptystring").
 			// Fuer group Elemente vom Typ file wird eine Ueberpruefung auf ein vorhandenes File gemacht.
-			switch ($this->feUsersTca['columns'][$fieldName]['config']['type']) {
+			switch ($fieldConfig['type']) {
 
 				case 'check':
 				case 'radio':
@@ -699,11 +730,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					break;
 
 				case 'group';
-					if ($this->feUsersTca['columns'][$fieldName]['config']['internal_type'] == 'file' && !$_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]) {
+					if ($fieldConfig['internal_type'] == 'file' && !$_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]) {
 						$valueCheck[$fieldName] = 'required';
 					}
 
-					if ($this->feUsersTca['columns'][$fieldName]['config']['internal_type'] == 'db' && !isset($this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)])) {
+					if ($fieldConfig['internal_type'] == 'db' && !isset($this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)])) {
 						$valueCheck[$fieldName] = 'required';
 					}
 					break;
@@ -863,8 +894,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	string
 	 */
 	function saveDeleteImage($fieldName, &$arrUpdate) {
+		$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
+
 		// Verzeichniss ermitteln.
-		$uploadFolder = $this->feUsersTca['columns'][$fieldName]['config']['uploadfolder'];
+		$uploadFolder = $fieldConfig['uploadfolder'];
 
 		if (substr($uploadFolder, -1) != '/') {
 			$uploadFolder = $uploadFolder . '/';
@@ -887,7 +920,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Konfigurierte Dateigroesse ermitteln.
-		$maxSize = $this->feUsersTca['columns'][$fieldName]['config']['max_size'] * 1024;
+		$maxSize = $fieldConfig['max_size'] * 1024;
 
 		// Konfigurierte maximale Dateigroesse ueberschritten.
 		if ($maxSize && $_FILES[$this->prefixId]['size'][$this->contentId][$fieldName] > $maxSize) {
@@ -1453,20 +1486,22 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Alle ausgewaehlten Felder durchgehen.
 		foreach ($this->arrUsedFields as $fieldName) {
+			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
+
 			// Standardkonfigurationen laden.
-			if (!$arrCurrentData[$fieldName] && $this->feUsersTca['columns'][$fieldName]['config']['default']) {
-				$arrCurrentData[$fieldName] = $this->feUsersTca['columns'][$fieldName]['config']['default'];
+			if (!$arrCurrentData[$fieldName] && $fieldConfig['default']) {
+				$arrCurrentData[$fieldName] = $fieldConfig['default'];
 			}
 
 			// Wenn das im Flexform ausgewaehlte Feld existiert, dann dieses Feld ausgeben, alle anderen Felder werden ignoriert.
 			if ($this->feUsersTca['columns'][$fieldName]) {
 				// Form Item Anfang.
-				$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $this->feUsersTca['columns'][$fieldName]['config']['type'] . '">';
+				$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $fieldConfig['type'] . '">';
 
 				// Label schreiben.
 				$content .= '<label for="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '">' . $this->getLabel($fieldName) . '</label>';
 
-				switch ($this->feUsersTca['columns'][$fieldName]['config']['type']) {
+				switch ($fieldConfig['type']) {
 
 					case 'input':
 						$content .= $this->showInput($fieldName, $arrCurrentData, $iItem);
@@ -1626,9 +1661,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function showInput($fieldName, $arrCurrentData, $iItem) {
 		$content = '';
+		$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
 
 		// Datumsfeld.
-		if (strpos($this->feUsersTca['columns'][$fieldName]['config']['eval'], 'date') !== false) {
+		if (strpos($fieldConfig['eval'], 'date') !== false) {
 			// Timestamp zu "tt.mm.jjjj" machen.
 			if ($arrCurrentData[$fieldName] != 0) {
 				$datum = strftime('%d.%m.%Y', $arrCurrentData[$fieldName]);
@@ -1640,9 +1676,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Passwordfelder.
-		if (strpos($this->feUsersTca['columns'][$fieldName]['config']['eval'], 'password') !== false) {
+		if (strpos($fieldConfig['eval'], 'password') !== false) {
 			$content .= '<input type="password" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . ']" value="" />';
-			$content .= '</div><div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_rep_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $this->feUsersTca['columns'][$fieldName]['config']['type'] . '">';
+			$content .= '</div><div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_rep_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $fieldConfig['type'] . '">';
 			$content .= '<label for="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_rep">' . $this->getLabel($fieldName . '_rep') . $this->checkIfRequired($fieldName) . '</label>';
 			$content .= '<input type="password" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_rep" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . '_rep]" value="" />';
 
@@ -1650,7 +1686,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Normales Inputfeld.
-		$readOnly = ($this->feUsersTca['columns'][$fieldName]['config']['readOnly'] == 1) ? ' readonly="readonly"' : '';
+		$readOnly = ($fieldConfig['readOnly'] == 1) ? ' readonly="readonly"' : '';
 		$content .= '<input type="text" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . ']" value="' . $arrCurrentData[$fieldName] . '"' . $readOnly . ' />';
 
 		return $content;
@@ -1665,8 +1701,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function showText($fieldName, $arrCurrentData) {
 		$content = '';
+		$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
 
-		$readOnly = ($this->feUsersTca['columns'][$fieldName]['config']['readOnly'] == 1) ? ' readonly="readonly"' : '';
+		$readOnly = ($fieldConfig['readOnly'] == 1) ? ' readonly="readonly"' : '';
 		$content .= '<textarea id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . ']" rows="2" cols="42"' . $readOnly . '>' . $arrCurrentData[$fieldName] . '</textarea>';
 
 		return $content;
@@ -1681,9 +1718,46 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function showCheck($fieldName, $arrCurrentData) {
 		$content = '';
+		$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
 
-		$checked = ($arrCurrentData[$fieldName] == 1) ? ' checked="checked"' : '';
-		$content .= '<input type="checkbox" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . ']" value="1"' . $checked . ' />';
+		$countCheckFields = count($fieldConfig['items']);
+
+		if ($countCheckFields > 1) {
+			// Moeglichkeit das der gespeicherte Wert eine Bitmap ist, daher aufsplitten in ein Array, wie es auch von einem abgesendeten Formular kommen wuerde.
+			if (!is_array($arrCurrentData[$fieldName])) {
+				$decKeyCheck = '';
+				$arrCurrentData[$fieldName] = str_split(strrev(decbin($arrCurrentData[$fieldName])));
+
+				for ($i = 0; $i < $countCheckFields; $i++) {
+					if ($arrCurrentData[$fieldName][$i]) {
+						$decKeyCheck .= $i;
+					}
+				}
+
+				$arrCurrentData[$fieldName] = str_split($decKeyCheck);
+			}
+
+			$content .= '<div class="check_item_wrapper">';
+
+			// Items, die in der TCA-Konfiguration festgelegt wurden.
+			for ($i = 0; $i < $countCheckFields; $i++) {
+				if ($i % $fieldConfig['cols'] == 0) {
+					$content .= '</div><div class="check_item_wrapper">';
+				}
+
+				$checked = (in_array($i, $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
+
+				$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $i . '_wrapper" class="check_item check_item_' . $i . '">';
+				$content .= '<input type="checkbox"  name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . '][]" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $i . '" value="' . $i . '"' . $checked . '/>';
+				$content .= '<label for="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $i . '">' . $this->getLabel($fieldConfig['items'][$i][0]) . '</label>';
+				$content .= '</div>';
+			}
+
+			$content .= '</div>';
+		} else {
+			$checked = ($arrCurrentData[$fieldName] == 1) ? ' checked="checked"' : '';
+			$content .= '<input type="checkbox" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . ']" value="1"' . $checked . ' />';
+		}
 
 		return $content;
 	}
@@ -1697,12 +1771,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function showRadio($fieldName, $arrCurrentData) {
 		$content = '';
+		$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
 
 		$content .= '<div class="radio_item_wrapper">';
 
-		for ($i = 0; $i < count($this->feUsersTca['columns'][$fieldName]['config']['items']); $i++) {
-			$label = $this->feUsersTca['columns'][$fieldName]['config']['items'][$i][0];
-			$value = $this->feUsersTca['columns'][$fieldName]['config']['items'][$i][1];
+		for ($i = 0; $i < count($fieldConfig['items']); $i++) {
+			$label = $fieldConfig['items'][$i][0];
+			$value = $fieldConfig['items'][$i][1];
 			$checked = ($arrCurrentData[$fieldName] == $value) ? ' checked="checked"' : '';
 
 			$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $value . '_wrapper" class="radio_item radio_item_' . $i . '">';
@@ -1728,42 +1803,73 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	function showSelect($fieldName, $arrCurrentData) {
 		$content = '';
 		$optionlist = '';
-		$countSelectFields = count($this->feUsersTca['columns'][$fieldName]['config']['items']);
+		$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
+		$countSelectFields = count($fieldConfig['items']);
 
 		// Moeglichkeit das der gespeicherte Wert eine kommseparierte Liste ist, daher aufsplitten in ein Array, wie es auch von einem abgesendeten Formular kommen wuerde.
 		if (!is_array($arrCurrentData[$fieldName])) {
 			$arrCurrentData[$fieldName] = t3lib_div::trimExplode(',', $arrCurrentData[$fieldName], true);
 		}
 
+		// Bei dem Typ Select gibt es zwei verschidene Rendermodi. Dieser kann "singlebox" (dann ist es eine Selectbox) oder "checkbox" (dann ist es eine Checkboxliste) sein.
+		// Checkboxen gehen nur, wenn die Konfiguration "maxItems" > 1 ist (man also auch tatsächlich mehrere auswählen kann).
+		// Bei der Ausgabe der einzelnen Einträge wird also immer nach dem Rendermode unterschieden.
+
+		// TODO: funktioniert bei der Anzeige noch nicht richtig!
+
 		// Items, die in der TCA-Konfiguration festgelegt wurden.
 		for ($i = 0; $i < $countSelectFields; $i++) {
-			$selected = (in_array($i, $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
-			$optionlist .= '<option value="' . $this->feUsersTca['columns'][$fieldName]['config']['items'][$i][1] . '"' . $selected . '>' . $this->getLabel($this->feUsersTca['columns'][$fieldName]['config']['items'][$i][0]) . '</option>';
+			$label = $fieldConfig['items'][$i][0];
+			$value = $fieldConfig['items'][$i][1];
+
+			if ($fieldConfig['renderMode'] == 'checkbox' && $fieldConfig['maxitems'] > 1) {
+				$checked = (in_array($i, $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
+
+				$optionlist .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $value . '_wrapper" class="check_item check_item_' . $i . '">';
+				$optionlist .= '<input type="checkbox"  name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . '][]" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $value . '" value="' . $value . '"' . $checked . '/>';
+				$optionlist .= '<label for="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $value . '">' . $this->getLabel($label) . '</label>';
+				$optionlist .= '</div>';
+			} else {
+				$selected = (in_array($i, $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
+
+				$optionlist .= '<option value="' . $value . '"' . $selected . '>' . $this->getLabel($label) . '</option>';
+			}
 		}
 
 		// Wenn Tabelle angegeben zusaetzlich Items aus Datenbank holen.
-		if ($this->feUsersTca['columns'][$fieldName]['config']['foreign_table']) {
+		if ($fieldConfig['foreign_table']) {
 			// Select-Items aus DB holen.
-			$tab = $this->feUsersTca['columns'][$fieldName]['config']['foreign_table'];
+			$tab = $fieldConfig['foreign_table'];
 			$sel = 'uid, ' . $GLOBALS['TCA'][$tab]['ctrl']['label'];
-			$whr = '1 ' . $this->feUsersTca['columns'][$fieldName]['config']['foreign_table_where'];
+			$whr = '1 ' . $fieldConfig['foreign_table_where'];
 
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($sel , $tab, $whr);
 
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-				$selected = (in_array($row['uid'], $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
-				$optionlist .= '<option value="' . $row['uid'] . '"' . $selected . '>' . $row[$GLOBALS['TCA'][$tab]['ctrl']['label']] . '</option>';
+				if ($fieldConfig['renderMode'] == 'checkbox' && $fieldConfig['maxitems'] > 1) {
+					$checked = (in_array($row['uid'], $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
+
+					$optionlist .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $row['uid'] . '_wrapper" class="check_item check_item_' . $row['uid'] . '">';
+					$optionlist .= '<input type="checkbox" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $row['uid'] . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . '][]" value="' . $row['uid'] . '"' . $checked . '/>';
+					$optionlist .= '<label for="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $row['uid'] . '">' . $row[$GLOBALS['TCA'][$tab]['ctrl']['label']] . '</label>';
+					$optionlist .= '</div>';
+				} else {
+					$selected = (in_array($row['uid'], $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
+					
+					$optionlist .= '<option value="' . $row['uid'] . '"' . $selected . '>' . $row[$GLOBALS['TCA'][$tab]['ctrl']['label']] . '</option>';
+				}
 			}
 		}
 
-		if ($this->feUsersTca['columns'][$fieldName]['config']['size'] > 1) {
-			// Mehrzeiliges Select (Auswahlliste).
-			$content .= '<select id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . '][]" size="' . $this->feUsersTca['columns'][$fieldName]['config']['size'] . '" multiple="multiple">';
+		// Mehrzeiliges oder Einzeiliges Select (Auswahlliste).
+		$multiple = ($fieldConfig['size'] > 1) ? ' size="' . $fieldConfig['size'] . '" multiple="multiple"' : '';
+
+		if ($fieldConfig['renderMode'] == 'checkbox' && $fieldConfig['maxitems'] > 1) {
+			$content .= '<div class="check_item_wrapper">';
 			$content .= $optionlist;
-			$content .= '</select>';
+			$content .= '</div>';
 		} else {
-			// Einzeiliges Select (Dropdown).
-			$content .= '<select id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . ']">';
+			$content .= '<select id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . '][]"' . $multiple . '>';
 			$content .= $optionlist;
 			$content .= '</select>';
 		}
@@ -1780,12 +1886,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function showGroup($fieldName, $arrCurrentData) {
 		$content = '';
+		$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
 
 		// GROUP (z.B. Files oder externe Tabellen).
 		// Wenn es sich um den "internal_type" FILE handelt && es ein Bild ist, dann ein Vorschaubild erstellen und ein File-Inputfeld anzeigen.
-		if ($this->feUsersTca['columns'][$fieldName]['config']['internal_type'] == 'file') {
+		if ($fieldConfig['internal_type'] == 'file') {
 			// Verzeichniss ermitteln.
-			$uploadFolder = $this->feUsersTca['columns'][$fieldName]['config']['uploadfolder'];
+			$uploadFolder = $fieldConfig['uploadfolder'];
 
 			if (substr($uploadFolder, -1) != '/') {
 				$uploadFolder = $uploadFolder . '/';
@@ -1820,9 +1927,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Wenn es sich um den "internal_type" DB handelt.
-		if ($this->feUsersTca['columns'][$fieldName]['config']['internal_type'] == 'db') {
+		if ($fieldConfig['internal_type'] == 'db') {
 			$arrItems = array();
-			$arrAllowed = t3lib_div::trimExplode(',', $this->feUsersTca['columns'][$fieldName]['config']['allowed'], true);
+			$arrAllowed = t3lib_div::trimExplode(',', $fieldConfig['allowed'], true);
 
 			foreach ($arrAllowed as $table) {
 				if ($GLOBALS['TCA'][$table]) {
@@ -1844,6 +1951,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				}
 
 				$checked = (array_intersect(array($key, substr($key, strripos($key, '_') + 1)), $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
+				
 				$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $i . '_wrapper" class="group_item group_item_' . $i . '">';
 				$content .= '<input type="checkbox" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $key . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . '][]" value="' . $key . '"' . $checked . ' />';
 				$content .= '<label for="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $key . '">'. $label . '</label></div>';
