@@ -80,7 +80,7 @@
  *
  */
 
-require_once(PATH_tslib.'class.tslib_pibase.php');
+require_once(PATH_tslib . 'class.tslib_pibase.php');
 
 /**
  * Plugin 'Frontend User Management' for the 'datamints_feuser' extension.
@@ -90,9 +90,9 @@ require_once(PATH_tslib.'class.tslib_pibase.php');
  * @subpackage	tx_datamintsfeuser
  */
 class tx_datamintsfeuser_pi1 extends tslib_pibase {
-	var $prefixId      = 'tx_datamintsfeuser_pi1';		// Same as class name
-	var $scriptRelPath = 'pi1/class.tx_datamintsfeuser_pi1.php';	// Path to this script relative to the extension dir.
-	var $extKey        = 'datamints_feuser';	// The extension key.
+	var $extKey = 'datamints_feuser';
+	var $prefixId = 'tx_datamintsfeuser_pi1';
+	var $scriptRelPath = 'pi1/class.tx_datamintsfeuser_pi1.php';
 	var $pi_checkCHash = true;
 	var $feUsersTca = array();
 	var $storagePid = 0;
@@ -458,7 +458,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 					// Ausgabe fuer gemischte Genehmigungstypen erstellen (z.B. erst adminapproval und dann doubleoptin).
 					$mode = $approvalType;
-					$submode = implode('_', (array)array_shift($arrApprovalTypes));
+					$submode = (array_shift($arrApprovalTypes)) ? implode('_', $arrApprovalTypes) : '';
 					$submode .= ($submode) ? '_sent' : 'sent';
 					$params = array('mode' => $this->conf['showtype']);
 				} else {
@@ -776,7 +776,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		}
 
-		// Unverschluesselte Passwort uebertragen.
+		// Unverschluesseltes Passwort uebertragen.
 		$password['encrypted'] = $password['normal'];
 
 		// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password verschluesselt.
@@ -1157,7 +1157,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Wenn der Hash richtig ist, und das letzte Genehmigungslevel erreicht ist.
 		if ($this->piVars[$this->contentId]['hash'] == $hashApproval && $row['tx_datamintsfeuser_approval_level'] == 1) {
 			// Erstellt ein neues Passwort, falls Passwort generieren eingestellt ist. Das Passwort kannn dann ueber den Marker "###PASSWORD###" mit der Registrierungsmail gesendet werden.
-			$extraMarkers = $this->generatePasswordForMail(intval($this->piVars[$this->contentId]['uid']));
+			$extraMarkers = $this->generatePasswordForMail($userId);
 
 			// User aktivieren.
 			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $userId ,array('tstamp' => $time, 'disable' => '0', 'tx_datamintsfeuser_approval_level' => '0'));
@@ -2449,6 +2449,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function getStoragePid() {
 		$this->storagePid = $this->conf['register.']['userfolder'];
+
 		if (!$this->storagePid) {
 			$arrayRootPids = $GLOBALS['TSFE']->getStorageSiterootPids();
 			$this->storagePid = $arrayRootPids['_STORAGE_PID'];
