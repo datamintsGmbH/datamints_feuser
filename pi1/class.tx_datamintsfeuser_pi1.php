@@ -117,8 +117,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$this->conf = $conf;
 
 		// Debug.
-		//$GLOBALS['TSFE']->set_no_cache();
-		//$GLOBALS['TYPO3_DB']->debugOutput = true;
+//		$GLOBALS['TSFE']->set_no_cache();
+//		$GLOBALS['TYPO3_DB']->debugOutput = true;
 
 		// ContentId ermitteln.
 		$this->contentId = $this->cObj->data['uid'];
@@ -139,7 +139,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Javascripts in den Head einbinden.
 		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[jsvalidator]'] = ($this->conf['disablejsvalidator']) ? '' : '<script type="text/javascript" src="' . (($this->conf['jsvalidatorpath']) ? $this->conf['jsvalidatorpath'] : t3lib_extMgm::extRelPath($this->extKey) . 'res/validator.min.js') . '"></script>';
-		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[jsvalidation][' . $this->contentId . ']'] = '<script type="text/javascript">' . "\n/*<![CDATA[*/\n" . $this->getJSValidationConfiguration() . "\n/*]]>*/\n" . '</script>';
+		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[jsvalidation][' . $this->contentId . ']'] = ($this->conf['disablejsconfig']) ? '' : '<script type="text/javascript">' . "\n/*<![CDATA[*/\n" . $this->getJSValidationConfiguration() . "\n/*]]>*/\n" . '</script>';
 
 		// Wenn nicht eingeloggt kann man auch nicht editieren!
 		if ($this->conf['showtype'] == 'edit' && !$this->userId) {
@@ -208,14 +208,14 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$fieldName = $this->cleanSpecialFieldKey($fieldName);
 
 			// Falls der Anzeigetyp "list" ist (Liste der im Cookie gespeicherten User), alle uebergebenen User ermitteln und fuer das erneute zusenden verwenden. Ansonsten die uebergebene E-Mail verwenden.
-			//if ($this->conf['shownotactivated'] == 'list') {
-			//	$arrNotActivated = $this->getNotActivatedUserArray($this->piVars[$this->contentId][$fieldName]);
-			//	$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tx_datamintsfeuser_approval_level', 'fe_users', 'pid = ' . intval($this->storagePid) . ' AND uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
-			//} else {
+//			if ($this->conf['shownotactivated'] == 'list') {
+//				$arrNotActivated = $this->getNotActivatedUserArray($this->piVars[$this->contentId][$fieldName]);
+//				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tx_datamintsfeuser_approval_level', 'fe_users', 'pid = ' . intval($this->storagePid) . ' AND uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
+//			} else {
 				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tx_datamintsfeuser_approval_level', 'fe_users', 'pid = ' . intval($this->storagePid) . ' AND email = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr(strtolower($this->piVars[$this->contentId][$fieldName]), 'fe_users') . ' AND disable = 1 AND deleted = 0', '', '', '1');
-			//}
+//			}
 
-			//while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+//			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 				// Genehmigungstypen aufsteigend sortiert ermitteln. Das ist nötig um das Level dem richtigen Typ zuordnen zu können.
 				// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig lässt.
@@ -233,7 +233,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					$this->sendActivationMail($row['uid']);
 					$submode = 'sent';
 				}
-			//}
+//			}
 
 			return $this->showMessageOutputRedirect($mode, $submode);
 		}
@@ -761,7 +761,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$password = array();
 
 		// Uebergebenes Password setzten.
-		$password['normal'] = $this->piVars[$this->contentId][$fieldName];
+		// Hier wird kein strip_tags() o.Ae. benoetigt, da beim schreiben in die Datenbank immer "$GLOBALS['TYPO3_DB']->fullQuoteStr()" ausgefuehrt wird!
+		$password['normal'] = trim($this->piVars[$this->contentId][$fieldName]);
 
 		// Erstellt ein Password.
 		if ($this->conf['showtype'] == 'register' && $this->conf['register.']['generatepassword.']['mode']) {
@@ -787,19 +788,19 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$tx_saltedpasswords = t3lib_div::makeInstance($saltedpasswords['saltedPWHashingMethod']);
 				$password['encrypted'] = $tx_saltedpasswords->getHashedPassword($password['normal']);
 			}
-		}
+		} else
 
 		// Wenn "md5passwords" installiert ist wird wenn aktiviert, das Password md5 verschluesselt.
-		else if (t3lib_extMgm::isLoaded('md5passwords')) {
+		if (t3lib_extMgm::isLoaded('md5passwords')) {
 			$arrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['md5passwords']);
 
 			if ($arrConf['activate'] == 1) {
 				$password['encrypted'] = md5($password['normal']);
 			}
-		}
+		} else
 
 		// Wenn "t3sec_saltedpw" installiert ist wird wenn aktiviert, das Password gehashed.
-		else if (t3lib_extMgm::isLoaded('t3sec_saltedpw')) {
+		if (t3lib_extMgm::isLoaded('t3sec_saltedpw')) {
 			require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/staticlib/class.tx_t3secsaltedpw_div.php';
 
 			if (tx_t3secsaltedpw_div::isUsageEnabled()) {
@@ -1504,7 +1505,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Wenn das im Flexform ausgewaehlte Feld existiert, dann dieses Feld ausgeben, alle anderen Felder werden ignoriert.
 			if ($this->feUsersTca['columns'][$fieldName]) {
 				// Form Item Anfang.
-				$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $fieldConfig['type'] . '">';
+				$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $fieldConfig['type'] . (($this->checkIfRequired($fieldName)) ? ' required_item' : '') . '">';
 
 				// Label schreiben.
 				$content .= '<label for="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '">' . $this->getLabel($fieldName) . '</label>';
@@ -1598,19 +1599,19 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$fieldName = $this->cleanSpecialFieldKey($fieldName);
 
 				// Noch nicht fertig gestellte Listenansicht der nicht aktivierten User.
-				//if ($this->conf['shownotactivated'] == 'list') {
-				//	$arrNotActivated = $this->getNotActivatedUserArray();
-				//	$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, username', 'fe_users', 'pid = ' . intval($this->storagePid) . ' AND uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
-
-				//	while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-				//		$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $fieldName . ' ' . $this->conf['shownotactivated'] . '">';
-				//		$content .= '<label for="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '">' . $this->getLabel($fieldName) . ' ' . $row['username'] . '</label>';
-				//		$content .= '<input type="checkbox" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . '][' . $row['uid'] . ']" value="1" />';
-				//		$content .= '</div>';
-
-				//		$iItem++;
-				//	}
-				//} else {
+//				if ($this->conf['shownotactivated'] == 'list') {
+//					$arrNotActivated = $this->getNotActivatedUserArray();
+//					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, username', 'fe_users', 'pid = ' . intval($this->storagePid) . ' AND uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
+//
+//					while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+//						$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $fieldName . ' ' . $this->conf['shownotactivated'] . '">';
+//						$content .= '<label for="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '">' . $this->getLabel($fieldName) . ' ' . $row['username'] . '</label>';
+//						$content .= '<input type="checkbox" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . '][' . $row['uid'] . ']" value="1" />';
+//						$content .= '</div>';
+//
+//						$iItem++;
+//					}
+//				} else {
 					$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $fieldName . '">';
 					$content .= '<label for="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '">' . $this->getLabel($fieldName) . '</label>';
 					$content .= '<input type="text" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . ']" value="" />';
@@ -1618,7 +1619,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					$content .= '</div>';
 
 					$iItem++;
-				//}
+//				}
 			}
 
 			// Submit Button anzeigen.
@@ -2026,7 +2027,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function checkIfRequired($fieldName) {
 		if (array_intersect(array($fieldName, '--' . $fieldName . '--'), $this->arrRequiredFields)) {
-			return ' *';
+			return '<span class="required_item_star">*</span>';
 		} else {
 			return '';
 		}
@@ -2346,7 +2347,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// contentid[11] = 11;
 
 		$arrValidationFields = array();
-		$configuration = 'var config=[];var inputids=[];var contentids=[];config[' . $this->contentId . ']=[];';
+		$configuration = 'var ' . $this->extKey . '_config=[];var ' . $this->extKey . '_inputids=[];var ' . $this->extKey . '_contentids=[];config[' . $this->contentId . ']=[];';
 
 		// Bei jedem Durchgang der Schliefe wird die Konfiguration fuer ein Datenbankfeld geschrieben. Ausnahmen sind hierbei Passwordfelder.
 		// Gleichzeitig werden die ID's der Felder in ein Array geschrieben und am Ende zusammen gesetzt "inputids".

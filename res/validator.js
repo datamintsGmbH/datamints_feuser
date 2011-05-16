@@ -1,20 +1,20 @@
 
-var formId = 0;
+var datamints_feuser_formId = 0;
 
 window.onload = function() {
-	if (config == null || inputids == null || contentids == null) {
+	if (datamints_feuser_config == null || datamints_feuser_inputids == null || datamints_feuser_contentids == null) {
 		return;
 	}
 
-	for (formId in contentids) {
-		if (typeof(contentids[formId]) != 'number') continue;
+	for (datamints_feuser_formId in datamints_feuser_contentids) {
+		if (typeof(datamints_feuser_contentids[datamints_feuser_formId]) != 'number') continue;
 
-		var form = document.getElementById('datamints_feuser_' + formId + '_form');
+		var form = document.getElementById('datamints_feuser_' + datamints_feuser_formId + '_form');
 		addEvent(form, 'submit', formCheck);
 
 		var input;
-		for (var i = 0; i < inputids[formId].length; i++) {
-			input = document.getElementById(inputids[formId][i]);
+		for (var i = 0; i < datamints_feuser_inputids[datamints_feuser_formId].length; i++) {
+			input = document.getElementById(datamints_feuser_inputids[datamints_feuser_formId][i]);
 			// Wenn Input Typ eine Checkbox ist ein Klickevent setzten, da der IE bei onchange das Event erst nach verlieren des Focus ausloest.
 			if (input.type == 'checkbox') {
 				addEvent(input, 'click', inputItemCheck);
@@ -30,12 +30,12 @@ function formCheck(evt) {
 	var ret = false;
 
 	// ID des aktuell verwendeten Formulars ueber das aktuell verwendete Input Element ermitteln.
-	formId = getEventTarget(evt).id.split('_')[2];
+	datamints_feuser_formId = getEventTarget(evt).id.split('_')[2];
 
-	for (fieldId in inputids[formId]) {
-		if (typeof(inputids[formId][fieldId]) != 'string') continue;
+	for (fieldId in datamints_feuser_inputids[datamints_feuser_formId]) {
+		if (typeof(datamints_feuser_inputids[datamints_feuser_formId][fieldId]) != 'string') continue;
 
-		error = inputItemCheck(null, document.getElementById(inputids[formId][fieldId]));
+		error = inputItemCheck(null, document.getElementById(datamints_feuser_inputids[datamints_feuser_formId][fieldId]));
 		if (error == true && ret == false) {
 			ret = true;
 			window.event ? event.returnValue = false : evt.preventDefault();
@@ -102,11 +102,11 @@ function inputItemCheck(evt, input) {
 	removeInfo(fieldName);
 
 	// ID des aktuell verwendeten Formulars ueber das aktuell verwendete Input Element ermitteln.
-	formId = input.id.split('_')[2];
+	datamints_feuser_formId = input.id.split('_')[2];
 
-	if (config[formId][fieldName] != null) {
-		var validate = config[formId][fieldName]['validation'];
-		if (config[formId][fieldName]['required'] && (!value || (typeof(value) == 'object' && !value.length))) {
+	if (datamints_feuser_config[datamints_feuser_formId][fieldName] != null) {
+		var validate = datamints_feuser_config[datamints_feuser_formId][fieldName]['validation'];
+		if (datamints_feuser_config[datamints_feuser_formId][fieldName]['required'] && (!value || (typeof(value) == 'object' && !value.length))) {
 			showInfo(fieldName, 'required');
 			return true;
 		} else if (validate) {
@@ -251,7 +251,7 @@ function showInfo(fieldName, error) {
 
 		var div = document.createElement('div');
 		div.className = 'form_error ' + fieldName + '_error';
-		div.innerHTML = config[formId][fieldName][error];
+		div.innerHTML = datamints_feuser_config[datamints_feuser_formId][fieldName][error];
 		error_item_father.appendChild(div);
 	}
 }
@@ -265,9 +265,9 @@ function removeInfo(fieldName) {
 
 function getErrorItemFather(fieldName) {
 	var fieldNameWrapper = fieldName;
-	if (config[formId][fieldName]['validation'] && config[formId][fieldName]['validation']['type'] == 'password') {
+	if (datamints_feuser_config[datamints_feuser_formId][fieldName]['validation'] && datamints_feuser_config[datamints_feuser_formId][fieldName]['validation']['type'] == 'password') {
 		fieldNameWrapper = fieldName + '_rep';
 	}
 
-	return document.getElementById('datamints_feuser_' + formId + '_' + fieldNameWrapper + '_wrapper');
+	return document.getElementById('datamints_feuser_' + datamints_feuser_formId + '_' + fieldNameWrapper + '_wrapper');
 }
