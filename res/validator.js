@@ -1,10 +1,11 @@
 
 var formId = 0;
-var config = [];
-var inputids = [];
-var contentids = [];
 
 window.onload = function() {
+	if (config == null || inputids == null || contentids == null) {
+		return;
+	}
+
 	for (formId in contentids) {
 		if (typeof(contentids[formId]) != 'number') continue;
 

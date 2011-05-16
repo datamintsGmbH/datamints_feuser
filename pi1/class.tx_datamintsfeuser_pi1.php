@@ -1049,24 +1049,32 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	function userAutoLogin($username, $mode = '') {
 		// Login vollziehen.
 		$GLOBALS['TSFE']->fe_user->checkPid = 0;
-		$info = $GLOBALS['TSFE']->fe_user->getAuthInfoArray();
-		$user = $GLOBALS['TSFE']->fe_user->fetchUserRecord($info['db_user'], $username);
-		$GLOBALS['TSFE']->fe_user->createUserSession($user);
+		$arrAuthInfo = $GLOBALS['TSFE']->fe_user->getAuthInfoArray();
+		$userRecord = $GLOBALS['TSFE']->fe_user->fetchUserRecord($arrAuthInfo['db_user'], $username);
+		$GLOBALS['TSFE']->fe_user->createUserSession($userRecord);
 
 		// Umleiten, damit der Login wirksam wird.
-		$this->userRedirect($this->conf['redirect.'][$mode]);
+		$this->userRedirect($this->conf['redirect.'][$mode], true);
 	}
 
 	/**
 	 * Vollzieht einen Redirect mit der Seite die benutzt wird, oder auf die aktuelle.
 	 *
 	 * @param	integer		$pageId
+	 * @param	boolean		$disableAccessCheck
 	 * @return	void
 	 */
-	function userRedirect($pageId = 0) {
+	function userRedirect($pageId = 0, $disableAccessCheck = false) {
 		// Normalen Redirect, oder Redirect auf die gewuenschte Seite.
 		if (!$pageId) {
 			$pageId = $GLOBALS['TSFE']->id;
+		}
+
+		// Damit man auch auf Seiten die erst nach dem Login sichtbar sind umleiten kann, wird hier die Gruppen Zugangsüberprüfung vorrübergehend deaktiviert.
+		// Das wird aber nur bei einem Autologin benötigt, da sich nur dort der Status des Users während des Abarbeitungsprozesses ändert.
+		// WICHTIG: Falls nach dem Login die Seite immer noch usichtbar (nicht zugänglich) ist, greift die normale Typo3 Umleitung.
+		if ($disableAccessCheck) {
+			$GLOBALS['TSFE']->config['config']['typolinkLinkAccessRestrictedPages'] = 'NONE';
 		}
 
 		$pageLink = $this->pi_getPageLink($pageId);
@@ -2338,7 +2346,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// contentid[11] = 11;
 
 		$arrValidationFields = array();
-		$configuration = 'config[' . $this->contentId . ']=[];';
+		$configuration = 'var config=[];var inputids=[];var contentids=[];config[' . $this->contentId . ']=[];';
 
 		// Bei jedem Durchgang der Schliefe wird die Konfiguration fuer ein Datenbankfeld geschrieben. Ausnahmen sind hierbei Passwordfelder.
 		// Gleichzeitig werden die ID's der Felder in ein Array geschrieben und am Ende zusammen gesetzt "inputids".
@@ -2436,8 +2444,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	function getFeUsersTca() {
 		$GLOBALS['TSFE']->includeTCA();
 		$this->feUsersTca = $GLOBALS['TCA']['fe_users'];
+
 		if ($this->conf['fieldconfig.']) {
-			$this->feUsersTca['columns'] = t3lib_div::array_merge_recursive_overrule((array)$this->feUsersTca['columns'], (array)$this->deletePointInArrayKey($this->conf['fieldconfig.']));
+			$this->feUsersTca['columns'] = t3lib_div::array_merge_recursive_overrule((array)$this->feUsersTca['columns'], (array)t3lib_div::removeDotsFromTS($this->conf['fieldconfig.']));
 		}
 	}
 
@@ -2454,37 +2463,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$arrayRootPids = $GLOBALS['TSFE']->getStorageSiterootPids();
 			$this->storagePid = $arrayRootPids['_STORAGE_PID'];
 		}
-	}
-
-	/**
-	 * Loescht den Punkt den Typo3 bei TypoScript-Variablen (Arrays) hinzufuegt.
-	 *
-	 * @param	array		$array
-	 * @return	array		$newArray
-	 */
-	function deletePointInArrayKey($array) {
-		// Neues Array erstellen um das alte Array nicht zu ueberschreiben.
-		$newArray = array();
-
-		// Alle Elemente des Arrays durchgehen.
-		foreach ($array as $key => $val) {
-			if (is_array($val)) {
-				// Wenn der Inhalt des Elements ein Array ist, letztes Zeichen entfernen (Punkt).
-				$newKey = substr($key, 0, -1);
-
-				// Da das Array recursiv sein kann Funktion erneut ausfuehren.
-				$newVal = $this->deletePointInArrayKey($val);
-			} else {
-				// Wenn Element kein Array ist, dann einfach Key und Value uebernehmen.
-				$newKey = $key;
-				$newVal = $val;
-			}
-
-			// Neues Array fuellen.
-			$newArray[$newKey] = $newVal;
-		}
-
-		return $newArray;
 	}
 
 	/**
