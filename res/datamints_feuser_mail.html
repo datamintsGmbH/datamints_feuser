@@ -1,111 +1,166 @@
 
+<html>
+
+<!-- ###HEADER### start -->
+<head>
+	<title>###SUBJECT###</title>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+	<style type="text/css">
+		body {
+			font-family: Verdana, sans-serif;
+			font-size: 0.9em;
+			color: #484848;
+		}
+
+		h1, h2, h3 {
+			font-family: 'Trebuchet MS', Verdana, sans-serif;
+			margin: 0px;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}
+
+		h2, h3 {
+			font-size: 1.1em;
+		}
+
+		a, a:link, a:visited {
+			color: #2A5685;
+		}
+
+		a:hover, a:active {
+			color: #c61a1a;
+		}
+
+		hr {
+		  width: 100%;
+		  height: 1px;
+		  background: #ccc;
+		  border: 0;
+		}
+	</style>
+</head>
+<!-- ###HEADER### end -->
+
+<!-- ###BODY### start -->
+<body>
+	###CONTENT###
+	<p>
+		Mit freundlichen Grüßen<br />
+		###SENDERNAME###
+	</p>
+</body>
+<!-- ###BODY### end -->
+
+<hr />
+
 <!-- ###DOUBLEOPTIN### start -->
 <!-- ###SUBJECT### start -->Aktivierungslink<!-- ###SUBJECT### end -->
-Hallo ###USERNAME###,
+	<p>Hallo ###USERNAME###,</p>
 
-klicken Sie den folgenden Link, um Ihren Account zu aktivieren:
+	<p>klicken Sie den folgenden Link, um Ihren Account zu aktivieren:</p>
 
-###APPROVALLINK###
+	<p><a href="###APPROVALLINK###">###APPROVALLINK###</a></p>
 
-Falls Sie keinen Account erstellt haben sollten, können Sie diesen mit folgendem Link ablehnen:
+	<p>Falls Sie keinen Account erstellt haben sollten, können Sie diesen mit folgendem Link ablehnen:</p>
 
-###DISAPPROVALLINK###
-
-Mit freundlichen Grüßen
-Absender
+	<p><a href="###DISAPPROVALLINK###">###DISAPPROVALLINK###</a></p>
 <!-- ###DOUBLEOPTIN### end -->
 
+<hr />
 
 <!-- ###ADMINAPPROVAL_ADMIN### start -->
 <!-- ###SUBJECT### start -->Aktivierungslink<!-- ###SUBJECT### end -->
-Hallo Administrator,
+	<p>Hallo Administrator,</p>
 
-es steht eine Aktivierung für folgenden User an: ###USERNAME###
+	<p>es steht eine Aktivierung für folgenden User an: ###USERNAME###</p>
 
-Aktivierungslink: ###APPROVALLINK###
+	<p>Aktivierungslink: <a href="###APPROVALLINK###">###APPROVALLINK###</a></p>
 
-Ablehnungslink: ###DISAPPROVALLINK###
-
-Mit freundlichen Grüßen
-Absender
+	<p>Ablehnungslink: <a href="###DISAPPROVALLINK###">###DISAPPROVALLINK###</a></p>
 <!-- ###ADMINAPPROVAL_ADMIN### end -->
 
+<hr />
 
 <!-- ###DISAPPROVAL### start -->
 <!-- ###SUBJECT### start -->Aktivierung abgelehnt<!-- ###SUBJECT### end -->
-Hallo ###USERNAME###,
+	<p>Hallo ###USERNAME###,</p>
 
-Ihr Account wurde leider vom Administrator abgelehnt.
-
-Mit freundlichen Grüßen
-Absender
+	<p>Ihr Account wurde leider vom Administrator abgelehnt.</p>
 <!-- ###DISAPPROVAL### end -->
 
+<hr />
 
 <!-- ###DISAPPROVAL_ADMIN### start -->
 <!-- ###SUBJECT### start -->Aktivierung abgelehnt<!-- ###SUBJECT### end -->
-Hallo Administrator,
+	<p>Hallo Administrator,</p>
 
-der folgenden User hat die Aktivierung abgelehnt: ###USERNAME###
-
-Mit freundlichen Grüßen
-Absender
+	<p>der folgenden User hat die Aktivierung abgelehnt: ###USERNAME###</p>
 <!-- ###DISAPPROVAL_ADMIN### end -->
 
+<hr />
 
 <!-- ###REGISTRATION### start -->
 <!-- ###SUBJECT### start -->Registriert<!-- ###SUBJECT### end -->
-Hallo ###USERNAME###,
+	<p>Hallo ###USERNAME###,</p>
 
-sie haben sich erfolgreich registriert und können sich jetzt mit den von Ihnen angegebenen Daten einloggen.
-
-Mit freundlichen Grüßen
-Absender
+	<p>sie haben sich erfolgreich registriert und können sich jetzt mit den von Ihnen angegebenen Daten einloggen.</p>
 <!-- ###REGISTRATION### end -->
 
+<hr />
 
 <!-- ###REGISTRATION_ADMIN### start -->
 <!-- ###SUBJECT### start -->Neuer User<!-- ###SUBJECT### end -->
-Hallo Administrator,
+	<p>Hallo Administrator,</p>
 
-der User mit dem folgendem Usernamen hat sich gerade registriert: ###USERNAME###
-
-Mit freundlichen Grüßen
-Absender
+	<p>der User mit dem folgendem Usernamen hat sich gerade registriert: ###USERNAME###</p>
 <!-- ###REGISTRATION_ADMIN### end -->
 
+<hr />
 
 <!-- ###EDIT### start -->
 	<!-- ###SUBJECT### start -->Daten geändert<!-- ###SUBJECT### end -->
-Hallo ###USERNAME###,
+	<p>Hallo ###USERNAME###,</p>
 
-folgende Daten wurden erfolgreich geändert:
-###CHANGED_ITEM_USERNAME###
-###CHANGED_ITEM_EMAIL###
-
-Mit freundlichen Grüßen
-Absender
+	<p>folgende Daten wurden erfolgreich geändert:</p>
+	<ul>
+		###CHANGED_ITEM_USERNAME###
+		###CHANGED_ITEM_EMAIL###
+	</ul>
 <!-- ###EDIT### end -->
 
+<hr />
 
 <!-- ###EDIT_ADMIN### start -->
 	<!-- ###SUBJECT### start -->Daten geändert<!-- ###SUBJECT### end -->
-Hallo Administrator,
+	<p>Hallo Administrator,</p>
 
-der User mit dem folgendem Usernamen hat seine Daten geändert: ###USERNAME###
+	<p>der User mit dem folgendem Usernamen hat seine Daten geändert: ###USERNAME###</p>
 
-Folgende Daten wurden geändert:
-###CHANGED_ITEM_USERNAME###
-###CHANGED_ITEM_EMAIL###
-
-Mit freundlichen Grüßen
-Absender
+	<p>Folgende Daten wurden geändert:</p>
+	<ul>
+		###CHANGED_ITEM_USERNAME###
+		###CHANGED_ITEM_EMAIL###
+	</ul>
 <!-- ###EDIT_ADMIN### end -->
 
+<hr />
 
 <!-- ###CHANGED_ITEMS### start -->
+	<ul>
+
 	<!-- ###USERNAME### start -->
-	Username: ###VALUE_OLD### => ###VALUE_NEW###<!-- ###USERNAME### end -->
+		<li><b>###LABEL###</b> ###VALUE_OLD### => ###VALUE_NEW###</li>
+	<!-- ###USERNAME### end -->
+
 	<!-- ###EMAIL### start -->
-	E-Mail: ###VALUE_OLD### => ###VALUE_NEW###<!-- ###EMAIL### end -->
+		<li><b>###LABEL###</b> ###VALUE_OLD### => ###VALUE_NEW###</li>
+	<!-- ###EMAIL### end -->
+
+	</ul>
 <!-- ###CHANGED_ITEMS### end -->
+
+</html>

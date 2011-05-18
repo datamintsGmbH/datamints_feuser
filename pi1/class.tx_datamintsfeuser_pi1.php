@@ -768,7 +768,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		if ($this->conf['showtype'] == 'register' && $this->conf['register.']['generatepassword.']['mode']) {
 			$i = 1;
 			$password['normal'] = '';
-			$chars = '234567890abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			$chars = '23456789abcdefghjkmnpqrstuvwxyzABCDEFGHIKLMNPQRSTUVWXYZ';
 
 			while ($i <= (($this->conf['register.']['generatepassword.']['length']) ? $this->conf['register.']['generatepassword.']['length'] : 8)) {
 				$password['normal'] .= $chars{mt_rand(0, strlen($chars))};
@@ -1055,7 +1055,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$GLOBALS['TSFE']->fe_user->createUserSession($userRecord);
 
 		// Umleiten, damit der Login wirksam wird.
-		$this->userRedirect($this->conf['redirect.'][$mode], true);
+		$this->userRedirect($this->conf['redirect.'][$mode], array(), true);
 	}
 
 	/**
@@ -1065,7 +1065,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @param	boolean		$disableAccessCheck
 	 * @return	void
 	 */
-	function userRedirect($pageId = 0, $disableAccessCheck = false) {
+	function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false) {
 		// Normalen Redirect, oder Redirect auf die gewuenschte Seite.
 		if (!$pageId) {
 			$pageId = $GLOBALS['TSFE']->id;
@@ -1073,12 +1073,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Damit man auch auf Seiten die erst nach dem Login sichtbar sind umleiten kann, wird hier die Gruppen Zugangsüberprüfung vorrübergehend deaktiviert.
 		// Das wird aber nur bei einem Autologin benötigt, da sich nur dort der Status des Users während des Abarbeitungsprozesses ändert.
-		// WICHTIG: Falls nach dem Login die Seite immer noch usichtbar (nicht zugänglich) ist, greift die normale Typo3 Umleitung.
+		// WICHTIG: Falls nach dem Login die Seite immer noch unsichtbar (nicht zugänglich) ist, greift die normale Typo3 Umleitung.
 		if ($disableAccessCheck) {
 			$GLOBALS['TSFE']->config['config']['typolinkLinkAccessRestrictedPages'] = 'NONE';
 		}
 
-		$pageLink = $this->pi_getPageLink($pageId);
+		$pageLink = $this->pi_getPageLink($pageId, $urlParameters);
 		header('Location: ' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $pageLink . ((strpos($pageLink, '?') === false) ? '?' : '&') . $this->makeHiddenParams());
 		exit;
 	}
@@ -1283,56 +1283,51 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 		}
 
+		$markerArray = array_merge((array)$markerArray, (array)$config);
+
+		// Absender vorbereiten.
+		$from_name = ($config['sendername']) ? $config['sendername'] : $config['sendermail'];
+		$from_email = $config['sendermail'];
+
 		// Wenn die Mail fuer den Admin bestimmt ist.
 		if ($adminMail) {
 			// Template laden.
-			$template = $this->getTemplateSubpart($templatePart . '_admin', $config, $markerArray);
+			$content = $this->getTemplateSubpart($templatePart . '_admin', $config, $markerArray);
 
 			// Empfaengername vorbereiten.
-			$name = '=?UTF-8?B?' . base64_encode(($config['adminname']) ? $config['adminname'] : $config['adminmail']) . '?=';
+			$name = ($config['adminname']) ? $config['adminname'] : $config['adminmail'];
 
 			// E-Mail und Name ermitteln.
 			$recipient = $name . ' <' . $config['adminmail'] . '>';
 		} else {
 			// Template laden.
-			$template = $this->getTemplateSubpart($templatePart, $config, $markerArray);
+			$content = $this->getTemplateSubpart($templatePart, $config, $markerArray);
 
 			// Empfaengername vorbereiten.
-			$name = '=?UTF-8?B?' . base64_encode(($row['username']) ? $row['username'] : $row['email']) . '?=';
+			$name = ($row['username']) ? $row['username'] : $row['email'];
 
 			// E-Mail und Name ermitteln.
 			$recipient = $name . ' <' . $row['email'] . '>';
 		}
 
 		// Betreff ermitteln und aus dem E-Mail Content entfernen.
-		$subject = trim($this->cObj->getSubpart($template, '###SUBJECT###'));
-		$template = $this->cObj->substituteSubpart($template, '###SUBJECT###', '');
+		$subject = trim($this->cObj->getSubpart($content, '###SUBJECT###'));
+		$content = $this->cObj->substituteSubpart($content, '###SUBJECT###', '');
+
+		// Body zusammensetzen.
+		$body = $this->getTemplateSubpart('body', $config, array_merge((array)$markerArray, array('content' => $content)));
+
+		// Header ermitteln und Betreff ersetzten (Title-Tag).
+		$header = $this->getTemplateSubpart('header', $config, array_merge((array)$markerArray, array('subject' => $subject)));
 
 		// Extra Subparts ersetzten.
 		foreach ($extraSuparts as $key => $val) {
-			$template = $this->cObj->substituteSubpart($template, '###' . strtoupper($key) . '###', $val);
+			$body = $this->cObj->substituteSubpart($body, '###' . strtoupper($key) . '###', $val);
 		}
 
-		// Restlichen Content wieder zusammenfuegen.
-		if ($config['mailtype'] == 'html') {
-			$mailtype = 'text/html';
-		} else {
-			$mailtype = 'text/plain';
-			$template = trim(strip_tags($template));
-		}
-
-		// Absendername vorbereiten.
-		$name = '=?UTF-8?B?' . base64_encode(($config['sendername']) ? $config['sendername'] : $config['sendermail']) . '?=';
-
-		// Zusaetzliche Header User-Mail.
-		$header  = 'MIME-Version: 1.0' . "\r\n";
-		$header .= 'Content-type: ' . $mailtype . '; charset=utf-8' . "\r\n";
-		$header .= 'From: ' . $name . ' <' . $config['sendermail'] . '>' . "\r\n";
-		$header .= 'X-Mailer: PHP/' . phpversion();
-
-		// Include hook to change the email.
-		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['datamints_feuser']['sendMail_mail'])) {
-			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['datamints_feuser']['sendMail_mail'] as $_classRef) {
+		// Hook um die E-Mail zu aendern.
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['datamints_feuser']['sendMail_htmlMail'])) {
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['datamints_feuser']['sendMail_htmlMail'] as $_classRef) {
 				$_getter = array(
 					'userId' => $userId,
 					'templatePart' => $templatePart,
@@ -1342,9 +1337,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				);
 				$_setter = array(
 					'recipient' => &$recipient,
+					'from_name' => &$from_name,
+					'from_email' => &$from_email,
 					'subject' => &$subject,
-					'template' => &$template,
 					'header' => &$header,
+					'body' => &$body,
 					'pObj' => &$this
 				);
 				$_procObj = &t3lib_div::getUserObj($_classRef);
@@ -1353,8 +1350,27 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Verschicke E-Mail.
-		if ($recipient && $subject && $template) {
-			mail($recipient, $subject, $template, $header);
+		if ($recipient && $subject && $body) {
+
+			$body_html = '<html>' . $header . $body . '</html>';
+			$body_plain = trim(strip_tags($body));
+
+			$htmlMail = t3lib_div::makeInstance('t3lib_htmlmail');
+	      	$htmlMail->start();
+	      	$htmlMail->recipient = $recipient;
+            $htmlMail->replyto_email = $from_email;
+            $htmlMail->replyto_name = $from_name;
+	      	$htmlMail->subject = $subject;
+	      	$htmlMail->from_email = $from_email;
+	      	$htmlMail->from_name = $from_name;
+            $htmlMail->returnPath = $from_email;
+	     	$htmlMail->addPlain($body_plain);
+
+			if ($config['mailtype'] == 'html') {
+				$htmlMail->setHTML($htmlMail->encodeMsg($body_html));
+			}
+
+			$htmlMail->send($htmlMail->recipient);
 		}
 	}
 
@@ -1403,6 +1419,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			if (in_array($key, $this->arrUsedFields)) {
 				if ($val != $GLOBALS['TSFE']->fe_user->user[$key]) {
 					$markerArray = array();
+					$markerArray['label'] = $this->getLabel($key, false);
 					$markerArray['value_old'] = $GLOBALS['TSFE']->fe_user->user[$key];
 					$markerArray['value_new'] = $val;
 
@@ -1456,7 +1473,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				}
 			}
 
-			$arrCurrentData = array_merge((array)$row, (array)$this->piVars[$this->contentId]);
+			$arrCurrentData = array_merge((array)$arrCurrentData, (array)$this->piVars[$this->contentId]);
 		}
 
 		// Konvertiert alle moeglichen Zeichen der Ausgabe, die stoeren koennten (XSS).
@@ -2037,16 +2054,17 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * Ermittelt ein bestimmtes Label aufgrund des im TCA gespeicherten Languagestrings, des Datenbankfeldnamens oder gibt einfach den uebergeben Wert wieder aus, wenn nichts gefunden wurde.
 	 *
 	 * @param	string		$fieldName
+	 * @param	boolean		$checkRequired
 	 * @return	string		$label
 	 */
-	function getLabel($fieldName) {
+	function getLabel($fieldName, $checkRequired = true) {
 		if (strpos($fieldName, 'LLL:') === false) {
 			// Label aus der Konfiguration holen basierend auf dem Datenbankfeldnamen.
 			$label = $this->pi_getLL($fieldName);
 
 			// Das Label zurueckliefern, falls vorhanden.
 			if ($label) {
-				return $label . $this->checkIfRequired($fieldName);
+				return $label . (($checkRequired) ? $this->checkIfRequired($fieldName) : '');
 			}
 
 			// LanguageString ermitteln.
@@ -2060,11 +2078,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Das Label zurueckliefern, falls vorhanden.
 		if ($label) {
-			return $label . $this->checkIfRequired($fieldName);
+			return $label . (($checkRequired) ? $this->checkIfRequired($fieldName) : '');
 		}
 
 		// Wenn gar nichts gefunden wurde den uebergebenen Wert wieder zurueckliefern.
-		return $fieldName . $this->checkIfRequired($fieldName);
+		return $fieldName . (($checkRequired) ? $this->checkIfRequired($fieldName) : '');
 	}
 
 	/**
