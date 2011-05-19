@@ -8,6 +8,9 @@
 		<languageKey index="default" type="array">
 			<label index="tt_content.list_type_pi1">Frontend User Management</label>
 			<label index="fe_users.tx_datamintsfeuser_approval_level">Approval Level:</label>
+			<label index="fe_users.gender">Gender:</label>
+			<label index="fe_users.gender.I.0">Man</label>
+			<label index="fe_users.gender.I.1">Woman</label>
 			<label index="tt_content.pi_flexform.sheet.general">General</label>
 			<label index="tt_content.pi_flexform.sheet.registration">Registration</label>
 			<label index="tt_content.pi_flexform.sheet.edit">Edit</label>
@@ -68,6 +71,9 @@
 		<languageKey index="de" type="array">
 			<label index="tt_content.list_type_pi1">Frontend User Management</label>
 			<label index="fe_users.tx_datamintsfeuser_approval_level">Genehmigungslevel:</label>
+			<label index="fe_users.gender">Geschlecht:</label>
+			<label index="fe_users.gender.I.0">Herr</label>
+			<label index="fe_users.gender.I.1">Frau</label>
 			<label index="tt_content.pi_flexform.sheet.general">Allgemein</label>
 			<label index="tt_content.pi_flexform.sheet.registration">Registrierung</label>
 			<label index="tt_content.pi_flexform.sheet.edit">Bearbeitung</label>

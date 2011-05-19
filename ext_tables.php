@@ -30,14 +30,25 @@ if ($confArray['useIRRE']) {
 }
 
 $tempColumns = array (
+	'gender' => array (
+		'exclude' => 0,
+		'label' => 'LLL:EXT:datamints_feuser/locallang_db.xml:fe_users.gender',
+		'config' => array (
+			'type' => 'radio',
+			'items' => array (
+				array('LLL:EXT:datamints_feuser/locallang_db.xml:fe_users.gender.I.0', '0'),
+				array('LLL:EXT:datamints_feuser/locallang_db.xml:fe_users.gender.I.1', '1')
+			),
+		)
+	),
 	'tx_datamintsfeuser_approval_level' => array (
 		'exclude' => 0,
 		'label' => 'LLL:EXT:datamints_feuser/locallang_db.xml:fe_users.tx_datamintsfeuser_approval_level',
-		'config' => Array (
-			'type'     => 'input',
-			'size'     => '2',
-			'eval'     => 'int',
-			'range'    => array (
+		'config' => array (
+			'type' => 'input',
+			'size' => '2',
+			'eval' => 'int',
+			'range' => array (
 				'upper' => '2',
 				'lower' => '0'
 			),
@@ -49,6 +60,7 @@ $tempColumns = array (
 t3lib_div::loadTCA('fe_users');
 t3lib_extMgm::addTCAcolumns('fe_users', $tempColumns, 1);
 
-t3lib_extMgm::addToAllTCAtypes( 'fe_users', '--div--;LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.list_type_pi1, tx_datamintsfeuser_approval_level;;;;1-1-1');
+t3lib_extMgm::addToAllTCAtypes('fe_users', 'gender', '', 'before:name');
+t3lib_extMgm::addToAllTCAtypes('fe_users', '--div--;LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.list_type_pi1, tx_datamintsfeuser_approval_level;;;;1-1-1');
 
 ?>

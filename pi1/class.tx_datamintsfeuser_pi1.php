@@ -1882,7 +1882,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Select-Items aus DB holen.
 			$tab = $fieldConfig['foreign_table'];
 			$sel = 'uid, ' . $GLOBALS['TCA'][$tab]['ctrl']['label'];
-			$whr = '1 ' . $fieldConfig['foreign_table_where'];
+
+			$whr = strtolower(substr(trim($fieldConfig['foreign_table_where']), 3));
+			$whr = trim(($whr == 'and' || $whr == 'or ') ? substr($fieldConfig['foreign_table_where'], 3, strlen($fieldConfig['foreign_table_where'])) : $fieldConfig['foreign_table_where']);
 
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($sel , $tab, $whr);
 
