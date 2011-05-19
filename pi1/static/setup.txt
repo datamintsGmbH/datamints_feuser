@@ -1,9 +1,14 @@
 plugin.tx_datamintsfeuser_pi1 {
 
 	showtype = register
-	usedfields = username,password,image,--separator--,tx_datamintsfeuser_firstname,tx_datamintsfeuser_surname,address,zip,city,--separator--,email,www,--submit--
-	requiredfields = username,password,tx_datamintsfeuser_firstname,tx_datamintsfeuser_surname,email
-	uniquefields = username,email
+	usedfields = username, password, image, --separator--, first_name, last_name, address, zip, city, --separator--, email, www, --submit--
+	requiredfields = username, password, first_name, last_name, email
+	uniquefields = username, email
+
+	register {
+		sendusermail = 1
+		sendadminmail = 1
+	}
 
 	validate {
 		username.type = username

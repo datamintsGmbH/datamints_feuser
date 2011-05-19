@@ -7,8 +7,6 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="tt_content.list_type_pi1">Frontend User Management</label>
-			<label index="fe_users.tx_datamintsfeuser_firstname">First Name:</label>
-			<label index="fe_users.tx_datamintsfeuser_surname">Surname:</label>
 			<label index="fe_users.tx_datamintsfeuser_approval_level">Approval Level:</label>
 			<label index="tt_content.pi_flexform.sheet.general">General</label>
 			<label index="tt_content.pi_flexform.sheet.registration">Registration</label>
@@ -69,8 +67,6 @@
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="tt_content.list_type_pi1">Frontend User Management</label>
-			<label index="fe_users.tx_datamintsfeuser_firstname">Vorname:</label>
-			<label index="fe_users.tx_datamintsfeuser_surname">Nachname:</label>
 			<label index="fe_users.tx_datamintsfeuser_approval_level">Genehmigungslevel:</label>
 			<label index="tt_content.pi_flexform.sheet.general">Allgemein</label>
 			<label index="tt_content.pi_flexform.sheet.registration">Registrierung</label>

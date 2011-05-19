@@ -397,12 +397,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				if ($this->conf['edit.']['sendusermail'] || $this->conf['edit.']['sendadminmail']) {
 					$extraMarkers = $this->getChangedForMail($arrUpdate, $this->conf['edit.']);
 
-					if ($this->conf['edit.']['sendusermail'] && !isset ($extraMarkers['nothing_changed'])) {
-						$this->sendMail($this->userId, 'edit', false, $this->conf['edit.'], $extraMarkers);
-					}
-
 					if ($this->conf['edit.']['sendadminmail'] && !isset ($extraMarkers['nothing_changed'])) {
 						$this->sendMail($this->userId, 'edit', true, $this->conf['edit.'], $extraMarkers);
+					}
+
+					if ($this->conf['edit.']['sendusermail'] && !isset ($extraMarkers['nothing_changed'])) {
+						$this->sendMail($this->userId, 'edit', false, $this->conf['edit.'], $extraMarkers);
 					}
 				}
 
@@ -466,8 +466,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					$extraMarkers = $this->generatePasswordForMail($userId);
 
 					// Registrierungs E-Mail schicken.
-					$this->sendMail($userId, 'registration', true, $this->conf['register.']);
-					$this->sendMail($userId, 'registration', false, $this->conf['register.'], $extraMarkers);
+					if ($this->conf['register.']['sendadminmail']) {
+						$this->sendMail($userId, 'registration', true, $this->conf['register.']);
+					}
+
+					if ($this->conf['register.']['sendusermail']) {
+						$this->sendMail($userId, 'registration', false, $this->conf['register.'], $extraMarkers);
+					}
 
 					$mode = $this->conf['showtype'];
 					$submode = 'success';
@@ -476,20 +481,24 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 		}
 
-		// Include hook to get user and update information.
-		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['datamints_feuser']['sendForm_update'])) {
-			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['datamints_feuser']['sendForm_update'] as $_classRef) {
-				$_getter = array(
-					'userId' => ($userId) ? $userId : $this->userId,
-					'showtype' => $this->conf['showtype'],
-					'arrUpdate' => $arrUpdate,
-					'arrUserData' => $GLOBALS['TSFE']->fe_user->user
+		// Hook um weiter Userupdates zu machen.
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendForm_return'])) {
+			$_params = array(
+					'variables' => array(
+							'userId' => ($userId) ? $userId : $this->userId,
+							'showtype' => $this->conf['showtype'],
+							'arrUpdate' => $arrUpdate,
+							'arrUserData' => $GLOBALS['TSFE']->fe_user->user
+						),
+					'parameters' => array(
+							'mode' => &$mode,
+							'submode' => &$submode,
+							'params' => &$params
+						)
 				);
-				$_setter = array(
-					'pObj' => &$this
-				);
-				$_procObj = &t3lib_div::getUserObj($_classRef);
-				$_procObj->sendForm_update($_getter, $_setter, $this);
+
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendForm_return'] as $_funcRef) {
+				t3lib_div::callUserFunction($_funcRef, $_params, $this);
 			}
 		}
 
@@ -1172,8 +1181,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $userId ,array('tstamp' => $time, 'disable' => '0', 'tx_datamintsfeuser_approval_level' => '0'));
 
 			// Registrierungs E-Mail schicken.
-			$this->sendMail($userId, 'registration', true, $this->conf['register.']);
-			$this->sendMail($userId, 'registration', false, $this->conf['register.'], $extraMarkers);
+			if ($this->conf['register.']['sendadminmail']) {
+				$this->sendMail($userId, 'registration', true, $this->conf['register.']);
+			}
+
+			if ($this->conf['register.']['sendusermail']) {
+				$this->sendMail($userId, 'registration', false, $this->conf['register.'], $extraMarkers);
+			}
 
 			// Ausgabe vorbereiten.
 			$submode = 'success';
@@ -1326,26 +1340,27 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Hook um die E-Mail zu aendern.
-		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['datamints_feuser']['sendMail_htmlMail'])) {
-			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['datamints_feuser']['sendMail_htmlMail'] as $_classRef) {
-				$_getter = array(
-					'userId' => $userId,
-					'templatePart' => $templatePart,
-					'adminMail' => $adminMail,
-					'config' => $config,
-					'markerArray' => $markerArray
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendMail_htmlMail'])) {
+			$_params = array(
+					'variables' => array(
+							'userId' => $userId,
+							'templatePart' => $templatePart,
+							'adminMail' => $adminMail,
+							'config' => $config,
+							'markerArray' => $markerArray
+						),
+					'parameters' => array(
+							'body' => &$body,
+							'header' => &$header,
+							'subject' => &$subject,
+							'recipient' => &$recipient,
+							'from_name' => &$from_name,
+							'from_email' => &$from_email
+						)
 				);
-				$_setter = array(
-					'recipient' => &$recipient,
-					'from_name' => &$from_name,
-					'from_email' => &$from_email,
-					'subject' => &$subject,
-					'header' => &$header,
-					'body' => &$body,
-					'pObj' => &$this
-				);
-				$_procObj = &t3lib_div::getUserObj($_classRef);
-				$_procObj->sendMail_mail($_getter, $_setter, $this);
+
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendMail_htmlMail'] as $_funcRef) {
+				t3lib_div::callUserFunction($_funcRef, $_params, $this);
 			}
 		}
 
