@@ -177,12 +177,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$submode = '';
 		$params = array();
 
-		// Jedes Element trimmen.
-		foreach ($this->piVars[$this->contentId] as $key => $value) {
-			if (!is_array($value)) {
-				$this->piVars[$this->contentId][$key] = trim($value);
-			}
-		}
+		// Jedes Element in piVars trimmen.
+		$this->trimPiVars();
 
 		// Ueberpruefen ob Datenbankeintraege mit den uebergebenen Daten uebereinstimmen.
 		$uniqueCheck = $this->uniqueCheckForm();
@@ -238,265 +234,102 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			return $this->showMessageOutputRedirect($mode, $submode);
 		}
 
-		// Wenn der Bearbeitungsmodus, die Zielseite, und der User stimmen, dann wird in die Datenbank geschrieben.
-		if ($this->piVars[$this->contentId]['submitmode'] == $this->conf['showtype'] && $this->piVars[$this->contentId]['pageid'] == $GLOBALS['TSFE']->id && $this->piVars[$this->contentId]['userid'] == $this->userId) {
-			// Sonderfaelle!
-			foreach ($this->arrUsedFields as $fieldName) {
-				if ($this->feUsersTca['columns'][$fieldName]) {
-					$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
+		// Wenn der Bearbeitungsmodus, die Zielseite, oder der User nicht stimmen, dann wird abgebrochen. Andernfalls wird in die Datenbank geschrieben.
+		if ($this->piVars[$this->contentId]['submitmode'] != $this->conf['showtype'] || $this->piVars[$this->contentId]['pageid'] != $GLOBALS['TSFE']->id || $this->piVars[$this->contentId]['userid'] != $this->userId) {
+			return $this->showMessageOutputRedirect($mode, $submode, $params);
+		}
 
-					// Ist das Feld schon gesaeubert worden (MySQL, PHP, HTML, ...).
-					$isChecked = false;
+		// Sonderfaelle behandeln!
+		foreach ($this->arrUsedFields as $fieldName) {
+			if ($this->feUsersTca['columns'][$fieldName]) {
+				$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
 
-					// Datumsfelder behandeln.
-					if (strpos($fieldConfig['eval'], 'date') !== false) {
-						$arrUpdate[$fieldName] = strtotime($this->piVars[$this->contentId][$fieldName]);
-						$isChecked = true;
+				// Ist das Feld schon gesaeubert worden (MySQL, PHP, HTML, ...).
+				$isCleaned = false;
+
+				// Datumsfelder behandeln.
+				if (strpos($fieldConfig['eval'], 'date') !== false) {
+					$arrUpdate[$fieldName] = strtotime($this->piVars[$this->contentId][$fieldName]);
+					$isCleaned = true;
+				}
+
+				// Passwordfelder behandeln.
+				if (strpos($fieldConfig['eval'], 'password') !== false) {
+					$arrUpdate = $this->cleanPasswordField($fieldName, $fieldConfig, $arrUpdate);
+					$isCleaned = true;
+				}
+
+				// Checkboxen behandeln.
+				if ($fieldConfig['type'] == 'check') {
+					$arrUpdate = $this->cleanCheckboxField($fieldName, $fieldConfig, $arrUpdate);
+					$isCleaned = true;
+				}
+
+				// Multiple Selectboxen.
+				if ($fieldConfig['type'] == 'select' && ($fieldConfig['size'] > 1 || $fieldConfig['maxitems'] > 1)) {
+					$arrUpdate = $this->cleanMultipleSelectboxField($fieldName, $fieldConfig, $arrUpdate);
+					$isCleaned = true;
+				}
+
+				// Group, Bildfelder behandeln.
+				if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'file' && ($_FILES[$this->prefixId]['type'][$this->contentId][$fieldName] || $this->piVars[$this->contentId][$fieldName . '_delete'])) {
+					// Das Bild hochladen oder loeschen. Gibt einen Fehlerstring zurueck falls ein Fehler auftritt. $arrUpdate wird per Referenz uebergeben und innerhalb der Funktion geaendert!
+					$valueCheck[$fieldName] = $this->saveDeleteImage($fieldName, $arrUpdate);
+
+					if ($valueCheck[$fieldName]) {
+						return $this->showForm($valueCheck);
 					}
 
-					// Passwordfelder behandeln.
-					if (strpos($fieldConfig['eval'], 'password') !== false) {
-						// Password generieren und verschluesseln je nach Einstellung.
-						$password = $this->generatePassword($fieldName);
-						$arrUpdate[$fieldName] = $password['encrypted'];
+					$isCleaned = true;
+				}
 
-						// Wenn kein Password uebergeben wurde auch keins schreiben.
-						if (!$arrUpdate[$fieldName]) {
-							unset($arrUpdate[$fieldName]);
-						}
+				// Group, Multiple Checkboxen.
+				if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db') {
+					$arrUpdate = $this->cleanGroupAndMultipleCheckboxField($fieldName, $fieldConfig, $arrUpdate);
+					$isCleaned = true;
+				}
 
-						$isChecked = true;
-					}
-
-					// Checkboxen behandeln.
-					if ($fieldConfig['type'] == 'check') {
-						$countCheckFields = count($fieldConfig['items']);
-
-						// Mehrere Checkboxen oder eine Checkbox.
-						if ($countCheckFields > 1) {
-							$binString = '';
-
-							for ($i = 0; $i < $countCheckFields; $i++) {
-								if (in_array($i, $this->piVars[$this->contentId][$fieldName])) {
-									$binString .= '1';
-								} else {
-									$binString .= '0';
-								}
-							}
-
-							$arrUpdate[$fieldName] = bindec(strrev($binString));
-						} else {
-							if ($this->piVars[$this->contentId][$fieldName]) {
-								$arrUpdate[$fieldName] = '1';
-							} else {
-								$arrUpdate[$fieldName] = '0';
-							}
-						}
-
-						$isChecked = true;
-					}
-
-					// Multiple Selectboxen.
-					if ($fieldConfig['type'] == 'select' && $fieldConfig['size'] > 1) {
-						$arrCleanedValues = array();
-
-						// Wenn nichts ausgewählt wurde, wird auch dieser Parameter nicht übergeben, daher zuerst überprüfen, ob etwas vorhanden ist.
-						if($this->piVars[$this->contentId][$fieldName]){
-							foreach ($this->piVars[$this->contentId][$fieldName] as $val) {
-								$arrCleanedValues[] = intval($val);
-							}
-						}
-
-						// TODO: maxitems wird noch nicht berücksichtigt!
-
-						$arrUpdate[$fieldName] = implode(',', $arrCleanedValues);
-						$isChecked = true;
-					}
-
-					// Group, Bildfelder behandeln.
-					if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'file' && ($_FILES[$this->prefixId]['type'][$this->contentId][$fieldName] || $this->piVars[$this->contentId][$fieldName . '_delete'])) {
-						// Das Bild hochladen oder loeschen. Gibt einen Fehlerstring zurueck falls ein Fehler auftritt. $arrUpdate wird per Referenz uebergeben und innerhalb der Funktion geaendert!
-						$valueCheck[$fieldName] = $this->saveDeleteImage($fieldName, $arrUpdate);
-
-						if ($valueCheck[$fieldName]) {
-							return $this->showForm($valueCheck);
-						}
-
-						$isChecked = true;
-					}
-
-					// Group, Multiple Checkboxen.
-					if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db') {
-						$arrCleanedValues = array();
-						$arrAllowed = t3lib_div::trimExplode(',', $fieldConfig['allowed'], true);
-
-						foreach ($arrAllowed as $table) {
-							if ($GLOBALS['TCA'][$table]) {
-								foreach ($this->piVars[$this->contentId][$fieldName] as $val) {
-									if (preg_match('/^' . $table . '_[0-9]+$/', $val)) {
-										$arrCleanedValues[] = $val;
-									}
-								}
-							}
-						}
-
-						// Falls nur eine Tabelle im TCA angegeben ist, wird nur die uid gespeichert.
-						if (count($arrAllowed) == 1) {
-							foreach ($arrCleanedValues as $key => $val) {
-								$arrCleanedValues[$key] = substr($val, strripos($val, '_') + 1);
-							}
-						}
-
-						$arrUpdate[$fieldName] = implode(',', $arrCleanedValues);
-						$isChecked = true;
-					}
-
-					// Wenn noch nicht gesaeubert dann nachholen!
-					if (!$isChecked && isset($this->piVars[$this->contentId][$fieldName])) {
-						// Groesse ermitteln und anhand dessen und des Feldtyps das Feld saeubern.
-						$size = $fieldConfig['size'];
-
-						// Wenn eine Checkbox oder eine einfache Selectbox, dann darf nur eine Zahl kommen!
-						if ($type == 'check' || ($type == 'select' && $size == 1)) {
-							$arrUpdate[$fieldName] = intval($this->piVars[$this->contentId][$fieldName]);
-						}
-
-						// Ansonsten Standardsaeuberung.
-						$arrUpdate[$fieldName] = strip_tags($this->piVars[$this->contentId][$fieldName]);
-
-						// Wenn E-Mail Feld, alle Zeichen zu kleinen Zeichen konvertieren.
-						if ($fieldName == 'email') {
-							$arrUpdate[$fieldName] = strtolower($arrUpdate[$fieldName]);
-						}
-					}
+				// Wenn noch nicht gesaeubert dann nachholen!
+				if (!$isCleaned && isset($this->piVars[$this->contentId][$fieldName])) {
+					$arrUpdate = $this->cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate);
 				}
 			}
+		}
 
-			// Zusatzfelder setzten, die nicht aus der Form uebergeben wurden.
-			$arrUpdate['tstamp'] = time();
+		// Konvertiert alle moeglichen Zeichen die fuer die Ausgabe angepasst wurden zurueck.
+		$arrUpdate = $this->htmlspecialchars($arrUpdate, false);
 
-			// Konvertiert alle moeglichen Zeichen die fuer die Ausgabe angepasst wurden zurueck.
-			foreach ($arrUpdate as $key => $val) {
-				$arrUpdate[$key] = htmlspecialchars_decode($val);
-			}
+		// Zusatzfelder setzten, die nicht aus der Form uebergeben wurden.
+		$arrUpdate['tstamp'] = time();
 
-			// Temporaeren Feldnamen fuer das 'User loeschen' Feld erstellen.
-			$fieldName = '--userdelete--';
+		// Temporaeren Feldnamen fuer das 'User loeschen' Feld erstellen.
+		$fieldName = '--userdelete--';
 
-			// Wenn der User geloescht werden soll.
-			if ($this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)] && in_array($fieldName, $this->arrUsedFields)) {
-				$arrUpdate['deleted'] = '1';
-			}
+		// Wenn der User geloescht werden soll.
+		if ($this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)] && in_array($fieldName, $this->arrUsedFields)) {
+			$arrUpdate['deleted'] = '1';
+		}
 
-			// Kopiert den Inhalt eines Feldes in ein anderes Feld.
-			$arrCopiedFields = array();
+		// Kopiert den Inhalt eines Feldes in ein anderes Feld.
+		$arrUpdate = $this->copyFields($arrUpdate);
 
-			foreach ($this->conf['copyfields.'] as $fieldToCopy => $arrCopyToFields) {
-				$fieldToCopy = rtrim($fieldToCopy, '.');
+		// Der User hat seine Daten editiert.
+		if ($this->conf['showtype'] == 'edit') {
+			$arrMode = $this->editUser($arrUpdate);
 
-				// Wenn das Feld nich benutzt wird, abbrechen.
-				if (!in_array($fieldToCopy, $this->arrUsedFields)) {
-					continue;
-				}
+			// Ausgabe vorbereiten.
+			$mode = $arrMode['mode'];
+			$submode = $arrMode['submode'];
+		}
 
-				foreach ($arrCopyToFields as $copyToField => $value) {
-					$copyToField = rtrim($copyToField, '.');
+		// Ein neuer User hat sich angemeldet.
+		if ($this->conf['showtype'] == 'register') {
+			$arrMode = $this->registerUser($arrUpdate);
 
-					// Wenn aktiviert, noch nicht kopiert und ein gueltige Spalte, stdWrap anwenden.
-					if ($arrCopyToFields[$copyToField] && !in_array($copyToField, $arrCopiedFields) && array_key_exists($copyToField, $this->feUsersTca['columns'])) {
-						$arrCopiedFields[] = $copyToField;
-
-						// Datenbank Feldinhalt for dem Update des Users dem stdWrap zur Verfuegung stellen.
-						$cObj = t3lib_div::makeInstance('tslib_cObj');
-						$cObj->data = $GLOBALS['TSFE']->fe_user->user;
-
-						$arrUpdate[$copyToField] = $cObj->stdWrap($arrUpdate[$fieldToCopy], $arrCopyToFields[$copyToField . '.']);
-					}
-				}
-			}
-
-			// Der User hat seine Daten editiert.
-			if ($this->conf['showtype'] == 'edit') {
-				// User editieren.
-				$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , $arrUpdate);
-
-				// User und Admin Benachrichtigung schicken, aber nur wenn etwas geaendert wurde.
-				if ($this->conf['edit.']['sendusermail'] || $this->conf['edit.']['sendadminmail']) {
-					$extraMarkers = $this->getChangedForMail($arrUpdate, $this->conf['edit.']);
-
-					if ($this->conf['edit.']['sendadminmail'] && !isset ($extraMarkers['nothing_changed'])) {
-						$this->sendMail($this->userId, 'edit', true, $this->conf['edit.'], $extraMarkers);
-					}
-
-					if ($this->conf['edit.']['sendusermail'] && !isset ($extraMarkers['nothing_changed'])) {
-						$this->sendMail($this->userId, 'edit', false, $this->conf['edit.'], $extraMarkers);
-					}
-				}
-
-				// Ausgabe vorbereiten.
-				$mode = $this->conf['showtype'];
-				$submode = 'success';
-
-				// Wenn der User geloescht wurde, weiterleiten.
-				if ($arrUpdate['deleted']) {
-					$mode = 'userdelete';
-				}
-			}
-
-			// Ein neuer User hat sich angemeldet.
-			if ($this->conf['showtype'] == 'register') {
-				// Standartkonfigurationen anwenden.
-				$arrUpdate['pid'] = $this->storagePid;
-				$arrUpdate['usergroup'] = ($arrUpdate['usergroup']) ? $arrUpdate['usergroup'] : $this->conf['register.']['usergroup'];
-				$arrUpdate['crdate'] = $arrUpdate['tstamp'];
-
-				// Genehmigungstypen aufsteigend sortiert ermitteln. Das ist nötig um das Level dem richtigen Typ zuordnen zu können.
-				// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig lässt.
-				$arrApprovalTypes = $this->getApprovalTypes();
-				$approvalType = $arrApprovalTypes[0];
-
-				// Maximales Genehmigungslevel ermitteln (Double Opt In / Admin Approval).
-				$arrUpdate['tx_datamintsfeuser_approval_level'] = count($arrApprovalTypes);
-
-				// Wenn ein Genehmigungstyp aktiviert ist, dann den User deaktivieren.
-				if ($arrUpdate['tx_datamintsfeuser_approval_level'] > 0) {
-					$arrUpdate['disable'] = '1';
-				}
-
-				// User erstellen.
-				$GLOBALS['TYPO3_DB']->exec_INSERTquery('fe_users', $arrUpdate);
-
-				// Userid ermittln un Global definieren!
-				$userId = $GLOBALS['TYPO3_DB']->sql_insert_id();
-
-				// Wenn nach der Registrierung weitergeleitet werden soll.
-				if ($arrUpdate['tx_datamintsfeuser_approval_level'] > 0) {
-					// Aktivierungsmail senden.
-					$this->sendActivationMail($userId);
-
-					// Ausgabe fuer gemischte Genehmigungstypen erstellen (z.B. erst adminapproval und dann doubleoptin).
-					$mode = $approvalType;
-					$submode = (array_shift($arrApprovalTypes)) ? implode('_', $arrApprovalTypes) : '';
-					$submode .= ($submode) ? '_sent' : 'sent';
-					$params = array('mode' => $this->conf['showtype']);
-				} else {
-					// Erstellt ein neues Passwort, falls Passwort generieren eingestellt ist. Das Passwort kannn dann ueber den Marker "###PASSWORD###" mit der Registrierungsmail gesendet werden.
-					$extraMarkers = $this->generatePasswordForMail($userId);
-
-					// Registrierungs E-Mail schicken.
-					if ($this->conf['register.']['sendadminmail']) {
-						$this->sendMail($userId, 'registration', true, $this->conf['register.']);
-					}
-
-					if ($this->conf['register.']['sendusermail']) {
-						$this->sendMail($userId, 'registration', false, $this->conf['register.'], $extraMarkers);
-					}
-
-					$mode = $this->conf['showtype'];
-					$submode = 'success';
-					$params = array('username' => $arrUpdate['username']);
-				}
-			}
+			// Ausgabe vorbereiten.
+			$mode = $arrMode['mode'];
+			$submode = $arrMode['submode'];
+			$params = $arrMode['params'];
 		}
 
 		// Hook um weiter Userupdates zu machen.
@@ -521,6 +354,17 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		return $this->showMessageOutputRedirect($mode, $submode, $params);
+	}
+
+	/**
+	 * Jedes Element in piVars trimmen.
+	 */
+	function trimPiVars() {
+		foreach ($this->piVars[$this->contentId] as $key => $value) {
+			if (!is_array($value)) {
+				$this->piVars[$this->contentId][$key] = trim($value);
+			}
+		}
 	}
 
 	/**
@@ -776,6 +620,324 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		return $valueCheck;
+	}
+
+	/**
+	 * Generiert und / oder verschluesselt das Passwort fuer ein Passwortfeld.
+	 *
+	 * @param	string		$fieldName
+	 * @param	array		$fieldConfig
+	 * @param	array		$arrUpdate
+	 * @return	array		$arrUpdate
+	 */
+	function cleanPasswordField($fieldName, $fieldConfig, $arrUpdate) {
+		// Password generieren und verschluesseln je nach Einstellung.
+		$password = $this->generatePassword($fieldName);
+		$arrUpdate[$fieldName] = $password['encrypted'];
+
+		// Wenn kein Password uebergeben wurde auch keins schreiben.
+		if (!$arrUpdate[$fieldName]) {
+			unset($arrUpdate[$fieldName]);
+		}
+
+		return $arrUpdate;
+	}
+
+	/**
+	 * Saeubert Checkboxfelder, indem die uebergebenen Werte durch 1 oder 0 ausgetauscht werden.
+	 * Gilt fuer eine oder mehrere Checkboxen (nicht fuer scrollbare Listen).
+	 *
+	 * @param	string		$fieldName
+	 * @param	array		$fieldConfig
+	 * @param	array		$arrUpdate
+	 * @return	array		$arrUpdate
+	 */
+	function cleanCheckboxField($fieldName, $fieldConfig, $arrUpdate) {
+		$countCheckFields = count($fieldConfig['items']);
+
+		// Mehrere Checkboxen oder eine Checkbox.
+		if ($countCheckFields > 1) {
+			$binString = '';
+
+			for ($i = 0; $i < $countCheckFields; $i++) {
+				if (in_array($i, $this->piVars[$this->contentId][$fieldName])) {
+					$binString .= '1';
+				} else {
+					$binString .= '0';
+				}
+			}
+
+			$arrUpdate[$fieldName] = bindec(strrev($binString));
+		} else {
+			if ($this->piVars[$this->contentId][$fieldName]) {
+				$arrUpdate[$fieldName] = '1';
+			} else {
+				$arrUpdate[$fieldName] = '0';
+			}
+		}
+
+		return $arrUpdate;
+	}
+
+	/**
+	 * Saeubert MultipleSelectboxfelder indem auf jeden uebergebenen Wert intval() angewendet wird.
+	 *
+	 * @param	string		$fieldName
+	 * @param	array		$fieldConfig
+	 * @param	array		$arrUpdate
+	 * @return	array		$arrUpdate
+	 */
+	function cleanMultipleSelectboxField($fieldName, $fieldConfig, $arrUpdate) {
+		$maxItemsCount = 1;
+		$arrCleanedValues = array();
+
+		// Wenn nichts ausgewählt wurde, wird auch dieser Parameter nicht übergeben, daher zuerst überprüfen, ob etwas vorhanden ist.
+		if ($this->piVars[$this->contentId][$fieldName]) {
+			foreach ($this->piVars[$this->contentId][$fieldName] as $val) {
+				if ($maxItemsCount > $fieldConfig['maxitems']) {
+					break;
+				}
+
+				$arrCleanedValues[] = intval($val);
+				$maxItemsCount++;
+			}
+		}
+
+		$arrUpdate[$fieldName] = implode(',', $arrCleanedValues);
+
+		return $arrUpdate;
+	}
+
+	/**
+	 * Saeubert Group- und MultipleCheckboxfelder (scrollbare Liste).
+	 *
+	 * @param	string		$fieldName
+	 * @param	array		$fieldConfig
+	 * @param	array		$arrUpdate
+	 * @return	array		$arrUpdate
+	 */
+	function cleanGroupAndMultipleCheckboxField($fieldName, $fieldConfig, $arrUpdate) {
+		$arrCleanedValues = array();
+		$arrAllowed = t3lib_div::trimExplode(',', $fieldConfig['allowed'], true);
+
+		foreach ($arrAllowed as $table) {
+			if ($GLOBALS['TCA'][$table]) {
+				foreach ($this->piVars[$this->contentId][$fieldName] as $val) {
+					if (preg_match('/^' . $table . '_[0-9]+$/', $val)) {
+						$arrCleanedValues[] = $val;
+					}
+				}
+			}
+		}
+
+		// Falls nur eine Tabelle im TCA angegeben ist, wird nur die uid gespeichert.
+		if (count($arrAllowed) == 1) {
+			foreach ($arrCleanedValues as $key => $val) {
+				$arrCleanedValues[$key] = substr($val, strripos($val, '_') + 1);
+			}
+		}
+
+		$arrUpdate[$fieldName] = implode(',', $arrCleanedValues);
+
+		return $arrUpdate;
+	}
+
+	/**
+	 * Saeubert die uebrigen Felder (Input, Textarea, ...).
+	 *
+	 * @param	string		$fieldName
+	 * @param	array		$fieldConfig
+	 * @param	array		$arrUpdate
+	 * @return	array		$arrUpdate
+	 */
+	function cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate) {
+		// Groesse ermitteln und anhand dessen und des Feldtyps das Feld saeubern.
+		$size = $fieldConfig['size'];
+
+		// Wenn eine Checkbox oder eine einfache Selectbox, dann darf nur eine Zahl kommen!
+		if ($type == 'check' || ($type == 'select' && $size == 1)) {
+			$arrUpdate[$fieldName] = intval($this->piVars[$this->contentId][$fieldName]);
+		}
+
+		// Ansonsten Standardsaeuberung.
+		$arrUpdate[$fieldName] = strip_tags($this->piVars[$this->contentId][$fieldName]);
+
+		// Wenn E-Mail Feld, alle Zeichen zu kleinen Zeichen konvertieren.
+		if ($fieldName == 'email') {
+			$arrUpdate[$fieldName] = strtolower($arrUpdate[$fieldName]);
+		}
+
+		return $arrUpdate;
+	}
+
+	/**
+	 * Konvertiert alle Inhalte des uebernenen Arrays um z.B. XSS zu verhindern.
+	 * Der Modus gibt an ob das Array encodiert oder decodiert werden soll.
+	 *
+	 * @param	array		$arrUpdate
+	 * @param	boolean		$mode
+	 * @return	array		$arrUpdate
+	 */
+	function htmlspecialchars($arrData, $mode) {
+		if ($mode) {
+			// Konvertiert alle moeglichen Zeichen der Ausgabe, die stoeren koennten (XSS).
+			foreach ($arrData as $key => $val) {
+				if (is_array($arrData[$key])) {
+					foreach ($arrData[$key] as $subKey => $subVal) {
+						$arrData[$key][$subKey] = strip_tags($subVal);
+					}
+				} else {
+					$arrData[$key] = htmlspecialchars($val);
+				}
+			}
+		} else {
+			// Konvertiert alle moeglichen Zeichen die fuer die Ausgabe angepasst wurden zurueck.
+			foreach ($arrData as $key => $val) {
+				$arrData[$key] = htmlspecialchars_decode($val);
+			}
+		}
+
+		return $arrData;
+	}
+
+	/**
+	 * Kopiert anhand der angegebenen Konfigurationen Inhalte in dem uebergebenen Array an eine neue oder andere Stelle.
+	 * Dabei wird auf jeden kopierten Inhalt die stdWrap Funktionen angewendet.
+	 *
+	 * @param	array		$arrUpdate
+	 * @return	array		$arrUpdate
+	 */
+	function copyFields($arrUpdate) {
+		// Kopiert den Inhalt eines Feldes in ein anderes Feld.
+		$arrCopiedFields = array();
+
+		foreach ($this->conf['copyfields.'] as $fieldToCopy => $arrCopyToFields) {
+			$fieldToCopy = rtrim($fieldToCopy, '.');
+
+			// Wenn das Feld nich benutzt wird, abbrechen.
+			if (!in_array($fieldToCopy, $this->arrUsedFields)) {
+				continue;
+			}
+
+			foreach ($arrCopyToFields as $copyToField => $value) {
+				$copyToField = rtrim($copyToField, '.');
+
+				// Wenn aktiviert, noch nicht kopiert und ein gueltige Spalte, stdWrap anwenden.
+				if ($arrCopyToFields[$copyToField] && !in_array($copyToField, $arrCopiedFields) && array_key_exists($copyToField, $this->feUsersTca['columns'])) {
+					$arrCopiedFields[] = $copyToField;
+
+					// Datenbank Feldinhalt for dem Update des Users dem stdWrap zur Verfuegung stellen.
+					$cObj = t3lib_div::makeInstance('tslib_cObj');
+					$cObj->data = $GLOBALS['TSFE']->fe_user->user;
+
+					$arrUpdate[$copyToField] = $cObj->stdWrap($arrUpdate[$fieldToCopy], $arrCopyToFields[$copyToField . '.']);
+				}
+			}
+		}
+
+		return $arrUpdate;
+	}
+
+	/**
+	 * Editiert einen vorhandenen User, anhand des uebergebenen Arrays.
+	 *
+	 * @param	array		$arrUpdate
+	 * @return	array		$arrMode
+	 */
+	function editUser($arrUpdate) {
+		$arrMode = array();
+
+		// Der User hat seine Daten editiert.
+		$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , $arrUpdate);
+
+		// User und Admin Benachrichtigung schicken, aber nur wenn etwas geaendert wurde.
+		if ($this->conf['edit.']['sendusermail'] || $this->conf['edit.']['sendadminmail']) {
+			$extraMarkers = $this->getChangedForMail($arrUpdate, $this->conf['edit.']);
+
+			if ($this->conf['edit.']['sendadminmail'] && !isset ($extraMarkers['nothing_changed'])) {
+				$this->sendMail($this->userId, 'edit', true, $this->conf['edit.'], $extraMarkers);
+			}
+
+			if ($this->conf['edit.']['sendusermail'] && !isset ($extraMarkers['nothing_changed'])) {
+				$this->sendMail($this->userId, 'edit', false, $this->conf['edit.'], $extraMarkers);
+			}
+		}
+
+		// Ausgabe vorbereiten.
+		$arrMode['mode'] = $this->conf['showtype'];
+		$arrMode['submode'] = 'success';
+
+		// Wenn der User geloescht wurde, weiterleiten.
+		if ($arrUpdate['deleted']) {
+			$arrMode['mode'] = 'userdelete';
+		}
+
+		return $arrMode;
+	}
+
+	/**
+	 * Erstellt einen User, anhand des uebergebenen Arrays.
+	 *
+	 * @param	array		$arrUpdate
+	 * @return	array		$arrMode
+	 */
+	function registerUser($arrUpdate) {
+		$arrMode = array();
+		// Ein neuer User hat sich angemeldet.
+
+		// Standartkonfigurationen anwenden.
+		$arrUpdate['pid'] = $this->storagePid;
+		$arrUpdate['usergroup'] = ($arrUpdate['usergroup']) ? $arrUpdate['usergroup'] : $this->conf['register.']['usergroup'];
+		$arrUpdate['crdate'] = $arrUpdate['tstamp'];
+
+		// Genehmigungstypen aufsteigend sortiert ermitteln. Das ist nötig um das Level dem richtigen Typ zuordnen zu können.
+		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig lässt.
+		$arrApprovalTypes = $this->getApprovalTypes();
+		$approvalType = $arrApprovalTypes[0];
+
+		// Maximales Genehmigungslevel ermitteln (Double Opt In / Admin Approval).
+		$arrUpdate['tx_datamintsfeuser_approval_level'] = count($arrApprovalTypes);
+
+		// Wenn ein Genehmigungstyp aktiviert ist, dann den User deaktivieren.
+		if ($arrUpdate['tx_datamintsfeuser_approval_level'] > 0) {
+			$arrUpdate['disable'] = '1';
+		}
+
+		// User erstellen.
+		$GLOBALS['TYPO3_DB']->exec_INSERTquery('fe_users', $arrUpdate);
+
+		// Userid ermittln un Global definieren!
+		$userId = $GLOBALS['TYPO3_DB']->sql_insert_id();
+
+		// Wenn nach der Registrierung weitergeleitet werden soll.
+		if ($arrUpdate['tx_datamintsfeuser_approval_level'] > 0) {
+			// Aktivierungsmail senden.
+			$this->sendActivationMail($userId);
+
+			// Ausgabe fuer gemischte Genehmigungstypen erstellen (z.B. erst adminapproval und dann doubleoptin).
+			$arrMode['mode'] = $approvalType;
+			$arrMode['submode'] = (array_shift($arrApprovalTypes)) ? implode('_', $arrApprovalTypes) : '';
+			$arrMode['submode'] .= ($arrMode['submode']) ? '_sent' : 'sent';
+			$arrMode['params'] = array('mode' => $this->conf['showtype']);
+		} else {
+			// Erstellt ein neues Passwort, falls Passwort generieren eingestellt ist. Das Passwort kannn dann ueber den Marker "###PASSWORD###" mit der Registrierungsmail gesendet werden.
+			$extraMarkers = $this->generatePasswordForMail($userId);
+
+			// Registrierungs E-Mail schicken.
+			if ($this->conf['register.']['sendadminmail']) {
+				$this->sendMail($userId, 'registration', true, $this->conf['register.']);
+			}
+
+			if ($this->conf['register.']['sendusermail']) {
+				$this->sendMail($userId, 'registration', false, $this->conf['register.'], $extraMarkers);
+			}
+
+			$arrMode['mode'] = $this->conf['showtype'];
+			$arrMode['submode'] = 'success';
+			$arrMode['params'] = array('username' => $arrUpdate['username']);
+		}
+
+		return $arrMode;
 	}
 
 	/**
@@ -1510,17 +1672,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Konvertiert alle moeglichen Zeichen der Ausgabe, die stoeren koennten (XSS).
-		if ($arrCurrentData) {
-			foreach ($arrCurrentData as $key => $val) {
-				if (is_array($arrCurrentData[$key])) {
-					foreach ($arrCurrentData[$key] as $subKey => $subVal) {
-						$arrCurrentData[$key][$subKey] = strip_tags($subVal);
-					}
-				} else {
-					$arrCurrentData[$key] = htmlspecialchars($val);
-				}
-			}
-		}
+		$arrCurrentData = $this->htmlspecialchars($arrCurrentData, true);
 
 		// Seite, die den Request entgegennimmt (TypoLink).
 		$requestLink = $this->pi_getPageLink($this->conf['requestpid']);
@@ -1874,15 +2026,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Checkboxen gehen nur, wenn die Konfiguration "maxItems" > 1 ist (man also auch tatsächlich mehrere auswählen kann).
 		// Bei der Ausgabe der einzelnen Einträge wird also immer nach dem Rendermode unterschieden.
 
-		// TODO: funktioniert bei der Anzeige noch nicht richtig!
-
 		// Items, die in der TCA-Konfiguration festgelegt wurden.
 		for ($i = 0; $i < $countSelectFields; $i++) {
 			$label = $fieldConfig['items'][$i][0];
 			$value = $fieldConfig['items'][$i][1];
 
-			if ($fieldConfig['renderMode'] == 'checkbox' && $fieldConfig['maxitems'] > 1) {
-				$checked = (in_array($i, $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
+			if (in_array($fieldConfig['renderMode'], array('checkbox', 'singlebox')) && $fieldConfig['maxitems'] > 1) {
+				$checked = (in_array($value, $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
 
 				$optionlist .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $value . '_wrapper" class="check_item check_item_' . $i . '">';
 				$optionlist .= '<input type="checkbox"  name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . '][]" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $value . '" value="' . $value . '"' . $checked . '/>';
