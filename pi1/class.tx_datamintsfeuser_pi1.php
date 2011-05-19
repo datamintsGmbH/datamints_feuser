@@ -416,21 +416,35 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				}
 			}
 
+			// Kopiert den Inhalt eines Feldes in ein anderes Feld.
+			foreach ($this->conf['copyfields.'] as $fieldToCopy => $arrCopyToFields) {
+				$fieldToCopy = rtrim($fieldToCopy, '.');
+
+				// Wenn das Feld nich benutzt wird, abbrechen.
+				if (!in_array($fieldToCopy, $this->arrUsedFields)) {
+					continue;
+				}
+
+				foreach ($arrCopyToFields as $copyToField => $stdWrap) {
+					$copyToField = rtrim($copyToField, '.');
+
+					if (array_key_exists($copyToField, $this->feUsersTca['columns'])) {
+						$cObj = t3lib_div::makeInstance('tslib_cObj');
+
+						// Feldinhalt for dem Update zur Verfuegung stellen.
+						$cObj->data = $GLOBALS['TSFE']->fe_user->user;
+
+						$arrUpdate[$copyToField] = $cObj->stdWrap($arrUpdate[$fieldToCopy], $stdWrap);
+					}
+				}
+			}
+
 			// Ein neuer User hat sich angemeldet.
 			if ($this->conf['showtype'] == 'register') {
 				// Standartkonfigurationen anwenden.
 				$arrUpdate['pid'] = $this->storagePid;
 				$arrUpdate['usergroup'] = ($arrUpdate['usergroup']) ? $arrUpdate['usergroup'] : $this->conf['register.']['usergroup'];
 				$arrUpdate['crdate'] = $arrUpdate['tstamp'];
-
-				// Extra Erstellungsdatumsfelder hinzufuegen.
-				$arrCrdateFields = t3lib_div::trimExplode(',', $this->conf['register.']['crdatefields'], true);
-
-				foreach ($arrCrdateFields as $val) {
-					if (trim($val)) {
-						$arrUpdate[trim($val)] = $arrUpdate['crdate'];
-					}
-				}
 
 				// Genehmigungstypen aufsteigend sortiert ermitteln. Das ist nötig um das Level dem richtigen Typ zuordnen zu können.
 				// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig lässt.
