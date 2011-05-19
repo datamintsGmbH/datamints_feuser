@@ -417,6 +417,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 
 			// Kopiert den Inhalt eines Feldes in ein anderes Feld.
+			$arrCopiedFields = array();
+
 			foreach ($this->conf['copyfields.'] as $fieldToCopy => $arrCopyToFields) {
 				$fieldToCopy = rtrim($fieldToCopy, '.');
 
@@ -425,16 +427,18 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					continue;
 				}
 
-				foreach ($arrCopyToFields as $copyToField => $stdWrap) {
+				foreach ($arrCopyToFields as $copyToField => $value) {
 					$copyToField = rtrim($copyToField, '.');
 
-					if (array_key_exists($copyToField, $this->feUsersTca['columns'])) {
-						$cObj = t3lib_div::makeInstance('tslib_cObj');
+					// Wenn aktiviert, noch nicht kopiert und ein gueltige Spalte, stdWrap anwenden.
+					if ($arrCopyToFields[$copyToField] && !in_array($copyToField, $arrCopiedFields) && array_key_exists($copyToField, $this->feUsersTca['columns'])) {
+						$arrCopiedFields[] = $copyToField;
 
 						// Feldinhalt for dem Update zur Verfuegung stellen.
+						$cObj = t3lib_div::makeInstance('tslib_cObj');
 						$cObj->data = $GLOBALS['TSFE']->fe_user->user;
 
-						$arrUpdate[$copyToField] = $cObj->stdWrap($arrUpdate[$fieldToCopy], $stdWrap);
+						$arrUpdate[$copyToField] = $cObj->stdWrap($arrUpdate[$fieldToCopy], $arrCopyToFields[$copyToField . '.']);
 					}
 				}
 			}
