@@ -388,6 +388,33 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$arrUpdate['deleted'] = '1';
 			}
 
+			// Kopiert den Inhalt eines Feldes in ein anderes Feld.
+			$arrCopiedFields = array();
+
+			foreach ($this->conf['copyfields.'] as $fieldToCopy => $arrCopyToFields) {
+				$fieldToCopy = rtrim($fieldToCopy, '.');
+
+				// Wenn das Feld nich benutzt wird, abbrechen.
+				if (!in_array($fieldToCopy, $this->arrUsedFields)) {
+					continue;
+				}
+
+				foreach ($arrCopyToFields as $copyToField => $value) {
+					$copyToField = rtrim($copyToField, '.');
+
+					// Wenn aktiviert, noch nicht kopiert und ein gueltige Spalte, stdWrap anwenden.
+					if ($arrCopyToFields[$copyToField] && !in_array($copyToField, $arrCopiedFields) && array_key_exists($copyToField, $this->feUsersTca['columns'])) {
+						$arrCopiedFields[] = $copyToField;
+
+						// Datenbank Feldinhalt for dem Update des Users dem stdWrap zur Verfuegung stellen.
+						$cObj = t3lib_div::makeInstance('tslib_cObj');
+						$cObj->data = $GLOBALS['TSFE']->fe_user->user;
+
+						$arrUpdate[$copyToField] = $cObj->stdWrap($arrUpdate[$fieldToCopy], $arrCopyToFields[$copyToField . '.']);
+					}
+				}
+			}
+
 			// Der User hat seine Daten editiert.
 			if ($this->conf['showtype'] == 'edit') {
 				// User editieren.
@@ -413,33 +440,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				// Wenn der User geloescht wurde, weiterleiten.
 				if ($arrUpdate['deleted']) {
 					$mode = 'userdelete';
-				}
-			}
-
-			// Kopiert den Inhalt eines Feldes in ein anderes Feld.
-			$arrCopiedFields = array();
-
-			foreach ($this->conf['copyfields.'] as $fieldToCopy => $arrCopyToFields) {
-				$fieldToCopy = rtrim($fieldToCopy, '.');
-
-				// Wenn das Feld nich benutzt wird, abbrechen.
-				if (!in_array($fieldToCopy, $this->arrUsedFields)) {
-					continue;
-				}
-
-				foreach ($arrCopyToFields as $copyToField => $value) {
-					$copyToField = rtrim($copyToField, '.');
-
-					// Wenn aktiviert, noch nicht kopiert und ein gueltige Spalte, stdWrap anwenden.
-					if ($arrCopyToFields[$copyToField] && !in_array($copyToField, $arrCopiedFields) && array_key_exists($copyToField, $this->feUsersTca['columns'])) {
-						$arrCopiedFields[] = $copyToField;
-
-						// Feldinhalt for dem Update zur Verfuegung stellen.
-						$cObj = t3lib_div::makeInstance('tslib_cObj');
-						$cObj->data = $GLOBALS['TSFE']->fe_user->user;
-
-						$arrUpdate[$copyToField] = $cObj->stdWrap($arrUpdate[$fieldToCopy], $arrCopyToFields[$copyToField . '.']);
-					}
 				}
 			}
 
