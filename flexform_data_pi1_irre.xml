@@ -325,6 +325,24 @@
 						</TCEforms>
 					</register.approvalcheck>
 
+					<register.sendusermail>
+						<TCEforms>
+							<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sendusermail</label>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</register.sendusermail>
+
+					<register.sendadminmail>
+						<TCEforms>
+							<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sendadminmail</label>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</register.sendadminmail>
+
 					<register.mailtype>
 						<TCEforms>
 							<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.mailtype</label>
@@ -434,7 +452,7 @@
 
 					<edit.sendusermail>
 						<TCEforms>
-							<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.edit.sendusermail</label>
+							<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sendusermail</label>
 							<config>
 								<type>check</type>
 							</config>
@@ -443,7 +461,7 @@
 
 					<edit.sendadminmail>
 						<TCEforms>
-							<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.edit.sendadminmail</label>
+							<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sendadminmail</label>
 							<config>
 								<type>check</type>
 							</config>
@@ -783,6 +801,15 @@
 							</config>
 						</TCEforms>
 					</jsvalidatorpath>
+
+					<disablejsconfig>
+						<TCEforms>
+							<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.disablejsconfig</label>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</disablejsconfig>
 
 				</el>
 			</ROOT>

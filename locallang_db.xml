@@ -36,6 +36,8 @@
 			<label index="tt_content.pi_flexform.legend">Legend Text:</label>
 			<label index="tt_content.pi_flexform.infoitemtext">Info Item Text:</label>
 			<label index="tt_content.pi_flexform.caption">Caption:</label>
+			<label index="tt_content.pi_flexform.sendusermail">Send User E-Mail?</label>
+			<label index="tt_content.pi_flexform.sendadminmail">Send Admin E-Mail?</label>
 			<label index="tt_content.pi_flexform.mailtype">E-Mail Type:</label>
 			<label index="tt_content.pi_flexform.mailtype.text">Text</label>
 			<label index="tt_content.pi_flexform.mailtype.html">HTML</label>
@@ -52,8 +54,6 @@
 			<label index="tt_content.pi_flexform.register.approvalcheck">Approval Check:</label>
 			<label index="tt_content.pi_flexform.register.approvalcheck.doubleoptin">Double Opt-in</label>
 			<label index="tt_content.pi_flexform.register.approvalcheck.adminapproval">Admin approval</label>
-			<label index="tt_content.pi_flexform.edit.sendusermail">Send User E-Mail?</label>
-			<label index="tt_content.pi_flexform.edit.sendadminmail">Send Admin E-Mail?</label>
 			<label index="tt_content.pi_flexform.redirect.resendactivation">Redirect Site ID "Resend Activation":</label>
 			<label index="tt_content.pi_flexform.redirect.register">Redirect Site ID "Registration":</label>
 			<label index="tt_content.pi_flexform.redirect.doubleoptin">Redirect Site ID "Double Opt-in":</label>
@@ -67,6 +67,7 @@
 			<label index="tt_content.pi_flexform.stylesheetpath">Use Own Stylesheet:</label>
 			<label index="tt_content.pi_flexform.disablejsvalidator">Disable Provided JavaScript Validator:</label>
 			<label index="tt_content.pi_flexform.jsvalidatorpath">Use Own JavaScript Validator:</label>
+			<label index="tt_content.pi_flexform.disablejsconfig">Disable Provided JavaScript Configuration:</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="tt_content.list_type_pi1">Frontend User Management</label>
@@ -130,6 +131,7 @@
 			<label index="tt_content.pi_flexform.stylesheetpath">Verwende eigenes Stylesheet:</label>
 			<label index="tt_content.pi_flexform.disablejsvalidator">Deaktiviere mitgelieferten JavaScript Validator:</label>
 			<label index="tt_content.pi_flexform.jsvalidatorpath">Verwende eigenen JavaScript Validator:</label>
+			<label index="tt_content.pi_flexform.disablejsconfig">Deaktiviere mitgelieferten JavaScript Konfiguration:</label>
 		</languageKey>
 	</data>
 </T3locallang>

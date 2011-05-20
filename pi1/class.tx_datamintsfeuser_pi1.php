@@ -81,6 +81,7 @@
  */
 
 require_once(PATH_tslib . 'class.tslib_pibase.php');
+require_once(t3lib_extmgm::extPath('datamints_feuser', 'lib/class.tx_datamintsfeuser_utils.php'));
 
 /**
  * Plugin 'Frontend User Management' for the 'datamints_feuser' extension.
@@ -129,10 +130,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Flexform und Configurationen laden.
 		$this->pi_setPiVarDefaults();
 		$this->pi_initPIflexForm();
-		$this->getConfiguration();
-		$this->getStoragePid();
-		$this->getFeUsersTca();
 		$this->pi_loadLL();
+
+		$this->getConfiguration();
+
+		$this->feUsersTca = tx_datamintsfeuser_utils::getFeUsersTca($this->conf['fieldconfig.']);
+		$this->storagePid = tx_datamintsfeuser_utils::getStoragePid($this->conf['register.']['userfolder']);
 
 		// Stylesheets in den Head einbinden.
 		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[stylesheet]'] = ($this->conf['disablestylesheet']) ? '' : '<link rel="stylesheet" type="text/css" href="' . (($this->conf['stylesheetpath']) ? $this->conf['stylesheetpath'] : t3lib_extMgm::extRelPath($this->extKey) . 'res/datamints_feuser.css') . '" />';
@@ -200,8 +203,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$fieldName = '--resendactivation--';
 
 		// Wenn der User eine neue Aktivierungsmail beantragt hat.
-		if ($this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)] && in_array($fieldName, $this->arrUsedFields)) {
-			$fieldName = $this->cleanSpecialFieldKey($fieldName);
+		if ($this->piVars[$this->contentId][tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName)] && in_array($fieldName, $this->arrUsedFields)) {
+			$fieldName = tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName);
 
 			// Falls der Anzeigetyp "list" ist (Liste der im Cookie gespeicherten User), alle uebergebenen User ermitteln und fuer das erneute zusenden verwenden. Ansonsten die uebergebene E-Mail verwenden.
 //			if ($this->conf['shownotactivated'] == 'list') {
@@ -297,7 +300,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Konvertiert alle moeglichen Zeichen die fuer die Ausgabe angepasst wurden zurueck.
-		$arrUpdate = $this->htmlspecialchars($arrUpdate, false);
+		$arrUpdate = tx_datamintsfeuser_utils::htmlspecialchars($arrUpdate, false);
 
 		// Zusatzfelder setzten, die nicht aus der Form uebergeben wurden.
 		$arrUpdate['tstamp'] = time();
@@ -306,7 +309,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$fieldName = '--userdelete--';
 
 		// Wenn der User geloescht werden soll.
-		if ($this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)] && in_array($fieldName, $this->arrUsedFields)) {
+		if ($this->piVars[$this->contentId][tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName)] && in_array($fieldName, $this->arrUsedFields)) {
 			$arrUpdate['deleted'] = '1';
 		}
 
@@ -336,10 +339,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendForm_return'])) {
 			$_params = array(
 					'variables' => array(
-							'userId' => ($userId) ? $userId : $this->userId,
-							'showtype' => $this->conf['showtype'],
-							'arrUpdate' => $arrUpdate,
-							'arrUserData' => $GLOBALS['TSFE']->fe_user->user
+							'userId' => $this->userId,
+							'arrUpdate' => $arrUpdate
 						),
 					'parameters' => array(
 							'mode' => &$mode,
@@ -404,7 +405,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Alle ausgewaehlten Felder durchgehen.
 		foreach ($this->arrUsedFields as $fieldName) {
-			$fieldName = $this->cleanSpecialFieldKey($fieldName);
+			$fieldName = tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName);
 			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
 
 			$value = trim($this->piVars[$this->contentId][$fieldName]);
@@ -412,7 +413,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Besonderes Feld das fest in der Extension verbaut ist (password_confirmation), und ueberprueft werden soll.
 			if ($fieldName == 'passwordconfirmation' && $this->conf['showtype'] == 'edit' && $this->userId) {
-				if (!$this->checkPassword($value, $GLOBALS['TSFE']->fe_user->user['password'])) {
+				if (!tx_datamintsfeuser_utils::checkPassword($value, $GLOBALS['TSFE']->fe_user->user['password'])) {
 					$valueCheck[$fieldName] = 'valid';
 				}
 			}
@@ -595,7 +596,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				case 'check':
 				case 'radio':
 				case 'select':
-					if (!isset($this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)])) {
+					if (!isset($this->piVars[$this->contentId][tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName)])) {
 						$valueCheck[$fieldName] = 'required';
 					}
 					break;
@@ -605,13 +606,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						$valueCheck[$fieldName] = 'required';
 					}
 
-					if ($fieldConfig['internal_type'] == 'db' && !isset($this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)])) {
+					if ($fieldConfig['internal_type'] == 'db' && !isset($this->piVars[$this->contentId][tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName)])) {
 						$valueCheck[$fieldName] = 'required';
 					}
 					break;
 
 				default:
-					if (!$this->piVars[$this->contentId][$this->cleanSpecialFieldKey($fieldName)]) {
+					if (!$this->piVars[$this->contentId][tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName)]) {
 						$valueCheck[$fieldName] = 'required';
 					}
 					break;
@@ -632,7 +633,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function cleanPasswordField($fieldName, $fieldConfig, $arrUpdate) {
 		// Password generieren und verschluesseln je nach Einstellung.
-		$password = $this->generatePassword($fieldName);
+		$password = tx_datamintsfeuser_utils::generatePassword($this->piVars[$this->contentId][$fieldName], $this->conf[$this->conf['showtype'] . '.']['generatepassword.']);
 		$arrUpdate[$fieldName] = $password['encrypted'];
 
 		// Wenn kein Password uebergeben wurde auch keins schreiben.
@@ -771,36 +772,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Konvertiert alle Inhalte des uebernenen Arrays um z.B. XSS zu verhindern.
-	 * Der Modus gibt an ob das Array encodiert oder decodiert werden soll.
-	 *
-	 * @param	array		$arrUpdate
-	 * @param	boolean		$mode
-	 * @return	array		$arrUpdate
-	 */
-	function htmlspecialchars($arrData, $mode) {
-		if ($mode) {
-			// Konvertiert alle moeglichen Zeichen der Ausgabe, die stoeren koennten (XSS).
-			foreach ($arrData as $key => $val) {
-				if (is_array($arrData[$key])) {
-					foreach ($arrData[$key] as $subKey => $subVal) {
-						$arrData[$key][$subKey] = strip_tags($subVal);
-					}
-				} else {
-					$arrData[$key] = htmlspecialchars($val);
-				}
-			}
-		} else {
-			// Konvertiert alle moeglichen Zeichen die fuer die Ausgabe angepasst wurden zurueck.
-			foreach ($arrData as $key => $val) {
-				$arrData[$key] = htmlspecialchars_decode($val);
-			}
-		}
-
-		return $arrData;
-	}
-
-	/**
 	 * Kopiert anhand der angegebenen Konfigurationen Inhalte in dem uebergebenen Array an eine neue oder andere Stelle.
 	 * Dabei wird auf jeden kopierten Inhalt die stdWrap Funktionen angewendet.
 	 *
@@ -907,12 +878,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$GLOBALS['TYPO3_DB']->exec_INSERTquery('fe_users', $arrUpdate);
 
 		// Userid ermittln un Global definieren!
-		$userId = $GLOBALS['TYPO3_DB']->sql_insert_id();
+		$this->userId = $GLOBALS['TYPO3_DB']->sql_insert_id();
 
 		// Wenn nach der Registrierung weitergeleitet werden soll.
 		if ($arrUpdate['tx_datamintsfeuser_approval_level'] > 0) {
 			// Aktivierungsmail senden.
-			$this->sendActivationMail($userId);
+			$this->sendActivationMail($this->userId);
 
 			// Ausgabe fuer gemischte Genehmigungstypen erstellen (z.B. erst adminapproval und dann doubleoptin).
 			$arrMode['mode'] = $approvalType;
@@ -925,11 +896,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Registrierungs E-Mail schicken.
 			if ($this->conf['register.']['sendadminmail']) {
-				$this->sendMail($userId, 'registration', true, $this->conf['register.']);
+				$this->sendMail($this->userId, 'registration', true, $this->conf['register.']);
 			}
 
 			if ($this->conf['register.']['sendusermail']) {
-				$this->sendMail($userId, 'registration', false, $this->conf['register.'], $extraMarkers);
+				$this->sendMail($this->userId, 'registration', false, $this->conf['register.'], $extraMarkers);
 			}
 
 			$arrMode['mode'] = $this->conf['showtype'];
@@ -938,68 +909,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		return $arrMode;
-	}
-
-	/**
-	 * Erstellt wenn gefordert ein Password, und verschluesselt dieses, oder das uebergebene, wenn es verschluesselt werden soll.
-	 *
-	 * @param	string		$fieldName
-	 * @return	array		$password
-	 */
-	function generatePassword($fieldName) {
-		$password = array();
-
-		// Uebergebenes Password setzten.
-		// Hier wird kein strip_tags() o.Ae. benoetigt, da beim schreiben in die Datenbank immer "$GLOBALS['TYPO3_DB']->fullQuoteStr()" ausgefuehrt wird!
-		$password['normal'] = trim($this->piVars[$this->contentId][$fieldName]);
-
-		// Erstellt ein Password.
-		if ($this->conf['showtype'] == 'register' && $this->conf['register.']['generatepassword.']['mode']) {
-			$i = 1;
-			$password['normal'] = '';
-			$chars = '23456789abcdefghjkmnpqrstuvwxyzABCDEFGHIKLMNPQRSTUVWXYZ';
-
-			while ($i <= (($this->conf['register.']['generatepassword.']['length']) ? $this->conf['register.']['generatepassword.']['length'] : 8)) {
-				$password['normal'] .= $chars{mt_rand(0, strlen($chars))};
-				$i++;
-			}
-
-		}
-
-		// Unverschluesseltes Passwort uebertragen.
-		$password['encrypted'] = $password['normal'];
-
-		// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password verschluesselt.
-		if (t3lib_extMgm::isLoaded('saltedpasswords')) {
-			$saltedpasswords = tx_saltedpasswords_div::returnExtConf();
-
-			if ($saltedpasswords['enabled'] == 1) {
-				$tx_saltedpasswords = t3lib_div::makeInstance($saltedpasswords['saltedPWHashingMethod']);
-				$password['encrypted'] = $tx_saltedpasswords->getHashedPassword($password['normal']);
-			}
-		} else
-
-		// Wenn "md5passwords" installiert ist wird wenn aktiviert, das Password md5 verschluesselt.
-		if (t3lib_extMgm::isLoaded('md5passwords')) {
-			$arrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['md5passwords']);
-
-			if ($arrConf['activate'] == 1) {
-				$password['encrypted'] = md5($password['normal']);
-			}
-		} else
-
-		// Wenn "t3sec_saltedpw" installiert ist wird wenn aktiviert, das Password gehashed.
-		if (t3lib_extMgm::isLoaded('t3sec_saltedpw')) {
-			require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/staticlib/class.tx_t3secsaltedpw_div.php';
-
-			if (tx_t3secsaltedpw_div::isUsageEnabled()) {
-				require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/lib/class.tx_t3secsaltedpw_phpass.php';
-				$tx_t3secsaltedpw_phpass = t3lib_div::makeInstance('tx_t3secsaltedpw_phpass');
-				$password['encrypted'] = $tx_t3secsaltedpw_phpass->getHashedPassword($password['normal']);
-			}
-		}
-
-		return $password;
 	}
 
 	/**
@@ -1012,68 +921,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$extraMarkers = array();
 
 		if ($this->conf['register.']['generatepassword.']['mode'] && $userId) {
-			$password = $this->generatePassword('password');
+			$password = tx_datamintsfeuser_utils::generatePassword($this->piVars[$this->contentId]['password'], $this->conf[$this->conf['showtype'] . '.']['generatepassword.']);
 			$extraMarkers['password'] = $password['normal'];
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $userId , array('password' => $password['encrypted']));
+
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $userId, array('password' => $password['encrypted']));
 		}
 
 		return $extraMarkers;
-	}
-
-	/**
-	 * Ueberprueft anhand der aktuellen Verschluesselungsextension, ob das uebergebene unverschluesselte Passwort mit dem uebergebenen verschluesselten Passwort uebereinstimmt.
-	 *
-	 * @param	string		$submitedPassword
-	 * @param	string		$originalPassword
-	 * @return	boolean		$check
-	 */
-	function checkPassword($submitedPassword, $originalPassword) {
-		$check = false;
-
-		// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password ueberprueft.
-		if (t3lib_extMgm::isLoaded('saltedpasswords')) {
-			$saltedpasswords = tx_saltedpasswords_div::returnExtConf();
-
-			if ($saltedpasswords['enabled'] == 1) {
-				$tx_saltedpasswords = t3lib_div::makeInstance($saltedpasswords['saltedPWHashingMethod']);
-				if ($tx_saltedpasswords->checkPassword($submitedPassword, $originalPassword)) {
-					$check = true;
-				}
-			}
-		}
-
-		// Wenn "md5passwords" installiert ist wird wenn aktiviert, das Password ueberprueft.
-		else if (t3lib_extMgm::isLoaded('md5passwords')) {
-			$arrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['md5passwords']);
-
-			if ($arrConf['activate'] == 1) {
-				if (md5($submitedPassword) == $originalPassword) {
-					$check = true;
-				}
-			}
-		}
-
-		// Wenn "t3sec_saltedpw" installiert ist wird wenn aktiviert, das Password ueberprueft.
-		else if (t3lib_extMgm::isLoaded('t3sec_saltedpw')) {
-			require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/staticlib/class.tx_t3secsaltedpw_div.php';
-
-			if (tx_t3secsaltedpw_div::isUsageEnabled()) {
-				require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/lib/class.tx_t3secsaltedpw_phpass.php';
-				$tx_t3secsaltedpw_phpass = t3lib_div::makeInstance('tx_t3secsaltedpw_phpass');
-				if ($tx_t3secsaltedpw_phpass->checkPassword($submitedPassword, $originalPassword)) {
-					$check = true;
-				}
-			}
-		}
-
-		// Wenn keine der oberen Extensions installiert ist (also keine Verschluesselung).
-		else {
-			if ($submitedPassword == $originalPassword) {
-				$check = true;
-			}
-		}
-
-		return $check;
 	}
 
 	/**
@@ -1180,7 +1034,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			case 'register':
 				// Login vollziehen, falls eine Redirectseite angegeben ist, wird dorthin automatisch umgeleitet.
 				if ($params['username'] && $this->conf['register.']['autologin']) {
-					$this->userAutoLogin($params['username'], $mode);
+					tx_datamintsfeuser_utils::userAutoLogin($params['username'], $this->conf['redirect.'][$mode], $this->makeHiddenParamsArray());
 				}
 
 				break;
@@ -1191,7 +1045,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('username', 'fe_users', 'uid = ' . $params['userId'], '', '', '1');
 					$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 
-					$this->userAutoLogin($row['username'], $mode);
+					tx_datamintsfeuser_utils::userAutoLogin($row['username'], $this->conf['redirect.'][$mode], $this->makeHiddenParamsArray());
 				}
 
 			case 'adminapproval':
@@ -1223,53 +1077,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		if ($redirect && $this->conf['redirect.'][$mode]) {
-			$this->userRedirect($this->conf['redirect.'][$mode]);
+			tx_datamintsfeuser_utils::userRedirect($this->conf['redirect.'][$mode], $this->makeHiddenParamsArray());
 		}
 
 		return $label;
-	}
-
-	/**
-	 * Vollzieht einen Login ohne ein Passwort.
-	 *
-	 * @param	string		$username
-	 * @param	string		$mode
-	 * @return	void
-	 */
-	function userAutoLogin($username, $mode = '') {
-		// Login vollziehen.
-		$GLOBALS['TSFE']->fe_user->checkPid = 0;
-		$arrAuthInfo = $GLOBALS['TSFE']->fe_user->getAuthInfoArray();
-		$userRecord = $GLOBALS['TSFE']->fe_user->fetchUserRecord($arrAuthInfo['db_user'], $username);
-		$GLOBALS['TSFE']->fe_user->createUserSession($userRecord);
-
-		// Umleiten, damit der Login wirksam wird.
-		$this->userRedirect($this->conf['redirect.'][$mode], array(), true);
-	}
-
-	/**
-	 * Vollzieht einen Redirect mit der Seite die benutzt wird, oder auf die aktuelle.
-	 *
-	 * @param	integer		$pageId
-	 * @param	boolean		$disableAccessCheck
-	 * @return	void
-	 */
-	function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false) {
-		// Normalen Redirect, oder Redirect auf die gewuenschte Seite.
-		if (!$pageId) {
-			$pageId = $GLOBALS['TSFE']->id;
-		}
-
-		// Damit man auch auf Seiten die erst nach dem Login sichtbar sind umleiten kann, wird hier die Gruppen Zugangsüberprüfung vorrübergehend deaktiviert.
-		// Das wird aber nur bei einem Autologin benötigt, da sich nur dort der Status des Users während des Abarbeitungsprozesses ändert.
-		// WICHTIG: Falls nach dem Login die Seite immer noch unsichtbar (nicht zugänglich) ist, greift die normale Typo3 Umleitung.
-		if ($disableAccessCheck) {
-			$GLOBALS['TSFE']->config['config']['typolinkLinkAccessRestrictedPages'] = 'NONE';
-		}
-
-		$pageLink = $this->pi_getPageLink($pageId, $urlParameters);
-		header('Location: ' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $pageLink . ((strpos($pageLink, '?') === false) ? '?' : '&') . $this->makeHiddenParams());
-		exit;
 	}
 
 	/**
@@ -1294,13 +1105,17 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$approvalType = $arrApprovalTypes[count($arrApprovalTypes) - $row['tx_datamintsfeuser_approval_level']];
 
 		// Mail vorbereiten.
-		$approvalHash = md5('approval' . $row['uid'] . $row['tstamp'] . $this->extConf['encryptionKey']);
-		$disapprovalHash = md5('disapproval' . $row['uid'] . $row['tstamp'] . $this->extConf['encryptionKey']);
-		$pageLink = $this->pi_getPageLink($GLOBALS['TSFE']->id);
-		$pageLink = (strpos($pageLink, '?') === false) ? $pageLink . '?' : $pageLink . '&';
+		$urlParameters = array($this->prefixId => array($this->contentId => array('submit' => 'approvalcheck', 'uid' => $row['uid'])));
+		$approvalParameters = array($this->prefixId => array($this->contentId => array('hash' => md5('approval' . $row['uid'] . $row['tstamp'] . $this->extConf['encryptionKey']))));
+		$disapprovalParameters = array($this->prefixId => array($this->contentId => array('hash' => md5('disapproval' . $row['uid'] . $row['tstamp'] . $this->extConf['encryptionKey']))));
+
+		// Fuegt die hidden Params mit den Approvalcheck Parametern zusammen.
+		$approvalParameters = array_merge($this->makeHiddenParamsArray(), t3lib_div::array_merge_recursive_overrule($urlParameters, $approvalParameters));
+		$disapprovalParameters = array_merge($this->makeHiddenParamsArray(), t3lib_div::array_merge_recursive_overrule($urlParameters, $disapprovalParameters));
+
 		$extraMarkers = array(
-			'approvallink' => t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $pageLink . $this->prefixId . '%5B' . $this->contentId . '%5D%5Bsubmit%5D=approvalcheck&' . $this->prefixId . '%5B' . $this->contentId . '%5D%5Buid%5D=' . $row['uid'] . '&' . $this->prefixId . '%5B' . $this->contentId . '%5D%5Bhash%5D=' . $approvalHash . $this->makeHiddenParams(),
-			'disapprovallink' => t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $pageLink . $this->prefixId . '%5B' . $this->contentId . '%5D%5Bsubmit%5D=approvalcheck&' . $this->prefixId . '%5B' . $this->contentId . '%5D%5Buid%5D=' . $row['uid'] . '&' . $this->prefixId . '%5B' . $this->contentId . '%5D%5Bhash%5D=' . $disapprovalHash . $this->makeHiddenParams()
+			'approvallink' => t3lib_div::getIndpEnv('TYPO3_SITE_URL') . tx_datamintsfeuser_utils::escapeBrackets($this->pi_getPageLink($GLOBALS['TSFE']->id, '', $approvalParameters)),
+			'disapprovallink' => t3lib_div::getIndpEnv('TYPO3_SITE_URL') . tx_datamintsfeuser_utils::escapeBrackets($this->pi_getPageLink($GLOBALS['TSFE']->id, '', $disapprovalParameters))
 		);
 
 		// E-Mail senden.
@@ -1472,7 +1287,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$markerArray = array_merge((array)$row, (array)$extraMarkers);
 
 		foreach ($markerArray as $key => $val) {
-			if (!$this->checkUtf8($val)) {
+			if (!tx_datamintsfeuser_utils::checkUtf8($val)) {
 				$markerArray[$key] = utf8_encode($val);
 			}
 		}
@@ -1486,7 +1301,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Wenn die Mail fuer den Admin bestimmt ist.
 		if ($adminMail) {
 			// Template laden.
-			$content = $this->getTemplateSubpart($templatePart . '_admin', $config, $markerArray);
+			$content = $this->getTemplateSubpart($templatePart . '_admin', $markerArray, $config);
 
 			// Empfaengername vorbereiten.
 			$name = ($config['adminname']) ? $config['adminname'] : $config['adminmail'];
@@ -1495,7 +1310,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$recipient = $name . ' <' . $config['adminmail'] . '>';
 		} else {
 			// Template laden.
-			$content = $this->getTemplateSubpart($templatePart, $config, $markerArray);
+			$content = $this->getTemplateSubpart($templatePart, $markerArray, $config);
 
 			// Empfaengername vorbereiten.
 			$name = ($row['username']) ? $row['username'] : $row['email'];
@@ -1509,10 +1324,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$content = $this->cObj->substituteSubpart($content, '###SUBJECT###', '');
 
 		// Body zusammensetzen.
-		$body = $this->getTemplateSubpart('body', $config, array_merge((array)$markerArray, array('content' => $content)));
+		$body = $this->getTemplateSubpart('body', array_merge((array)$markerArray, array('content' => $content)), $config);
 
 		// Header ermitteln und Betreff ersetzten (Title-Tag).
-		$header = $this->getTemplateSubpart('header', $config, array_merge((array)$markerArray, array('subject' => $subject)));
+		$header = $this->getTemplateSubpart('header', array_merge((array)$markerArray, array('subject' => $subject)), $config);
 
 		// Extra Subparts ersetzten.
 		foreach ($extraSuparts as $key => $val) {
@@ -1577,7 +1392,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @param	array		$markerArray
 	 * @return	string		$template
 	 */
-	function getTemplateSubpart($templatePart, $config, $markerArray = array()) {
+	function getTemplateSubpart($templatePart, $markerArray = array(), $config = array()) {
 		// Template holen.
 		$templateFile = $config['emailtemplate'];
 
@@ -1586,14 +1401,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Template laden.
-		$template = $this->cObj->fileResource($templateFile);
-		$template = $this->cObj->getSubpart($template, '###' . strtoupper($templatePart) . '###');
-
-		if (!$this->checkUtf8($template)) {
-			$template = utf8_encode($template);
-		}
-
-		$template = $this->cObj->substituteMarkerArray($template, $markerArray, '###|###', 1);
+		$template = tx_datamintsfeuser_utils::getTemplateSubpart($templateFile, $templatePart, $markerArray);
 
 		return $template;
 	}
@@ -1607,8 +1415,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function getChangedForMail($arrNewData, $config) {
 		$count = 0;
+		$template =  $this->getTemplateSubpart('changed_items', array(), $config);
 		$extraMarkers = array();
-		$template =  $this->getTemplateSubpart('changed_items', $config);
 
 		foreach ($arrNewData as $key => $val) {
 			if (in_array($key, $this->arrUsedFields)) {
@@ -1672,7 +1480,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Konvertiert alle moeglichen Zeichen der Ausgabe, die stoeren koennten (XSS).
-		$arrCurrentData = $this->htmlspecialchars($arrCurrentData, true);
+		$arrCurrentData = tx_datamintsfeuser_utils::htmlspecialchars($arrCurrentData, true);
 
 		// Seite, die den Request entgegennimmt (TypoLink).
 		$requestLink = $this->pi_getPageLink($this->conf['requestpid']);
@@ -1772,7 +1580,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Profil loeschen Link anzeigen.
 			if ($fieldName == '--userdelete--' && $this->conf['showtype'] == 'edit' && $this->userId) {
-				$fieldName = $this->cleanSpecialFieldKey($fieldName);
+				$fieldName = tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName);
 
 				$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $fieldName . '">';
 				$content .= '<label for="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '">' . $this->getLabel($fieldName) . '</label>';
@@ -1785,7 +1593,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Passwortbestaetigung anzeigen.
 			if ($fieldName == '--passwordconfirmation--' && $this->conf['showtype'] == 'edit' && $this->userId) {
-				$fieldName = $this->cleanSpecialFieldKey($fieldName);
+				$fieldName = tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName);
 
 				$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $fieldName . '">';
 				$content .= '<label for="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '">' . $this->getLabel($fieldName) . '</label>';
@@ -1798,7 +1606,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Aktivierung erneut senden anzeigen.
 			if ($fieldName == '--resendactivation--') {
-				$fieldName = $this->cleanSpecialFieldKey($fieldName);
+				$fieldName = tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName);
 
 				// Noch nicht fertig gestellte Listenansicht der nicht aktivierten User.
 //				if ($this->conf['shownotactivated'] == 'list') {
@@ -1826,7 +1634,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Submit Button anzeigen.
 			if ($fieldName == '--submit--') {
-				$fieldName = $this->cleanSpecialFieldKey($fieldName);
+				$fieldName = tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName);
 
 				$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $fieldName . '">';
 				$content .= '<input id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" type="submit" value="' . $this->getLabel($fieldName . '_' . $this->conf['showtype']) . '"/>';
@@ -1841,7 +1649,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$content .= '<input type="hidden" name="' . $this->prefixId . '[' . $this->contentId . '][userid]" value="' . $this->userId . '" />';
 		$content .= '<input type="hidden" name="' . $this->prefixId . '[' . $this->contentId . '][pageid]" value="' . $GLOBALS['TSFE']->id . '" />';
 		$content .= '<input type="hidden" name="' . $this->prefixId . '[' . $this->contentId . '][submitmode]" value="' . $this->conf['showtype'] . '" />';
-		$content .= $this->makeHiddenFields();
+		$content .= $this->makeHiddenParamsHiddenFields();
 
 		$content .= '</fieldset>';
 		$content .= '</form>';
@@ -2066,7 +1874,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					$optionlist .= '</div>';
 				} else {
 					$selected = (in_array($row['uid'], $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
-					
+
 					$optionlist .= '<option value="' . $row['uid'] . '"' . $selected . '>' . $row[$GLOBALS['TCA'][$tab]['ctrl']['label']] . '</option>';
 				}
 			}
@@ -2162,7 +1970,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				}
 
 				$checked = (array_intersect(array($key, substr($key, strripos($key, '_') + 1)), $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
-				
+
 				$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $i . '_wrapper" class="group_item group_item_' . $i . '">';
 				$content .= '<input type="checkbox" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $key . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . '][]" value="' . $key . '"' . $checked . ' />';
 				$content .= '<label for="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $key . '">'. $label . '</label></div>';
@@ -2180,7 +1988,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 *
 	 * @return	string		$content
 	 */
-	function makeHiddenFields() {
+	function makeHiddenParamsHiddenFields() {
 		$content = '';
 
 		foreach ($this->arrHiddenParams as $paramName) {
@@ -2195,30 +2003,18 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Erstellt GET-Parameter fuer vordefinierte Parameter die uebergeben wurden.
 	 *
-	 * @return	string		$params
+	 * @return	array		$arrParams
 	 */
-	function makeHiddenParams() {
-		$params = '';
+	function makeHiddenParamsArray() {
+		$arrParams = '';
 
 		foreach ($this->arrHiddenParams as $paramName) {
 			if ($_REQUEST[$paramName]) {
-				$params .= '&' . urlencode($paramName) . '=' . $this->cleanHeaderUrlData($_REQUEST[$paramName]);
+				$arrParams[$paramName] = tx_datamintsfeuser_utils::cleanHeaderUrlData($_REQUEST[$paramName]);
 			}
 		}
 
-		return $params;
-	}
-
-	/**
-	 * Konvertiert einen String um ihn in der PHP Funktion header nutzen zu koennen.
-	 *
-	 * @param	string		$data
-	 * @return	string		$data
-	 */
-	function cleanHeaderUrlData($data) {
-		$data = urlencode(strip_tags(preg_replace("/[\r\n]/", '', $data)));
-
-		return $data;
+		return $arrParams;
 	}
 
 	/**
@@ -2303,7 +2099,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Alle Tabs der Flexformkonfiguration durchgehn.
 		foreach ($this->cObj->data['pi_flexform']['data'] as $tabKey => $val) {
-			$this->readFlexformTab($this->cObj->data['pi_flexform'], $conf, $tabKey);
+			tx_datamintsfeuser_utils::readFlexformTab($this->cObj->data['pi_flexform'], $tabKey, $conf);
 		}
 
 		// Alle gesammelten Konfigurationen in $this->conf uebertragen.
@@ -2313,7 +2109,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$this->conf[$key] = $val;
 			} else {
 				// Alle anderen Konfigurationen...
-				$this->setFlexformConfiguration($key, $val);
+				$this->conf = tx_datamintsfeuser_utils::setFlexformConfiguration($key, $val, $this->conf);
 			}
 		}
 
@@ -2330,70 +2126,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Konfigurationen die immer gelten setzten (Feldnamen sind fuer konfigurierte Felder und fuer input Felder).
 		$this->arrRequiredFields[] = '--passwordconfirmation--';
-	}
-
-	/**
-	 * Parst das Flexform Konfigurations Array und schreibt alle Werte in $conf.
-	 *
-	 * @param	array		$flexData
-	 * @param	array		$conf // Call by reference Array mit allen zu updatenden Daten.
-	 * @param	string		$sType
-	 * @return	void
-	 */
-	function readFlexformTab($flexData, &$conf, $sTab) {
-		 if (is_array($flexData)) {
-			 if (isset($flexData['data'][$sTab]['lDEF'])) {
-				 $flexData = $flexData['data'][$sTab]['lDEF'];
-			 }
-
-			 foreach ($flexData as $key => $value) {
-				 if (is_array($value['el']) && count($value['el']) > 0) {
-					 foreach ($value['el'] as $ekey => $element) {
-						 if (isset($element['vDEF'])) {
-							 $conf[$ekey] = $element['vDEF'];
-						 } else {
-							 $this->readFlexformTab($element, $conf[$key][$ekey], $sTab);
-						 }
-					 }
-				 } else {
-					 $this->readFlexformTab($value['el'], $conf, $sTab);
-				 }
-
-				 if ($value['vDEF']) {
-					 $conf[$key] = $value['vDEF'];
-				 }
-			 }
-		 }
-	 }
-
-	/**
-	 * Ueberschreibt eventuell vorhandene TypoScript Konfigurationen mit den Konfigurationen aus der Flexform.
-	 *
-	 * @param	string		$key
-	 * @param	string		$value
-	 * @return	void
-	 * @global	$this->conf
-	 */
-	function setFlexformConfiguration($key, $value) {
-		if (strpos($key, '.') !== false && $value) {
-			$arrKey = t3lib_div::trimExplode('.', $key);
-
-			for ($i = count($arrKey) - 1; $i >= 0; $i--) {
-				$newValue = array();
-
-				if ($i == count($arrKey) - 1) {
-					$newValue[$arrKey[$i]] = $value;
-				} else {
-					$newValue[$arrKey[$i] . '.'] = $value;
-				}
-
-				$value = $newValue;
-			}
-
-			$this->conf = t3lib_div::array_merge_recursive_overrule($this->conf, $value);
-		} else if ($value) {
-			$this->conf[$key] = $value;
-		}
 	}
 
 	/**
@@ -2637,96 +2369,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$configuration .= 'inputids[' . $this->contentId . ']=new Array("' . implode('","', $arrValidationFields) . '");contentids[' . $this->contentId . ']=' . $this->contentId . ';';
 
 		return $configuration;
-	}
-
-	/**
-	 * Ueberschreibt eventuell vorhandene TCA Konfiguration mit TypoScript Konfiguration.
-	 *
-	 * @return	void
-	 * @global	$this->feUsersTca
-	 */
-	function getFeUsersTca() {
-		$GLOBALS['TSFE']->includeTCA();
-		$this->feUsersTca = $GLOBALS['TCA']['fe_users'];
-
-		if ($this->conf['fieldconfig.']) {
-			$this->feUsersTca['columns'] = t3lib_div::array_merge_recursive_overrule((array)$this->feUsersTca['columns'], (array)t3lib_div::removeDotsFromTS($this->conf['fieldconfig.']));
-		}
-	}
-
-	/**
-	 * Ermittelt die General Record Storage Pid bzw. den vom User festgelegten Userfolder.
-	 *
-	 * @return	void
-	 * @global	$this->storagePid
-	 */
-	function getStoragePid() {
-		$this->storagePid = $this->conf['register.']['userfolder'];
-
-		if (!$this->storagePid) {
-			$arrayRootPids = $GLOBALS['TSFE']->getStorageSiterootPids();
-			$this->storagePid = $arrayRootPids['_STORAGE_PID'];
-		}
-	}
-
-	/**
-	 * Checks if a string is utf8 encoded or not.
-	 *
-	 * @param	string		$str
-	 * @return	boolean
-	 */
-	function checkUtf8($str) {
-		$len = strlen($str);
-		for ($i = 0; $i < $len; $i++) {
-			$c = ord($str[$i]);
-
-			if ($c > 128) {
-				if (($c > 247)) {
-					return false;
-				} else if ($c > 239) {
-					$bytes = 4;
-				} else if ($c > 223) {
-					$bytes = 3;
-				} else if ($c > 191) {
-					$bytes = 2;
-				} else {
-					return false;
-				}
-
-				if (($i + $bytes) > $len) {
-					return false;
-				}
-
-				while ($bytes > 1) {
-					$i++;
-					$b = ord($str[$i]);
-
-					if ($b < 128 || $b > 191) {
-						return false;
-					}
-
-					$bytes--;
-				}
-			}
-		}
-
-		return true;
-	}
-
-	/**
-	 * Cleans an array from all empty elements.
-	 *
-	 * @param	string		$array
-	 * @return	string
-	 */
-	function cleanArray($array) {
-		foreach ($array as $key => $val) {
-			if (!$val) {
-				unset($array[$key]);
-			}
-		}
-
-		return $array;
 	}
 
 
