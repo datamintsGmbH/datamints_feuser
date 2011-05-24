@@ -2,12 +2,12 @@
 var datamints_feuser_formId = 0;
 
 window.onload = function() {
-	if (datamints_feuser_config == null || datamints_feuser_inputids == null || datamints_feuser_contentids == null) {
+	if (datamints_feuser_config == null || datamints_feuser_inputids == null) {
 		return;
 	}
 
-	for (datamints_feuser_formId in datamints_feuser_contentids) {
-		if (typeof(datamints_feuser_contentids[datamints_feuser_formId]) != 'number') continue;
+	for (datamints_feuser_formId in datamints_feuser_inputids) {
+		if (typeof(datamints_feuser_inputids[datamints_feuser_formId]) != 'object') continue;
 
 		var form = document.getElementById('datamints_feuser_' + datamints_feuser_formId + '_form');
 		addEvent(form, 'submit', formCheck);
@@ -126,25 +126,11 @@ function inputItemCheck(evt, input) {
 						if (value == value_rep) {
 							if (validate['size']) {
 								arrLength = validate['size'].replace(' ', '').split(',');
-								if (arrLength[1]) {
-									// Wenn eine Maximallaenge festgelegt wurde.
-									if (value.length < arrLength[0] || value.length > arrLength[1]) {
-										showInfo(fieldName, 'size');
-										return true;
-									}
-								} else {
-									// Wenn nur eine Minimallaenge festgelegt wurde.
-									if (value.length < arrLength[0]) {
-										showInfo(fieldName, 'size');
-										return true;
-									}
-								}
-							} else {
-								// Wenn nur eine Minimallaenge festgelegt wurde.
-								if (value.length < arrLength[0]) {
-									showInfo(fieldName, 'size');
-									return true;
-								}
+							}
+
+							if (!value.match(new RegExp('^.{' + arrLength[0] + ',' + ((arrLength[1] != undefined) ? arrLength[1] : '') + '}$'))) {
+								showInfo(fieldName, 'size');
+								return true;
 							}
 						} else {
 							showInfo(fieldName, 'equal');
@@ -200,18 +186,9 @@ function inputItemCheck(evt, input) {
 					}
 					if (validate['size']) {
 						arrLength = validate['size'].replace(' ', '').split(',');
-						if (arrLength[1]) {
-							// Wenn eine Maximallaenge festgelegt wurde.
-							if (value.length < arrLength[0] || value.length > arrLength[1]) {
-								showInfo(fieldName, 'size');
-								return true;
-							}
-						} else {
-							// Wenn nur eine Minimallaenge festgelegt wurde.
-							if (value.length < arrLength[0]) {
-								showInfo(fieldName, 'size');
-								return true;
-							}
+						if (value.length < arrLength[0] || (arrLength[1] != undefined && value.length > arrLength[1])) {
+							showInfo(fieldName, 'size');
+							return true;
 						}
 					}
 					break;

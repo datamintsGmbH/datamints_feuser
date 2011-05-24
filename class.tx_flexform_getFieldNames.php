@@ -38,17 +38,20 @@ class tx_flexform_getFieldNames {
 	 * @return	array		$config
 	 */
 	function getFieldNames($config) {
-		
-		global $TCA; //Damit $TCA hier zur Verfügung steht
-		//$TCA-Teil laden. Damit können wir alle Felder durchgehen
+		// Damit $TCA hier zur Verfuegung steht.
+		global $TCA;
+
+		// $TCA-Teil laden. Damit koennen wir alle Felder durchgehen.
 		t3lib_div::loadTCA('fe_users');
 
 		$fieldList = array();
+
 		foreach ($TCA['fe_users']['columns'] as $key => $value){
-			$fieldList[] = array( $key, $key);
+			$fieldList[] = array($key, $key);
 		}
 
 		$config['items'] = array_merge($config['items'], $fieldList);
+
 		return $config;
 	}
 

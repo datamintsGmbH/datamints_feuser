@@ -1,0 +1,105 @@
+<T3DataStructure>
+
+	<ROOT>
+		<TCEforms>
+			<sheetTitle>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sheet.extended</sheetTitle>
+		</TCEforms>
+		<type>array</type>
+		<el>
+<!--
+			<shownotactivated>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.shownotactivated</label>
+					<config>
+						<type>select</type>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.shownotactivated.input</numIndex>
+								<numIndex index="1">input</numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.shownotactivated.list</numIndex>
+								<numIndex index="1">list</numIndex>
+							</numIndex>
+						</items>
+						<maxitems>1</maxitems>
+						<size>1</size>
+					</config>
+				</TCEforms>
+			</shownotactivated>
+-->
+			<disablestylesheet>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.disablestylesheet</label>
+					<config>
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</disablestylesheet>
+
+			<stylesheetpath>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.stylesheetpath</label>
+					<config>
+						<type>input</type>
+						<size>20</size>
+						<max>256</max>
+						<eval>trim</eval>
+						<wizards type="array">
+							<_PADDING type="integer">2</_PADDING>
+							<link type="array">
+								<type>popup</type>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.stylesheetpath</title>
+								<icon>link_popup.gif</icon>
+								<script>browse_links.php?act=file&amp;mode=wizard</script>
+								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+							</link>
+						</wizards>
+					</config>
+				</TCEforms>
+			</stylesheetpath>
+
+			<disablejsvalidator>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.disablejsvalidator</label>
+					<config>
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</disablejsvalidator>
+
+			<jsvalidatorpath>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.jsvalidatorpath</label>
+					<config>
+						<type>input</type>
+						<size>20</size>
+						<max>256</max>
+						<eval>trim</eval>
+						<wizards type="array">
+							<_PADDING type="integer">2</_PADDING>
+							<link type="array">
+								<type>popup</type>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.jsvalidatorpath</title>
+								<icon>link_popup.gif</icon>
+								<script>browse_links.php?act=file&amp;mode=wizard</script>
+								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+							</link>
+						</wizards>
+					</config>
+				</TCEforms>
+			</jsvalidatorpath>
+
+			<disablejsconfig>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.disablejsconfig</label>
+					<config>
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</disablejsconfig>
+
+		</el>
+	</ROOT>
+
+</T3DataStructure>

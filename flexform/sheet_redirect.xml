@@ -1,0 +1,145 @@
+<T3DataStructure>
+
+	<ROOT>
+		<TCEforms>
+			<sheetTitle>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sheet.redirect</sheetTitle>
+		</TCEforms>
+		<type>array</type>
+		<el>
+
+			<redirect.resendactivation>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.resendactivation</label>
+					<config>
+						<type>input</type>
+						<size>5</size>
+						<max>100</max>
+						<eval>int</eval>
+						<wizards type="array">
+							<_PADDING type="integer">2</_PADDING>
+							<link type="array">
+								<type>popup</type>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.resendactivation</title>
+								<icon>link_popup.gif</icon>
+								<script>browse_links.php?act=page&amp;mode=wizard</script>
+								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+							</link>
+						</wizards>
+					</config>
+				</TCEforms>
+			</redirect.resendactivation>
+
+			<redirect.register>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.register</label>
+					<config>
+						<type>input</type>
+						<size>5</size>
+						<max>100</max>
+						<eval>int</eval>
+						<wizards type="array">
+							<_PADDING type="integer">2</_PADDING>
+							<link type="array">
+								<type>popup</type>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.register</title>
+								<icon>link_popup.gif</icon>
+								<script>browse_links.php?act=page&amp;mode=wizard</script>
+								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+							</link>
+						</wizards>
+					</config>
+				</TCEforms>
+			</redirect.register>
+
+			<redirect.doubleoptin>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.doubleoptin</label>
+					<config>
+						<type>input</type>
+						<size>5</size>
+						<max>100</max>
+						<eval>int</eval>
+						<wizards type="array">
+							<_PADDING type="integer">2</_PADDING>
+							<link type="array">
+								<type>popup</type>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.doubleoptin</title>
+								<icon>link_popup.gif</icon>
+								<script>browse_links.php?act=page&amp;mode=wizard</script>
+								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+							</link>
+						</wizards>
+					</config>
+				</TCEforms>
+			</redirect.doubleoptin>
+
+			<redirect.adminapproval>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.adminapproval</label>
+					<config>
+						<type>input</type>
+						<size>5</size>
+						<max>100</max>
+						<eval>int</eval>
+						<wizards type="array">
+							<_PADDING type="integer">2</_PADDING>
+							<link type="array">
+								<type>popup</type>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.adminapproval</title>
+								<icon>link_popup.gif</icon>
+								<script>browse_links.php?act=page&amp;mode=wizard</script>
+								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+							</link>
+						</wizards>
+					</config>
+				</TCEforms>
+			</redirect.adminapproval>
+
+			<redirect.edit>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.edit</label>
+					<config>
+						<type>input</type>
+						<size>5</size>
+						<max>100</max>
+						<eval>int</eval>
+						<wizards type="array">
+							<_PADDING type="integer">2</_PADDING>
+							<link type="array">
+								<type>popup</type>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.edit</title>
+								<icon>link_popup.gif</icon>
+								<script>browse_links.php?act=page&amp;mode=wizard</script>
+								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+							</link>
+						</wizards>
+					</config>
+				</TCEforms>
+			</redirect.edit>
+
+			<redirect.userdelete>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.userdelete</label>
+					<config>
+						<type>input</type>
+						<size>5</size>
+						<max>100</max>
+						<eval>int</eval>
+						<wizards type="array">
+							<_PADDING type="integer">2</_PADDING>
+							<link type="array">
+								<type>popup</type>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.userdelete</title>
+								<icon>link_popup.gif</icon>
+								<script>browse_links.php?act=page&amp;mode=wizard</script>
+								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+							</link>
+						</wizards>
+					</config>
+				</TCEforms>
+			</redirect.userdelete>
+
+		</el>
+	</ROOT>
+
+</T3DataStructure>

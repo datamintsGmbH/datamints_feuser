@@ -24,9 +24,9 @@ $confArray = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]
 include_once(t3lib_extMgm::extPath($_EXTKEY) . 'class.tx_flexform_getFieldNames.php');
 
 if ($confArray['useIRRE']) {
-	t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_pi1','FILE:EXT:' . $_EXTKEY . '/flexform_data_pi1_irre.xml');
+	t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_pi1','FILE:EXT:' . $_EXTKEY . '/flexform/data_pi1_irre.xml');
 } else {
-	t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_pi1','FILE:EXT:' . $_EXTKEY . '/flexform_data_pi1.xml');
+	t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_pi1','FILE:EXT:' . $_EXTKEY . '/flexform/data_pi1.xml');
 }
 
 $tempColumns = array (

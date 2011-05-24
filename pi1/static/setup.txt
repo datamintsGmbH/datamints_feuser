@@ -6,8 +6,13 @@ plugin.tx_datamintsfeuser_pi1 {
 	uniquefields = username, email
 
 	register {
+		mailtype = html
 		sendusermail = 1
 		sendadminmail = 1
+	}
+
+	edit {
+		mailtype = html
 	}
 
 	validate {
