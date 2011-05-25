@@ -124,12 +124,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// UserId ermitteln.
 		$this->userId = $GLOBALS['TSFE']->fe_user->user['uid'];
 
-		// Flexform und Configurationen laden.
+		// PiVars und Flexform laden.
 		$this->pi_setPiVarDefaults();
 		$this->pi_initPIflexForm();
-		$this->pi_loadLL();
 
+		// Erst die Konfiguration und dann die Labels laden, damit die in der Flexform gesetzten Labels auch berücksichtigt werden!
 		$this->getConfiguration();
+		$this->pi_loadLL();
 
 		$this->feUsersTca = tx_datamintsfeuser_utils::getFeUsersTca($this->conf['fieldconfig.']);
 		$this->storagePid = tx_datamintsfeuser_utils::getStoragePid($this->conf['register.']['userfolder']);
@@ -1259,6 +1260,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		foreach ($markerArray as $key => $val) {
 			if (!tx_datamintsfeuser_utils::checkUtf8($val)) {
 				$markerArray[$key] = utf8_encode($val);
+				$markerArray['label_' . $key] = $this->getLabel($key, false);
 			}
 		}
 
