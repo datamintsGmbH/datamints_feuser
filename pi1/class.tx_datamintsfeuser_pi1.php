@@ -1978,7 +1978,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	array		$arrParams
 	 */
 	function makeHiddenParamsArray() {
-		$arrParams = '';
+		$arrParams = array();
 
 		foreach ($this->arrHiddenParams as $paramName) {
 			if ($_REQUEST[$paramName]) {
