@@ -136,10 +136,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$this->storagePid = tx_datamintsfeuser_utils::getStoragePid($this->conf['register.']['userfolder']);
 
 		// Stylesheets in den Head einbinden.
-		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[stylesheet]'] = ($this->conf['disablestylesheet']) ? '' : '<link rel="stylesheet" type="text/css" href="' . (($this->conf['stylesheetpath']) ? $this->conf['stylesheetpath'] : t3lib_extMgm::extRelPath($this->extKey) . 'res/datamints_feuser.css') . '" />';
+		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[stylesheet]'] = ($this->conf['disablestylesheet']) ? '' : '<link rel="stylesheet" type="text/css" href="' . (($this->conf['stylesheetpath']) ? $this->conf['stylesheetpath'] : tx_datamintsfeuser_utils::getTypoLinkUrl(t3lib_extMgm::siteRelPath($this->extKey) . 'res/datamints_feuser.css')) . '" />';
 
 		// Javascripts in den Head einbinden.
-		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[jsvalidator]'] = ($this->conf['disablejsvalidator']) ? '' : '<script type="text/javascript" src="' . (($this->conf['jsvalidatorpath']) ? $this->conf['jsvalidatorpath'] : t3lib_extMgm::extRelPath($this->extKey) . 'res/validator.min.js') . '"></script>';
+		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[jsvalidator]'] = ($this->conf['disablejsvalidator']) ? '' : '<script type="text/javascript" src="' . (($this->conf['jsvalidatorpath']) ? $this->conf['jsvalidatorpath'] : tx_datamintsfeuser_utils::getTypoLinkUrl(t3lib_extMgm::siteRelPath($this->extKey) . 'res/validator.min.js')) . '"></script>';
 		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[jsvalidation][' . $this->contentId . ']'] = ($this->conf['disablejsconfig']) ? '' : '<script type="text/javascript">' . "\n/*<![CDATA[*/\n" . $this->getJSValidationConfiguration() . "\n/*]]>*/\n" . '</script>';
 
 		// Wenn nicht eingeloggt kann man auch nicht editieren!
@@ -950,6 +950,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Die erlaubten MIME-Typen.
 		$mimeTypes = array();
 		$mimeTypes['image/jpeg'] = '.jpg';
+		$mimeTypes['image/pjpeg'] = '.jpg';
 		$mimeTypes['image/gif'] = '.gif';
 		$mimeTypes['image/bmp'] = '.bmp';
 		$mimeTypes['image/tiff'] = '.tif';
@@ -1831,7 +1832,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$tab = $fieldConfig['foreign_table'];
 			$sel = 'uid, ' . $GLOBALS['TCA'][$tab]['ctrl']['label'];
 
-			$whr = strtolower(substr(trim($fieldConfig['foreign_table_where']), 3));
+			$whr = strtolower(substr(trim($fieldConfig['foreign_table_where']), 0, 3));
 			$whr = trim(($whr == 'and' || $whr == 'or ') ? substr($fieldConfig['foreign_table_where'], 3, strlen($fieldConfig['foreign_table_where'])) : $fieldConfig['foreign_table_where']);
 
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($sel , $tab, $whr);

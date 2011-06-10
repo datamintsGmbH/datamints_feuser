@@ -92,6 +92,20 @@ class tx_datamintsfeuser_utils {
 	}
 
 	/**
+	 * Ermittelt die Url zu einer Seite oder einer Datei.
+	 *
+	 * @param	string		$params
+	 * @param	array		$urlParameters
+	 * @return	string		$pageLink
+	 */
+	function getTypoLinkUrl($params, $urlParameters = array()) {
+		$cObj = t3lib_div::makeInstance('tslib_cObj');
+		$pageLink = $cObj->getTypoLink_URL($params, $urlParameters);
+
+		return $pageLink;
+	}
+
+	/**
 	 * Konvertiert alle Inhalte des uebernenen Arrays um z.B. XSS zu verhindern.
 	 * Der Modus gibt an ob das Array encodiert oder decodiert werden soll.
 	 *
@@ -280,8 +294,7 @@ class tx_datamintsfeuser_utils {
 			$GLOBALS['TSFE']->config['config']['typolinkLinkAccessRestrictedPages'] = 'NONE';
 		}
 
-		$cObj = t3lib_div::makeInstance('tslib_cObj');
-		$pageLink = $cObj->getTypoLink_URL($pageId, $urlParameters);
+		$pageLink = self::getTypoLinkUrl($pageId, $urlParameters);
 
 		header('Location: ' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $pageLink);
 		exit;
