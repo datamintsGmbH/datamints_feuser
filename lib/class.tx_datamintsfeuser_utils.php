@@ -351,9 +351,9 @@ class tx_datamintsfeuser_utils {
 		$template = $cObj->fileResource($templateFile);
 		$template = $cObj->getSubpart($template, '###' . strtoupper($templatePart) . '###');
 
-		if (!self::checkUtf8($template)) {
-			$template = utf8_encode($template);
-		}
+//		if (!self::checkUtf8($template)) {
+//			$template = utf8_encode($template);
+//		}
 
 		$template = $cObj->substituteMarkerArray($template, $markerArray, '###|###', 1);
 

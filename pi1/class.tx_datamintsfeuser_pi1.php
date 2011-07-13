@@ -408,7 +408,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$fieldName = tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName);
 			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
 
-			$value = trim($this->piVars[$this->contentId][$fieldName]);
+			$value = $this->piVars[$this->contentId][$fieldName];
 			$validate = $this->conf['validate.'][$fieldName . '.'];
 
 			// Besonderes Feld das fest in der Extension verbaut ist (password_confirmation), und ueberprueft werden soll.
@@ -753,7 +753,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Kopiert den Inhalt eines Feldes in ein anderes Feld.
 		$arrCopiedFields = array();
 
-		foreach ($this->conf['copyfields.'] as $fieldToCopy => $arrCopyToFields) {
+		foreach ((array)$this->conf['copyfields.'] as $fieldToCopy => $arrCopyToFields) {
 			$fieldToCopy = rtrim($fieldToCopy, '.');
 
 			// Wenn das Feld nich existiert, ueberspringen.
@@ -1259,37 +1259,32 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$markerArray = array_merge((array)$row, (array)$extraMarkers);
 
 		foreach ($markerArray as $key => $val) {
-			if (!tx_datamintsfeuser_utils::checkUtf8($val)) {
-				$markerArray[$key] = utf8_encode($val);
-				$markerArray['label_' . $key] = $this->getLabel($key, false);
-			}
+			$markerArray['label_' . $key] = $this->getLabel($key, false);
+
+//			if (!tx_datamintsfeuser_utils::checkUtf8($val)) {
+//				$markerArray[$key] = utf8_encode($val);
+//			}
 		}
 
 		$markerArray = array_merge((array)$markerArray, (array)$config);
 
 		// Absender vorbereiten.
-		$from_name = ($config['sendername']) ? $config['sendername'] : $config['sendermail'];
-		$from_email = $config['sendermail'];
+		$fromName = ($config['sendername']) ? $config['sendername'] : $config['sendermail'];
+		$fromEmail = $config['sendermail'];
 
 		// Wenn die Mail fuer den Admin bestimmt ist.
 		if ($adminMail) {
 			// Template laden.
 			$content = $this->getTemplateSubpart($templatePart . '_admin', $markerArray, $config);
 
-			// Empfaengername vorbereiten.
-			$name = ($config['adminname']) ? $config['adminname'] : $config['adminmail'];
-
-			// E-Mail und Name ermitteln.
-			$recipient = $name . ' <' . $config['adminmail'] . '>';
+			$toName = ($config['adminname']) ? $config['adminname'] : $config['adminmail'];
+			$toEmail = $config['adminmail'];
 		} else {
 			// Template laden.
 			$content = $this->getTemplateSubpart($templatePart, $markerArray, $config);
 
-			// Empfaengername vorbereiten.
-			$name = ($row['username']) ? $row['username'] : $row['email'];
-
-			// E-Mail und Name ermitteln.
-			$recipient = $name . ' <' . $row['email'] . '>';
+			$toName = ($row['username']) ? $row['username'] : $row['email'];
+			$toEmail = $row['email'];
 		}
 
 		// Betreff ermitteln und aus dem E-Mail Content entfernen.
@@ -1321,9 +1316,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 							'body' => &$body,
 							'header' => &$header,
 							'subject' => &$subject,
-							'recipient' => &$recipient,
-							'from_name' => &$from_name,
-							'from_email' => &$from_email
+							'toName' => &$toName,
+							'toEmail' => &$toEmail,
+							'fromName' => &$fromName,
+							'fromEmail' => &$fromEmail
 						)
 				);
 
@@ -1335,25 +1331,37 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Verschicke E-Mail.
 		if ($recipient && $subject && $body) {
 
-			$body_html = '<html>' . $header . $body . '</html>';
-			$body_plain = trim(strip_tags($body));
+			$bodyHtml = '<html>' . $header . $body . '</html>';
+			$bodyPlain = trim(strip_tags($body));
 
-			$htmlMail = t3lib_div::makeInstance('t3lib_htmlmail');
-	      	$htmlMail->start();
-	      	$htmlMail->recipient = $recipient;
-            $htmlMail->replyto_email = $from_email;
-            $htmlMail->replyto_name = $from_name;
-	      	$htmlMail->subject = $subject;
-	      	$htmlMail->from_email = $from_email;
-	      	$htmlMail->from_name = $from_name;
-            $htmlMail->returnPath = $from_email;
-	     	$htmlMail->addPlain($body_plain);
+			if (!t3lib_div::compat_version('4.5')) {
+				$mail = t3lib_div::makeInstance('t3lib_mail');
+				$mail->setSubject($subject);
+				$mail->setFrom(array($fromEmail => $fromName));
+				$mail->setTo(array($toEmail => $toName));
+				$mail->setBody($bodyPlain);
+				$mail->setCharset($GLOBALS['TSFE']->metaCharset);
 
-			if ($config['mailtype'] == 'html') {
-				$htmlMail->setHTML($htmlMail->encodeMsg($body_html));
+				if ($config['mailtype'] == 'html') {
+					$mail->addPart($bodyHtml, 'text/html');
+				}
+				
+				$mail->send();
+			} else {
+				$mail = t3lib_div::makeInstance('t3lib_htmlmail');
+				$mail->start();
+				$mail->subject = $subject;
+				$mail->from_email = $fromEmail;
+				$mail->from_name = $fromName;
+				$mail->addPlain($bodyPlain);
+				$mail->charset = $GLOBALS['TSFE']->metaCharset;
+
+				if ($config['mailtype'] == 'html') {
+					$mail->setHTML($bodyHtml);
+				}
+
+				$mail->send($toEmail);
 			}
-
-			$htmlMail->send($htmlMail->recipient);
 		}
 	}
 
@@ -1391,25 +1399,23 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$template =  $this->getTemplateSubpart('changed_items', array(), $config);
 		$extraMarkers = array();
 
-		foreach ($arrNewData as $key => $val) {
-			if (in_array($key, $this->arrUsedFields)) {
-				if ($val != $GLOBALS['TSFE']->fe_user->user[$key]) {
-					$markerArray = array();
-					$markerArray['label'] = $this->getLabel($key, false);
-					$markerArray['value_old'] = $GLOBALS['TSFE']->fe_user->user[$key];
-					$markerArray['value_new'] = $val;
+		foreach ($this->arrUsedFields as $fieldName) {
+			if ($arrNewData[$fieldName] != $GLOBALS['TSFE']->fe_user->user[$fieldName]) {
+				$markerArray = array();
+				$markerArray['label'] = $this->getLabel($fieldName, false);
+				$markerArray['value_old'] = $GLOBALS['TSFE']->fe_user->user[$fieldName];
+				$markerArray['value_new'] = $arrNewData[$fieldName];
 
-					$subpart = $this->cObj->getSubpart($template, '###' . strtoupper($key) . '###');
+				$subpart = $this->cObj->getSubpart($template, '###' . strtoupper($fieldName) . '###');
 
-					if ($subpart) {
-						$count++;
-						$extraMarkers['changed_item_' . $key] = $this->cObj->substituteMarkerArray($subpart, $markerArray, '###|###', 1);
-					} else {
-						$extraMarkers['changed_item_' . $key] = '';
-					}
+				if ($subpart) {
+					$count++;
+					$extraMarkers['changed_item_' . $fieldName] = $this->cObj->substituteMarkerArray($subpart, $markerArray, '###|###', 1);
 				} else {
-					$extraMarkers['changed_item_' . $key] = '';
+					$extraMarkers['changed_item_' . $fieldName] = '';
 				}
+			} else {
+				$extraMarkers['changed_item_' . $fieldName] = '';
 			}
 		}
 
@@ -1832,8 +1838,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$tab = $fieldConfig['foreign_table'];
 			$sel = 'uid, ' . $GLOBALS['TCA'][$tab]['ctrl']['label'];
 
+			// Wenn AND, OR, GROUP BY, ORDER BY oder LIMIT am Anfang des where steht, eine 1 voranstellen!
 			$whr = strtolower(substr(trim($fieldConfig['foreign_table_where']), 0, 3));
-			$whr = trim(($whr == 'and' || $whr == 'or ') ? substr($fieldConfig['foreign_table_where'], 3, strlen($fieldConfig['foreign_table_where'])) : $fieldConfig['foreign_table_where']);
+			$whr = trim(($whr == 'and' || $whr == 'or ' || $whr == 'gro' || $whr == 'ord' || $whr == 'lim') ? '1 ' . $fieldConfig['foreign_table_where'] : $fieldConfig['foreign_table_where']);
 
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($sel , $tab, $whr);
 
@@ -1861,7 +1868,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$content .= $optionlist;
 			$content .= '</div>';
 		} else {
-			$content .= '<select id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . '][]"' . $multiple . '>';
+			$content .= '<select id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . ']' . (($multiple) ? '[]' : '') . '"' . $multiple . '>';
 			$content .= $optionlist;
 			$content .= '</select>';
 		}
