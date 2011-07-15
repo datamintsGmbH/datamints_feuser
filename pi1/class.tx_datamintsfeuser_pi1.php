@@ -1329,7 +1329,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Verschicke E-Mail.
-		if ($recipient && $subject && $body) {
+		if ($toEmail && $subject && $body) {
 
 			$bodyHtml = '<html>' . $header . $body . '</html>';
 			$bodyPlain = trim(strip_tags($body));
