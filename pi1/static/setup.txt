@@ -22,4 +22,13 @@ plugin.tx_datamintsfeuser_pi1 {
 		email.type = email
 	}
 
+	captcha {
+		use = captcha
+	}
+
+	format {
+		date = %d.%m.%Y
+		datetime = %H:%M %d.%m.%Y
+	}
+
 }

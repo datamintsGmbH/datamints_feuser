@@ -34,7 +34,9 @@
 			<label index="resendactivation_failure">You have to wait for admin activation!</label>
 			<label index="resendactivation_error_required">Please enter the E-Mail you have registered with!</label>
 			<label index="resendactivation_error_valid">The entered E-Mail has not yet been registered or has already been activated!</label>
-			<label index="approvalcheck_failure">The given activation link is unfortunately not valid or the account has already been activated!</label>
+			<label index="captcha">Enter the letters displayed in the picture:</label>
+			<label index="captcha_error_required">Please enter the letters displayed in the picture!</label>
+			<label index="captcha_error_valid">The entered letters were not correct, please try again!</label>
 			<label index="submit_register">Register</label>
 			<label index="submit_edit">Save</label>
 			<label index="edit_success">Your data was successfully changed! They are led in a few seconds back!</label>
@@ -48,8 +50,8 @@
 			<label index="doubleoptin_deleted">The activation of our account has been successfully rejected!</label>
 			<label index="adminapproval_deleted">The activation of the customers account has been successfully rejected!</label>
 			<label index="doubleoptin_failure">Your activation link is unfortunately not valid!</label>
-			<label index="adminapproval_failure">The given activation link is unfortunately not valid!</label>
-			<label index="approvalcheck_failure">The given activation link is unfortunately not valid!</label>
+			<label index="adminapproval_failure">The given activation link is unfortunately not valid or the account has already been activated!</label>
+			<label index="approvalcheck_failure">The given activation link is unfortunately not valid or the account has already been activated!</label>
 			<label index="edit_error_no_login">You can not edit the user data if you are not logged in!</label>
 		</languageKey>
 
@@ -82,7 +84,9 @@
 			<label index="resendactivation_failure">Sie müssen auf die Aktivierung durch den Administrators warten!</label>
 			<label index="resendactivation_error_required">Es muss die E-Mail eingeben werden, mit der Sie sich registriert haben!</label>
 			<label index="resendactivation_error_valid">Die eingegebene E-Mail ist noch nicht registriert, oder wurde schon aktiviert!</label>
-			<label index="approvalcheck_failure">Der Aktivierungslink ist leider nicht gültig, oder Ihr Account wurde schon aktiviert!</label>
+			<label index="captcha">Geben Sie die Buchstaben aus dem Bild ein:</label>
+			<label index="captcha_error_required">Es müssen die Buchstaben aus dem Bild eingegeben werden!</label>
+			<label index="captcha_error_valid">Die eingegebenen Buchstaben waren nicht richtig, bitte versuchen Sie es noch einmal!</label>
 			<label index="submit_register">Registrieren</label>
 			<label index="submit_edit">Speichern</label>
 			<label index="edit_success">Ihre Daten wurde erfolgreich geändert! Sie werden in wenigen Sekunden zurück geleitet!</label>
@@ -96,8 +100,8 @@
 			<label index="doubleoptin_deleted">Die Aktivierung Ihres Accounts wurde erfolgreich abgelehnt!</label>
 			<label index="adminapproval_deleted">Die Aktivierung des Useraccount wurde erfolgreich abgelehnt!</label>
 			<label index="doubleoptin_failure">Ihr Aktivierungslink ist leider nicht gültig!</label>
-			<label index="adminapproval_failure">Der Aktivierungslink ist leider nicht gültig!</label>
-			<label index="approvalcheck_failure">Der Aktivierungslink ist leider nicht gültig!</label>
+			<label index="adminapproval_failure">Der Aktivierungslink ist leider nicht gültig, oder der Account wurde schon aktiviert!</label>
+			<label index="approvalcheck_failure">Der Aktivierungslink ist leider nicht gültig, oder Ihr Account wurde schon aktiviert!</label>
 			<label index="edit_error_no_login">Die Userdaten können nicht bearbeitet werden wenn man nicht eingelogt ist!</label>
 		</languageKey>
 	</data>

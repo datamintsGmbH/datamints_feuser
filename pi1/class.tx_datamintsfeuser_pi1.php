@@ -244,19 +244,25 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		foreach ($this->arrUsedFields as $fieldName) {
 			if ($this->feUsersTca['columns'][$fieldName]) {
 				$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
+				$arrFieldConfigEval = t3lib_div::trimExplode(',', $fieldConfig['eval']);
 
 				// Ist das Feld schon gesaeubert worden (MySQL, PHP, HTML, ...).
 				$isCleaned = false;
 
-				// Datumsfelder behandeln.
-				if (strpos($fieldConfig['eval'], 'date') !== false) {
+				// Datumsfelder und Datumzeitfelder behandeln.
+				if (in_array('date', $arrFieldConfigEval) || in_array('datetime', $arrFieldConfigEval)) {
 					$arrUpdate[$fieldName] = strtotime($this->piVars[$this->contentId][$fieldName]);
 					$isCleaned = true;
 				}
 
 				// Passwordfelder behandeln.
-				if (strpos($fieldConfig['eval'], 'password') !== false) {
+				if (in_array('password', $arrFieldConfigEval)) {
 					$arrUpdate = $this->cleanPasswordField($fieldName, $fieldConfig, $arrUpdate);
+					$isCleaned = true;
+				}
+
+				// Read only behandeln.
+				if ($fieldConfig['readOnly']) {
 					$isCleaned = true;
 				}
 
@@ -419,14 +425,22 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 
 			// Besonderes Feld das fest in der Extension verbaut ist (resend_activation), und ueberprueft werden soll.
-			if ($fieldName == 'resendactivation') {
-				if ($value) {
-					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . intval($this->storagePid) . ' AND (uid = ' . intval($value) . ' OR email = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr(strtolower($value), 'fe_users') . ') AND disable = 1 AND deleted = 0');
-					$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+			if ($fieldName == 'resendactivation' && $value) {
+				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . intval($this->storagePid) . ' AND (uid = ' . intval($value) . ' OR email = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr(strtolower($value), 'fe_users') . ') AND disable = 1 AND deleted = 0');
+				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 
-					if ($row['count'] < 1) {
-						$valueCheck[$fieldName] = 'valid';
-					}
+				if ($row['count'] < 1) {
+					$valueCheck[$fieldName] = 'valid';
+				}
+			}
+
+			// Besonderes Feld das fest in der Extension verbaut ist (captcha), und ueberprueft werden soll.
+			// Fuer "jm_recaptcha" darf hier $value nicht ueberprueft werden, wurde aber vorerst entfernt, da das an mehreren Stellen beruecksichtigt werden muesste!
+			if ($fieldName == 'captcha' && $value) {
+				$captchaCheck = $this->checkCaptcha($value);
+
+				if ($captchaCheck) {
+					$valueCheck[$fieldName] = $captchaCheck;
 				}
 			}
 
@@ -584,7 +598,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 				default:
 					if (!$this->piVars[$this->contentId][tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName)]) {
-						$valueCheck[$fieldName] = 'required';
+						$valueCheck[tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName)] = 'required';
 					}
 					break;
 
@@ -592,6 +606,58 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		return $valueCheck;
+	}
+
+	/**
+	 * Ueberprueft ob das Captcha richtig eingegeben wurde.
+	 *
+	 * @param	string		$value
+	 * @return	string
+	 */
+	function checkCaptcha($value) {
+		if ($this->conf['captcha.']['use'] == 'captcha' && t3lib_extMgm::isLoaded('captcha')) {
+			session_start();
+
+			$captchaString = $_SESSION['tx_captcha_string'];
+
+			if ($value != $captchaString) {
+				return 'valid';
+			}
+		}
+
+		if ($this->conf['captcha.']['use'] == 'sr_freecap' && t3lib_extMgm::isLoaded('sr_freecap')) {
+			require_once(t3lib_extMgm::extPath('sr_freecap') . 'pi2/class.tx_srfreecap_pi2.php');
+
+			$freecap = t3lib_div::makeInstance('tx_srfreecap_pi2');
+
+			if (!$freecap->checkWord($value)) {
+				return 'valid';
+			}
+		}
+
+//		if ($this->conf['captcha.']['use'] == 'jm_recaptcha' && t3lib_extMgm::isLoaded('jm_recaptcha')) {
+//			require_once(t3lib_extMgm::extPath('jm_recaptcha') . 'class.tx_jmrecaptcha.php');
+//
+//			$recaptcha = t3lib_div::makeInstance('tx_jmrecaptcha');
+//
+//			$status = $recaptcha->validateReCaptcha();
+//
+//			if (!$status['verified']) {
+//				 return 'valid';
+//			}
+//		}
+
+		if ($this->conf['captcha.']['use'] == 'wt_calculating_captcha' && t3lib_extMgm::isLoaded('wt_calculating_captcha')) {
+			require_once(t3lib_extMgm::extPath('wt_calculating_captcha') . 'class.tx_wtcalculatingcaptcha.php');
+
+			$calculatingcaptcha = t3lib_div::makeInstance('tx_wtcalculatingcaptcha');
+
+			if (!$calculatingcaptcha->correctCode($value)) {
+				return 'valid';
+			}
+		}
+
+		return '';
 	}
 
 	/**
@@ -863,7 +929,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$arrMode['params'] = array('mode' => $this->conf['showtype']);
 		} else {
 			// Erstellt ein neues Passwort, falls Passwort generieren eingestellt ist. Das Passwort kannn dann ueber den Marker "###PASSWORD###" mit der Registrierungsmail gesendet werden.
-			$extraMarkers = $this->generatePasswordForMail($userId);
+			$extraMarkers = $this->generatePasswordForMail($this->userId);
 
 			// Registrierungs E-Mail schicken.
 			if ($this->conf['register.']['sendadminmail']) {
@@ -1611,6 +1677,15 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 //				}
 			}
 
+			// Captcha anzeigen.
+			if ($fieldName == '--captcha--') {
+				$fieldName = tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName);
+
+				$content .= $this->showCaptcha($fieldName, $valueCheck);
+
+				$iItem++;
+			}
+
 			// Submit Button anzeigen.
 			if ($fieldName == '--submit--') {
 				$fieldName = tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName);
@@ -1660,12 +1735,22 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	function showInput($fieldName, $arrCurrentData, $iItem) {
 		$content = '';
 		$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
+		$arrFieldConfigEval = t3lib_div::trimExplode(',', $fieldConfig['eval']);
 
-		// Datumsfeld.
-		if (strpos($fieldConfig['eval'], 'date') !== false) {
-			// Timestamp zu "tt.mm.jjjj" machen.
+		// Datumsfeld und Datumzeitfeld.
+		if (in_array('date', $arrFieldConfigEval) || in_array('datetime', $arrFieldConfigEval)) {
+			$datum = '';
+
 			if ($arrCurrentData[$fieldName] != 0) {
-				$datum = strftime('%d.%m.%Y', $arrCurrentData[$fieldName]);
+				// Timestamp zu "tt.mm.jjjj" machen.
+				if (in_array('date', $arrFieldConfigEval)) {
+					$datum = strftime($this->conf['format.']['date'], $arrCurrentData[$fieldName]);
+				}
+
+				// Timestamp zu "hh:mm tt.mm.jjjj" machen.
+				if (in_array('datetime', $arrFieldConfigEval)) {
+					$datum = strftime($this->conf['format.']['datetime'], $arrCurrentData[$fieldName]);
+				}
 			}
 
 			$content .= '<input type="text" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . ']" value="' . $datum . '" />';
@@ -1684,7 +1769,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Normales Inputfeld.
-		$readOnly = ($fieldConfig['readOnly'] == 1) ? ' readonly="readonly"' : '';
+		$readOnly = ($fieldConfig['readOnly']) ? ' readonly="readonly"' : '';
 		$content .= '<input type="text" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . ']" value="' . $arrCurrentData[$fieldName] . '"' . $readOnly . ' />';
 
 		return $content;
@@ -1964,6 +2049,66 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
+	 * Rendert ein Captcha.
+	 *
+	 * @param	string		$fieldName
+	 * @param	array		$valueCheck
+	 * @return	string		$content
+	 */
+	function showCaptcha($fieldName, $valueCheck) {
+		$content = '';
+		$captcha = array();
+//		$showInput = true;
+
+		if ($this->conf['captcha.']['use'] == 'captcha' && t3lib_extMgm::isLoaded('captcha')) {
+			$captcha['picture'] = '<img src="' . tx_datamintsfeuser_utils::getTypoLinkUrl(t3lib_extMgm::siteRelPath('captcha') . 'captcha/captcha.php') . '" alt="" class="powermail_captcha powermail_captcha_captcha" />';
+		}
+
+		if ($this->conf['captcha.']['use'] == 'sr_freecap' && t3lib_extMgm::isLoaded('sr_freecap')) {
+			require_once(t3lib_extMgm::extPath('sr_freecap') . 'pi2/class.tx_srfreecap_pi2.php');
+
+			$freecap = t3lib_div::makeInstance('tx_srfreecap_pi2');
+			$arrFreecap = $freecap->makeCaptcha();
+
+			$captcha['picture'] = $arrFreecap['###SR_FREECAP_IMAGE###'];
+		}
+
+//		if ($this->conf['captcha.']['use'] == 'jm_recaptcha' && t3lib_extMgm::isLoaded('jm_recaptcha')) {
+//			require_once(t3lib_extMgm::extPath('jm_recaptcha') . 'class.tx_jmrecaptcha.php');
+//
+//			$recaptcha = t3lib_div::makeInstance('tx_jmrecaptcha');
+//
+//			$captcha['picture'] = $recaptcha->getReCaptcha();
+//
+//			$showInput = false;
+//		}
+
+		if ($this->conf['captcha.']['use'] == 'wt_calculating_captcha' && t3lib_extMgm::isLoaded('wt_calculating_captcha')) {
+			require_once(t3lib_extMgm::extPath('wt_calculating_captcha') . 'class.tx_wtcalculatingcaptcha.php');
+
+			$calculatingcaptcha = t3lib_div::makeInstance('tx_wtcalculatingcaptcha');
+
+			$captcha['picture'] = $calculatingcaptcha->generateCaptcha();
+		}
+
+		if (!count($captcha)) {
+			return $content;
+		}
+
+		$captcha['description'] = $this->getLabel($fieldName);
+
+		$content .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_wrapper" class="form_item form_item_' . $iItem . ' form_type_' . $fieldName . '">';
+		$content .= '<label for="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '">' . $this->getLabel($fieldName) . '</label>';
+		$content .= '<div class="captcha_picture">' . $captcha['picture'] . '</div>';
+		$content .= '<input type="text" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . ']" value="" />';
+//		$content .= ($showInput) ? '<input type="text" id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '" name="' . $this->prefixId . '[' . $this->contentId . '][' . $fieldName . ']" value="" />' : '';
+		$content .= $this->getErrorLabel($fieldName, $valueCheck);
+		$content .= '</div>';
+
+		return $content;
+	}
+
+	/**
 	 * Erstellt Hidden Fields fuer vordefinierte Parameter die uebergeben wurden.
 	 *
 	 * @return	string		$content
@@ -2106,6 +2251,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Konfigurationen die immer gelten setzten (Feldnamen sind fuer konfigurierte Felder und fuer input Felder).
 		$this->arrRequiredFields[] = '--passwordconfirmation--';
+		$this->arrRequiredFields[] = '--captcha--';
 	}
 
 	/**
@@ -2120,6 +2266,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$userdeleteCounter = 0;
 		$passwordconfirmationCounter = 0;
 		$resendactivationCounter = 0;
+		$captchaCounter = 0;
 		$usedfields = array();
 		$requiredfields = array();
 		$uniquefields = array();
@@ -2221,6 +2368,18 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$resendactivationCounter++;
 			}
 
+			// Captcha Feld abarbeiten.
+			if (isset($field['captcha']) && $captchaCounter < 1) {
+				$usedfields[] = '--captcha--';
+
+				// Label setzten falls angegeben.
+				if ($field['captcha']) {
+					$this->conf['_LOCAL_LANG.'][$GLOBALS['TSFE']->lang . '.']['captcha'] = $field['captcha'];
+				}
+
+				$captchaCounter++;
+			}
+
 			// Submit Button abarbeiten.
 			if (isset($field['submit'])) {
 				$usedfields[] = '--submit--';
@@ -2300,34 +2459,15 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 					// Da es mehrere Validierungskonfiguration pro Feld geben kann, muss hier jede einzeln durchgelaufen werden.
 					foreach ($this->conf['validate.'][$fieldName . '.'] as $key => $val) {
+						$cleanedVal = str_replace('"', '\\"', $val);
+
 						if ($key == 'length') {
-							$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["size"]="' . str_replace('"', '\\"', $val) . '";';
+							$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["size"]="' . $cleanedVal . '";';
 							$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["size"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_length')) . '";';
 						} else if ($key == 'regexp') {
-							// Da In JavaScript die regulaeren Ausdruecke nicht in einem String vorkommen duerfen diese entsprechen konvertieren (Slash am Anfang und am Ende).
-							// Um Fehler im regulaeren Ausdruck zu vermeiden, werden hier alle Slashes entfernt, "\/" wird debei nicht beruecksichtigt!
-							// Als erstes den hinteren Slash entfernen und den eventuell vorhandenen Modifier merken.
-							$matches = array();
-
-							if (preg_match("/\/[gimsx]*$/", $val, $matches)) {
-								$regexpEnd = substr($val, - strlen($matches[0]));
-								$val = substr($val, 0, strlen($val) - strlen($matches[0]));
-							} else {
-								$regexpEnd = '/';
-							}
-
-							// Einen eventuell vorhandenen Slash am Anfang ebenfalls entfernen.
-							$regexpStart = '/';
-
-							if (preg_match("/^\//", $val)) {
-								$val = substr($val, 1);
-							}
-
-							// Dann alle Slashes aus dem String entfernen, unter beruecksichtigung von "\/"!
-							$val = preg_replace('/([^\\\])\//', '$1', $val);
-							$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . $key . '"]=' . $regexpStart . $val . $regexpEnd . ';';
+							$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . $key . '"]=new RegExp("' . $cleanedVal . '");';
 						} else {
-							$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . $key . '"]="' . str_replace('"', '\\"', $val) . '";';
+							$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . $key . '"]="' . $cleanedVal . '";';
 						}
 
 						if ($key == 'type' && $val == 'password') {

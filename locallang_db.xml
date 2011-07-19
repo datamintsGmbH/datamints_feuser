@@ -28,6 +28,7 @@
 			<label index="tt_content.pi_flexform.userdelete">"Delete User" Checkbox</label>
 			<label index="tt_content.pi_flexform.passwordconfirmation">"Current Password" Field</label>
 			<label index="tt_content.pi_flexform.resendactivation">"Resend Activation" Field</label>
+			<label index="tt_content.pi_flexform.captcha">Captcha Field</label>
 			<label index="tt_content.pi_flexform.submit">Submit Button</label>
 			<label index="tt_content.pi_flexform.label">Label:</label>
 			<label index="tt_content.pi_flexform.field">Field:</label>
@@ -92,6 +93,7 @@
 			<label index="tt_content.pi_flexform.userdelete">"User löschen" Checkbox</label>
 			<label index="tt_content.pi_flexform.passwordconfirmation">"Aktuelles Passwort" Feld</label>
 			<label index="tt_content.pi_flexform.resendactivation">"Aktivierung erneut senden" Feld</label>
+			<label index="tt_content.pi_flexform.captcha">Captcha Feld</label>
 			<label index="tt_content.pi_flexform.submit">Absenden Schaltfläche</label>
 			<label index="tt_content.pi_flexform.label">Etikett:</label>
 			<label index="tt_content.pi_flexform.field">Feld:</label>

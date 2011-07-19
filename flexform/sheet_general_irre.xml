@@ -197,6 +197,25 @@
 						</el>
 					</resendactivation>
 
+					<captcha>
+						<tx_templavoila type="array">
+							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.captcha</title>
+						</tx_templavoila>
+						<type>array</type>
+						<el>
+
+							<captcha>
+								<TCEforms>
+									<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.label</label>
+									<config>
+										<type>input</type>
+									</config>
+								</TCEforms>
+							</captcha>
+
+						</el>
+					</captcha>
+
 					<submit>
 						<tx_templavoila type="array">
 							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.submit</title>

@@ -5,100 +5,111 @@
 /****************************/
 
 div.tx-datamintsfeuser-pi1 {
-	margin-bottom:20px;
+	margin-bottom: 20px;
 }
 
 /*** Form and Fields ***/
 div.tx-datamintsfeuser-pi1 form {
-	margin:0;
-	padding:0;
+	margin: 0;
+	padding: 0;
 }
 div.tx-datamintsfeuser-pi1 form fieldset {
-	margin-bottom:20px;
-	padding:10px;
-	border:1px solid #ccc;
+	margin-bottom: 20px;
+	padding: 10px;
+	border: 1px solid #ccc;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.form_item {
-	clear:both;
-	margin-top:10px;
+	clear: both;
+	margin-top: 10px;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.form_item label {
-	display:block;
-	width:160px;
-	float:left;
+	display: block;
+	width: 160px;
+	float: left;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.form_item input,
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_text textarea {
-	width:300px;
+	width: 300px;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_check input {
-	width:auto;
+	width: auto;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_select select {
-	width:300px;
-	max-height:100px;
+	width: 300px;
+	max-height: 100px;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_check div.check_item_wrapper,
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_select div.check_item_wrapper,
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_radio div.radio_item_wrapper,
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_group div.group_item_wrapper {
-	margin-left:160px;
-	width:300px;
-	max-height:100px;
-	overflow:auto;
+	margin-left: 160px;
+	width: 300px;
+	max-height: 100px;
+	overflow: auto;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_check div.check_item label,
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_select div.check_item label,
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_radio div.radio_item label,
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_group div.group_item label {
-	display:inline;
-	width:auto;
-	float:none;
+	display: inline;
+	width: auto;
+	float: none;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_check div.check_item input,
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_select div.check_item input,
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_radio div.radio_item input,
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_group div.group_item input {
-	margin-right:4px;
-	width:auto;
-	float:left;
+	margin-right: 4px;
+	width: auto;
+	float: left;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_check div.check_item {
 	float: left;
 	margin-right: 10px;
 }
+div.tx-datamintsfeuser-pi1 form fieldset div.form_type_captcha div.captcha_picture {
+	display: inline;
+	margin-right: 20px;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.form_type_captcha div.captcha_picture img {
+	vertical-align: middle;
+}
+div.tx-datamintsfeuser-pi1 form fieldset div.form_type_captcha input {
+	width: 100px;
+	vertical-align: middle;
+}
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_submit {
-	clear:both;
-	margin-top:20px;
+	clear: both;
+	margin-top: 20px;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.form_type_submit input {
-	width:auto;
-	margin-left:160px;
+	width: auto;
+	margin-left: 160px;
 }
 /*
 div.tx-datamintsfeuser-pi1 form fieldset div.list {
-	height:18px;
-	margin:8px;
-	border:1px solid #ccc;
+	height: 18px;
+	margin: 8px;
+	border: 1px solid #ccc;
 	padding: 6px;
 	background-color: #fafafa;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.list label {
-	width:auto;
+	width: auto;
 }
 div.tx-datamintsfeuser-pi1 form fieldset div.list input {
-	float:right;
+	float: right;
 }
 */
 
 /*** Error - Messages ***/
 div.tx-datamintsfeuser-pi1 form fieldset div.form_item div.form_error {
-	color:#a20;
-	font-weight:bold;
-	margin-top:5px;
-	padding-left:25px;
-	background-image:url('arrow_red_up.png');
-	background-repeat:no-repeat;
-	background-position:5px 0;
-	clear:left;
+	color: #a20;
+	font-weight: bold;
+	margin-top: 5px;
+	padding-left: 25px;
+	background-image: url('arrow_red_up.png');
+	background-repeat: no-repeat;
+	background-position: 5px 0;
+	clear: left;
 }
