@@ -28,21 +28,22 @@
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
  *
- *   59: class tx_datamintsfeuser_utils
- *   68:     function getFeUsersTca($feUsersTca)
- *   85:     function getStoragePid($storagePid)
- *  102:     function htmlspecialchars($arrData, $mode)
- *  131:     function generatePassword($password, $arrGenerate = array())
- *  194:     function checkPassword($submitedPassword, $originalPassword)
- *  251:     function userAutoLogin($username, $pageId = 0, $urlParameters = array())
- *  270:     function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false)
- *  296:     function escapeBrackets($url)
- *  308:     function cleanHeaderUrlData($data)
- *  320:     function cleanSpecialFieldKey($fieldName)
- *  335:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
- *  358:     function readFlexformTab($flexData, $sTab, &$conf)
- *  392:     function setFlexformConfiguration($key, $value, $conf)
- *  422:     function checkUtf8($str)
+ *   60: class tx_datamintsfeuser_utils
+ *   69:     function getFeUsersTca($feUsersTca)
+ *   86:     function getStoragePid($storagePid)
+ *  102:     function getTypoLinkUrl($params, $urlParameters = array())
+ *  117:     function htmlspecialchars($arrData, $mode)
+ *  146:     function generatePassword($password, $arrGenerate = array())
+ *  209:     function checkPassword($submitedPassword, $originalPassword)
+ *  266:     function userAutoLogin($username, $pageId = 0, $urlParameters = array())
+ *  285:     function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false)
+ *  310:     function escapeBrackets($url)
+ *  322:     function cleanHeaderUrlData($data)
+ *  334:     function cleanSpecialFieldKey($fieldName)
+ *  349:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
+ *  372:     function readFlexformTab($flexData, $sTab, &$conf)
+ *  406:     function setFlexformConfiguration($key, $value, $conf)
+ *  436:     function checkUtf8($str)
  *
  *
  * TOTAL FUNCTIONS: 14

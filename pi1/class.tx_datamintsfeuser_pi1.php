@@ -28,49 +28,51 @@
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
  *
- *   90: class tx_datamintsfeuser_pi1 extends tslib_pibase
- *  114:     function main($content, $conf)
- *  175:     function sendForm()
- *  362:     function trimPiVars()
- *  375:     function uniqueCheckForm()
- *  402:     function validateForm()
- *  547:     function requireCheckForm()
- *  604:     function cleanPasswordField($fieldName, $fieldConfig, $arrUpdate)
- *  626:     function cleanCheckboxField($fieldName, $fieldConfig, $arrUpdate)
- *  661:     function cleanMultipleSelectboxField($fieldName, $fieldConfig, $arrUpdate)
- *  690:     function cleanGroupAndMultipleCheckboxField($fieldName, $fieldConfig, $arrUpdate)
- *  724:     function cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate)
- *  751:     function copyFields($arrUpdate)
- *  788:     function editUser($arrUpdate)
- *  825:     function registerUser($arrUpdate)
- *  890:     function generatePasswordForMail($userId)
- *  910:     function saveDeleteImage($fieldName, &$arrUpdate)
- *  995:     function showMessageOutputRedirect($mode, $submode = '', $params = array())
- * 1062:     function sendActivationMail($userId)
- * 1104:     function makeApprovalCheck($userId)
- * 1182:     function getApprovalTypes()
- * 1194:     function isAdminMail($approvalType)
- * 1204:     function setNotActivatedCookie($userId)
- * 1216:     function getNotActivatedUserArray($arrNotActivated = array())
- * 1252:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
- * 1365:     function getTemplateSubpart($templatePart, $markerArray = array(), $config = array())
- * 1386:     function getChangedForMail($arrNewData, $config)
- * 1426:     function showForm($valueCheck = array())
- * 1636:     function cleanSpecialFieldKey($fieldName)
- * 1651:     function showInput($fieldName, $arrCurrentData, $iItem)
- * 1691:     function showText($fieldName, $arrCurrentData)
- * 1708:     function showCheck($fieldName, $arrCurrentData)
- * 1761:     function showRadio($fieldName, $arrCurrentData)
- * 1792:     function showSelect($fieldName, $arrCurrentData)
- * 1876:     function showGroup($fieldName, $arrCurrentData)
- * 1961:     function makeHiddenParamsHiddenFields()
- * 1978:     function makeHiddenParamsArray()
- * 1996:     function checkIfRequired($fieldName)
- * 2011:     function getLabel($fieldName, $checkRequired = true)
- * 2046:     function getErrorLabel($fieldName, $valueCheck)
- * 2064:     function getConfiguration()
- * 2107:     function setIrreConfiguration()
- * 2236:     function getJSValidationConfiguration()
+ *   92: class tx_datamintsfeuser_pi1 extends tslib_pibase
+ *  116:     function main($content, $conf)
+ *  178:     function sendForm()
+ *  371:     function trimPiVars()
+ *  384:     function uniqueCheckForm()
+ *  411:     function validateForm()
+ *  564:     function requireCheckForm()
+ *  619:     function checkCaptcha($value)
+ *  673:     function cleanPasswordField($fieldName, $fieldConfig, $arrUpdate)
+ *  695:     function cleanCheckboxField($fieldName, $fieldConfig, $arrUpdate)
+ *  730:     function cleanMultipleSelectboxField($fieldName, $fieldConfig, $arrUpdate)
+ *  759:     function cleanGroupAndMultipleCheckboxField($fieldName, $fieldConfig, $arrUpdate)
+ *  793:     function cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate)
+ *  820:     function copyFields($arrUpdate)
+ *  857:     function editUser($arrUpdate)
+ *  894:     function registerUser($arrUpdate)
+ *  959:     function generatePasswordForMail($userId)
+ *  979:     function saveDeleteImage($fieldName, &$arrUpdate)
+ * 1065:     function showMessageOutputRedirect($mode, $submode = '', $params = array())
+ * 1132:     function sendActivationMail($userId)
+ * 1174:     function makeApprovalCheck($userId)
+ * 1252:     function getApprovalTypes()
+ * 1264:     function isAdminMail($approvalType)
+ * 1274:     function setNotActivatedCookie($userId)
+ * 1286:     function getNotActivatedUserArray($arrNotActivated = array())
+ * 1322:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
+ * 1444:     function getTemplateSubpart($templatePart, $markerArray = array(), $config = array())
+ * 1465:     function getChangedForMail($arrNewData, $config)
+ * 1503:     function showForm($valueCheck = array())
+ * 1722:     function cleanSpecialFieldKey($fieldName)
+ * 1737:     function showInput($fieldName, $arrCurrentData, $iItem)
+ * 1787:     function showText($fieldName, $arrCurrentData)
+ * 1804:     function showCheck($fieldName, $arrCurrentData)
+ * 1857:     function showRadio($fieldName, $arrCurrentData)
+ * 1888:     function showSelect($fieldName, $arrCurrentData)
+ * 1973:     function showGroup($fieldName, $arrCurrentData)
+ * 2061:     function showCaptcha($fieldName, $valueCheck, $iItem)
+ * 2119:     function makeHiddenParamsHiddenFields()
+ * 2136:     function makeHiddenParamsArray()
+ * 2154:     function checkIfRequired($fieldName)
+ * 2169:     function getLabel($fieldName, $checkRequired = true)
+ * 2204:     function getErrorLabel($fieldName, $valueCheck)
+ * 2222:     function getConfiguration()
+ * 2266:     function setIrreConfiguration()
+ * 2408:     function getJSValidationConfiguration()
  *
  *
  * TOTAL FUNCTIONS: 42
@@ -1681,7 +1683,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			if ($fieldName == '--captcha--') {
 				$fieldName = tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName);
 
-				$content .= $this->showCaptcha($fieldName, $valueCheck);
+				$content .= $this->showCaptcha($fieldName, $valueCheck, $iItem);
 
 				$iItem++;
 			}
@@ -2053,9 +2055,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 *
 	 * @param	string		$fieldName
 	 * @param	array		$valueCheck
+	 * @param	integer		$iItem
 	 * @return	string		$content
 	 */
-	function showCaptcha($fieldName, $valueCheck) {
+	function showCaptcha($fieldName, $valueCheck, $iItem) {
 		$content = '';
 		$captcha = array();
 //		$showInput = true;
@@ -2404,85 +2407,93 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function getJSValidationConfiguration() {
 		// Hier eine fertig generierte Konfiguration:
-		// config[11]=[];
-		// config[11]["username"]=[];
-		// config[11]["username"]["validation"]=[];
-		// config[11]["username"]["validation"]["type"]="username";
-		// config[11]["username"]["valid"]="Der Benutzername darf keine Leerzeichen beinhalten!";
-		// config[11]["username"]["required"]="Es muss ein Benutzername eingegeben werden!";
-		// config[11]["password"]=[];
-		// config[11]["password"]["validation"]=[];
-		// config[11]["password"]["validation"]["type"]="password";
-		// config[11]["password"]["equal"]="Es muss zwei mal das gleiche Passwort eingegeben werden!";
-		// config[11]["password"]["validation"]["size"]="6";
-		// config[11]["password"]["size"]="Das Passwort muss mindestens 6 Zeichen lang sein!";
-		// config[11]["password"]["required"]="Es muss ein Passwort angegeben werden!";
-		// inputids[11] = new Array("tx_datamintsfeuser_pi1_username", "tx_datamintsfeuser_pi1_password_1", "tx_datamintsfeuser_pi1_password_2");
-		// contentid[11] = 11;
+		// datamints_feuser_config[11]=[];
+		// datamints_feuser_config[11]["username"]=[];
+		// datamints_feuser_config[11]["username"]["validation"]=[];
+		// datamints_feuser_config[11]["username"]["validation"]["type"]="username";
+		// datamints_feuser_config[11]["username"]["valid"]="Der Benutzername darf keine Leerzeichen beinhalten!";
+		// datamints_feuser_config[11]["username"]["required"]="Es muss ein Benutzername eingegeben werden!";
+		// datamints_feuser_config[11]["password"]=[];
+		// datamints_feuser_config[11]["password"]["validation"]=[];
+		// datamints_feuser_config[11]["password"]["validation"]["type"]="password";
+		// datamints_feuser_config[11]["password"]["equal"]="Es muss zwei mal das gleiche Passwort eingegeben werden!";
+		// datamints_feuser_config[11]["password"]["validation"]["size"]="6";
+		// datamints_feuser_config[11]["password"]["size"]="Das Passwort muss mindestens 6 Zeichen lang sein!";
+		// datamints_feuser_config[11]["password"]["required"]="Es muss ein Passwort angegeben werden!";
+		// datamints_feuser_inputids[11] = new Array("tx_datamintsfeuser_pi1_username", "tx_datamintsfeuser_pi1_password_1", "tx_datamintsfeuser_pi1_password_2");
 
 		$arrValidationFields = array();
 		$configuration = 'var ' . $this->extKey . '_config=[];var ' . $this->extKey . '_inputids=[];' . $this->extKey . '_config[' . $this->contentId . ']=[];';
 
-		// Bei jedem Durchgang der Schliefe wird die Konfiguration fuer ein Datenbankfeld geschrieben. Ausnahmen sind hierbei Passwordfelder.
+		// Bei jedem Durchgang der Schleife wird die Konfiguration fuer ein Datenbankfeld geschrieben. Ausnahmen sind hierbei Passwordfelder.
 		// Gleichzeitig werden die ID's der Felder in ein Array geschrieben und am Ende zusammen gesetzt "inputids".
 		foreach ($this->arrUsedFields as $fieldName) {
-			if ($this->feUsersTca['columns'][$fieldName] && (is_array($this->conf['validate.'][$fieldName . '.']) || in_array($fieldName, $this->arrRequiredFields))) {
-				$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
+			if (!($this->feUsersTca['columns'][$fieldName] && is_array($this->conf['validate.'][$fieldName . '.']) || in_array($fieldName, $this->arrRequiredFields))) {
+				continue;
+			}
 
-				if ($this->conf['validate.'][$fieldName . '.']['type'] == 'password') {
-					$arrValidationFields[] = $this->extKey . '_' . $this->contentId . '_' . $fieldName;
-					$arrValidationFields[] = $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_rep';
-				} else if ($fieldConfig['type'] == 'radio') {
-					foreach ($fieldConfig['items'] as $item) {
-						$arrValidationFields[] = $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $item['1'];
-					}
-				} else if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db') {
-					$arrAllowed = t3lib_div::trimExplode(',', $fieldConfig['allowed'], true);
+			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
+			$cleanedFieldName = tx_datamintsfeuser_utils::cleanSpecialFieldKey($fieldName);
 
-					foreach ($arrAllowed as $table) {
-						if ($GLOBALS['TCA'][$table]) {
-							$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid' , $table, '1 ' . $this->cObj->enableFields($table));
-
-							while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-								$arrValidationFields[] = $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $table . '_' . $row['uid'];
-							}
-						}
-					}
-				} else {
-					$arrValidationFields[] = $this->extKey . '_' . $this->contentId . '_' . $fieldName;
+			// Die Felder bei denen Aktionen statt finden sollen (Event Listener) ermitteln.
+			if ($this->conf['validate.'][$fieldName . '.']['type'] == 'password') {
+				$arrValidationFields[] = $this->extKey . '_' . $this->contentId . '_' . $fieldName;
+				$arrValidationFields[] = $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_rep';
+			} else if ($fieldConfig['type'] == 'radio') {
+				foreach ($fieldConfig['items'] as $item) {
+					$arrValidationFields[] = $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $item['1'];
 				}
+			} else if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db') {
+				$arrAllowed = t3lib_div::trimExplode(',', $fieldConfig['allowed'], true);
 
-				$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]=[];';
-
-				if (is_array($this->conf['validate.'][$fieldName . '.'])) {
-					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]=[];';
-
-					// Da es mehrere Validierungskonfiguration pro Feld geben kann, muss hier jede einzeln durchgelaufen werden.
-					foreach ($this->conf['validate.'][$fieldName . '.'] as $key => $val) {
-						$cleanedVal = str_replace('"', '\\"', $val);
-
-						if ($key == 'length') {
-							$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["size"]="' . $cleanedVal . '";';
-							$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["size"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_length')) . '";';
-						} else if ($key == 'regexp') {
-							$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . $key . '"]=new RegExp("' . $cleanedVal . '");';
-						} else {
-							$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . $key . '"]="' . $cleanedVal . '";';
-						}
-
-						if ($key == 'type' && $val == 'password') {
-							$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["equal"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_equal')) . '";';
-						}
+				foreach ($arrAllowed as $table) {
+					if (!$GLOBALS['TCA'][$table]) {
+						continue;
 					}
 
-					if ($this->conf['validate.'][$fieldName . '.']['type'] != 'password') {
-						$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["valid"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_valid')) . '";';
+					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid' , $table, '1 ' . $this->cObj->enableFields($table));
+
+					while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+						$arrValidationFields[] = $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $table . '_' . $row['uid'];
 					}
 				}
+			} else {
+				$arrValidationFields[] = $this->extKey . '_' . $this->contentId . '_' . $cleanedFieldName;
+			}
 
-				if (in_array($fieldName, $this->arrRequiredFields)) {
-					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["required"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_required')) . '";';
+			// Fuer jedes Feld eine Konfiguration anlegen.
+			$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $cleanedFieldName . '"]=[];';
+
+			// Validierungs Konfiguration ermitteln.
+			if (is_array($this->conf['validate.'][$fieldName . '.'])) {
+				$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]=[];';
+
+				// Da es mehrere Validierungskonfiguration pro Feld geben kann, muss hier jede einzeln durchgelaufen werden.
+				foreach ($this->conf['validate.'][$fieldName . '.'] as $key => $val) {
+					$cleanedVal = str_replace('"', '\\"', $val);
+
+					if ($key == 'length') {
+						$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["size"]="' . $cleanedVal . '";';
+						$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["size"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_length')) . '";';
+					} else if ($key == 'regexp') {
+						$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . $key . '"]=new RegExp("' . $cleanedVal . '");';
+					} else {
+						$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . $key . '"]="' . $cleanedVal . '";';
+					}
+
+					if ($key == 'type' && $val == 'password') {
+						$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["equal"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_equal')) . '";';
+					}
 				}
+
+				if ($this->conf['validate.'][$fieldName . '.']['type'] != 'password') {
+					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["valid"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_valid')) . '";';
+				}
+			}
+
+			// Required Konfiguration ermitteln.
+			if (in_array($fieldName, $this->arrRequiredFields)) {
+				$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $cleanedFieldName . '"]["required"]="' . str_replace('"', '\\"', $this->getLabel($cleanedFieldName . '_error_required')) . '";';
 			}
 		}
 
