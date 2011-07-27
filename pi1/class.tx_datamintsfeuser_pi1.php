@@ -130,7 +130,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$this->pi_setPiVarDefaults();
 		$this->pi_initPIflexForm();
 
-		// Erst die Konfiguration und dann die Labels laden, damit die in der Flexform gesetzten Labels auch berücksichtigt werden!
+		// Erst die Konfiguration und dann die Labels laden, damit die in der Flexform gesetzten Labels auch beruecksichtigt werden!
 		$this->getConfiguration();
 		$this->pi_loadLL();
 
@@ -216,8 +216,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 //			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-				// Genehmigungstypen aufsteigend sortiert ermitteln. Das ist nötig um das Level dem richtigen Typ zuordnen zu können.
-				// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig lässt.
+				// Genehmigungstypen aufsteigend sortiert ermitteln. Das ist noetig um das Level dem richtigen Typ zuordnen zu koennen.
+				// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig laesst.
 				$arrApprovalTypes = $this->getApprovalTypes();
 				$approvalType = $arrApprovalTypes[count($arrApprovalTypes) - $row['tx_datamintsfeuser_approval_level']];
 
@@ -576,7 +576,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Ueberpruefen, ob ein Wert uebergeben wurde. Hierbei ist es wichtig um welchen Feldtyp es sich handelt.
 			// Bei Feldern, die der Browser gar nicht als leere Variable sendet, wenn nichts ausgewaehlt wurde, wird ueberprueft ob ueberhaupt etwas angekommen ist "!isset()".
 			// Bei den restlichen Felder schickt der Browser immer eine leere Variable mit, da langt es wenn man ueberprueft, ob ein nicht leerer Wert angekommen ist "!";
-			// Eine Sonderstellung haben einfache Selectboxen dort wird von Haus aus der erste Wert vom Browser ausgewählt, somit muss die Default Wert Ueberpruefung hier zusaetzlich per Validierung gemacht werden ("selectzero", "selectemptystring").
+			// Eine Sonderstellung haben einfache Selectboxen dort wird von Haus aus der erste Wert vom Browser ausgewaehlt, somit muss die Default Wert Ueberpruefung hier zusaetzlich per Validierung gemacht werden ("selectzero", "selectemptystring").
 			// Fuer group Elemente vom Typ file wird eine Ueberpruefung auf ein vorhandenes File gemacht.
 			switch ($fieldConfig['type']) {
 
@@ -731,7 +731,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$maxItemsCount = 1;
 		$arrCleanedValues = array();
 
-		// Wenn nichts ausgewählt wurde, wird auch dieser Parameter nicht übergeben, daher zuerst überprüfen, ob etwas vorhanden ist.
+		// Wenn nichts ausgewaehlt wurde, wird auch dieser Parameter nicht uebergeben, daher zuerst ueberpruefen, ob etwas vorhanden ist.
 		if ($this->piVars[$this->contentId][$fieldName]) {
 			foreach ($this->piVars[$this->contentId][$fieldName] as $val) {
 				if ($maxItemsCount > $fieldConfig['maxitems']) {
@@ -900,8 +900,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$arrUpdate['usergroup'] = ($arrUpdate['usergroup']) ? $arrUpdate['usergroup'] : $this->conf['register.']['usergroup'];
 		$arrUpdate['crdate'] = $arrUpdate['tstamp'];
 
-		// Genehmigungstypen aufsteigend sortiert ermitteln. Das ist nötig um das Level dem richtigen Typ zuordnen zu können.
-		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig lässt.
+		// Genehmigungstypen aufsteigend sortiert ermitteln. Das ist noetig um das Level dem richtigen Typ zuordnen zu koennen.
+		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig laesst.
 		$arrApprovalTypes = $this->getApprovalTypes();
 		$approvalType = $arrApprovalTypes[0];
 
@@ -1137,8 +1137,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tstamp, username, email, tx_datamintsfeuser_approval_level', 'fe_users', 'uid = ' . intval($userId), '', '', '1');
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 
-		// Genehmigungstypen aufsteigend sortiert ermitteln. Das ist nötig um das Level dem richtigen Typ zuordnen zu können.
-		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig lässt.
+		// Genehmigungstypen aufsteigend sortiert ermitteln. Das ist noetig um das Level dem richtigen Typ zuordnen zu koennen.
+		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig laesst.
 		$arrApprovalTypes = $this->getApprovalTypes();
 
 		// Aktuellen Genehmigungstyp ermitteln.
@@ -1250,8 +1250,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	array
 	 */
 	function getApprovalTypes() {
-		// Genhemigungstypen aufsteigend sortiert ermitteln. Das ist nötig um das Level dem richtigen Typ zuordnen zu können.
-		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig lässt.
+		// Genhemigungstypen aufsteigend sortiert ermitteln. Das ist noetig um das Level dem richtigen Typ zuordnen zu koennen.
+		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig laesst.
 		return array_values(t3lib_div::trimExplode(',', $this->conf['register.']['approvalcheck'], true));
 	}
 
@@ -1402,7 +1402,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$bodyHtml = '<html>' . $header . $body . '</html>';
 			$bodyPlain = trim(strip_tags($body));
 
-			if (!t3lib_div::compat_version('4.5')) {
+			if (t3lib_div::compat_version('4.5')) {
 				$mail = t3lib_div::makeInstance('t3lib_mail');
 				$mail->setSubject($subject);
 				$mail->setFrom(array($fromEmail => $fromName));
@@ -1425,7 +1425,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$mail->charset = $GLOBALS['TSFE']->metaCharset;
 
 				if ($config['mailtype'] == 'html') {
-					$mail->setHTML($bodyHtml);
+					$mail->setHTML($mail->encodeMsg($bodyHtml));
 				}
 
 				$mail->send($toEmail);
@@ -1456,7 +1456,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Ermittlet alle geänderten Daten und schreibt sie in ein Markerarray.
+	 * Ermittlet alle geaenderten Daten und schreibt sie in ein Markerarray.
 	 *
 	 * @param	array		$arrNewData
 	 * @param	array		$config
@@ -1897,8 +1897,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Bei dem Typ Select gibt es zwei verschidene Rendermodi. Dieser kann "singlebox" (dann ist es eine Selectbox) oder "checkbox" (dann ist es eine Checkboxliste) sein.
-		// Checkboxen gehen nur, wenn die Konfiguration "maxItems" > 1 ist (man also auch tatsächlich mehrere auswählen kann).
-		// Bei der Ausgabe der einzelnen Einträge wird also immer nach dem Rendermode unterschieden.
+		// Checkboxen gehen nur, wenn die Konfiguration "maxItems" > 1 ist (man also auch tatsaechlich mehrere auswaehlen kann).
+		// Bei der Ausgabe der einzelnen Eintraege wird also immer nach dem Rendermode unterschieden.
 
 		// Items, die in der TCA-Konfiguration festgelegt wurden.
 		for ($i = 0; $i < $countSelectFields; $i++) {
