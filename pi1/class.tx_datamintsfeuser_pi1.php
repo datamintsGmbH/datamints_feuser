@@ -1106,7 +1106,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			case 'edit':
 				// Einen Refresh der aktuellen Seite am Client ausfuehren, damit nach dem Editieren wieder das Formular angezeigt wird.
-				$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '" />';
+				$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=' . tx_datamintsfeuser_utils::getTypoLinkUrl($GLOBALS['TSFE']->id) . '" />';
+				//$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->pi_getPageLink($GLOBALS['TSFE']->id) . '" />';
 				break;
 
 			case 'doubleoptin':
@@ -1403,7 +1404,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$bodyPlain = trim(strip_tags($body));
 
 			if (t3lib_div::compat_version('4.5')) {
-				$mail = t3lib_div::makeInstance('t3lib_mail');
+				$mail = t3lib_div::makeInstance('t3lib_mail_Message');
 				$mail->setSubject($subject);
 				$mail->setFrom(array($fromEmail => $fromName));
 				$mail->setTo(array($toEmail => $toName));
