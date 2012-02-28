@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallangExt>
+	<data type="array">
+		<languageKey index="de" type="array">
+			<label index="tt_content.list_type_pi1">Frontend User Management</label>
+			<label index="fe_users.tx_datamintsfeuser_approval_level">Genehmigungslevel:</label>
+			<label index="fe_users.gender">Geschlecht:</label>
+			<label index="fe_users.gender.I.0">Herr</label>
+			<label index="fe_users.gender.I.1">Frau</label>
+			<label index="tt_content.pi_flexform.sheet.general">Allgemein</label>
+			<label index="tt_content.pi_flexform.sheet.registration">Registrierung</label>
+			<label index="tt_content.pi_flexform.sheet.edit">Bearbeitung</label>
+			<label index="tt_content.pi_flexform.sheet.redirect">Weiterleitung</label>
+			<label index="tt_content.pi_flexform.sheet.extended">Erweitert</label>
+			<label index="tt_content.pi_flexform.showtype">Anzeigetyp:</label>
+			<label index="tt_content.pi_flexform.showtype.register">Registrierung</label>
+			<label index="tt_content.pi_flexform.showtype.edit">Bearbeitung</label>
+			<label index="tt_content.pi_flexform.usedfields">Angezeigte Felder:</label>
+			<label index="tt_content.pi_flexform.requiredfields">Erforderliche Felder:</label>
+			<label index="tt_content.pi_flexform.uniquefields">Eindeutige Felder:</label>
+			<label index="tt_content.pi_flexform.databasefield">Datenbankfeld</label>
+			<label index="tt_content.pi_flexform.separator">Trenner / Legende</label>
+			<label index="tt_content.pi_flexform.infoitem">Infoitem</label>
+			<label index="tt_content.pi_flexform.userdelete">&quot;User löschen&quot; Checkbox</label>
+			<label index="tt_content.pi_flexform.passwordconfirmation">&quot;Aktuelles Passwort&quot; Feld</label>
+			<label index="tt_content.pi_flexform.resendactivation">&quot;Aktivierung erneut senden&quot; Feld</label>
+			<label index="tt_content.pi_flexform.captcha">Captcha Feld</label>
+			<label index="tt_content.pi_flexform.submit">Absenden Schaltfläche</label>
+			<label index="tt_content.pi_flexform.label">Etikett:</label>
+			<label index="tt_content.pi_flexform.field">Feld:</label>
+			<label index="tt_content.pi_flexform.required">Erforderliches Feld?</label>
+			<label index="tt_content.pi_flexform.unique">Eindeutiges Feld?</label>
+			<label index="tt_content.pi_flexform.legend">Legende Text:</label>
+			<label index="tt_content.pi_flexform.infoitemtext">Infoitem Text:</label>
+			<label index="tt_content.pi_flexform.caption">Beschriftung:</label>
+			<label index="tt_content.pi_flexform.sendusermail">User E-Mail senden?</label>
+			<label index="tt_content.pi_flexform.sendadminmail">Admin E-Mail senden?</label>
+			<label index="tt_content.pi_flexform.mailtype">E-Mail Typ:</label>
+			<label index="tt_content.pi_flexform.mailtype.text">Text</label>
+			<label index="tt_content.pi_flexform.mailtype.html">HTML</label>
+			<label index="tt_content.pi_flexform.emailtemplate">Eigenes E-Mail Template:</label>
+			<label index="tt_content.pi_flexform.sendername">Absender Name:</label>
+			<label index="tt_content.pi_flexform.sendermail">Absender E-Mail Adresse:</label>
+			<label index="tt_content.pi_flexform.adminname">Administrator Name:</label>
+			<label index="tt_content.pi_flexform.adminmail">Administrator E-Mail Adresse:</label>
+			<label index="tt_content.pi_flexform.register.userfolder">Standard Benutzerordner:</label>
+			<label index="tt_content.pi_flexform.register.usergroup">Standard Benutzergruppen:</label>
+			<label index="tt_content.pi_flexform.register.generatepassword.mode">Passwort generieren?</label>
+			<label index="tt_content.pi_flexform.register.generatepassword.length">Länge des generierten Passworts:</label>
+			<label index="tt_content.pi_flexform.register.autologin">Automatischer Login?</label>
+			<label index="tt_content.pi_flexform.register.approvalcheck">Genhemigungstypen:</label>
+			<label index="tt_content.pi_flexform.register.approvalcheck.doubleoptin">Double-Opt-In</label>
+			<label index="tt_content.pi_flexform.register.approvalcheck.adminapproval">Administratorgenehmigung</label>
+			<label index="tt_content.pi_flexform.redirect.resendactivation">Weiterleitungsseiten ID &quot;Aktivierung erneut senden&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.register">Weiterleitungsseiten ID &quot;Registrierung&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.doubleoptin">Weiterleitungsseiten ID &quot;Double-Opt-In&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.adminapproval">Weiterleitungsseiten ID &quot;Administratorgenehmigung&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.edit">Weiterleitungsseiten ID &quot;Editierung&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.userdelete">Weiterleitungsseiten ID &quot;User löschen&quot;:</label>
+			<label index="tt_content.pi_flexform.shownotactivated">&quot;Resend Activation&quot; Anzeigetyp:</label>
+			<label index="tt_content.pi_flexform.shownotactivated.input">E-Mail Eingabefeld</label>
+			<label index="tt_content.pi_flexform.shownotactivated.list">Liste der per Cookie gespeicherten User</label>
+			<label index="tt_content.pi_flexform.disablestylesheet">Deaktiviere mitgeliefertes Stylesheet:</label>
+			<label index="tt_content.pi_flexform.stylesheetpath">Verwende eigenes Stylesheet:</label>
+			<label index="tt_content.pi_flexform.disablejsvalidator">Deaktiviere mitgelieferten JavaScript Validator:</label>
+			<label index="tt_content.pi_flexform.jsvalidatorpath">Verwende eigenen JavaScript Validator:</label>
+			<label index="tt_content.pi_flexform.disablejsconfig">Deaktiviere mitgelieferten JavaScript Konfiguration:</label>
+			<label index="tt_content.pi_flexform.edit.sendusermail">User E-Mail senden?</label>
+			<label index="tt_content.pi_flexform.edit.sendadminmail">Administrator E-Mail senden?</label>
+		</languageKey>
+	</data>
+	<orig_hash type="array">
+		<languageKey index="de" type="array">
+			<label index="tt_content.list_type_pi1" type="integer">39954003</label>
+			<label index="fe_users.tx_datamintsfeuser_approval_level" type="integer">195993684</label>
+			<label index="fe_users.gender" type="integer">212491130</label>
+			<label index="fe_users.gender.I.0" type="integer">103245340</label>
+			<label index="fe_users.gender.I.1" type="integer">86467395</label>
+			<label index="tt_content.pi_flexform.sheet.general" type="integer">14366585</label>
+			<label index="tt_content.pi_flexform.sheet.registration" type="integer">16354175</label>
+			<label index="tt_content.pi_flexform.sheet.edit" type="integer">131916066</label>
+			<label index="tt_content.pi_flexform.sheet.redirect" type="integer">69218033</label>
+			<label index="tt_content.pi_flexform.sheet.extended" type="integer">253974415</label>
+			<label index="tt_content.pi_flexform.showtype" type="integer">122337047</label>
+			<label index="tt_content.pi_flexform.showtype.register" type="integer">16354175</label>
+			<label index="tt_content.pi_flexform.showtype.edit" type="integer">131916066</label>
+			<label index="tt_content.pi_flexform.usedfields" type="integer">158471460</label>
+			<label index="tt_content.pi_flexform.requiredfields" type="integer">225447594</label>
+			<label index="tt_content.pi_flexform.uniquefields" type="integer">124253242</label>
+			<label index="tt_content.pi_flexform.databasefield" type="integer">128882660</label>
+			<label index="tt_content.pi_flexform.separator" type="integer">18878643</label>
+			<label index="tt_content.pi_flexform.infoitem" type="integer">80494466</label>
+			<label index="tt_content.pi_flexform.userdelete" type="integer">121998141</label>
+			<label index="tt_content.pi_flexform.passwordconfirmation" type="integer">117690382</label>
+			<label index="tt_content.pi_flexform.resendactivation" type="integer">93093492</label>
+			<label index="tt_content.pi_flexform.captcha" type="integer">90859812</label>
+			<label index="tt_content.pi_flexform.submit" type="integer">71911650</label>
+			<label index="tt_content.pi_flexform.label" type="integer">217600557</label>
+			<label index="tt_content.pi_flexform.field" type="integer">184136338</label>
+			<label index="tt_content.pi_flexform.required" type="integer">262488899</label>
+			<label index="tt_content.pi_flexform.unique" type="integer">131990586</label>
+			<label index="tt_content.pi_flexform.legend" type="integer">125384393</label>
+			<label index="tt_content.pi_flexform.infoitemtext" type="integer">147299028</label>
+			<label index="tt_content.pi_flexform.caption" type="integer">173808390</label>
+			<label index="tt_content.pi_flexform.sendusermail" type="integer">74301414</label>
+			<label index="tt_content.pi_flexform.sendadminmail" type="integer">70926271</label>
+			<label index="tt_content.pi_flexform.mailtype" type="integer">260712245</label>
+			<label index="tt_content.pi_flexform.mailtype.text" type="integer">165673974</label>
+			<label index="tt_content.pi_flexform.mailtype.html" type="integer">79998303</label>
+			<label index="tt_content.pi_flexform.emailtemplate" type="integer">32974838</label>
+			<label index="tt_content.pi_flexform.sendername" type="integer">235067837</label>
+			<label index="tt_content.pi_flexform.sendermail" type="integer">228428393</label>
+			<label index="tt_content.pi_flexform.adminname" type="integer">57613674</label>
+			<label index="tt_content.pi_flexform.adminmail" type="integer">61163626</label>
+			<label index="tt_content.pi_flexform.register.userfolder" type="integer">238088759</label>
+			<label index="tt_content.pi_flexform.register.usergroup" type="integer">18126792</label>
+			<label index="tt_content.pi_flexform.register.generatepassword.mode" type="integer">33009178</label>
+			<label index="tt_content.pi_flexform.register.generatepassword.length" type="integer">75050095</label>
+			<label index="tt_content.pi_flexform.register.autologin" type="integer">226327455</label>
+			<label index="tt_content.pi_flexform.register.approvalcheck" type="integer">93170574</label>
+			<label index="tt_content.pi_flexform.register.approvalcheck.doubleoptin" type="integer">183346653</label>
+			<label index="tt_content.pi_flexform.register.approvalcheck.adminapproval" type="integer">29333188</label>
+			<label index="tt_content.pi_flexform.redirect.resendactivation" type="integer">87561590</label>
+			<label index="tt_content.pi_flexform.redirect.register" type="integer">59527532</label>
+			<label index="tt_content.pi_flexform.redirect.doubleoptin" type="integer">156632400</label>
+			<label index="tt_content.pi_flexform.redirect.adminapproval" type="integer">132995669</label>
+			<label index="tt_content.pi_flexform.redirect.edit" type="integer">30292986</label>
+			<label index="tt_content.pi_flexform.redirect.userdelete" type="integer">264356448</label>
+			<label index="tt_content.pi_flexform.shownotactivated" type="integer">158646854</label>
+			<label index="tt_content.pi_flexform.shownotactivated.input" type="integer">106068175</label>
+			<label index="tt_content.pi_flexform.shownotactivated.list" type="integer">21038487</label>
+			<label index="tt_content.pi_flexform.disablestylesheet" type="integer">22874306</label>
+			<label index="tt_content.pi_flexform.stylesheetpath" type="integer">260104655</label>
+			<label index="tt_content.pi_flexform.disablejsvalidator" type="integer">185552226</label>
+			<label index="tt_content.pi_flexform.jsvalidatorpath" type="integer">79534860</label>
+			<label index="tt_content.pi_flexform.disablejsconfig" type="integer">126614287</label>
+		</languageKey>
+	</orig_hash>
+	<orig_text type="array">
+		<languageKey index="de" type="array">
+			<label index="tt_content.list_type_pi1">Frontend User Management</label>
+			<label index="fe_users.tx_datamintsfeuser_approval_level">Approval Level:</label>
+			<label index="fe_users.gender">Gender:</label>
+			<label index="fe_users.gender.I.0">Man</label>
+			<label index="fe_users.gender.I.1">Woman</label>
+			<label index="tt_content.pi_flexform.sheet.general">General</label>
+			<label index="tt_content.pi_flexform.sheet.registration">Registration</label>
+			<label index="tt_content.pi_flexform.sheet.edit">Edit</label>
+			<label index="tt_content.pi_flexform.sheet.redirect">Redirect</label>
+			<label index="tt_content.pi_flexform.sheet.extended">Extended</label>
+			<label index="tt_content.pi_flexform.showtype">Type of view:</label>
+			<label index="tt_content.pi_flexform.showtype.register">Registration</label>
+			<label index="tt_content.pi_flexform.showtype.edit">Edit</label>
+			<label index="tt_content.pi_flexform.usedfields">Used fields:</label>
+			<label index="tt_content.pi_flexform.requiredfields">Required fields:</label>
+			<label index="tt_content.pi_flexform.uniquefields">Unique fields:</label>
+			<label index="tt_content.pi_flexform.databasefield">Database Field</label>
+			<label index="tt_content.pi_flexform.separator">Separator / Legend</label>
+			<label index="tt_content.pi_flexform.infoitem">Info Item</label>
+			<label index="tt_content.pi_flexform.userdelete">&quot;Delete User&quot; Checkbox</label>
+			<label index="tt_content.pi_flexform.passwordconfirmation">&quot;Current Password&quot; Field</label>
+			<label index="tt_content.pi_flexform.resendactivation">&quot;Resend Activation&quot; Field</label>
+			<label index="tt_content.pi_flexform.captcha">Captcha Field</label>
+			<label index="tt_content.pi_flexform.submit">Submit Button</label>
+			<label index="tt_content.pi_flexform.label">Label:</label>
+			<label index="tt_content.pi_flexform.field">Field:</label>
+			<label index="tt_content.pi_flexform.required">Required Field?</label>
+			<label index="tt_content.pi_flexform.unique">Unique Field?</label>
+			<label index="tt_content.pi_flexform.legend">Legend Text:</label>
+			<label index="tt_content.pi_flexform.infoitemtext">Info Item Text:</label>
+			<label index="tt_content.pi_flexform.caption">Caption:</label>
+			<label index="tt_content.pi_flexform.sendusermail">Send User E-Mail?</label>
+			<label index="tt_content.pi_flexform.sendadminmail">Send Admin E-Mail?</label>
+			<label index="tt_content.pi_flexform.mailtype">E-Mail Type:</label>
+			<label index="tt_content.pi_flexform.mailtype.text">Text</label>
+			<label index="tt_content.pi_flexform.mailtype.html">HTML</label>
+			<label index="tt_content.pi_flexform.emailtemplate">Own E-Mail Template:</label>
+			<label index="tt_content.pi_flexform.sendername">Sender Name:</label>
+			<label index="tt_content.pi_flexform.sendermail">Sender E-Mail Address:</label>
+			<label index="tt_content.pi_flexform.adminname">Admin Name:</label>
+			<label index="tt_content.pi_flexform.adminmail">Admin E-Mail Address:</label>
+			<label index="tt_content.pi_flexform.register.userfolder">Default User Folder:</label>
+			<label index="tt_content.pi_flexform.register.usergroup">Default User Groups:</label>
+			<label index="tt_content.pi_flexform.register.generatepassword.mode">Generate Password?</label>
+			<label index="tt_content.pi_flexform.register.generatepassword.length">Generate Password Length:</label>
+			<label index="tt_content.pi_flexform.register.autologin">Automatic Login?</label>
+			<label index="tt_content.pi_flexform.register.approvalcheck">Approval Check:</label>
+			<label index="tt_content.pi_flexform.register.approvalcheck.doubleoptin">Double Opt-in</label>
+			<label index="tt_content.pi_flexform.register.approvalcheck.adminapproval">Admin approval</label>
+			<label index="tt_content.pi_flexform.redirect.resendactivation">Redirect Site ID &quot;Resend Activation&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.register">Redirect Site ID &quot;Registration&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.doubleoptin">Redirect Site ID &quot;Double Opt-in&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.adminapproval">Redirect Site ID &quot;Admin Approval&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.edit">Redirect Site ID &quot;Edit&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.userdelete">Redirect Site ID &quot;Delete User&quot;:</label>
+			<label index="tt_content.pi_flexform.shownotactivated">Type Of View For &quot;Resend Activation&quot; Field:</label>
+			<label index="tt_content.pi_flexform.shownotactivated.input">E-Mail Input Field</label>
+			<label index="tt_content.pi_flexform.shownotactivated.list">In Cookie Saved Users List</label>
+			<label index="tt_content.pi_flexform.disablestylesheet">Disable Provided Stylesheet:</label>
+			<label index="tt_content.pi_flexform.stylesheetpath">Use Own Stylesheet:</label>
+			<label index="tt_content.pi_flexform.disablejsvalidator">Disable Provided JavaScript Validator:</label>
+			<label index="tt_content.pi_flexform.jsvalidatorpath">Use Own JavaScript Validator:</label>
+			<label index="tt_content.pi_flexform.disablejsconfig">Disable Provided JavaScript Configuration:</label>
+		</languageKey>
+	</orig_text>
+</T3locallangExt>

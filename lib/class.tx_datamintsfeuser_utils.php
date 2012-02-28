@@ -314,18 +314,6 @@ class tx_datamintsfeuser_utils {
 	}
 
 	/**
-	 * Konvertiert einen String, um ihn in mit der Funktion header() nutzen zu koennen.
-	 *
-	 * @param	string		$data
-	 * @return	string		$data
-	 */
-	function cleanHeaderUrlData($data) {
-		$data = urlencode(strip_tags(preg_replace("/[\r\n]/", '', $data)));
-
-		return $data;
-	}
-
-	/**
 	 * Ersetzt die beim Eingeben angegebenen '--' Zeichen vor und hinter dem eigendlichen Feldnamen, falls vorhanden.
 	 *
 	 * @param	string		$fieldName

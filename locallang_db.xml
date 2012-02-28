@@ -3,6 +3,8 @@
 	<meta type="array">
 		<type>database</type>
 		<description>Language labels for database tables/fields belonging to extension 'datamints_feuser'</description>
+		<labelContext type="array">
+		</labelContext>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
@@ -25,9 +27,9 @@
 			<label index="tt_content.pi_flexform.databasefield">Database Field</label>
 			<label index="tt_content.pi_flexform.separator">Separator / Legend</label>
 			<label index="tt_content.pi_flexform.infoitem">Info Item</label>
-			<label index="tt_content.pi_flexform.userdelete">"Delete User" Checkbox</label>
-			<label index="tt_content.pi_flexform.passwordconfirmation">"Current Password" Field</label>
-			<label index="tt_content.pi_flexform.resendactivation">"Resend Activation" Field</label>
+			<label index="tt_content.pi_flexform.userdelete">&quot;Delete User&quot; Checkbox</label>
+			<label index="tt_content.pi_flexform.passwordconfirmation">&quot;Current Password&quot; Field</label>
+			<label index="tt_content.pi_flexform.resendactivation">&quot;Resend Activation&quot; Field</label>
 			<label index="tt_content.pi_flexform.captcha">Captcha Field</label>
 			<label index="tt_content.pi_flexform.submit">Submit Button</label>
 			<label index="tt_content.pi_flexform.label">Label:</label>
@@ -55,13 +57,13 @@
 			<label index="tt_content.pi_flexform.register.approvalcheck">Approval Check:</label>
 			<label index="tt_content.pi_flexform.register.approvalcheck.doubleoptin">Double Opt-in</label>
 			<label index="tt_content.pi_flexform.register.approvalcheck.adminapproval">Admin approval</label>
-			<label index="tt_content.pi_flexform.redirect.resendactivation">Redirect Site ID "Resend Activation":</label>
-			<label index="tt_content.pi_flexform.redirect.register">Redirect Site ID "Registration":</label>
-			<label index="tt_content.pi_flexform.redirect.doubleoptin">Redirect Site ID "Double Opt-in":</label>
-			<label index="tt_content.pi_flexform.redirect.adminapproval">Redirect Site ID "Admin Approval":</label>
-			<label index="tt_content.pi_flexform.redirect.edit">Redirect Site ID "Edit":</label>
-			<label index="tt_content.pi_flexform.redirect.userdelete">Redirect Site ID "Delete User":</label>
-			<label index="tt_content.pi_flexform.shownotactivated">Type Of View For "Resend Activation" Field:</label>
+			<label index="tt_content.pi_flexform.redirect.resendactivation">Redirect Site ID &quot;Resend Activation&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.register">Redirect Site ID &quot;Registration&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.doubleoptin">Redirect Site ID &quot;Double Opt-in&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.adminapproval">Redirect Site ID &quot;Admin Approval&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.edit">Redirect Site ID &quot;Edit&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.userdelete">Redirect Site ID &quot;Delete User&quot;:</label>
+			<label index="tt_content.pi_flexform.shownotactivated">Type Of View For &quot;Resend Activation&quot; Field:</label>
 			<label index="tt_content.pi_flexform.shownotactivated.input">E-Mail Input Field</label>
 			<label index="tt_content.pi_flexform.shownotactivated.list">In Cookie Saved Users List</label>
 			<label index="tt_content.pi_flexform.disablestylesheet">Disable Provided Stylesheet:</label>
@@ -70,70 +72,9 @@
 			<label index="tt_content.pi_flexform.jsvalidatorpath">Use Own JavaScript Validator:</label>
 			<label index="tt_content.pi_flexform.disablejsconfig">Disable Provided JavaScript Configuration:</label>
 		</languageKey>
-		<languageKey index="de" type="array">
-			<label index="tt_content.list_type_pi1">Frontend User Management</label>
-			<label index="fe_users.tx_datamintsfeuser_approval_level">Genehmigungslevel:</label>
-			<label index="fe_users.gender">Geschlecht:</label>
-			<label index="fe_users.gender.I.0">Herr</label>
-			<label index="fe_users.gender.I.1">Frau</label>
-			<label index="tt_content.pi_flexform.sheet.general">Allgemein</label>
-			<label index="tt_content.pi_flexform.sheet.registration">Registrierung</label>
-			<label index="tt_content.pi_flexform.sheet.edit">Bearbeitung</label>
-			<label index="tt_content.pi_flexform.sheet.redirect">Weiterleitung</label>
-			<label index="tt_content.pi_flexform.sheet.extended">Erweitert</label>
-			<label index="tt_content.pi_flexform.showtype">Anzeigetyp:</label>
-			<label index="tt_content.pi_flexform.showtype.register">Registrierung</label>
-			<label index="tt_content.pi_flexform.showtype.edit">Bearbeitung</label>
-			<label index="tt_content.pi_flexform.usedfields">Angezeigte Felder:</label>
-			<label index="tt_content.pi_flexform.requiredfields">Erforderliche Felder:</label>
-			<label index="tt_content.pi_flexform.uniquefields">Eindeutige Felder:</label>
-			<label index="tt_content.pi_flexform.databasefield">Datenbankfeld</label>
-			<label index="tt_content.pi_flexform.separator">Trenner / Legende</label>
-			<label index="tt_content.pi_flexform.infoitem">Infoitem</label>
-			<label index="tt_content.pi_flexform.userdelete">"User löschen" Checkbox</label>
-			<label index="tt_content.pi_flexform.passwordconfirmation">"Aktuelles Passwort" Feld</label>
-			<label index="tt_content.pi_flexform.resendactivation">"Aktivierung erneut senden" Feld</label>
-			<label index="tt_content.pi_flexform.captcha">Captcha Feld</label>
-			<label index="tt_content.pi_flexform.submit">Absenden Schaltfläche</label>
-			<label index="tt_content.pi_flexform.label">Etikett:</label>
-			<label index="tt_content.pi_flexform.field">Feld:</label>
-			<label index="tt_content.pi_flexform.required">Erforderliches Feld?</label>
-			<label index="tt_content.pi_flexform.unique">Eindeutiges Feld?</label>
-			<label index="tt_content.pi_flexform.legend">Legende Text:</label>
-			<label index="tt_content.pi_flexform.infoitemtext">Infoitem Text:</label>
-			<label index="tt_content.pi_flexform.caption">Beschriftung:</label>
-			<label index="tt_content.pi_flexform.mailtype">E-Mail Typ:</label>
-			<label index="tt_content.pi_flexform.mailtype.text">Text</label>
-			<label index="tt_content.pi_flexform.mailtype.html">HTML</label>
-			<label index="tt_content.pi_flexform.emailtemplate">Eigenes E-Mail Template:</label>
-			<label index="tt_content.pi_flexform.sendername">Absender Name:</label>
-			<label index="tt_content.pi_flexform.sendermail">Absender E-Mail Adresse:</label>
-			<label index="tt_content.pi_flexform.adminname">Administrator Name:</label>
-			<label index="tt_content.pi_flexform.adminmail">Administrator E-Mail Adresse:</label>
-			<label index="tt_content.pi_flexform.register.userfolder">Standard Benutzerordner:</label>
-			<label index="tt_content.pi_flexform.register.usergroup">Standard Benutzergruppen:</label>
-			<label index="tt_content.pi_flexform.register.generatepassword.mode">Passwort generieren?</label>
-			<label index="tt_content.pi_flexform.register.generatepassword.length">Länge des generierten Passworts:</label>
-			<label index="tt_content.pi_flexform.register.autologin">Automatischer Login?</label>
-			<label index="tt_content.pi_flexform.register.approvalcheck">Genhemigungstypen:</label>
-			<label index="tt_content.pi_flexform.register.approvalcheck.doubleoptin">Double-Opt-In</label>
-			<label index="tt_content.pi_flexform.register.approvalcheck.adminapproval">Administratorgenehmigung</label>
-			<label index="tt_content.pi_flexform.edit.sendusermail">User E-Mail senden?</label>
-			<label index="tt_content.pi_flexform.edit.sendadminmail">Administrator E-Mail senden?</label>
-			<label index="tt_content.pi_flexform.redirect.resendactivation">Weiterleitungsseiten ID "Aktivierung erneut senden":</label>
-			<label index="tt_content.pi_flexform.redirect.register">Weiterleitungsseiten ID "Registrierung":</label>
-			<label index="tt_content.pi_flexform.redirect.doubleoptin">Weiterleitungsseiten ID "Double-Opt-In":</label>
-			<label index="tt_content.pi_flexform.redirect.adminapproval">Weiterleitungsseiten ID "Administratorgenehmigung":</label>
-			<label index="tt_content.pi_flexform.redirect.edit">Weiterleitungsseiten ID "Editierung":</label>
-			<label index="tt_content.pi_flexform.redirect.userdelete">Weiterleitungsseiten ID "User löschen":</label>
-			<label index="tt_content.pi_flexform.shownotactivated">"Resend Activation" Anzeigetyp:</label>
-			<label index="tt_content.pi_flexform.shownotactivated.input">E-Mail Eingabefeld</label>
-			<label index="tt_content.pi_flexform.shownotactivated.list">Liste der per Cookie gespeicherten User</label>
-			<label index="tt_content.pi_flexform.disablestylesheet">Deaktiviere mitgeliefertes Stylesheet:</label>
-			<label index="tt_content.pi_flexform.stylesheetpath">Verwende eigenes Stylesheet:</label>
-			<label index="tt_content.pi_flexform.disablejsvalidator">Deaktiviere mitgelieferten JavaScript Validator:</label>
-			<label index="tt_content.pi_flexform.jsvalidatorpath">Verwende eigenen JavaScript Validator:</label>
-			<label index="tt_content.pi_flexform.disablejsconfig">Deaktiviere mitgelieferten JavaScript Konfiguration:</label>
-		</languageKey>
 	</data>
+	<orig_hash type="array">
+	</orig_hash>
+	<orig_text type="array">
+	</orig_text>
 </T3locallang>

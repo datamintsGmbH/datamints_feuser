@@ -3,6 +3,8 @@
 	<meta type="array">
 		<type>module</type>
 		<description>Language labels for plugin &quot;tx_datamintsfeuser_pi1&quot;</description>
+		<labelContext type="array">
+		</labelContext>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
@@ -54,55 +56,9 @@
 			<label index="approvalcheck_failure">The given activation link is unfortunately not valid or the account has already been activated!</label>
 			<label index="edit_error_no_login">You can not edit the user data if you are not logged in!</label>
 		</languageKey>
-
-		<languageKey index="de" type="array">
-			<label index="password_rep">Passwort wiederholen:</label>
-			<label index="tx_datamintsfeuser_firstname_error_required">Es muss ein Vorname eingegeben werden!</label>
-			<label index="tx_datamintsfeuser_surname_error_required">Es muss ein Nachname eingegeben werden!</label>
-			<label index="username_error_required">Es muss ein Benutzername eingegeben werden!</label>
-			<label index="username_error_unique">Dieser Username ist bereits vorhanden!</label>
-			<label index="username_error_valid">Der Benutzername darf keine Leerzeichen beinhalten!</label>
-			<label index="password_error_equal">Es muss zwei mal das gleiche Passwort eingegeben werden!</label>
-			<label index="password_error_length">Das Passwort muss mindestens 6 Zeichen lang sein!</label>
-			<label index="password_error_required">Es muss ein Passwort angegeben werden!</label>
-			<label index="image_delete">Vorhandenes Bild löschen!</label>
-			<label index="image_error_size">Das Bild ist zu Groß!</label>
-			<label index="image_error_type">Die Hochgeladene Datei ist kein Bild!</label>
-			<label index="image_error_upload">Das Bild konnte nicht hochgeladen werden!</label>
-			<label index="email_error_required">Es muss eine gültige E-Mail eingegeben werden!</label>
-			<label index="email_error_unique">Diese E-Mail wird bereits verwendet!</label>
-			<label index="email_error_valid">Die eingegebene E-Mail ist ungültig!</label>
-			<label index="name_error_required">Es muss ein gültiger Name eingegeben werden!</label>
-			<label index="userdelete">Aktuellen User löschen?</label>
-			<label index="userdelete_success">Der User wurde erfolgreich gelöscht!</label>
-			<label index="passwordconfirmation">Aktuelles Passwort:</label>
-			<label index="passwordconfirmation_error_required">Es muss das aktuelle Passwort eingegeben werden!</label>
-			<label index="passwordconfirmation_error_valid">Das eingegebene Passwort stimmt nicht mit dem aktuellen Passwort überein!</label>
-			<label index="resendactivation">Aktivierungsmail für folgende E-Mail erneut senden:</label>
-			<label index="resendactivation_list">Aktivierungsmail für folgenden User erneut senden:</label>
-			<label index="resendactivation_sent">Es wurde eine neue Aktivierungsmail an die von Ihnen angegebene E-Mail geschickt!</label>
-			<label index="resendactivation_failure">Sie müssen auf die Aktivierung durch den Administrators warten!</label>
-			<label index="resendactivation_error_required">Es muss die E-Mail eingeben werden, mit der Sie sich registriert haben!</label>
-			<label index="resendactivation_error_valid">Die eingegebene E-Mail ist noch nicht registriert, oder wurde schon aktiviert!</label>
-			<label index="captcha">Geben Sie die Buchstaben aus dem Bild ein:</label>
-			<label index="captcha_error_required">Es müssen die Buchstaben aus dem Bild eingegeben werden!</label>
-			<label index="captcha_error_valid">Die eingegebenen Buchstaben waren nicht richtig, bitte versuchen Sie es noch einmal!</label>
-			<label index="submit_register">Registrieren</label>
-			<label index="submit_edit">Speichern</label>
-			<label index="edit_success">Ihre Daten wurde erfolgreich geändert! Sie werden in wenigen Sekunden zurück geleitet!</label>
-			<label index="register_success">Sie haben sich erfolgreich registriert!</label>
-			<label index="doubleoptin_sent">Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde!</label>
-			<label index="adminapproval_sent">Sie werden durch den Administrator freigeschalten!</label>
-			<label index="doubleoptin_adminapproval_sent">Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde! Sobald das geschehen ist, werden Sie durch den Administartors freigeschalten!</label>
-			<label index="adminapproval_doubleoptin_sent">Um Ihren Account zu aktivieren, müssen Sie auf die Freischaltung des Administartors warten! Sobald das geschehen ist, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wird!</label>
-			<label index="doubleoptin_success">Ihr Account wurde erfolgreich freigeschaltet!</label>
-			<label index="adminapproval_success">Der Useraccount wurde erfolgreich freigeschaltet!</label>
-			<label index="doubleoptin_deleted">Die Aktivierung Ihres Accounts wurde erfolgreich abgelehnt!</label>
-			<label index="adminapproval_deleted">Die Aktivierung des Useraccount wurde erfolgreich abgelehnt!</label>
-			<label index="doubleoptin_failure">Ihr Aktivierungslink ist leider nicht gültig!</label>
-			<label index="adminapproval_failure">Der Aktivierungslink ist leider nicht gültig, oder der Account wurde schon aktiviert!</label>
-			<label index="approvalcheck_failure">Der Aktivierungslink ist leider nicht gültig, oder Ihr Account wurde schon aktiviert!</label>
-			<label index="edit_error_no_login">Die Userdaten können nicht bearbeitet werden wenn man nicht eingelogt ist!</label>
-		</languageKey>
 	</data>
+	<orig_hash type="array">
+	</orig_hash>
+	<orig_text type="array">
+	</orig_text>
 </T3locallang>
