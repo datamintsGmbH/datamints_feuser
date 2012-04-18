@@ -79,8 +79,8 @@
  *
  */
 
-require_once(PATH_tslib . 'class.tslib_pibase.php');
-require_once(t3lib_extmgm::extPath('datamints_feuser', 'lib/class.tx_datamintsfeuser_utils.php'));
+require_once PATH_tslib . 'class.tslib_pibase.php';
+require_once t3lib_extmgm::extPath('datamints_feuser', 'lib/class.tx_datamintsfeuser_utils.php');
 
 /**
  * Plugin 'Frontend User Management' for the 'datamints_feuser' extension.
@@ -1018,12 +1018,16 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Die erlaubten MIME-Typen.
 		$mimeTypes = array();
-		$mimeTypes['image/jpeg'] = '.jpg';
-		$mimeTypes['image/pjpeg'] = '.jpg';
-		$mimeTypes['image/gif'] = '.gif';
-		$mimeTypes['image/bmp'] = '.bmp';
-		$mimeTypes['image/tiff'] = '.tif';
-		$mimeTypes['image/png'] = '.png';
+		$mimeTypes['image/jpeg'] = 'jpg';
+		$mimeTypes['image/pjpeg'] = 'jpg';
+		$mimeTypes['image/gif'] = 'gif';
+		$mimeTypes['image/bmp'] = 'bmp';
+		$mimeTypes['image/tiff'] = 'tif';
+		$mimeTypes['image/png'] = 'png';
+
+		if ($this->conf['mimetypes.']) {
+			$mimeTypes = array_combine(array_values($this->conf['mimetypes.']), array_keys($this->conf['mimetypes.']));
+		}
 
 		// Den Format-Typ ermitteln.
 		$imageType = $mimeTypes[$_FILES[$this->prefixId]['type'][$this->contentId][$fieldName]];
@@ -1036,7 +1040,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Nur wenn eine Datei ausgewaehlt wurde [image] und diese den obigen mime-typen enstpricht[$type], dann wird die datei gespeichert
 		if ($_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]) {
 			// Bildname generieren.
-			$fileName = preg_replace("/[^a-zA-Z0-9]/", '', $this->piVars[$this->contentId]['username']) . '_' . time() . $imageType;
+			$fileName = preg_replace("/[^a-zA-Z0-9]/", '', $this->piVars[$this->contentId]['username']) . '_' . time() . '.' . $imageType;
 
 			// Kompletter Bildpfad.
 			$uploadFile = $uploadFolder . $fileName;
@@ -1906,15 +1910,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Bei dem Typ Select gibt es zwei verschidene Rendermodi. Dieser kann "singlebox" (dann ist es eine Selectbox) oder "checkbox" (dann ist es eine Checkboxliste) sein.
-		// Checkboxen gehen nur, wenn die Konfiguration "maxItems" > 1 ist (man also auch tatsaechlich mehrere auswaehlen kann).
-		// Bei der Ausgabe der einzelnen Eintraege wird also immer nach dem Rendermode unterschieden.
 
 		// Items, die in der TCA-Konfiguration festgelegt wurden.
 		for ($i = 0; $i < $countSelectFields; $i++) {
 			$label = $fieldConfig['items'][$i][0];
 			$value = $fieldConfig['items'][$i][1];
 
-			if (in_array($fieldConfig['renderMode'], array('checkbox', 'singlebox')) && $fieldConfig['maxitems'] > 1) {
+			if ($fieldConfig['renderMode'] == 'checkbox') {
 				$checked = (in_array($value, $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
 
 				$optionlist .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $value . '_wrapper" class="check_item check_item_' . $i . '">';
@@ -1941,7 +1943,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($sel , $tab, $whr . ' ' . $this->cObj->enableFields($tab));
 
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-				if ($fieldConfig['renderMode'] == 'checkbox' && $fieldConfig['maxitems'] > 1) {
+				if ($fieldConfig['renderMode'] == 'checkbox') {
 					$checked = (in_array($row['uid'], $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
 
 					$optionlist .= '<div id="' . $this->extKey . '_' . $this->contentId . '_' . $fieldName . '_item_' . $row['uid'] . '_wrapper" class="check_item check_item_' . $row['uid'] . '">';
@@ -1959,7 +1961,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Mehrzeiliges oder Einzeiliges Select (Auswahlliste).
 		$multiple = ($fieldConfig['size'] > 1) ? ' size="' . $fieldConfig['size'] . '" multiple="multiple"' : '';
 
-		if ($fieldConfig['renderMode'] == 'checkbox' && $fieldConfig['maxitems'] > 1) {
+		if ($fieldConfig['renderMode'] == 'checkbox') {
 			$content .= '<div class="check_item_wrapper">';
 			$content .= $optionlist;
 			$content .= '</div>';

@@ -9,8 +9,8 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="password_rep">Confirm Password:</label>
-			<label index="tx_datamintsfeuser_firstname_error_required">There must be a firstname to be entered!</label>
-			<label index="tx_datamintsfeuser_surname_error_required">There must be a surname to be entered!</label>
+			<label index="first_name_error_required">There must be a first name to be entered!</label>
+			<label index="last_name_error_required">There must be a last name to be entered!</label>
 			<label index="username_error_required">There must be a username to be entered!</label>
 			<label index="username_error_unique">This username already exists!</label>
 			<label index="username_error_valid">The username must not contain any spaces!</label>
