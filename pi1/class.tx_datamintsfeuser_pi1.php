@@ -832,8 +832,23 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			foreach ($arrCopyToFields as $copyToField => $_) {
 				$copyToField = rtrim($copyToField, '.');
 
-				// Wenn aktiviert, noch nicht kopiert und ein gueltige Spalte, stdWrap anwenden.
-				if ($arrCopyToFields[$copyToField] && !in_array($copyToField, $arrCopiedFields) && array_key_exists($copyToField, $this->feUsersTca['columns'])) {
+				// Wenn das Feld nich existiert, ueberspringen.
+				if (!array_key_exists($copyToField, $this->feUsersTca['columns'])) {
+					continue;
+				}
+
+				// Wenn das Feld bereits kopiert wurde, ueberspringen.
+				if (in_array($copyToField, $arrCopiedFields)) {
+					continue;
+				}
+
+				// Wenn das Feld den Modus "onlyused" hat und nicht im Formular angezeigt wurde, ueberspringen.
+				if ($arrCopyToFields[$copyToField] == 'onlyused' && !array_key_exists($fieldToCopy, $this->arrUsedFields)) {
+					continue;
+				}
+
+				// Wenn aktiviert, stdWrap anwenden.
+				if ($arrCopyToFields[$copyToField]) {
 					$arrCopiedFields[] = $copyToField;
 
 					// Datenbank Feldinhalt for dem Update des Users dem stdWrap zur Verfuegung stellen.
