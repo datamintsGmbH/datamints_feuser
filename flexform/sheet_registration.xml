@@ -17,6 +17,11 @@
 						<size>1</size>
 						<maxitems>1</maxitems>
 						<minitems>0</minitems>
+						<wizards type="array">
+							<suggest>
+								<type>suggest</type>
+							</suggest>
+						</wizards>
 					</config>
 				</TCEforms>
 			</register.userfolder>
@@ -40,7 +45,7 @@
 
 			<register.generatepassword.mode>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.generatepassword.mode</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.generatepassword.mode</label>
 					<config>
 						<type>check</type>
 					</config>
@@ -49,7 +54,7 @@
 
 			<register.generatepassword.length>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.generatepassword.length</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.generatepassword.length</label>
 					<config>
 						<type>input</type>
 						<size>5</size>

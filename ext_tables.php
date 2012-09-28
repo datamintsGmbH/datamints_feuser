@@ -11,6 +11,9 @@ if (TYPO3_MODE == 'BE') {
 t3lib_extMgm::addPlugin(array('LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.list_type_pi1', $_EXTKEY . '_pi1', t3lib_extMgm::extRelPath($_EXTKEY) . 'ext_icon.gif'), 'list_type');
 t3lib_extMgm::addStaticFile($_EXTKEY, 'pi1/static/', 'Frontend User Management');
 
+// Salesforce.
+t3lib_extMgm::addStaticFile($_EXTKEY, 'static/salesforce/', 'Frontend User Management (Salesforce)');
+
 // TCA von tt_content laden, Flexform anzeigen und die Felder layout, select_key, pages und recursive ausblenden.
 t3lib_div::loadTCA('tt_content');
 
@@ -23,10 +26,15 @@ $confArray = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]
 // Flexformfunktionen einbinden.
 include_once(t3lib_extMgm::extPath($_EXTKEY) . 'class.tx_flexform_getFieldNames.php');
 
-if ($confArray['useIRRE']) {
+if ($confArray['enableIrre']) {
 	t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_pi1', 'FILE:EXT:' . $_EXTKEY . '/flexform/data_pi1_irre.xml');
 } else {
 	t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_pi1', 'FILE:EXT:' . $_EXTKEY . '/flexform/data_pi1.xml');
+}
+
+// Wenn gewünscht Salesforce verwenden.
+if ($confArray['enableSalesforce']) {
+	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['sendMail_htmlMail']['salesforce'] = 'EXT:' . $_EXTKEY . '/lib/class.tx_datamintsfeuser_salesforce.php:tx_datamintsfeuser_salesforce->main';
 }
 
 $tempColumns = array (

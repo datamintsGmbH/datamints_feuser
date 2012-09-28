@@ -14,10 +14,14 @@
 						<type>select</type>
 						<items type="array">
 							<numIndex index="0" type="array">
+								<numIndex index="0">TS</numIndex>
+								<numIndex index="1"></numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
 								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.showtype.register</numIndex>
 								<numIndex index="1">register</numIndex>
 							</numIndex>
-							<numIndex index="1" type="array">
+							<numIndex index="2" type="array">
 								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.showtype.edit</numIndex>
 								<numIndex index="1">edit</numIndex>
 							</numIndex>
@@ -35,6 +39,10 @@
 						<type>select</type>
 						<minitems>0</minitems>
 						<maxitems>100</maxitems>
+							<numIndex index="2" type="array">
+								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.showtype.edit</numIndex>
+								<numIndex index="1">edit</numIndex>
+							</numIndex>
 						<size>10</size>
 						<autoSizeMax>20</autoSizeMax>
 						<selectedListStyle>width:400px</selectedListStyle>

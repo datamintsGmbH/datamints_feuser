@@ -21,6 +21,10 @@
 								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.showtype.edit</numIndex>
 								<numIndex index="1">edit</numIndex>
 							</numIndex>
+							<numIndex index="2" type="array">
+								<numIndex index="0">TypoScript</numIndex>
+								<numIndex index="1"></numIndex>
+							</numIndex>
 						</items>
 						<maxitems>1</maxitems>
 						<size>1</size>

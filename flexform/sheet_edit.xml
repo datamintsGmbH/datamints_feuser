@@ -7,6 +7,46 @@
 		<type>array</type>
 		<el>
 
+			<edit.userfolder>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.userfolder</label>
+					<config>
+						<type>group</type>
+						<internal_type>db</internal_type>
+						<allowed>pages</allowed>
+						<size>1</size>
+						<maxitems>1</maxitems>
+						<minitems>0</minitems>
+						<wizards type="array">
+							<suggest>
+								<type>suggest</type>
+							</suggest>
+						</wizards>
+					</config>
+				</TCEforms>
+			</edit.userfolder>
+
+			<edit.generatepassword.mode>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.generatepassword.mode</label>
+					<config>
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</edit.generatepassword.mode>
+
+			<edit.generatepassword.length>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.generatepassword.length</label>
+					<config>
+						<type>input</type>
+						<size>5</size>
+						<max>100</max>
+						<eval>int</eval>
+					</config>
+				</TCEforms>
+			</edit.generatepassword.length>
+
 			<edit.sendusermail>
 				<TCEforms>
 					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sendusermail</label>
