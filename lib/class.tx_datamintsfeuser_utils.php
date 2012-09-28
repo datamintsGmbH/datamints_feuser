@@ -32,21 +32,21 @@
  *   69:     function getFeUsersTca($feUsersTca)
  *   86:     function getStoragePid($storagePid)
  *  102:     function getTypoLinkUrl($params, $urlParameters = array())
- *  117:     function htmlspecialchars($arrData, $mode)
+ *  117:     function htmlspecialcharsPostArray($arrData, $decode)
  *  146:     function generatePassword($password, $arrGenerate = array())
  *  209:     function checkPassword($submitedPassword, $originalPassword)
- *  266:     function userAutoLogin($username, $pageId = 0, $urlParameters = array())
- *  285:     function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false)
- *  310:     function escapeBrackets($url)
- *  322:     function cleanHeaderUrlData($data)
- *  334:     function cleanSpecialFieldKey($fieldName)
- *  349:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
- *  372:     function readFlexformTab($flexData, $sTab, &$conf)
- *  406:     function setFlexformConfiguration($key, $value, $conf)
- *  436:     function checkUtf8($str)
+ *  266:     function userAutoLogin($userId, $pageId = 0, $urlParameters = array())
+ *  286:     function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false)
+ *  311:     function escapeBrackets($url)
+ *  323:     function cleanSpecialFieldKey($fieldName)
+ *  336:     public function convertHtmlEmailToPlain($content)
+ *  377:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
+ *  400:     function readFlexformTab($flexData, $sTab, $conf = '')
+ *  436:     function setFlexformConfiguration($key, $value, $conf)
+ *  466:     function checkUtf8($str)
  *
  *
- * TOTAL FUNCTIONS: 14
+ * TOTAL FUNCTIONS: 15
  *
  */
 
@@ -502,6 +502,10 @@ class tx_datamintsfeuser_utils {
 	}
 
 
+}
+
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_utils.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_utils.php']);
 }
 
 ?>

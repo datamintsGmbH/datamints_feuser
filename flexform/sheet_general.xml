@@ -47,7 +47,7 @@
 						<autoSizeMax>20</autoSizeMax>
 						<selectedListStyle>width:400px</selectedListStyle>
 						<itemListStyle>width:400px</itemListStyle>
-						<itemsProcFunc>tx_flexform_getFieldNames->getFieldNames</itemsProcFunc>
+						<itemsProcFunc>tx_datamintsfeuser_flexform->getFieldNames</itemsProcFunc>
 						<allowNonIdValues>1</allowNonIdValues>
 						<multiple>1</multiple>
 						<items type="array">
@@ -95,7 +95,7 @@
 						<maxitems>100</maxitems>
 						<selectedListStyle>width:400px</selectedListStyle>
 						<itemListStyle>width:400px</itemListStyle>
-						<itemsProcFunc>tx_flexform_getFieldNames->getFieldNames</itemsProcFunc>
+						<itemsProcFunc>tx_datamintsfeuser_flexform->getFieldNames</itemsProcFunc>
 						<allowNonIdValues>1</allowNonIdValues>
 						<items type="array">
 							<numIndex index="0" type="array">
@@ -122,7 +122,7 @@
 						<maxitems>100</maxitems>
 						<selectedListStyle>width:400px</selectedListStyle>
 						<itemListStyle>width:400px</itemListStyle>
-						<itemsProcFunc>tx_flexform_getFieldNames->getFieldNames</itemsProcFunc>
+						<itemsProcFunc>tx_datamintsfeuser_flexform->getFieldNames</itemsProcFunc>
 						<allowNonIdValues>1</allowNonIdValues>
 					</config>
 				</TCEforms>

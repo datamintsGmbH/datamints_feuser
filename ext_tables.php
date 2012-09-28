@@ -24,7 +24,7 @@ $TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY . '_pi1'] =
 $confArray = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);
 
 // Flexformfunktionen einbinden.
-include_once(t3lib_extMgm::extPath($_EXTKEY) . 'class.tx_flexform_getFieldNames.php');
+include_once(t3lib_extMgm::extPath($_EXTKEY) . 'lib/class.tx_datamintsfeuser_flexform.php');
 
 if ($confArray['enableIrre']) {
 	t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_pi1', 'FILE:EXT:' . $_EXTKEY . '/flexform/data_pi1_irre.xml');

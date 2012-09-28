@@ -29,7 +29,7 @@
  *
  *
  *   46: class tx_datamintsfeuser_salesforce
- *   54:     function main($params, $pObj)
+ *   56:     function main($params, $pObj)
  *
  *
  * TOTAL FUNCTIONS: 1
@@ -46,10 +46,12 @@
 class tx_datamintsfeuser_salesforce {
 
 	/**
+	 * Maps the typo3 fields to the salesforce fields and submits it to salesforce.
+	 * This will only done if the user is completely activated!
 	 *
-	 * @param array $params
-	 * @param object $pObj
-	 * @return null
+	 * @param	array		$params
+	 * @param	object		$pObj
+	 * @return	null
 	 */
 	function main($params, $pObj) {
 		if ($GLOBALS['userAlreadyAddedToSalesforceInThisSession']) {
@@ -95,7 +97,6 @@ class tx_datamintsfeuser_salesforce {
 
 
 }
-
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_salesforce.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_salesforce.php']);

@@ -1,4 +1,5 @@
 <?php
+
 /***************************************************************
 *  Copyright notice
 *
@@ -23,18 +24,31 @@
 ***************************************************************/
 
 /**
- * Class 'tx_flexform_getFieldNames' which gets all field names from the "fe_users".
+ *
+ * [CLASS/FUNCTION INDEX of SCRIPT]
+ *
+ *
+ *   46: class tx_datamintsfeuser_flexform
+ *   54:     function main($params, $pObj)
+ *
+ *
+ * TOTAL FUNCTIONS: 1
+ *
+ */
+
+/**
+ * Class 'tx_datamintsfeuser_flexform' which gets all field names from the "fe_users".
  *
  * @author	Bernhard baumgartl <b.baumgartl@datamints.com>
  * @package	TYPO3
  * @subpackage	tx_datamintsfeuser
  */
-class tx_flexform_getFieldNames {
+class tx_datamintsfeuser_flexform {
 
 	/**
 	 * The getFields method is used to get the "fe_users" field names into the flexform of the plugin.
 	 *
-	 * @param	array		$config: the fields selected
+	 * @param	array		$config: The fields selected.
 	 * @return	array		$config
 	 */
 	function getFieldNames($config) {
@@ -55,6 +69,10 @@ class tx_flexform_getFieldNames {
 		return $config;
 	}
 
+}
+
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_flexform.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_flexform.php']);
 }
 
 ?>

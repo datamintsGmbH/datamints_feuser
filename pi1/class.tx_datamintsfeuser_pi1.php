@@ -28,54 +28,56 @@
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
  *
- *   92: class tx_datamintsfeuser_pi1 extends tslib_pibase
- *  116:     function main($content, $conf)
- *  178:     function sendForm()
- *  371:     function trimPiVars()
- *  384:     function uniqueCheckForm()
- *  411:     function validateForm()
- *  564:     function requireCheckForm()
- *  619:     function checkCaptcha($value)
- *  673:     function cleanPasswordField($fieldName, $fieldConfig, $arrUpdate)
- *  695:     function cleanCheckboxField($fieldName, $fieldConfig, $arrUpdate)
- *  730:     function cleanMultipleSelectboxField($fieldName, $fieldConfig, $arrUpdate)
- *  759:     function cleanGroupAndMultipleCheckboxField($fieldName, $fieldConfig, $arrUpdate)
- *  793:     function cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate)
- *  820:     function copyFields($arrUpdate)
- *  857:     function editUser($arrUpdate)
- *  894:     function registerUser($arrUpdate)
- *  959:     function generatePasswordForMail()
- *  979:     function saveDeleteImage($fieldName, &$arrUpdate)
- * 1065:     function showMessageOutputRedirect($mode, $submode = '', $params = array())
- * 1132:     function sendActivationMail($userId)
- * 1174:     function makeApprovalCheck()
- * 1252:     function getApprovalTypes()
- * 1264:     function isAdminMail($approvalType)
- * 1274:     function setNotActivatedCookie($userId)
- * 1286:     function getNotActivatedUserArray($arrNotActivated = array())
- * 1322:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
- * 1444:     function getTemplateSubpart($templatePart, $markerArray = array(), $config = array())
- * 1465:     function getChangedForMail($arrNewData, $config)
- * 1503:     function showForm($valueCheck = array())
- * 1722:     function cleanSpecialFieldKey($fieldName)
- * 1737:     function showInput($fieldName, $arrCurrentData, $iItem)
- * 1787:     function showText($fieldName, $arrCurrentData)
- * 1804:     function showCheck($fieldName, $arrCurrentData)
- * 1857:     function showRadio($fieldName, $arrCurrentData)
- * 1888:     function showSelect($fieldName, $arrCurrentData)
- * 1973:     function showGroup($fieldName, $arrCurrentData)
- * 2061:     function showCaptcha($fieldName, $valueCheck, $iItem)
- * 2119:     function makeHiddenParamsHiddenFields()
- * 2136:     function makeHiddenParamsArray()
- * 2154:     function checkIfRequired($fieldName)
- * 2169:     function getLabel($fieldName, $checkRequired = true)
- * 2204:     function getErrorLabel($fieldName, $valueCheck)
- * 2222:     function getConfiguration()
- * 2266:     function setIrreConfiguration()
- * 2408:     function getJSValidationConfiguration()
+ *   94: class tx_datamintsfeuser_pi1 extends tslib_pibase
+ *  125:     function main($content, $conf)
+ *  205:     function getConfigByShowtype($subConfig = '')
+ *  218:     function sendForm()
+ *  411:     function trimPiVars()
+ *  424:     function uniqueCheckForm()
+ *  457:     function validateForm()
+ *  610:     function requireCheckForm()
+ *  665:     function checkCaptcha($value)
+ *  719:     function cleanPasswordField($fieldName, $fieldConfig, $arrUpdate)
+ *  741:     function cleanCheckboxField($fieldName, $fieldConfig, $arrUpdate)
+ *  776:     function cleanMultipleSelectboxField($fieldName, $fieldConfig, $arrUpdate)
+ *  805:     function cleanGroupAndMultipleCheckboxField($fieldName, $fieldConfig, $arrUpdate)
+ *  839:     function cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate)
+ *  863:     function copyFields($arrUpdate)
+ *  915:     function editUser($arrUpdate)
+ *  952:     function registerUser($arrUpdate)
+ * 1013:     function generatePasswordForMail()
+ * 1035:     function saveDeleteImage($fieldName, &$arrUpdate)
+ * 1124:     function showMessageOutputRedirect($mode, $submode = '', $params = array())
+ * 1220:     function sendActivationMail($userId = 0)
+ * 1265:     function makeApprovalCheck()
+ * 1343:     function getApprovalTypes()
+ * 1355:     function isAdminMail($approvalType)
+ * 1365:     function setNotActivatedCookie($userId)
+ * 1378:     function getNotActivatedUserArray($arrNotActivated = array())
+ * 1410:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
+ * 1536:     function getTemplateSubpart($templatePart, $markerArray = array(), $config = array())
+ * 1557:     function getChangedForMail($arrNewData, $config)
+ * 1595:     function showForm($valueCheck = array())
+ * 1809:     function cleanSpecialFieldKey($fieldName)
+ * 1824:     function showInput($fieldName, $arrCurrentData, $iItem)
+ * 1874:     function showText($fieldName, $arrCurrentData)
+ * 1891:     function showCheck($fieldName, $arrCurrentData)
+ * 1945:     function showRadio($fieldName, $arrCurrentData)
+ * 1977:     function showSelect($fieldName, $arrCurrentData)
+ * 2064:     function showGroup($fieldName, $arrCurrentData)
+ * 2155:     function showCaptcha($fieldName, $valueCheck, $iItem)
+ * 2211:     function makeHiddenParamsHiddenFields()
+ * 2228:     function makeHiddenParamsArray()
+ * 2246:     function checkIfRequired($fieldName)
+ * 2261:     function getListItemLabelFieldName($table)
+ * 2278:     function getLabel($fieldName, $checkRequired = true)
+ * 2321:     function getErrorLabel($fieldName, $valueCheck)
+ * 2339:     function getConfiguration()
+ * 2383:     function setIrreConfiguration()
+ * 2525:     function getJSValidationConfiguration()
  *
  *
- * TOTAL FUNCTIONS: 42
+ * TOTAL FUNCTIONS: 46
  *
  */
 
@@ -2090,7 +2092,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Bild anzeigen.
 			if ($image) {
-				$content .= '<div class="image_preview">' . $image . '</div>';
+				$content .= '<div class="preview">' . $image . '</div>';
 			}
 
 			// Wenn kein Bild vorhanden ist, das Upload-Feld anzeigen.
@@ -2253,8 +2255,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * Ueberprüft ob es für die uebergebene Tabelle eine andere Labelkonfiguration gibt.
 	 * Dieses LabelField wird dann benutzt, um für Listen Elmente das richtige Label zu holen.
 	 *
-	 * @param type $table
-	 * @return type
+	 * @param	string		$table
+	 * @return	string		$labelFieldName
 	 */
 	function getListItemLabelFieldName($table) {
 		$labelFieldName = $GLOBALS['TCA'][$table]['ctrl']['label'];
@@ -2619,7 +2621,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 
 }
-
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/pi1/class.tx_datamintsfeuser_pi1.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/pi1/class.tx_datamintsfeuser_pi1.php']);
