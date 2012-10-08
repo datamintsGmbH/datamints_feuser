@@ -40,7 +40,7 @@
  *  298:     function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false)
  *  323:     function escapeBrackets($url)
  *  335:     function getSpecialFieldKey($fieldName)
- *  348:     public function convertHtmlEmailToPlain($content)
+ *  348:     function convertHtmlEmailToPlain($content)
  *  389:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
  *  412:     function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array())
  *  448:     function setFlexformConfigurationValue($key, $value, $conf)
@@ -345,7 +345,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$content
 	 * @return	string		$content
 	 */
-	public function convertHtmlEmailToPlain($content) {
+	function convertHtmlEmailToPlain($content) {
 		$newLine = chr(13) . chr(10);
 
 		// Den Head entfernen.

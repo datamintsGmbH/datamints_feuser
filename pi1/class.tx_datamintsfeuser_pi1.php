@@ -45,24 +45,24 @@
  *  992:     function copyFields($arrUpdate)
  * 1044:     function doUserEdit($arrUpdate)
  * 1082:     function doUserRegister($arrUpdate)
- * 1147:     function showMessageOutputRedirect($mode, $submode = '', $params = array())
- * 1250:     function sendActivationMail($userId = 0)
- * 1297:     function doApprovalCheck()
- * 1376:     function getApprovalTypes()
- * 1387:     function setNotActivatedCookie($userId)
- * 1400:     function getNotActivatedUserArray($arrNotActivated = array())
- * 1432:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
- * 1556:     function isAdminMail($approvalType)
- * 1568:     function getTemplateSubpart($templatePart, $markerArray = array(), $config = array())
- * 1589:     function getChangedForMail($arrNewData, $config)
- * 1626:     function getPasswordForMail()
- * 1647:     function showForm($valueCheck = array())
- * 1876:     function showInput($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 1927:     function showText($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 1944:     function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 1998:     function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2034:     function showSelect($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2131:     function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 1147:     function showOutputRedirect($mode, $submode = '', $params = array())
+ * 1252:     function sendActivationMail($userId = 0)
+ * 1299:     function doApprovalCheck()
+ * 1378:     function getApprovalTypes()
+ * 1389:     function setNotActivatedCookie($userId)
+ * 1402:     function getNotActivatedUserArray($arrNotActivated = array())
+ * 1434:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
+ * 1558:     function isAdminMail($approvalType)
+ * 1570:     function getTemplateSubpart($templatePart, $markerArray = array(), $config = array())
+ * 1591:     function getChangedForMail($arrNewData, $config)
+ * 1628:     function getPasswordForMail()
+ * 1649:     function showForm($valueCheck = array())
+ * 1878:     function showInput($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 1929:     function showText($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 1946:     function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2000:     function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2036:     function showSelect($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2133:     function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
  * 2247:     function showCaptcha($fieldName, $valueCheck)
  * 2304:     function getFieldId()
  * 2319:     function getFieldName()
@@ -168,12 +168,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Wenn nicht eingeloggt kann man auch nicht editieren!
 		if ($this->conf['showtype'] == 'edit' && !$this->userId) {
-			return $this->pi_wrapInBaseClass($this->showMessageOutputRedirect('edit_error', 'login'));
+			return $this->pi_wrapInBaseClass($this->showOutputRedirect('edit_error', 'login'));
 		}
 
 		// Wenn ein "userfolder" angegeben ist, der aktuelle User aber nicht in diesem ist, kann man auch nicht editieren!
 		if ($this->conf['showtype'] == 'edit' && $this->getConfigurationByShowtype('userfolder') && $GLOBALS['TSFE']->fe_user->user['pid'] != $this->storagePid) {
-			return $this->pi_wrapInBaseClass($this->showMessageOutputRedirect('edit_error', 'storage'));
+			return $this->pi_wrapInBaseClass($this->showOutputRedirect('edit_error', 'storage'));
 		}
 
 		switch ($this->piVars[$this->contentId]['submit']) {
@@ -263,12 +263,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				}
 			}
 
-			return $this->showMessageOutputRedirect($mode, $submode);
+			return $this->showOutputRedirect($mode, $submode);
 		}
 
 		// Wenn der Bearbeitungsmodus, die Zielseite, oder der User nicht stimmen, dann wird abgebrochen. Andernfalls wird in die Datenbank geschrieben.
 		if ($this->piVars[$this->contentId]['submitmode'] != $this->conf['showtype'] || $this->piVars[$this->contentId]['pageid'] != $GLOBALS['TSFE']->id || $this->piVars[$this->contentId]['userid'] != $this->userId) {
-			return $this->showMessageOutputRedirect($mode, $submode);
+			return $this->showOutputRedirect($mode, $submode);
 		}
 
 		// Sonderfaelle behandeln!
@@ -373,7 +373,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Hook um weiter Userupdates zu machen.
-		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendForm_return'])) {
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendForm'])) {
 			$_params = array(
 					'variables' => array(
 							'arrUpdate' => $arrUpdate
@@ -385,12 +385,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						)
 				);
 
-			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendForm_return'] as $_funcRef) {
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendForm'] as $_funcRef) {
 				t3lib_div::callUserFunction($_funcRef, $_params, $this);
 			}
 		}
 
-		return $this->showMessageOutputRedirect($mode, $submode, $params);
+		return $this->showOutputRedirect($mode, $submode, $params);
 	}
 
 	/**
@@ -1144,7 +1144,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @param	array		$params
 	 * @return	string		$label
 	 */
-	function showMessageOutputRedirect($mode, $submode = '', $params = array()) {
+	function showOutputRedirect($mode, $submode = '', $params = array()) {
 		$redirect = true;
 		$autologin = false;
 
@@ -1210,7 +1210,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Hook bevor irgendeine Ausgabe oder eine Weiterleitung stattfindet.
-		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['showMessageOutputRedirect_return'])) {
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['showOutputRedirect'])) {
 			$_params = array(
 					'variables' => array(
 							'mode' => $mode,
@@ -1219,11 +1219,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						),
 					'parameters' => array(
 							'label' => &$label,
+							'redirect' => &$redirect,
+							'autologin' => &$autologin,
 							'redirectKey' => &$redirectKey
 						)
 				);
 
-			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['showMessageOutputRedirect_return'] as $_funcRef) {
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['showOutputRedirect'] as $_funcRef) {
 				t3lib_div::callUserFunction($_funcRef, $_params, $this);
 			}
 		}
@@ -1305,7 +1307,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Wenn kein Genehmigungstyp ermittelt werden konnte.
 		if (!$approvalType) {
-			return $this->showMessageOutputRedirect(self::submitKeyApprovalcheck, self::submodeKeyFailure);
+			return $this->showOutputRedirect(self::submitKeyApprovalcheck, self::submodeKeyFailure);
 		}
 
 		// Ausgabe vorbereiten.
@@ -1364,7 +1366,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$submode = 'deleted';
 		}
 
-		return $this->showMessageOutputRedirect($mode, $submode, $params);
+		return $this->showOutputRedirect($mode, $submode, $params);
 	}
 
 	/**
@@ -1481,7 +1483,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Hook um die E-Mail zu aendern.
-		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendMail_htmlMail'])) {
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendMail'])) {
 			$_params = array(
 					'variables' => array(
 							'userId' => $userId,
@@ -1501,7 +1503,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						)
 				);
 
-			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendMail_htmlMail'] as $_funcRef) {
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendMail'] as $_funcRef) {
 				t3lib_div::callUserFunction($_funcRef, $_params, $this);
 			}
 		}
@@ -2153,8 +2155,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				if ($fieldConfig['show_thumbs'] && $filename) {
 					$imgTSConfig = $this->conf['thumb.'];
 					$imgTSConfig['file'] = $uploadFolder . $filename;
-					$imgTSConfig['altText'] = 'Bild';
-					$imgTSConfig['titleText'] = 'Bild';
 					$image = $this->cObj->IMAGE($imgTSConfig);
 
 					if ($image) {
