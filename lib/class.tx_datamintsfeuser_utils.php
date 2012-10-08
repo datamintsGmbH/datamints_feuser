@@ -28,25 +28,26 @@
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
  *
- *   60: class tx_datamintsfeuser_utils
- *   69:     function getFeUsersTca($feUsersTca)
- *   86:     function getStoragePid($storagePid)
- *  102:     function getTypoLinkUrl($params, $urlParameters = array())
- *  117:     function htmlspecialcharsPostArray($arrData, $decode)
- *  146:     function generatePassword($password, $arrGenerate = array())
- *  209:     function checkPassword($submitedPassword, $originalPassword)
- *  266:     function userAutoLogin($userId, $pageId = 0, $urlParameters = array())
- *  286:     function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false)
- *  311:     function escapeBrackets($url)
- *  323:     function cleanSpecialFieldKey($fieldName)
- *  336:     public function convertHtmlEmailToPlain($content)
- *  377:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
- *  400:     function readFlexformTab($flexData, $sTab, $conf = '')
- *  436:     function setFlexformConfiguration($key, $value, $conf)
- *  466:     function checkUtf8($str)
+ *   61: class tx_datamintsfeuser_utils
+ *   70:     function getFeUsersTca($feUsersTca)
+ *   87:     function getStoragePid($storagePid)
+ *  103:     function getTypoLinkUrl($params, $urlParameters = array())
+ *  117:     function fixPath($path)
+ *  129:     function htmlspecialcharsPostArray($arrData, $decode)
+ *  158:     function generatePassword($password, $arrGenerate = array())
+ *  221:     function checkPassword($submitedPassword, $originalPassword)
+ *  278:     function userAutoLogin($userId, $pageId = 0, $urlParameters = array())
+ *  298:     function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false)
+ *  323:     function escapeBrackets($url)
+ *  335:     function getSpecialFieldKey($fieldName)
+ *  348:     public function convertHtmlEmailToPlain($content)
+ *  389:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
+ *  412:     function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array())
+ *  448:     function setFlexformConfigurationValue($key, $value, $conf)
+ *  478:     function checkUtf8($str)
  *
  *
- * TOTAL FUNCTIONS: 15
+ * TOTAL FUNCTIONS: 16
  *
  */
 
@@ -104,6 +105,17 @@ class tx_datamintsfeuser_utils {
 		$pageLink = $cObj->getTypoLink_URL($params, $urlParameters);
 
 		return $pageLink;
+	}
+
+	/**
+	 * Wird verwendet, um doppelte Schraegstriche zu vermeiden.
+	 * Der Pfad wird mit einem abschliessenden Schraegstrich zurueckgegeben.
+	 *
+	 * @param	string		$path
+	 * @return	string		$path
+	 */
+	function fixPath($path) {
+		return dirname($path . DIRECTORY_SEPARATOR . '.') . DIRECTORY_SEPARATOR;
 	}
 
 	/**
@@ -320,7 +332,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$fieldName
 	 * @return	string
 	 */
-	function cleanSpecialFieldKey($fieldName) {
+	function getSpecialFieldKey($fieldName) {
 		if (preg_match('/^--.*--$/', $fieldName)) {
 			return preg_replace('/^--(.*)--$/', '\1', $fieldName);
 		}
@@ -394,10 +406,10 @@ class tx_datamintsfeuser_utils {
 	 *
 	 * @param	array		$flexData
 	 * @param	string		$sType
-	 * @param	array		$conf // Call by reference Array mit allen zu updatenden Daten.
-	 * @return	void
+	 * @param	array		$conf
+	 * @return	array		$conf
 	 */
-	function readFlexformTab($flexData, $sTab, $conf = '') {
+	function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array()) {
 		 if (is_array($flexData)) {
 			 if (isset($flexData['data'][$sTab]['lDEF'])) {
 				 $flexData = $flexData['data'][$sTab]['lDEF'];
@@ -409,11 +421,11 @@ class tx_datamintsfeuser_utils {
 						 if (isset($element['vDEF'])) {
 							 $conf[$ekey] = $element['vDEF'];
 						 } else {
-							 $conf[$key][$ekey] = self::readFlexformTab($element, $sTab, $conf[$key][$ekey]);
+							 $conf[$key][$ekey] = self::getFlexformConfigurationFromTab($element, $sTab, $conf[$key][$ekey]);
 						 }
 					 }
 				 } else {
-					 $conf = self::readFlexformTab($value['el'], $sTab, $conf);
+					 $conf = self::getFlexformConfigurationFromTab($value['el'], $sTab, $conf);
 				 }
 
 				 if ($value['vDEF']) {
@@ -433,9 +445,9 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$conf
 	 * @return	array		$conf
 	 */
-	function setFlexformConfiguration($key, $value, $conf) {
+	function setFlexformConfigurationValue($key, $value, $conf) {
 		if (strpos($key, '.') !== false && $value) {
-			$arrKey = t3lib_div::trimExplode('.', $key);
+			$arrKey = t3lib_div::trimExplode('.', $key, true);
 
 			for ($i = count($arrKey) - 1; $i >= 0; $i--) {
 				$newValue = array();

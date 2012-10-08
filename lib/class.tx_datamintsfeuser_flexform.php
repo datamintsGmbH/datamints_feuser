@@ -29,7 +29,7 @@
  *
  *
  *   46: class tx_datamintsfeuser_flexform
- *   54:     function main($params, $pObj)
+ *   54:     function getFieldNames($config)
  *
  *
  * TOTAL FUNCTIONS: 1
@@ -60,7 +60,7 @@ class tx_datamintsfeuser_flexform {
 
 		$fieldList = array();
 
-		foreach ($TCA['fe_users']['columns'] as $key => $value){
+		foreach ($TCA['fe_users']['columns'] as $key => $_){
 			$fieldList[] = array($key, $key);
 		}
 

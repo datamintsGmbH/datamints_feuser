@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2012-10-08T11:26:24Z" product-name="datamints_feuser">
+		<header/>
+		<body>
+			<trans-unit id="pi1_title" xml:space="preserve">
+				<source>Frontend User Management</source>
+			</trans-unit>
+			<trans-unit id="pi1_plus_wiz_description" xml:space="preserve">
+				<source>This plugin adds an register or edit form to your page.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

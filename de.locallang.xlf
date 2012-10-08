@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2012-10-08T11:26:24Z" product-name="datamints_feuser">
+		<header/>
+		<body>
+			<trans-unit id="pi1_title" xml:space="preserve" approved="yes">
+				<source>Frontend User Management</source>
+				<target>Frontend User Management</target>
+			</trans-unit>
+			<trans-unit id="pi1_plus_wiz_description" xml:space="preserve" approved="yes">
+				<source>This plugin adds an register or edit form to your page.</source>
+				<target>Dieses Plug-In fügt Ihren Seiten ein Registrierungs- oder Bearbeitungs-Formular hinzu.</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

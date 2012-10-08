@@ -36,6 +36,7 @@
 			<label index="image_error_size">The image is too large!</label>
 			<label index="image_error_type">The uploaded file is not an image!</label>
 			<label index="image_error_upload">The image could not be uploaded!</label>
+			<label index="image_error_delete">The image could not be deleted!</label>
 			<label index="userdelete">Delete Current User?</label>
 			<label index="userdelete_success">The User was successfully deleted!</label>
 			<label index="passwordconfirmation">Current Password:</label>
@@ -97,6 +98,7 @@
 			<label index="image_error_size">Das Bild ist zu groß!</label>
 			<label index="image_error_type">Die Hochgeladene Datei ist kein Bild!</label>
 			<label index="image_error_upload">Das Bild konnte nicht hochgeladen werden!</label>
+			<label index="image_error_delete">Das Bild konnte nicht gelöscht werden!</label>
 			<label index="userdelete">Aktuellen User löschen?</label>
 			<label index="userdelete_success">Der User wurde erfolgreich gelöscht!</label>
 			<label index="passwordconfirmation">Aktuelles Passwort:</label>

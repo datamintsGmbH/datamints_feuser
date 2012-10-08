@@ -7,14 +7,19 @@ window.onload = function() {
 	}
 
 	for (datamints_feuser_formId in datamints_feuser_inputids) {
-		if (typeof(datamints_feuser_inputids[datamints_feuser_formId]) != 'object') continue;
+		if (typeof(datamints_feuser_inputids[datamints_feuser_formId]) != 'object') {
+			continue;
+		}
 
 		var form = document.getElementById('datamints_feuser_' + datamints_feuser_formId + '_form');
+
 		addEvent(form, 'submit', formCheck);
 
 		var input;
+
 		for (var i = 0; i < datamints_feuser_inputids[datamints_feuser_formId].length; i++) {
 			input = document.getElementById(datamints_feuser_inputids[datamints_feuser_formId][i]);
+
 			// Wenn Input Typ eine Checkbox ist ein Klickevent setzten, da der IE bei onchange das Event erst nach verlieren des Focus ausloest.
 			if (input.type == 'checkbox') {
 				addEvent(input, 'click', inputItemCheck);
@@ -33,11 +38,15 @@ function formCheck(evt) {
 	datamints_feuser_formId = getEventTarget(evt).id.split('_')[2];
 
 	for (fieldId in datamints_feuser_inputids[datamints_feuser_formId]) {
-		if (typeof(datamints_feuser_inputids[datamints_feuser_formId][fieldId]) != 'string') continue;
+		if (typeof(datamints_feuser_inputids[datamints_feuser_formId][fieldId]) != 'string') {
+			continue;
+		}
 
 		error = inputItemCheck(null, document.getElementById(datamints_feuser_inputids[datamints_feuser_formId][fieldId]));
+
 		if (error == true && ret == false) {
 			ret = true;
+
 			window.event ? event.returnValue = false : evt.preventDefault();
 		}
 	}
@@ -59,6 +68,7 @@ function inputItemCheck(evt, input) {
 	if (input.type == 'select-multiple') {
 		j = 0;
 		value = new Array();
+
 		for (i = 0; i < input.options.length; i++) {
 			if (input.options[i] != null && input.options[i].selected) {
 				value[j] = input.options[i].value;
@@ -72,6 +82,7 @@ function inputItemCheck(evt, input) {
 			value = false;
 			name = input.id.slice(0, input.id.lastIndexOf('_item_'));
 			elements = document.getElementById(name + '_wrapper').getElementsByTagName('input');
+
 			for (i = 0; i < elements.length; i++) {
 				if (elements[i] != null && elements[i].checked) {
 					value = true;
@@ -86,6 +97,7 @@ function inputItemCheck(evt, input) {
 		value = false;
 		name = input.id.slice(0, input.id.lastIndexOf('_item_'));
 		elements = document.getElementById(name + '_wrapper').getElementsByTagName('input');
+
 		for (i = 0; i < elements.length; i++) {
 			if (elements[i] != null && elements[i].checked) {
 				value = true;
@@ -93,7 +105,35 @@ function inputItemCheck(evt, input) {
 		}
 	}
 
+	if (input.type == 'file') {
+		var present = new Array();
+		var deleted = new Array();
+
+		value = false;
+		name = input.id.slice(0, input.id.lastIndexOf('_upload_'));
+		elements = document.getElementById(name + '_wrapper').getElementsByTagName('input');
+
+		for (i = 0; i < elements.length; i++) {
+			if (elements[i] != null) {
+				var key = elements[i].name.slice(elements[i].name.lastIndexOf('[') + 1, elements[i].name.length - 1);
+
+				if (elements[i].type == 'hidden') {
+					present[key] = elements[i].value;
+				}
+
+				if (elements[i].type == 'checkbox') {
+					deleted[key] = elements[i].checked;
+				}
+
+				if ((elements[i].type == 'file' && elements[i].value) || (present[key] && deleted[key] != null && !deleted[key])) {
+					value = true;
+				}
+			}
+		}
+	}
+
 	var fieldName = input.name.split('[')[2].split(']')[0];
+
 	if (fieldName.split('_').reverse()[0] == 'rep') {
 		fieldName = fieldName.slice(0, fieldName.length - 4);
 	}
@@ -106,8 +146,10 @@ function inputItemCheck(evt, input) {
 
 	if (datamints_feuser_config[datamints_feuser_formId][fieldName] != null) {
 		var validate = datamints_feuser_config[datamints_feuser_formId][fieldName]['validation'];
+
 		if (datamints_feuser_config[datamints_feuser_formId][fieldName]['required'] && (!value || (typeof(value) == 'object' && !value.length))) {
 			showInfo(fieldName, 'required');
+
 			return true;
 		} else if (validate) {
 
@@ -115,25 +157,31 @@ function inputItemCheck(evt, input) {
 
 				case 'password':
 					var input_rep;
+
 					if (input.id.split('_').reverse()[0] != 'rep') {
 						input_rep = document.getElementById(input.id + '_rep');
 					} else {
 						input_rep = document.getElementById(input.id.slice(0, input.id.length - 4));
 					}
+
 					var value_rep = input_rep.value;
+
 					if (value != '' || value_rep != '') {
 						arrLength = new Array('6');
+
 						if (value == value_rep) {
 							if (validate['size']) {
 								arrLength = validate['size'].replace(' ', '').split(',');
 							}
 
-							if (!value.match(new RegExp('^.{' + arrLength[0] + ',' + ((arrLength[1] != undefined) ? arrLength[1] : '') + '}$'))) {
+							if ((arrLength[0] && value.length < arrLength[0]) || (arrLength[1] && value.length > arrLength[1])) {
 								showInfo(fieldName, 'size');
+
 								return true;
 							}
 						} else {
 							showInfo(fieldName, 'equal');
+
 							return true;
 						}
 					}
@@ -142,6 +190,7 @@ function inputItemCheck(evt, input) {
 				case 'email':
 					if (!value.match(/^[a-zA-Z0-9\._%+-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,6}$/)) {
 						showInfo(fieldName, 'valid');
+
 						return true;
 					}
 					break;
@@ -149,6 +198,7 @@ function inputItemCheck(evt, input) {
 				case 'username':
 					if (!value.match(/^[^ ]*$/)) {
 						showInfo(fieldName, 'valid');
+
 						return true;
 					}
 					break;
@@ -156,6 +206,7 @@ function inputItemCheck(evt, input) {
 				case 'zero':
 					if (value == '0') {
 						showInfo(fieldName, 'valid');
+
 						return true;
 					}
 					break
@@ -163,6 +214,7 @@ function inputItemCheck(evt, input) {
 				case 'emptystring':
 					if (value == '') {
 						showInfo(fieldName, 'valid');
+
 						return true;
 					}
 					break
@@ -171,23 +223,28 @@ function inputItemCheck(evt, input) {
 					if (validate['regexp']) {
 						if (typeof(value) == 'object') {
 							var k = 0;
+
 							for (k in value) {
 								if (!value[k].match(validate['regexp'])) {
 									showInfo(fieldName, 'valid');
+
 									return true;
 								}
 							}
 						} else {
 							if (!value.match(validate['regexp'])) {
 								showInfo(fieldName, 'valid');
+
 								return true;
 							}
 						}
 					}
 					if (validate['size']) {
 						arrLength = validate['size'].replace(' ', '').split(',');
-						if (value.length < arrLength[0] || (arrLength[1] != undefined && value.length > arrLength[1])) {
+
+						if ((arrLength[0] && value.length < arrLength[0]) || (arrLength[1] && value.length > arrLength[1])) {
 							showInfo(fieldName, 'size');
+
 							return true;
 						}
 					}
@@ -221,13 +278,15 @@ function getEventTarget(evt) {
 
 function showInfo(fieldName, error) {
 	var error_item_father = getErrorItemFather(fieldName);
-	if (error_item_father != undefined) {
-		if (error_item_father.lastChild.className == 'form_error ' + fieldName + '_error') {
+
+	if (error_item_father) {
+		if (error_item_father.lastChild.className == 'error error-' + fieldName) {
 			error_item_father.removeChild(error_item_father.lastChild);
 		}
 
 		var div = document.createElement('div');
-		div.className = 'form_error ' + fieldName + '_error';
+
+		div.className = 'error error-' + fieldName;
 		div.innerHTML = datamints_feuser_config[datamints_feuser_formId][fieldName][error];
 		error_item_father.appendChild(div);
 	}
@@ -235,13 +294,15 @@ function showInfo(fieldName, error) {
 
 function removeInfo(fieldName) {
 	var error_item_father = getErrorItemFather(fieldName);
-	if (error_item_father != undefined && error_item_father.lastChild.className == 'form_error ' + fieldName + '_error') {
+
+	if (error_item_father && error_item_father.lastChild.className == 'error error-' + fieldName) {
 		error_item_father.removeChild(error_item_father.lastChild);
 	}
 }
 
 function getErrorItemFather(fieldName) {
 	var fieldNameWrapper = fieldName;
+
 	if (datamints_feuser_config[datamints_feuser_formId][fieldName]['validation'] && datamints_feuser_config[datamints_feuser_formId][fieldName]['validation']['type'] == 'password') {
 		fieldNameWrapper = fieldName + '_rep';
 	}

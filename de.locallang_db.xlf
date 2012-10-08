@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2012-10-08T11:26:28Z" product-name="datamints_feuser">
+		<header/>
+		<body>
+			<trans-unit id="tt_content.list_type_pi1" xml:space="preserve" approved="yes">
+				<source>Frontend User Management</source>
+				<target>Frontend User Management</target>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_datamintsfeuser_approval_level" xml:space="preserve" approved="yes">
+				<source>Approval Level:</source>
+				<target>Genehmigungslevel:</target>
+			</trans-unit>
+			<trans-unit id="fe_users.gender" xml:space="preserve" approved="yes">
+				<source>Gender:</source>
+				<target>Geschlecht:</target>
+			</trans-unit>
+			<trans-unit id="fe_users.gender.I.0" xml:space="preserve" approved="yes">
+				<source>Man</source>
+				<target>Mann</target>
+			</trans-unit>
+			<trans-unit id="fe_users.gender.I.1" xml:space="preserve" approved="yes">
+				<source>Woman</source>
+				<target>Frau</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.sheet.general" xml:space="preserve" approved="yes">
+				<source>General</source>
+				<target>Allgemein</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.sheet.registration" xml:space="preserve" approved="yes">
+				<source>Registration</source>
+				<target>Registrierung</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.sheet.edit" xml:space="preserve" approved="yes">
+				<source>Edit</source>
+				<target>Bearbeitung</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.sheet.redirect" xml:space="preserve" approved="yes">
+				<source>Redirect</source>
+				<target>Weiterleitung</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.sheet.extended" xml:space="preserve" approved="yes">
+				<source>Extended</source>
+				<target>Erweitert</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.showtype" xml:space="preserve" approved="yes">
+				<source>Type of view:</source>
+				<target>Anzeigetyp:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.showtype.register" xml:space="preserve" approved="yes">
+				<source>Registration</source>
+				<target>Registrierung</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.showtype.edit" xml:space="preserve" approved="yes">
+				<source>Edit</source>
+				<target>Bearbeitung</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.usedfields" xml:space="preserve" approved="yes">
+				<source>Used fields:</source>
+				<target>Angezeigte Felder:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.requiredfields" xml:space="preserve" approved="yes">
+				<source>Required fields:</source>
+				<target>Erforderliche Felder:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.uniquefields" xml:space="preserve" approved="yes">
+				<source>Unique fields:</source>
+				<target>Eindeutige Felder:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.databasefield" xml:space="preserve" approved="yes">
+				<source>Database Field</source>
+				<target>Datenbankfeld</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.separator" xml:space="preserve" approved="yes">
+				<source>Separator / Legend</source>
+				<target>Trenner / Legende</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.infoitem" xml:space="preserve" approved="yes">
+				<source>Info Item</source>
+				<target>Infoitem</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.userdelete" xml:space="preserve" approved="yes">
+				<source>&quot;Delete User&quot; Checkbox</source>
+				<target>&quot;User löschen&quot; Checkbox</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.passwordconfirmation" xml:space="preserve" approved="yes">
+				<source>&quot;Current Password&quot; Field</source>
+				<target>&quot;Aktuelles Passwort&quot; Feld</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.resendactivation" xml:space="preserve" approved="yes">
+				<source>&quot;Resend Activation&quot; Field</source>
+				<target>&quot;Aktivierung erneut senden&quot; Feld</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.captcha" xml:space="preserve" approved="yes">
+				<source>Captcha Field</source>
+				<target>Captcha Feld</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.submit" xml:space="preserve" approved="yes">
+				<source>Submit Button</source>
+				<target>Absenden Schaltfläche</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.label" xml:space="preserve" approved="yes">
+				<source>Label:</source>
+				<target>Etikett:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.field" xml:space="preserve" approved="yes">
+				<source>Field:</source>
+				<target>Feld:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.required" xml:space="preserve" approved="yes">
+				<source>Required Field?</source>
+				<target>Erforderliches Feld?</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.unique" xml:space="preserve" approved="yes">
+				<source>Unique Field?</source>
+				<target>Eindeutiges Feld?</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.legend" xml:space="preserve" approved="yes">
+				<source>Legend Text:</source>
+				<target>Legende Text:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.infoitemtext" xml:space="preserve" approved="yes">
+				<source>Info Item Text:</source>
+				<target>Infoitem Text:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.caption" xml:space="preserve" approved="yes">
+				<source>Caption:</source>
+				<target>Beschriftung:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.userfolder" xml:space="preserve" approved="yes">
+				<source>Default User Folder:</source>
+				<target>Standard Benutzerordner:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.generatepassword.mode" xml:space="preserve" approved="yes">
+				<source>Generate Password?</source>
+				<target>Passwort generieren?</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.generatepassword.length" xml:space="preserve" approved="yes">
+				<source>Generate Password Length:</source>
+				<target>Länge des generierten Passworts:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.sendusermail" xml:space="preserve" approved="yes">
+				<source>Send User E-Mail?</source>
+				<target>User E-Mail senden?</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.sendadminmail" xml:space="preserve" approved="yes">
+				<source>Send Admin E-Mail?</source>
+				<target>Admin E-Mail senden?</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.mailtype" xml:space="preserve" approved="yes">
+				<source>E-Mail Type:</source>
+				<target>E-Mail Typ:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.mailtype.text" xml:space="preserve" approved="yes">
+				<source>Text</source>
+				<target>Text</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.mailtype.html" xml:space="preserve" approved="yes">
+				<source>HTML</source>
+				<target>HTML</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.emailtemplate" xml:space="preserve" approved="yes">
+				<source>Own E-Mail Template:</source>
+				<target>Eigenes E-Mail Template:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.sendername" xml:space="preserve" approved="yes">
+				<source>Sender Name:</source>
+				<target>Absender Name:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.sendermail" xml:space="preserve" approved="yes">
+				<source>Sender E-Mail Address:</source>
+				<target>Absender E-Mail Adresse:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.adminname" xml:space="preserve" approved="yes">
+				<source>Admin Name:</source>
+				<target>Administrator Name:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.adminmail" xml:space="preserve" approved="yes">
+				<source>Admin E-Mail Address:</source>
+				<target>Administrator E-Mail Adresse:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.register.usergroup" xml:space="preserve" approved="yes">
+				<source>Default User Groups:</source>
+				<target>Standard Benutzergruppen:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.register.autologin" xml:space="preserve" approved="yes">
+				<source>Automatic Login?</source>
+				<target>Automatischer Login?</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.register.approvalcheck" xml:space="preserve" approved="yes">
+				<source>Approval Check:</source>
+				<target>Genhemigungstypen:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.register.approvalcheck.doubleoptin" xml:space="preserve" approved="yes">
+				<source>Double Opt-in</source>
+				<target>Double-Opt-In</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.register.approvalcheck.adminapproval" xml:space="preserve" approved="yes">
+				<source>Admin approval</source>
+				<target>Administratorgenehmigung</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.redirect.register" xml:space="preserve" approved="yes">
+				<source>Redirect Site ID &quot;Registration&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Registrierung&quot;:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.redirect.doubleoptin_success" xml:space="preserve" approved="yes">
+				<source>Redirect Site ID &quot;Double Opt-in - Activated&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Double-Opt-In - Aktiviert&quot;:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.redirect.doubleoptin_deleted" xml:space="preserve" approved="yes">
+				<source>Redirect Site ID &quot;Double Opt-in - Denied&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Double-Opt-In - Verweigert&quot;:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.redirect.adminapproval_success" xml:space="preserve" approved="yes">
+				<source>Redirect Site ID &quot;Admin Approval - Activated&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Administratorgenehmigung - Aktiviert&quot;:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.redirect.adminapproval_deleted" xml:space="preserve" approved="yes">
+				<source>Redirect Site ID &quot;Admin Approval - Denied&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Administratorgenehmigung - Verweigert&quot;:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.redirect.resendactivation" xml:space="preserve" approved="yes">
+				<source>Redirect Site ID &quot;Resend Activation&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Aktivierung erneut senden&quot;:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.redirect.edit" xml:space="preserve" approved="yes">
+				<source>Redirect Site ID &quot;Edit&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Bearbeitung&quot;:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.redirect.userdelete" xml:space="preserve" approved="yes">
+				<source>Redirect Site ID &quot;Delete User&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;User löschen&quot;:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.shownotactivated" xml:space="preserve" approved="yes">
+				<source>Type Of View For &quot;Resend Activation&quot; Field:</source>
+				<target>&quot;Resend Activation&quot; Anzeigetyp:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.shownotactivated.input" xml:space="preserve" approved="yes">
+				<source>E-Mail Input Field</source>
+				<target>E-Mail Eingabefeld</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.shownotactivated.list" xml:space="preserve" approved="yes">
+				<source>In Cookie Saved Users List</source>
+				<target>Liste der per Cookie gespeicherten User</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.disablestylesheet" xml:space="preserve" approved="yes">
+				<source>Disable Integrated Stylesheet:</source>
+				<target>Deaktiviere integriertes Stylesheet:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.stylesheetpath" xml:space="preserve" approved="yes">
+				<source>Use Own Stylesheet:</source>
+				<target>Verwende eigenes Stylesheet:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.disablejsvalidator" xml:space="preserve" approved="yes">
+				<source>Disable Integrated JavaScript Validator:</source>
+				<target>Deaktiviere integrierten JavaScript Validator:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.jsvalidatorpath" xml:space="preserve" approved="yes">
+				<source>Use Own JavaScript Validator:</source>
+				<target>Verwende eigenen JavaScript Validator:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.disablejsconfig" xml:space="preserve" approved="yes">
+				<source>Disable Integrated JavaScript Configuration:</source>
+				<target>Deaktiviere integrierte JavaScript Konfiguration:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.edit.sendusermail" xml:space="preserve" approved="yes">
+				<source></source>
+				<target>User E-Mail senden?</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.edit.sendadminmail" xml:space="preserve" approved="yes">
+				<source></source>
+				<target>Administrator E-Mail senden?</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

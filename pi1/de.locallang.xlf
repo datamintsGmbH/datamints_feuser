@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2012-10-08T11:26:32Z" product-name="datamints_feuser">
+		<header/>
+		<body>
+			<trans-unit id="username_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a username!</source>
+				<target>Es muss ein Benutzername eingegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="username_error_unique" xml:space="preserve" approved="yes">
+				<source>This username already exists!</source>
+				<target>Dieser Benutzername ist bereits vorhanden!</target>
+			</trans-unit>
+			<trans-unit id="username_error_valid" xml:space="preserve" approved="yes">
+				<source>The username must not contain any spaces!</source>
+				<target>Der Benutzername darf keine Leerzeichen beinhalten!</target>
+			</trans-unit>
+			<trans-unit id="password_rep" xml:space="preserve" approved="yes">
+				<source>Confirm Password:</source>
+				<target>Passwort wiederholen:</target>
+			</trans-unit>
+			<trans-unit id="password_error_equal" xml:space="preserve" approved="yes">
+				<source>You have to enter the same password twice!</source>
+				<target>Es muss zwei mal das gleiche Passwort eingegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="password_error_length" xml:space="preserve" approved="yes">
+				<source>The password must be at least 6 characters long!</source>
+				<target>Das Passwort muss mindestens 6 Zeichen lang sein!</target>
+			</trans-unit>
+			<trans-unit id="password_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a password!</source>
+				<target>Es muss ein Passwort angegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="usergroup_error_required" xml:space="preserve" approved="yes">
+				<source>You must choose a usergroup!</source>
+				<target>Es muss eine Benutzergruppe angegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="name_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a name!</source>
+				<target>Es muss ein gültiger Name eingegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="first_name_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a first name!</source>
+				<target>Es muss ein Vorname eingegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="middle_name_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a middle name!</source>
+				<target>Es muss ein zweiter Vorname angegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="last_name_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a last name!</source>
+				<target>Es muss ein Nachname eingegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="address_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a address!</source>
+				<target>Es muss eine Adresse angegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="telephone_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a telephone number!</source>
+				<target>Es muss eine Telefonnummer angegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="fax_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a fax number!</source>
+				<target>Es muss eine Faxnummer angegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="email_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter an e-mail address!</source>
+				<target>Es muss eine gültige E-Mail eingegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="email_error_unique" xml:space="preserve" approved="yes">
+				<source>This e-mail address is already in use!</source>
+				<target>Diese E-Mail wird bereits verwendet!</target>
+			</trans-unit>
+			<trans-unit id="email_error_valid" xml:space="preserve" approved="yes">
+				<source>The entered e-mail address is invalid!</source>
+				<target>Die eingegebene E-Mail ist ungültig!</target>
+			</trans-unit>
+			<trans-unit id="title_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a title!</source>
+				<target>Es muss ein Titel angegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="zip_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a zip!</source>
+				<target>Es muss eine Postleitzahl angegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="city_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a city name!</source>
+				<target>Es muss eine Stadt angegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="country_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a country!</source>
+				<target>Es muss ein Land angegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="www_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a web addess!</source>
+				<target>Es muss eine Web Adresse angegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="company_error_required" xml:space="preserve" approved="yes">
+				<source>You must enter a company name!</source>
+				<target>Es muss eine Firma angegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="image_delete" xml:space="preserve" approved="yes">
+				<source>Delete current image!</source>
+				<target>Vorhandenes Bild löschen!</target>
+			</trans-unit>
+			<trans-unit id="image_error_size" xml:space="preserve" approved="yes">
+				<source>The image is too large!</source>
+				<target>Das Bild ist zu groß!</target>
+			</trans-unit>
+			<trans-unit id="image_error_type" xml:space="preserve" approved="yes">
+				<source>The uploaded file is not an image!</source>
+				<target>Die Hochgeladene Datei ist kein Bild!</target>
+			</trans-unit>
+			<trans-unit id="image_error_upload" xml:space="preserve" approved="yes">
+				<source>The image could not be uploaded!</source>
+				<target>Das Bild konnte nicht hochgeladen werden!</target>
+			</trans-unit>
+			<trans-unit id="image_error_delete" xml:space="preserve" approved="yes">
+				<source>The image could not be deleted!</source>
+				<target>Das Bild konnte nicht gelöscht werden!</target>
+			</trans-unit>
+			<trans-unit id="userdelete" xml:space="preserve" approved="yes">
+				<source>Delete Current User?</source>
+				<target>Aktuellen User löschen?</target>
+			</trans-unit>
+			<trans-unit id="userdelete_success" xml:space="preserve" approved="yes">
+				<source>The User was successfully deleted!</source>
+				<target>Der User wurde erfolgreich gelöscht!</target>
+			</trans-unit>
+			<trans-unit id="passwordconfirmation" xml:space="preserve" approved="yes">
+				<source>Current Password:</source>
+				<target>Aktuelles Passwort:</target>
+			</trans-unit>
+			<trans-unit id="passwordconfirmation_error_required" xml:space="preserve" approved="yes">
+				<source>Please enter your current password!</source>
+				<target>Es muss das aktuelle Passwort eingegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="passwordconfirmation_error_valid" xml:space="preserve" approved="yes">
+				<source>The entered password was not equal to your current password!</source>
+				<target>Das eingegebene Passwort stimmt nicht mit dem aktuellen Passwort überein!</target>
+			</trans-unit>
+			<trans-unit id="resendactivation" xml:space="preserve" approved="yes">
+				<source>Resend activation mail to this e-mail:</source>
+				<target>Aktivierungsmail für folgende E-Mail erneut senden:</target>
+			</trans-unit>
+			<trans-unit id="resendactivation_list" xml:space="preserve" approved="yes">
+				<source>Resend activation mail to the following User:</source>
+				<target>Aktivierungsmail für folgenden User erneut senden:</target>
+			</trans-unit>
+			<trans-unit id="resendactivation_sent" xml:space="preserve" approved="yes">
+				<source>A new activation mail was sent to the entered e-mail!</source>
+				<target>Es wurde eine neue Aktivierungsmail an die von Ihnen angegebene E-Mail geschickt!</target>
+			</trans-unit>
+			<trans-unit id="resendactivation_failure" xml:space="preserve" approved="yes">
+				<source>You have to wait for admin activation!</source>
+				<target>Sie müssen auf die Aktivierung durch den Administrators warten!</target>
+			</trans-unit>
+			<trans-unit id="resendactivation_error_required" xml:space="preserve" approved="yes">
+				<source>Please enter the e-mail address you have registered with!</source>
+				<target>Es muss die E-Mail eingeben werden, mit der Sie sich registriert haben!</target>
+			</trans-unit>
+			<trans-unit id="resendactivation_error_valid" xml:space="preserve" approved="yes">
+				<source>The entered e-mail address has not yet been registered or has already been activated!</source>
+				<target>Die eingegebene E-Mail ist noch nicht registriert, oder wurde schon aktiviert!</target>
+			</trans-unit>
+			<trans-unit id="captcha" xml:space="preserve" approved="yes">
+				<source>Enter the letters displayed in the picture:</source>
+				<target>Geben Sie die Buchstaben aus dem Bild ein:</target>
+			</trans-unit>
+			<trans-unit id="captcha_error_required" xml:space="preserve" approved="yes">
+				<source>Please enter the letters displayed in the picture!</source>
+				<target>Es müssen die Buchstaben aus dem Bild eingegeben werden!</target>
+			</trans-unit>
+			<trans-unit id="captcha_error_valid" xml:space="preserve" approved="yes">
+				<source>The entered letters were not correct, please try again!</source>
+				<target>Die eingegebenen Buchstaben waren nicht richtig, bitte versuchen Sie es noch einmal!</target>
+			</trans-unit>
+			<trans-unit id="submit_register" xml:space="preserve" approved="yes">
+				<source>Register</source>
+				<target>Registrieren</target>
+			</trans-unit>
+			<trans-unit id="submit_edit" xml:space="preserve" approved="yes">
+				<source>Save</source>
+				<target>Speichern</target>
+			</trans-unit>
+			<trans-unit id="register_success" xml:space="preserve" approved="yes">
+				<source>You have successfully registered!</source>
+				<target>Sie haben sich erfolgreich registriert!</target>
+			</trans-unit>
+			<trans-unit id="edit_success" xml:space="preserve" approved="yes">
+				<source>Your data was successfully changed! You'll be redirected back in a few seconds!</source>
+				<target>Ihre Daten wurde erfolgreich geändert! Sie werden in wenigen Sekunden zurück geleitet!</target>
+			</trans-unit>
+			<trans-unit id="doubleoptin_sent" xml:space="preserve" approved="yes">
+				<source>To activate your account click the activation link in the e-mail we sent you!</source>
+				<target>Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde!</target>
+			</trans-unit>
+			<trans-unit id="adminapproval_sent" xml:space="preserve" approved="yes">
+				<source>To activate your account, the Administrator has to unlock it!</source>
+				<target>Sie werden durch den Administrator freigeschalten!</target>
+			</trans-unit>
+			<trans-unit id="doubleoptin_adminapproval_sent" xml:space="preserve" approved="yes">
+				<source>To activate your account click the activation link in the e-mail we sent you! Then the Administrator has to unlock it!</source>
+				<target>Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde! Sobald das geschehen ist, werden Sie durch den Administartors freigeschalten!</target>
+			</trans-unit>
+			<trans-unit id="adminapproval_doubleoptin_sent" xml:space="preserve" approved="yes">
+				<source>To activate your account, the Administrator has to unlock it! Then click the activation link in the e-mail we will sent you!</source>
+				<target>Um Ihren Account zu aktivieren, müssen Sie auf die Freischaltung des Administartors warten! Sobald das geschehen ist, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wird!</target>
+			</trans-unit>
+			<trans-unit id="doubleoptin_success" xml:space="preserve" approved="yes">
+				<source>Your account has been successfully unlocked!</source>
+				<target>Ihr Account wurde erfolgreich freigeschaltet!</target>
+			</trans-unit>
+			<trans-unit id="adminapproval_success" xml:space="preserve" approved="yes">
+				<source>The customers account has been successfully unlocked!</source>
+				<target>Der Benutzeraccount wurde erfolgreich freigeschaltet!</target>
+			</trans-unit>
+			<trans-unit id="doubleoptin_deleted" xml:space="preserve" approved="yes">
+				<source>The activation of our account has been successfully rejected!</source>
+				<target>Die Aktivierung Ihres Accounts wurde erfolgreich abgelehnt!</target>
+			</trans-unit>
+			<trans-unit id="adminapproval_deleted" xml:space="preserve" approved="yes">
+				<source>The activation of the customers account has been successfully rejected!</source>
+				<target>Die Aktivierung des Benutzeraccounts wurde erfolgreich abgelehnt!</target>
+			</trans-unit>
+			<trans-unit id="doubleoptin_failure" xml:space="preserve" approved="yes">
+				<source>Your activation link is unfortunately not valid!</source>
+				<target>Ihr Aktivierungslink ist leider nicht gültig!</target>
+			</trans-unit>
+			<trans-unit id="adminapproval_failure" xml:space="preserve" approved="yes">
+				<source>The given activation link is unfortunately not valid or the account has already been activated!</source>
+				<target>Der Aktivierungslink ist leider nicht gültig, oder der Account wurde schon aktiviert!</target>
+			</trans-unit>
+			<trans-unit id="approvalcheck_failure" xml:space="preserve" approved="yes">
+				<source>The given activation link is unfortunately not valid or the account has already been activated!</source>
+				<target>Der Aktivierungslink ist leider nicht gültig, oder Ihr Account wurde schon aktiviert!</target>
+			</trans-unit>
+			<trans-unit id="edit_error_login" xml:space="preserve" approved="yes">
+				<source>You can not edit the user data if you are not logged in!</source>
+				<target>Die Userdaten können nicht bearbeitet werden wenn man nicht eingelogt ist!</target>
+			</trans-unit>
+			<trans-unit id="edit_error_storage" xml:space="preserve" approved="yes">
+				<source>You can not edit the user data here!</source>
+				<target>Die Userdaten können hier nicht bearbeitet werden!</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

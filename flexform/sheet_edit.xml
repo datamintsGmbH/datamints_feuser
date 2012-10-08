@@ -26,27 +26,6 @@
 				</TCEforms>
 			</edit.userfolder>
 
-			<edit.generatepassword.mode>
-				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.generatepassword.mode</label>
-					<config>
-						<type>check</type>
-					</config>
-				</TCEforms>
-			</edit.generatepassword.mode>
-
-			<edit.generatepassword.length>
-				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.generatepassword.length</label>
-					<config>
-						<type>input</type>
-						<size>5</size>
-						<max>100</max>
-						<eval>int</eval>
-					</config>
-				</TCEforms>
-			</edit.generatepassword.length>
-
 			<edit.sendusermail>
 				<TCEforms>
 					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sendusermail</label>

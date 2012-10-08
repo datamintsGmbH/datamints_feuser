@@ -1,115 +1,150 @@
-@charset "utf-8";
+@charset 'utf-8';
 
 /****************************/
 /*** datamints feuser CSS ***/
 /****************************/
 
-div.tx-datamintsfeuser-pi1 {
+.tx-datamintsfeuser-pi1 {
 	margin-bottom: 20px;
 }
 
+.tx-datamintsfeuser-pi1 .clearfix {
+	zoom: 1;
+}
+
+.tx-datamintsfeuser-pi1 .clearfix:after,
+.tx-datamintsfeuser-pi1 .clearfix:before {
+	content: '';
+	display: table;
+}
+
+.tx-datamintsfeuser-pi1 .clearfix:after {
+	clear: both;
+}
+
 /*** Form and Fields ***/
-div.tx-datamintsfeuser-pi1 form {
+.tx-datamintsfeuser-pi1 form {
 	margin: 0;
 	padding: 0;
 }
-div.tx-datamintsfeuser-pi1 form fieldset {
+.tx-datamintsfeuser-pi1 fieldset {
 	margin-bottom: 20px;
 	padding: 10px;
 	border: 1px solid #ccc;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_item {
-	clear: both;
-	margin-top: 10px;
+.tx-datamintsfeuser-pi1 .item {
+	margin-bottom: 10px;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_item label {
-	display: block;
+.tx-datamintsfeuser-pi1 label {
 	width: 160px;
+	margin-right: 10px;
 	float: left;
+	display: block;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_item input,
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_text textarea {
+.tx-datamintsfeuser-pi1 input,
+.tx-datamintsfeuser-pi1 select,
+.tx-datamintsfeuser-pi1 textarea {
 	width: 300px;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_check input {
+.tx-datamintsfeuser-pi1 select {
+	max-height: 100px;
+}
+.tx-datamintsfeuser-pi1 .type-check input {
 	width: auto;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_select select {
-	width: 300px;
-	max-height: 100px;
+.tx-datamintsfeuser-pi1 .list {
+	margin-left: 170px;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_check div.check_item_wrapper,
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_select div.check_item_wrapper,
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_radio div.radio_item_wrapper,
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_group div.group_item_wrapper {
-	margin-left: 160px;
-	width: 300px;
-	max-height: 100px;
-	overflow: auto;
-}
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_check div.check_item label,
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_select div.check_item label,
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_radio div.radio_item label,
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_group div.group_item label {
-	display: inline;
+.tx-datamintsfeuser-pi1 .list .item label {
 	width: auto;
 	float: none;
+	display: inline;
+	vertical-align: middle;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_check div.check_item input,
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_select div.check_item input,
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_radio div.radio_item input,
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_group div.group_item input {
-	margin-right: 4px;
+.tx-datamintsfeuser-pi1 .list .item input {
 	width: auto;
+	margin-right: 4px;
+	vertical-align: middle;
+}
+.tx-datamintsfeuser-pi1 .type-check .item,
+.tx-datamintsfeuser-pi1 .type-group .item,
+.tx-datamintsfeuser-pi1 .type-radio .item,
+.tx-datamintsfeuser-pi1 .type-select .item {
+	margin-bottom: 4px;
+}
+.tx-datamintsfeuser-pi1 .type-check .item {
 	float: left;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_check div.check_item {
-	float: left;
+.tx-datamintsfeuser-pi1 .type-group .item .link,
+.tx-datamintsfeuser-pi1 .type-group .item .thumb,
+.tx-datamintsfeuser-pi1 .type-group .item .upload,
+.tx-datamintsfeuser-pi1 .type-group .item .delete {
+	margin-bottom: 4px;
+}
+.tx-datamintsfeuser-pi1 .type-group .item .thumb {
+	width: 100px;
 	margin-right: 10px;
+	float: left;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_captcha div.captcha_picture {
+.tx-datamintsfeuser-pi1 .type-group .item .thumb.none {
+	background-color: #dedede;
+}
+.tx-datamintsfeuser-pi1 .type-group .item .thumb.none:before {
+    content: '?';
+	height: 30px;
+    margin-top: 14px;
+	cursor: default;
+    display: block;
+	color: #fff;
+    font-size: 40px;
+	text-align: center;
+}
+.tx-datamintsfeuser-pi1 .type-group .item .upload,
+.tx-datamintsfeuser-pi1 .type-group .item .delete {
+	float: left;
+}
+.tx-datamintsfeuser-pi1 .type-captcha .captcha {
 	display: inline;
 	margin-right: 20px;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_captcha div.captcha_picture img {
+.tx-datamintsfeuser-pi1 .type-captcha .captcha img {
 	vertical-align: middle;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_captcha input {
+.tx-datamintsfeuser-pi1 .type-captcha input {
 	width: 100px;
 	vertical-align: middle;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_submit {
-	clear: both;
+.tx-datamintsfeuser-pi1 .type-submit {
 	margin-top: 20px;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.form_type_submit input {
+.tx-datamintsfeuser-pi1 .type-submit input {
 	width: auto;
-	margin-left: 160px;
+	margin-left: 170px;
 }
 /*
-div.tx-datamintsfeuser-pi1 form fieldset div.list {
+.tx-datamintsfeuser-pi1 .list {
 	height: 18px;
 	margin: 8px;
 	border: 1px solid #ccc;
 	padding: 6px;
 	background-color: #fafafa;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.list label {
+.tx-datamintsfeuser-pi1 .list label {
 	width: auto;
 }
-div.tx-datamintsfeuser-pi1 form fieldset div.list input {
+.tx-datamintsfeuser-pi1 .list input {
 	float: right;
 }
 */
 
 /*** Error - Messages ***/
-div.tx-datamintsfeuser-pi1 form fieldset div.form_item div.form_error {
+.tx-datamintsfeuser-pi1 .error {
+	margin-top: 4px;
+	padding-left: 20px;
+	clear: both;
 	color: #a20;
 	font-weight: bold;
-	margin-top: 5px;
-	padding-left: 25px;
 	background-image: url('arrow_red_up.png');
 	background-repeat: no-repeat;
-	background-position: 5px 0;
-	clear: left;
+	background-position: left top;
 }

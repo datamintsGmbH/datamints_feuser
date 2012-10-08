@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2012-10-08T11:26:32Z" product-name="datamints_feuser">
+		<header/>
+		<body>
+			<trans-unit id="username_error_required" xml:space="preserve">
+				<source>You must enter a username!</source>
+			</trans-unit>
+			<trans-unit id="username_error_unique" xml:space="preserve">
+				<source>This username already exists!</source>
+			</trans-unit>
+			<trans-unit id="username_error_valid" xml:space="preserve">
+				<source>The username must not contain any spaces!</source>
+			</trans-unit>
+			<trans-unit id="password_rep" xml:space="preserve">
+				<source>Confirm Password:</source>
+			</trans-unit>
+			<trans-unit id="password_error_equal" xml:space="preserve">
+				<source>You have to enter the same password twice!</source>
+			</trans-unit>
+			<trans-unit id="password_error_length" xml:space="preserve">
+				<source>The password must be at least 6 characters long!</source>
+			</trans-unit>
+			<trans-unit id="password_error_required" xml:space="preserve">
+				<source>You must enter a password!</source>
+			</trans-unit>
+			<trans-unit id="usergroup_error_required" xml:space="preserve">
+				<source>You must choose a usergroup!</source>
+			</trans-unit>
+			<trans-unit id="name_error_required" xml:space="preserve">
+				<source>You must enter a name!</source>
+			</trans-unit>
+			<trans-unit id="first_name_error_required" xml:space="preserve">
+				<source>You must enter a first name!</source>
+			</trans-unit>
+			<trans-unit id="middle_name_error_required" xml:space="preserve">
+				<source>You must enter a middle name!</source>
+			</trans-unit>
+			<trans-unit id="last_name_error_required" xml:space="preserve">
+				<source>You must enter a last name!</source>
+			</trans-unit>
+			<trans-unit id="address_error_required" xml:space="preserve">
+				<source>You must enter a address!</source>
+			</trans-unit>
+			<trans-unit id="telephone_error_required" xml:space="preserve">
+				<source>You must enter a telephone number!</source>
+			</trans-unit>
+			<trans-unit id="fax_error_required" xml:space="preserve">
+				<source>You must enter a fax number!</source>
+			</trans-unit>
+			<trans-unit id="email_error_required" xml:space="preserve">
+				<source>You must enter an e-mail address!</source>
+			</trans-unit>
+			<trans-unit id="email_error_unique" xml:space="preserve">
+				<source>This e-mail address is already in use!</source>
+			</trans-unit>
+			<trans-unit id="email_error_valid" xml:space="preserve">
+				<source>The entered e-mail address is invalid!</source>
+			</trans-unit>
+			<trans-unit id="title_error_required" xml:space="preserve">
+				<source>You must enter a title!</source>
+			</trans-unit>
+			<trans-unit id="zip_error_required" xml:space="preserve">
+				<source>You must enter a zip!</source>
+			</trans-unit>
+			<trans-unit id="city_error_required" xml:space="preserve">
+				<source>You must enter a city name!</source>
+			</trans-unit>
+			<trans-unit id="country_error_required" xml:space="preserve">
+				<source>You must enter a country!</source>
+			</trans-unit>
+			<trans-unit id="www_error_required" xml:space="preserve">
+				<source>You must enter a web addess!</source>
+			</trans-unit>
+			<trans-unit id="company_error_required" xml:space="preserve">
+				<source>You must enter a company name!</source>
+			</trans-unit>
+			<trans-unit id="image_delete" xml:space="preserve">
+				<source>Delete current image!</source>
+			</trans-unit>
+			<trans-unit id="image_error_size" xml:space="preserve">
+				<source>The image is too large!</source>
+			</trans-unit>
+			<trans-unit id="image_error_type" xml:space="preserve">
+				<source>The uploaded file is not an image!</source>
+			</trans-unit>
+			<trans-unit id="image_error_upload" xml:space="preserve">
+				<source>The image could not be uploaded!</source>
+			</trans-unit>
+			<trans-unit id="image_error_delete" xml:space="preserve">
+				<source>The image could not be deleted!</source>
+			</trans-unit>
+			<trans-unit id="userdelete" xml:space="preserve">
+				<source>Delete Current User?</source>
+			</trans-unit>
+			<trans-unit id="userdelete_success" xml:space="preserve">
+				<source>The User was successfully deleted!</source>
+			</trans-unit>
+			<trans-unit id="passwordconfirmation" xml:space="preserve">
+				<source>Current Password:</source>
+			</trans-unit>
+			<trans-unit id="passwordconfirmation_error_required" xml:space="preserve">
+				<source>Please enter your current password!</source>
+			</trans-unit>
+			<trans-unit id="passwordconfirmation_error_valid" xml:space="preserve">
+				<source>The entered password was not equal to your current password!</source>
+			</trans-unit>
+			<trans-unit id="resendactivation" xml:space="preserve">
+				<source>Resend activation mail to this e-mail:</source>
+			</trans-unit>
+			<trans-unit id="resendactivation_list" xml:space="preserve">
+				<source>Resend activation mail to the following User:</source>
+			</trans-unit>
+			<trans-unit id="resendactivation_sent" xml:space="preserve">
+				<source>A new activation mail was sent to the entered e-mail!</source>
+			</trans-unit>
+			<trans-unit id="resendactivation_failure" xml:space="preserve">
+				<source>You have to wait for admin activation!</source>
+			</trans-unit>
+			<trans-unit id="resendactivation_error_required" xml:space="preserve">
+				<source>Please enter the e-mail address you have registered with!</source>
+			</trans-unit>
+			<trans-unit id="resendactivation_error_valid" xml:space="preserve">
+				<source>The entered e-mail address has not yet been registered or has already been activated!</source>
+			</trans-unit>
+			<trans-unit id="captcha" xml:space="preserve">
+				<source>Enter the letters displayed in the picture:</source>
+			</trans-unit>
+			<trans-unit id="captcha_error_required" xml:space="preserve">
+				<source>Please enter the letters displayed in the picture!</source>
+			</trans-unit>
+			<trans-unit id="captcha_error_valid" xml:space="preserve">
+				<source>The entered letters were not correct, please try again!</source>
+			</trans-unit>
+			<trans-unit id="submit_register" xml:space="preserve">
+				<source>Register</source>
+			</trans-unit>
+			<trans-unit id="submit_edit" xml:space="preserve">
+				<source>Save</source>
+			</trans-unit>
+			<trans-unit id="register_success" xml:space="preserve">
+				<source>You have successfully registered!</source>
+			</trans-unit>
+			<trans-unit id="edit_success" xml:space="preserve">
+				<source>Your data was successfully changed! You'll be redirected back in a few seconds!</source>
+			</trans-unit>
+			<trans-unit id="doubleoptin_sent" xml:space="preserve">
+				<source>To activate your account click the activation link in the e-mail we sent you!</source>
+			</trans-unit>
+			<trans-unit id="adminapproval_sent" xml:space="preserve">
+				<source>To activate your account, the Administrator has to unlock it!</source>
+			</trans-unit>
+			<trans-unit id="doubleoptin_adminapproval_sent" xml:space="preserve">
+				<source>To activate your account click the activation link in the e-mail we sent you! Then the Administrator has to unlock it!</source>
+			</trans-unit>
+			<trans-unit id="adminapproval_doubleoptin_sent" xml:space="preserve">
+				<source>To activate your account, the Administrator has to unlock it! Then click the activation link in the e-mail we will sent you!</source>
+			</trans-unit>
+			<trans-unit id="doubleoptin_success" xml:space="preserve">
+				<source>Your account has been successfully unlocked!</source>
+			</trans-unit>
+			<trans-unit id="adminapproval_success" xml:space="preserve">
+				<source>The customers account has been successfully unlocked!</source>
+			</trans-unit>
+			<trans-unit id="doubleoptin_deleted" xml:space="preserve">
+				<source>The activation of our account has been successfully rejected!</source>
+			</trans-unit>
+			<trans-unit id="adminapproval_deleted" xml:space="preserve">
+				<source>The activation of the customers account has been successfully rejected!</source>
+			</trans-unit>
+			<trans-unit id="doubleoptin_failure" xml:space="preserve">
+				<source>Your activation link is unfortunately not valid!</source>
+			</trans-unit>
+			<trans-unit id="adminapproval_failure" xml:space="preserve">
+				<source>The given activation link is unfortunately not valid or the account has already been activated!</source>
+			</trans-unit>
+			<trans-unit id="approvalcheck_failure" xml:space="preserve">
+				<source>The given activation link is unfortunately not valid or the account has already been activated!</source>
+			</trans-unit>
+			<trans-unit id="edit_error_login" xml:space="preserve">
+				<source>You can not edit the user data if you are not logged in!</source>
+			</trans-unit>
+			<trans-unit id="edit_error_storage" xml:space="preserve">
+				<source>You can not edit the user data here!</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
