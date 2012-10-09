@@ -65,18 +65,18 @@
  * 2133:     function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
  * 2247:     function showCaptcha($fieldName, $valueCheck)
  * 2304:     function getFieldId()
- * 2319:     function getFieldName()
- * 2335:     function getLabel($fieldName, $checkRequired = true)
- * 2378:     function getErrorLabel($fieldName, $valueCheck)
- * 2395:     function isRequiredField($fieldName)
- * 2410:     function getTableLabelFieldName($table)
- * 2425:     function getHiddenParamsArray()
- * 2442:     function getHiddenParamsHiddenFields()
- * 2491:     function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams)
- * 2534:     function determineConfiguration()
- * 2578:     function determineIrreConfiguration()
- * 2721:     function getConfigurationByShowtype($subConfig = '')
- * 2734:     function getJSValidationConfiguration()
+ * 2326:     function getFieldName()
+ * 2349:     function getLabel($fieldName, $checkRequired = true)
+ * 2392:     function getErrorLabel($fieldName, $valueCheck)
+ * 2409:     function isRequiredField($fieldName)
+ * 2424:     function getTableLabelFieldName($table)
+ * 2439:     function getHiddenParamsArray()
+ * 2456:     function getHiddenParamsHiddenFields()
+ * 2505:     function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams)
+ * 2548:     function determineConfiguration()
+ * 2592:     function determineIrreConfiguration()
+ * 2735:     function getConfigurationByShowtype($subConfig = '')
+ * 2748:     function getJSValidationConfiguration()
  *
  *
  * TOTAL FUNCTIONS: 48
@@ -2302,12 +2302,19 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	string
 	 */
 	function getFieldId() {
+		if (!func_num_args()) {
+			return '';
+		}
+
 		$arrParts = array(
 			$this->extKey,
 			$this->contentId
 		);
 
-		return implode('_', array_merge($arrParts, func_get_args()));
+		// Darf nicht als Methoden-Parameter uebergeben werden, da das vor PHP 5.3 fuer diese Methode nicht unterstuetzt wurde!
+		$arrFuncArgs = func_get_args();
+
+		return implode('_', array_merge($arrParts, $arrFuncArgs));
 	}
 
 	/**
@@ -2317,12 +2324,19 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	string
 	 */
 	function getFieldName() {
+		if (!func_num_args()) {
+			return '';
+		}
+
 		$arrParts = array(
 			$this->prefixId,
 			$this->contentId
 		);
 
-		return array_shift($arrParts) . '[' . implode('][', array_merge($arrParts, func_get_args())) . ']';
+		// Darf nicht als Methoden-Parameter uebergeben werden, da das vor PHP 5.3 fuer diese Methode nicht unterstuetzt wurde!
+		$arrFuncArgs = func_get_args();
+
+		return array_shift($arrParts) . '[' . implode('][', array_merge($arrParts, $arrFuncArgs)) . ']';
 	}
 
 	/**
