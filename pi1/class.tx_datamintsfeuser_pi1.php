@@ -28,53 +28,52 @@
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
  *
- *   96: class tx_datamintsfeuser_pi1 extends tslib_pibase
- *  127:     function main($content, $conf)
- *  206:     function doFormSubmit()
- *  401:     function trimPiVars()
- *  414:     function checkValid()
- *  567:     function checkUnique()
- *  600:     function checkRequired()
- *  672:     function checkCaptcha($value)
- *  726:     function cleanPasswordField($fieldName, $fieldConfig, $arrUpdate)
- *  748:     function cleanCheckboxField($fieldName, $fieldConfig, $arrUpdate)
- *  783:     function cleanMultipleSelectboxField($fieldName, $fieldConfig, $arrUpdate)
- *  817:     function cleanGroupAndMultipleCheckboxField($fieldName, $fieldConfig, $arrUpdate)
- *  858:     function cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate)
- *  886:     function saveDeleteFiles($fieldName, $fieldConfig, $arrUpdate, &$error = '')
- *  992:     function copyFields($arrUpdate)
- * 1044:     function doUserEdit($arrUpdate)
- * 1082:     function doUserRegister($arrUpdate)
- * 1147:     function showOutputRedirect($mode, $submode = '', $params = array())
- * 1252:     function sendActivationMail($userId = 0)
- * 1299:     function doApprovalCheck()
- * 1378:     function getApprovalTypes()
- * 1389:     function setNotActivatedCookie($userId)
- * 1402:     function getNotActivatedUserArray($arrNotActivated = array())
- * 1434:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
+ *   95: class tx_datamintsfeuser_pi1 extends tslib_pibase
+ *  126:     function main($content, $conf)
+ *  205:     function doFormSubmit()
+ *  400:     function checkValid()
+ *  553:     function checkUnique()
+ *  586:     function checkRequired()
+ *  658:     function checkCaptcha($value)
+ *  712:     function cleanPasswordField($fieldName, $fieldConfig, $arrUpdate)
+ *  734:     function cleanCheckboxField($fieldName, $fieldConfig, $arrUpdate)
+ *  769:     function cleanMultipleSelectboxField($fieldName, $fieldConfig, $arrUpdate)
+ *  805:     function cleanGroupAndMultipleCheckboxField($fieldName, $fieldConfig, $arrUpdate)
+ *  849:     function cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate)
+ *  877:     function saveDeleteFiles($fieldName, $fieldConfig, $arrUpdate, &$error = '')
+ *  991:     function copyFields($arrUpdate)
+ * 1047:     function doUserEdit($arrUpdate)
+ * 1085:     function doUserRegister($arrUpdate)
+ * 1150:     function showOutputRedirect($mode, $submode = '', $params = array())
+ * 1255:     function sendActivationMail($userId = 0)
+ * 1302:     function doApprovalCheck()
+ * 1380:     function getApprovalTypes()
+ * 1391:     function setNotActivatedCookie($userId)
+ * 1404:     function getNotActivatedUserArray($arrNotActivated = array())
+ * 1436:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
  * 1558:     function isAdminMail($approvalType)
  * 1570:     function getTemplateSubpart($templatePart, $markerArray = array(), $config = array())
  * 1591:     function getChangedForMail($arrNewData, $config)
  * 1628:     function getPasswordForMail()
  * 1649:     function showForm($valueCheck = array())
- * 1878:     function showInput($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 1929:     function showText($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 1946:     function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2000:     function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2036:     function showSelect($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2133:     function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2247:     function showCaptcha($fieldName, $valueCheck)
- * 2304:     function getFieldId()
- * 2326:     function getFieldName()
- * 2349:     function getLabel($fieldName, $checkRequired = true)
- * 2392:     function getErrorLabel($fieldName, $valueCheck)
- * 2409:     function isRequiredField($fieldName)
- * 2424:     function getTableLabelFieldName($table)
- * 2439:     function getHiddenParamsArray()
- * 2456:     function getHiddenParamsHiddenFields()
- * 2505:     function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams)
- * 2548:     function determineConfiguration()
- * 2592:     function determineIrreConfiguration()
+ * 1870:     function showInput($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 1921:     function showText($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 1938:     function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 1992:     function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2028:     function showSelect($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2125:     function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2240:     function showCaptcha($fieldName, $valueCheck)
+ * 2297:     function getFieldId()
+ * 2319:     function getFieldName()
+ * 2342:     function getLabel($fieldName, $checkRequired = true)
+ * 2385:     function getErrorLabel($fieldName, $valueCheck)
+ * 2402:     function isRequiredField($fieldName)
+ * 2417:     function getTableLabelFieldName($table)
+ * 2432:     function getHiddenParamsArray()
+ * 2449:     function getHiddenParamsHiddenFields()
+ * 2498:     function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams)
+ * 2541:     function determineConfiguration()
+ * 2587:     function determineIrreConfiguration()
  * 2735:     function getConfigurationByShowtype($subConfig = '')
  * 2748:     function getJSValidationConfiguration()
  *
@@ -98,16 +97,16 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	var $prefixId = 'tx_datamintsfeuser_pi1';
 	var $scriptRelPath = 'pi1/class.tx_datamintsfeuser_pi1.php';
 	var $pi_checkCHash = true;
-	var $feUsersTca = array();
-	var $storagePid = 0;
-	var $contentUid = 0;
 	var $conf = array();
-	var $extConf = array();
 	var $lang = array();
+	var $extConf = array();
+	var $feUsersTca = array();
 	var $userId = 0;
+	var $contentUid = 0;
+	var $storagePid = 0;
 	var $arrUsedFields = array();
-	var $arrRequiredFields = array();
 	var $arrUniqueFields = array();
+	var $arrRequiredFields = array();
 	var $arrHiddenParams = array();
 
 	const submitKeySend = 'send';
@@ -210,7 +209,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$arrUpdate = array();
 
 		// Jedes Element in piVars trimmen.
-		$this->trimPiVars();
+		array_walk_recursive($this->piVars[$this->contentId], 'tx_datamintsfeuser_utils::trimCallback');
 
 		// Eine Validierung durchfuehren ueber alle Felder die eine gesonderte Konfigurtion bekommen haben.
 		$validCheck = $this->checkValid();
@@ -222,7 +221,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$requiredCheck = $this->checkRequired();
 
 		// Wenn bei der Validierung ein Feld nicht den Anforderungen entspricht noch einmal die Form anzeigen und entsprechende Felder markieren.
-		$valueCheck = array_merge((array)$validCheck, (array)$uniqueCheck, (array)$requiredCheck);
+		$valueCheck = array_merge($validCheck, $uniqueCheck, $requiredCheck);
 
 		if (count($valueCheck) > 0) {
 			return $this->showForm($valueCheck);
@@ -311,7 +310,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 				// Group, Bildfelder behandeln.
 				if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'file') {
-					$arrUpdate[$fieldName] = (string)$GLOBALS['TSFE']->fe_user->user[$fieldName];
+					$arrUpdate[$fieldName] = $GLOBALS['TSFE']->fe_user->user[$fieldName];
 
 					// Das Bild hochladen oder loeschen. Gibt einen Fehlerstring per Referenz zurueck falls ein Fehler auftritt!
 					$arrUpdate = $this->saveDeleteFiles($fieldName, $fieldConfig, $arrUpdate, $valueCheck[$fieldName]);
@@ -391,19 +390,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		return $this->showOutputRedirect($mode, $submode, $params);
-	}
-
-	/**
-	 * Jedes Element in piVars trimmen.
-	 *
-	 * @return	void
-	 */
-	function trimPiVars() {
-		foreach ($this->piVars[$this->contentId] as $key => $value) {
-			if (!is_array($value)) {
-				$this->piVars[$this->contentId][$key] = trim($value);
-			}
-		}
 	}
 
 	/**
@@ -630,15 +616,15 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						// Es wird mindestens eine Datei benoetigt!
 						$valueCheck[$fieldName] = 'required';
 
-						$fieldVars = (array)$this->piVars[$this->contentId][$fieldName];
-						$arrFilenames = t3lib_div::trimExplode(',', (string)$GLOBALS['TSFE']->fe_user->user[$fieldName], true);
+						$arrFieldVars = (array)$this->piVars[$this->contentId][$fieldName];
+						$arrFilenames = t3lib_div::trimExplode(',', $GLOBALS['TSFE']->fe_user->user[$fieldName], true);
 
-						foreach ($fieldVars['files'] as $sentKey => $filename) {
+						foreach ($arrFieldVars['files'] as $sentKey => $filename) {
 							$sentKey = intval($sentKey);
 							$savedKey = array_search($filename, $arrFilenames);
 
 							// Wenn eine Datei vorhanden (egal ob neu uebergeben oder bereits vorhanden) und diese nicht geloescht wird, wird kein Fehler zurueckgegeben!
-							if ($_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]['upload'][$sentKey] || ($savedKey !== false && !$fieldVars['delete'][$sentKey])) {
+							if ($_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]['upload'][$sentKey] || ($savedKey !== false && !$arrFieldVars['delete'][$sentKey])) {
 								unset($valueCheck[$fieldName]);
 							}
 						}
@@ -785,20 +771,22 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$arrCleanedValues = array();
 
 		// Wenn nichts ausgewaehlt wurde, wird auch dieser Parameter nicht uebergeben, daher zuerst ueberpruefen, ob etwas vorhanden ist.
-		if ($this->piVars[$this->contentId][$fieldName]) {
-			foreach ($this->piVars[$this->contentId][$fieldName] as $val) {
-				// Einen leeren String als Uebergabewert gibt es nicht, bzw. das ist das versteckte Feld, um alle Werte abwaehlen zu koennen!
-				if ($val == '') {
-					continue;
-				}
+		if (!is_array($this->piVars[$this->contentId][$fieldName])) {
+			return $arrUpdate;
+		}
 
-				if ($fieldConfig['maxitems'] && $maxItemsCount > $fieldConfig['maxitems']) {
-					break;
-				}
-
-				$arrCleanedValues[] = intval($val);
-				$maxItemsCount++;
+		foreach ($this->piVars[$this->contentId][$fieldName] as $val) {
+			// Einen leeren String als Uebergabewert gibt es nicht, bzw. das ist das versteckte Feld, um alle Werte abwaehlen zu koennen!
+			if ($val == '') {
+				continue;
 			}
+
+			if ($fieldConfig['maxitems'] && $maxItemsCount > $fieldConfig['maxitems']) {
+				break;
+			}
+
+			$arrCleanedValues[] = intval($val);
+			$maxItemsCount++;
 		}
 
 		$arrUpdate[$fieldName] = implode(',', $arrCleanedValues);
@@ -820,17 +808,20 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		$arrAllowed = t3lib_div::trimExplode(',', $fieldConfig['allowed'], true);
 
+		// Hier werden absichtlich nur die Erlaubten Tabellen benutzt, da es sonst unmengen an möglichen Optionen geben wuerde!
 		foreach ($arrAllowed as $table) {
-			if ($GLOBALS['TCA'][$table]) {
-				foreach ($this->piVars[$this->contentId][$fieldName] as $val) {
-					if ($fieldConfig['maxitems'] && $maxItemsCount > $fieldConfig['maxitems']) {
-						break;
-					}
+			if (!$GLOBALS['TCA'][$table] || !is_array($this->piVars[$this->contentId][$fieldName])) {
+				continue;
+			}
 
-					if (preg_match('/^' . $table . '_[0-9]+$/', $val)) {
-						$arrCleanedValues[] = $val;
-						$maxItemsCount++;
-					}
+			foreach ($this->piVars[$this->contentId][$fieldName] as $val) {
+				if ($fieldConfig['maxitems'] && $maxItemsCount > $fieldConfig['maxitems']) {
+					break;
+				}
+
+				if (preg_match('/^' . $table . '_[0-9]+$/', $val)) {
+					$arrCleanedValues[] = $val;
+					$maxItemsCount++;
 				}
 			}
 		}
@@ -884,18 +875,19 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	array		$arrUpdate
 	 */
 	function saveDeleteFiles($fieldName, $fieldConfig, $arrUpdate, &$error = '') {
-		$fieldVars = (array)$this->piVars[$this->contentId][$fieldName];
+		$arrFieldVars = (array)$this->piVars[$this->contentId][$fieldName];
 
 		$maxSize = $fieldConfig['max_size'] * 1024;
 		$uploadFolder = tx_datamintsfeuser_utils::fixPath($fieldConfig['uploadfolder']);
-		$allowedTypes = array_map('strtolower', t3lib_div::trimExplode(',', $fieldConfig['allowed']));
+		$allowedTypes = t3lib_div::trimExplode(',', strtolower(str_replace('*', '', $fieldConfig['allowed'])), true);
+		$disallowedTypes = t3lib_div::trimExplode(',', strtolower(str_replace('*', '', $fieldConfig['disallowed'])), true);
 
 		$arrFilenames = t3lib_div::trimExplode(',', $arrUpdate[$fieldName], true);
 
 		$error = '';
 		$arrProcessedKeys = array();
 
-		foreach ($fieldVars['files'] as $sentKey => $filename) {
+		foreach ($arrFieldVars['files'] as $sentKey => $filename) {
 			$sentKey = intval($sentKey);
 			$savedKey = array_search($filename, $arrFilenames);
 
@@ -905,7 +897,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 
 			// Wenn kein Bild hochgeladen wurde und keines geloescht werden kann, abbrechen!
-			if (!$_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]['upload'][$sentKey] && !($savedKey !== false && $fieldVars['delete'][$sentKey])) {
+			if (!$_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]['upload'][$sentKey] && !($savedKey !== false && $arrFieldVars['delete'][$sentKey])) {
 				continue;
 			}
 
@@ -914,7 +906,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$arrProcessedKeys[] = $sentKey;
 
 			// Falls das Bild durch den User geloescht wird, soll bei einem Fehler auch eine entsprechende Fehlermeldung angezeigt werden!
-			if ($fieldVars['delete'][$sentKey]) {
+			if ($arrFieldVars['delete'][$sentKey]) {
 				$error = 'delete';
 			}
 
@@ -937,8 +929,15 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 				$newFiletype = pathinfo(strtolower($_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]['upload'][$sentKey]),  PATHINFO_EXTENSION);
 
-				// Wenn ein falsches Format hochgeladen wurde.
-				if (!in_array($newFiletype, $allowedTypes)) {
+				// Wenn nur bestimmte Datei-Typen erlaubt sind, und der aktuelle Typ nicht in den Erlaubten enthalten ist!
+				if ($allowedTypes && !in_array($newFiletype, $allowedTypes)) {
+					$error = 'type';
+
+					break;
+				}
+
+				// Wenn bestimmte Datei-Typen nicht erlaubt sind, und der aktuelle Typ in den Unerlaubten enthalten ist!
+				if ($disallowedTypes && in_array($newFiletype, $disallowedTypes)) {
 					$error = 'type';
 
 					break;
@@ -954,14 +953,14 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					chmod($filePath, 0644);
 
 					$arrFilenames[] = $newFilename;
-					$fieldVars['delete'][$sentKey] = true;
+					$arrFieldVars['delete'][$sentKey] = true;
 
 					// Wenn Das Bild erfolgreich hochgeladen wurde, Fehlermeldung zuruecksetzten.
 					$error = '';
 				}
 			}
 
-			if ($savedKey !== false && $fieldVars['delete'][$sentKey]) {
+			if ($savedKey !== false && $arrFieldVars['delete'][$sentKey]) {
 				$filePath = t3lib_div::getFileAbsFileName($uploadFolder . $arrFilenames[$savedKey]);
 
 				if (file_exists($filePath) && unlink($filePath)) {
@@ -990,10 +989,14 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	array		$arrUpdate
 	 */
 	function copyFields($arrUpdate) {
+		if (!is_array($this->conf['copyfields.'])) {
+			return $arrUpdate;
+		}
+
 		// Kopiert den Inhalt eines Feldes in ein anderes Feld.
 		$arrCopiedFields = array();
 
-		foreach ((array)$this->conf['copyfields.'] as $fieldToCopy => $arrCopyToFields) {
+		foreach ($this->conf['copyfields.'] as $fieldToCopy => $arrCopyToFields) {
 			$fieldToCopy = rtrim($fieldToCopy, '.');
 
 			// Wenn das Feld nich existiert, ueberspringen.
@@ -1316,14 +1319,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$params = array();
 
 		// Daten vorbereiten.
-		$time = time();
 		$hashApproval = md5('approval' . $row['uid'] . $row['tstamp'] . $this->extConf['encryptionKey']);
 		$hashDisapproval = md5('disapproval' . $row['uid'] . $row['tstamp'] . $this->extConf['encryptionKey']);
 
 		// Wenn der Approval-Hash richtig ist, des letzte Genehmigungslevel aber noch nicht erreicht ist.
 		if ($this->piVars[$this->contentId]['hash'] == $hashApproval && $row['tx_datamintsfeuser_approval_level'] > 1) {
 			// Genehmigungslevel updaten.
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , array('tstamp' => $time, 'tx_datamintsfeuser_approval_level' => $row['tx_datamintsfeuser_approval_level'] - 1));
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , array('tstamp' => time(), 'tx_datamintsfeuser_approval_level' => $row['tx_datamintsfeuser_approval_level'] - 1));
 
 			// Aktivierungsmail schicken.
 			$this->sendActivationMail();
@@ -1335,7 +1337,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Wenn der Approval-Hash richtig ist, und das letzte Genehmigungslevel erreicht ist.
 		if ($this->piVars[$this->contentId]['hash'] == $hashApproval && $row['tx_datamintsfeuser_approval_level'] == 1) {
 			// User aktivieren.
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , array('tstamp' => $time, 'disable' => '0', 'tx_datamintsfeuser_approval_level' => '0'));
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , array('tstamp' => time(), 'disable' => '0', 'tx_datamintsfeuser_approval_level' => '0'));
 
 			// Registrierungs E-Mail schicken.
 			if ($this->getConfigurationByShowtype('sendadminmail')) {
@@ -1357,7 +1359,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Wenn der Disapproval-Hash richtig ist.
 		if ($this->piVars[$this->contentId]['hash'] == $hashDisapproval) {
 			// User loeschen.
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId ,array('tstamp' => $time, 'deleted' => '1'));
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId ,array('tstamp' => time(), 'deleted' => '1'));
 
 			// Eine Account-Abgelehnt Mail senden, wenn User ablehnt an den Administrator, oder andersrum.
 			$this->sendMail($this->userId, 'disapproval', !$this->isAdminMail($approvalType), $this->getConfigurationByShowtype());
@@ -1436,7 +1438,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . intval($userId), '', '', '1');
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 
-		$markerArray = array_merge((array)$row, (array)$extraMarkers);
+		$markerArray = array_merge((array)$config, (array)$row, (array)$extraMarkers);
 
 		foreach ($markerArray as $key => $val) {
 			$markerArray['label_' . $key] = $this->getLabel($key, false);
@@ -1445,8 +1447,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 //				$markerArray[$key] = utf8_encode($val);
 //			}
 		}
-
-		$markerArray = array_merge((array)$markerArray, (array)$config);
 
 		// Absender vorbereiten.
 		$fromName = $config['sendername'];
@@ -1472,10 +1472,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$content = $this->cObj->substituteSubpart($content, '###SUBJECT###', '');
 
 		// Body zusammensetzen.
-		$body = $this->getTemplateSubpart('body', array_merge((array)$markerArray, array('content' => $content)), $config);
+		$body = $this->getTemplateSubpart('body', array_merge($markerArray, array('content' => $content)), $config);
 
 		// Header ermitteln und Betreff ersetzten (Title-Tag).
-		$header = $this->getTemplateSubpart('header', array_merge((array)$markerArray, array('subject' => $subject)), $config);
+		$header = $this->getTemplateSubpart('header', array_merge($markerArray, array('subject' => $subject)), $config);
 
 		// Extra Subparts ersetzten.
 		foreach ($extraSuparts as $key => $val) {
@@ -1647,6 +1647,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	string		$content
 	 */
 	function showForm($valueCheck = array()) {
+		$arrCurrentData = array();
+
 		// Beim editieren der Userdaten, die Felder vorausfuellen.
 		if ($this->conf['showtype'] == 'edit') {
 			$arrCurrentData = (array)$GLOBALS['TSFE']->fe_user->user;
@@ -1654,21 +1656,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Wenn das Formular schon einmal abgesendet wurde aber ein Fehler auftrat, dann die bereits vom User uebertragenen Userdaten vorausfuellen.
 		if ($this->piVars[$this->contentId]) {
-			foreach ($this->piVars[$this->contentId] as $key => $val) {
-				if (is_array($this->piVars[$this->contentId][$key])) {
-					foreach ($this->piVars[$this->contentId][$key] as $subKey => $subVal) {
-						$this->piVars[$this->contentId][$key][$subKey] = strip_tags($subVal);
-					}
-				} else {
-					$this->piVars[$this->contentId][$key] = strip_tags($val);
-				}
-			}
-
-			$arrCurrentData = array_merge((array)$arrCurrentData, (array)$this->piVars[$this->contentId]);
+			$arrCurrentData = array_merge($arrCurrentData, (array)$this->piVars[$this->contentId]);
 		}
 
-		// Konvertiert alle moeglichen Zeichen der Ausgabe, die stoeren koennten (XSS).
-		$arrCurrentData = tx_datamintsfeuser_utils::htmlspecialcharsPostArray((array)$arrCurrentData, false);
+		// Alle moeglichen Zeichen der Ausgabe, die stoeren koennten (XSS) konvertieren / entfernen.
+		$arrCurrentData = tx_datamintsfeuser_utils::htmlspecialcharsPostArray($arrCurrentData, false);
 
 		// Seite, die den Request entgegennimmt (TypoLink).
 		$requestLink = $this->pi_getPageLink($this->conf['requestpid']);
@@ -1739,7 +1731,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 					case 'group':
 						if ($fieldConfig['internal_type'] == 'file') {
-							$arrCurrentData[$fieldName] = (string)$GLOBALS['TSFE']->fe_user->user[$fieldName];
+							$arrCurrentData[$fieldName] = $GLOBALS['TSFE']->fe_user->user[$fieldName];
 						}
 
 						$content .= $this->showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField);
@@ -2191,6 +2183,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Wenn es sich um den "internal_type" DB handelt.
+		// Hier werden absichtlich nur die Erlaubten Tabellen benutzt, da es sonst unmengen an möglichen Optionen geben wuerde!
 		if ($fieldConfig['internal_type'] == 'db') {
 			$arrItems = array();
 			$arrAllowed = t3lib_div::trimExplode(',', $fieldConfig['allowed'], true);
@@ -2546,14 +2539,16 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @global	$this->arrHiddenParams
 	 */
 	function determineConfiguration() {
+		$flexConf = array();
+
 		// Extension Konfiguration ermitteln.
 		$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extKey]);
 
-		$flexConf = array();
-
 		// Alle Tabs der Flexformkonfiguration durchgehn.
-		foreach ((array)$this->cObj->data['pi_flexform']['data'] as $tabKey => $_) {
-			$flexConf = tx_datamintsfeuser_utils::getFlexformConfigurationFromTab($this->cObj->data['pi_flexform'], $tabKey, $flexConf);
+		if (is_array($this->cObj->data['pi_flexform']['data'])) {
+			foreach ($this->cObj->data['pi_flexform']['data'] as $tabKey => $_) {
+				$flexConf = tx_datamintsfeuser_utils::getFlexformConfigurationFromTab($this->cObj->data['pi_flexform'], $tabKey, $flexConf);
+			}
 		}
 
 		// Alle gesammelten Konfigurationen in $this->conf uebertragen.
@@ -2574,8 +2569,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Konfigurationen, die an mehreren Stellen benoetigt werden, in globales Array schreiben.
 		$this->arrUsedFields = t3lib_div::trimExplode(',', $this->conf['usedfields'], true);
-		$this->arrRequiredFields = array_unique(t3lib_div::trimExplode(',', $this->conf['requiredfields'], true));
 		$this->arrUniqueFields = array_unique(t3lib_div::trimExplode(',', $this->conf['uniquefields'], true));
+		$this->arrRequiredFields = array_unique(t3lib_div::trimExplode(',', $this->conf['requiredfields'], true));
 		$this->arrHiddenParams = array_unique(t3lib_div::trimExplode(',', $this->conf['hiddenparams'], true));
 
 		// Konfigurationen die immer gelten setzten (Feldnamen sind fuer konfigurierte Felder und fuer input Felder).
@@ -2590,6 +2585,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @global	$this->conf
 	 */
 	function determineIrreConfiguration() {
+		if (!is_array($this->conf['databasefields'])) {
+			return;
+		}
+
 		$infoitems = 1;
 		$fieldsets = 2;
 		$userdeleteCounter = 0;
@@ -2599,6 +2598,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$usedfields = array();
 		$requiredfields = array();
 		$uniquefields = array();
+
 		$firstkey = key($this->conf['databasefields']);
 
 		foreach ($this->conf['databasefields'] as $position => $field) {
@@ -2722,8 +2722,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// In Konfiguration uebertragen.
 		$this->conf['usedfields'] = implode(',', $usedfields);
-		$this->conf['requiredfields'] = implode(',', $requiredfields);
 		$this->conf['uniquefields'] = implode(',', $uniquefields);
+		$this->conf['requiredfields'] = implode(',', $requiredfields);
 	}
 
 	/**

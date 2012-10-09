@@ -28,23 +28,25 @@
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
  *
- *   61: class tx_datamintsfeuser_utils
- *   70:     function getFeUsersTca($feUsersTca)
- *   87:     function getStoragePid($storagePid)
- *  103:     function getTypoLinkUrl($params, $urlParameters = array())
- *  117:     function fixPath($path)
- *  129:     function htmlspecialcharsPostArray($arrData, $decode)
- *  158:     function generatePassword($password, $arrGenerate = array())
- *  221:     function checkPassword($submitedPassword, $originalPassword)
- *  278:     function userAutoLogin($userId, $pageId = 0, $urlParameters = array())
- *  298:     function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false)
- *  323:     function escapeBrackets($url)
- *  335:     function getSpecialFieldKey($fieldName)
- *  348:     function convertHtmlEmailToPlain($content)
- *  389:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
- *  412:     function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array())
- *  448:     function setFlexformConfigurationValue($key, $value, $conf)
- *  478:     function checkUtf8($str)
+ *   63: class tx_datamintsfeuser_utils
+ *   72:     function getFeUsersTca($feUsersTca)
+ *   89:     function getStoragePid($storagePid)
+ *  105:     function getTypoLinkUrl($params, $urlParameters = array())
+ *  119:     function fixPath($path)
+ *  131:     function htmlspecialcharsPostArray($arrData, $decode)
+ *  162:     function generatePassword($password, $arrGenerate = array())
+ *  225:     function checkPassword($submitedPassword, $originalPassword)
+ *  282:     function userAutoLogin($userId, $pageId = 0, $urlParameters = array())
+ *  302:     function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false)
+ *  327:     function escapeBrackets($url)
+ *  339:     function getSpecialFieldKey($fieldName)
+ *  352:     function convertHtmlEmailToPlain($content)
+ *  393:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
+ *  416:     function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array())
+ *  452:     function setFlexformConfigurationValue($key, $value, $conf)
+ *  482:     function trimCallback($string)
+ *  492:     function stripTagsCallback($string)
+ *  502:     function checkUtf8($str)
  *
  *
  * TOTAL FUNCTIONS: 16
@@ -130,17 +132,19 @@ class tx_datamintsfeuser_utils {
 		if ($decode) {
 			// Konvertiert alle moeglichen Zeichen die fuer die Ausgabe angepasst wurden zurueck.
 			foreach ($arrData as $key => $val) {
-				$arrData[$key] = htmlspecialchars_decode($val);
+				if (!is_array($arrData[$key])) {
+					$arrData[$key] = htmlspecialchars_decode($val);
+				}
 			}
 		} else {
 			// Konvertiert alle moeglichen Zeichen der Ausgabe, die stoeren koennten (XSS).
 			foreach ($arrData as $key => $val) {
-				if (is_array($arrData[$key])) {
-					foreach ($arrData[$key] as $subKey => $subVal) {
-						$arrData[$key][$subKey] = strip_tags($subVal);
-					}
-				} else {
+				// Falls es kein Array ist, darf auch HTML enthalten sein, deshalb nur htmlspecialchars() anwenden!
+				if (!is_array($arrData[$key])) {
 					$arrData[$key] = htmlspecialchars($val);
+				} else {
+					// Wenn es ein Array ist, dann auf alle Elemente strip_tags() anwenden!
+					array_walk_recursive($arrData[$key], 'tx_datamintsfeuser_utils::stripTagsCallback');
 				}
 			}
 		}
@@ -467,6 +471,14 @@ class tx_datamintsfeuser_utils {
 		}
 
 		return $conf;
+	}
+
+	function trimCallback($string) {
+		$string = trim($string);
+	}
+
+	function stripTagsCallback($string) {
+		$string = strip_tags($string);
 	}
 
 	/**
