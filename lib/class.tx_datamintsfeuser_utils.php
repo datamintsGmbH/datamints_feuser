@@ -44,8 +44,8 @@
  *  393:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
  *  416:     function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array())
  *  452:     function setFlexformConfigurationValue($key, $value, $conf)
- *  482:     function trimCallback($string)
- *  492:     function stripTagsCallback($string)
+ *  482:     function trimCallback(&$string)
+ *  492:     function stripTagsCallback(&$string)
  *  502:     function checkUtf8($str)
  *
  *
@@ -183,10 +183,10 @@ class tx_datamintsfeuser_utils {
 		$arrPassword['encrypted'] = $arrPassword['normal'];
 
 		// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password verschluesselt.
-		if (t3lib_extMgm::isLoaded('saltedpasswords')) {
+		if (t3lib_extMgm::isLoaded('saltedpasswords') && $GLOBALS['TYPO3_CONF_VARS']['FE']['loginSecurityLevel']) {
 			$saltedpasswords = tx_saltedpasswords_div::returnExtConf();
 
-			if ($saltedpasswords['enabled'] == 1) {
+			if ($saltedpasswords['enabled']) {
 				$tx_saltedpasswords = t3lib_div::makeInstance($saltedpasswords['saltedPWHashingMethod']);
 				$arrPassword['encrypted'] = $tx_saltedpasswords->getHashedPassword($arrPassword['normal']);
 			}
@@ -196,7 +196,7 @@ class tx_datamintsfeuser_utils {
 		if (t3lib_extMgm::isLoaded('md5passwords')) {
 			$arrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['md5passwords']);
 
-			if ($arrConf['activate'] == 1) {
+			if ($arrConf['activate']) {
 				$arrPassword['encrypted'] = md5($arrPassword['normal']);
 			}
 		} else
@@ -226,10 +226,10 @@ class tx_datamintsfeuser_utils {
 		$check = false;
 
 		// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password ueberprueft.
-		if (t3lib_extMgm::isLoaded('saltedpasswords')) {
+		if (t3lib_extMgm::isLoaded('saltedpasswords') && $GLOBALS['TYPO3_CONF_VARS']['FE']['loginSecurityLevel']) {
 			$saltedpasswords = tx_saltedpasswords_div::returnExtConf();
 
-			if ($saltedpasswords['enabled'] == 1) {
+			if ($saltedpasswords['enabled']) {
 				$tx_saltedpasswords = t3lib_div::makeInstance($saltedpasswords['saltedPWHashingMethod']);
 				if ($tx_saltedpasswords->checkPassword($submitedPassword, $originalPassword)) {
 					$check = true;
@@ -241,7 +241,7 @@ class tx_datamintsfeuser_utils {
 		else if (t3lib_extMgm::isLoaded('md5passwords')) {
 			$arrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['md5passwords']);
 
-			if ($arrConf['activate'] == 1) {
+			if ($arrConf['activate']) {
 				if (md5($submitedPassword) == $originalPassword) {
 					$check = true;
 				}
@@ -473,11 +473,23 @@ class tx_datamintsfeuser_utils {
 		return $conf;
 	}
 
-	function trimCallback($string) {
+	/**
+	 * Nimmt einen String per Call by Reference entgegen um auf diesen ein trim() anzuwenden.
+	 *
+	 * @param	string		$string
+	 * @return	void
+	 */
+	function trimCallback(&$string) {
 		$string = trim($string);
 	}
 
-	function stripTagsCallback($string) {
+	/**
+	 * Nimmt einen String per Call by Reference entgegen um auf diesen ein strip_tags() anzuwenden.
+	 *
+	 * @param	string		$string
+	 * @return	void
+	 */
+	function stripTagsCallback(&$string) {
 		$string = strip_tags($string);
 	}
 
@@ -524,7 +536,6 @@ class tx_datamintsfeuser_utils {
 
 		return true;
 	}
-
 
 }
 

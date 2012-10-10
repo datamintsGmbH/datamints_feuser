@@ -34,48 +34,48 @@
  *  400:     function checkValid()
  *  553:     function checkUnique()
  *  586:     function checkRequired()
- *  658:     function checkCaptcha($value)
- *  712:     function cleanPasswordField($fieldName, $fieldConfig, $arrUpdate)
- *  734:     function cleanCheckboxField($fieldName, $fieldConfig, $arrUpdate)
- *  769:     function cleanMultipleSelectboxField($fieldName, $fieldConfig, $arrUpdate)
- *  805:     function cleanGroupAndMultipleCheckboxField($fieldName, $fieldConfig, $arrUpdate)
- *  849:     function cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate)
- *  877:     function saveDeleteFiles($fieldName, $fieldConfig, $arrUpdate, &$error = '')
- *  991:     function copyFields($arrUpdate)
- * 1047:     function doUserEdit($arrUpdate)
- * 1085:     function doUserRegister($arrUpdate)
- * 1150:     function showOutputRedirect($mode, $submode = '', $params = array())
- * 1255:     function sendActivationMail($userId = 0)
- * 1302:     function doApprovalCheck()
- * 1380:     function getApprovalTypes()
- * 1391:     function setNotActivatedCookie($userId)
- * 1404:     function getNotActivatedUserArray($arrNotActivated = array())
- * 1436:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
- * 1558:     function isAdminMail($approvalType)
- * 1570:     function getTemplateSubpart($templatePart, $markerArray = array(), $config = array())
- * 1591:     function getChangedForMail($arrNewData, $config)
- * 1628:     function getPasswordForMail()
- * 1649:     function showForm($valueCheck = array())
- * 1870:     function showInput($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 1921:     function showText($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 1938:     function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 1992:     function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2028:     function showSelect($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2125:     function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2240:     function showCaptcha($fieldName, $valueCheck)
- * 2297:     function getFieldId()
- * 2319:     function getFieldName()
- * 2342:     function getLabel($fieldName, $checkRequired = true)
- * 2385:     function getErrorLabel($fieldName, $valueCheck)
- * 2402:     function isRequiredField($fieldName)
- * 2417:     function getTableLabelFieldName($table)
- * 2432:     function getHiddenParamsArray()
- * 2449:     function getHiddenParamsHiddenFields()
- * 2498:     function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams)
- * 2541:     function determineConfiguration()
- * 2587:     function determineIrreConfiguration()
- * 2735:     function getConfigurationByShowtype($subConfig = '')
- * 2748:     function getJSValidationConfiguration()
+ *  646:     function checkCaptcha($value)
+ *  700:     function cleanPasswordField($fieldName, $fieldConfig, $arrUpdate)
+ *  722:     function cleanCheckboxField($fieldName, $fieldConfig, $arrUpdate)
+ *  757:     function cleanMultipleSelectboxField($fieldName, $fieldConfig, $arrUpdate)
+ *  793:     function cleanGroupAndMultipleCheckboxField($fieldName, $fieldConfig, $arrUpdate)
+ *  837:     function cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate)
+ *  865:     function saveDeleteFiles($fieldName, $fieldConfig, $arrUpdate, &$error = '')
+ *  979:     function copyFields($arrUpdate)
+ * 1035:     function doUserEdit($arrUpdate)
+ * 1073:     function doUserRegister($arrUpdate)
+ * 1138:     function showOutputRedirect($mode, $submode = '', $params = array())
+ * 1243:     function sendActivationMail($userId = 0)
+ * 1290:     function doApprovalCheck()
+ * 1368:     function getApprovalTypes()
+ * 1379:     function setNotActivatedCookie($userId)
+ * 1392:     function getNotActivatedUserArray($arrNotActivated = array())
+ * 1424:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
+ * 1546:     function isAdminMail($approvalType)
+ * 1558:     function getTemplateSubpart($templatePart, $markerArray = array(), $config = array())
+ * 1579:     function getChangedForMail($arrNewData, $config)
+ * 1616:     function getPasswordForMail()
+ * 1637:     function showForm($valueCheck = array())
+ * 1858:     function showInput($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 1909:     function showText($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 1926:     function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 1980:     function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2016:     function showSelect($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2113:     function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2228:     function showCaptcha($fieldName, $valueCheck)
+ * 2285:     function getFieldId()
+ * 2307:     function getFieldName()
+ * 2330:     function getLabel($fieldName, $checkRequired = true)
+ * 2373:     function getErrorLabel($fieldName, $valueCheck)
+ * 2390:     function isRequiredField($fieldName)
+ * 2405:     function getTableLabelFieldName($table)
+ * 2420:     function getHiddenParamsArray()
+ * 2437:     function getHiddenParamsHiddenFields()
+ * 2486:     function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams)
+ * 2529:     function determineConfiguration()
+ * 2575:     function determineIrreConfiguration()
+ * 2723:     function getConfigurationByShowtype($subConfig = '')
+ * 2736:     function getJSValidationConfiguration()
  *
  *
  * TOTAL FUNCTIONS: 48
@@ -590,59 +590,47 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		foreach ($this->arrRequiredFields as $fieldName) {
 			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
 
-			// Ueberpruefen, ob das Feld ueberhaupt benoetigt wird.
+			// Ueberpruefen, ob das Feld ueberhaupt angezeigt wurde.
 			if (!in_array($fieldName, $this->arrUsedFields)) {
 				continue;
 			}
 
-			// Ueberpruefen, ob ein Wert uebergeben wurde. Hierbei ist es wichtig um welchen Feldtyp es sich handelt.
-			// Bei Feldern, die der Browser gar nicht als leere Variable sendet, wenn nichts ausgewaehlt wurde, wird ueberprueft ob ueberhaupt etwas angekommen ist "!isset()".
-			// Bei den restlichen Felder schickt der Browser immer eine leere Variable mit, da langt es wenn man ueberprueft, ob ein nicht leerer Wert angekommen ist "!";
-			// Eine Sonderstellung haben einfache Selectboxen dort wird von Haus aus der erste Wert vom Browser ausgewaehlt, somit muss die Default Wert Ueberpruefung hier zusaetzlich per Validierung gemacht werden ("selectzero", "selectemptystring").
-			// Fuer group Elemente vom Typ file wird eine Ueberpruefung auf ein vorhandenes File gemacht.
-			switch ($fieldConfig['type']) {
+			$fieldName = tx_datamintsfeuser_utils::getSpecialFieldKey($fieldName);
+			$fieldValue = $this->piVars[$this->contentId][$fieldName];
 
-				case 'check':
-				case 'radio':
-				case 'select':
-					if (!isset($this->piVars[$this->contentId][tx_datamintsfeuser_utils::getSpecialFieldKey($fieldName)])) {
-						$valueCheck[$fieldName] = 'required';
+			// Arrays zum Ueberpruefen normalisieren, und leere Werte entfernen!
+			if (is_array($fieldValue)) {
+				$fieldValue = implode(',', t3lib_div::trimExplode(',', implode(',', $fieldValue), true));
+			}
+
+			// Dadurch dass die einfache Checkbox ein besonderes verstecktes Feld hat (value="0"), muss dieser Wert erst normalisiert werden!
+			if ($fieldConfig['type'] == 'check' && $fieldValue == '0') {
+				$fieldValue = '';
+			}
+
+			$valueCheck[$fieldName] = 'required';
+
+			// Fuer Felder vom Typ group (internal_type="file") wird eine Ueberpruefung auf eine vorhandene Datei gemacht.
+			if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'file') {
+				$arrFieldVars = (array)$this->piVars[$this->contentId][$fieldName];
+				$arrFilenames = t3lib_div::trimExplode(',', $GLOBALS['TSFE']->fe_user->user[$fieldName], true);
+
+				foreach ($arrFieldVars['files'] as $sentKey => $filename) {
+					$sentKey = intval($sentKey);
+					$savedKey = array_search($filename, $arrFilenames);
+
+					// Wenn eine Datei vorhanden (egal ob neu uebergeben oder bereits vorhanden) und diese nicht geloescht wird, wird kein Fehler zurueckgegeben!
+					if ($_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]['upload'][$sentKey] || ($savedKey !== false && !$arrFieldVars['delete'][$sentKey])) {
+						unset($valueCheck[$fieldName]);
 					}
+				}
 
-					break;
+				continue;
+			}
 
-				case 'group';
-					if ($fieldConfig['internal_type'] == 'file') {
-						// Es wird mindestens eine Datei benoetigt!
-						$valueCheck[$fieldName] = 'required';
-
-						$arrFieldVars = (array)$this->piVars[$this->contentId][$fieldName];
-						$arrFilenames = t3lib_div::trimExplode(',', $GLOBALS['TSFE']->fe_user->user[$fieldName], true);
-
-						foreach ($arrFieldVars['files'] as $sentKey => $filename) {
-							$sentKey = intval($sentKey);
-							$savedKey = array_search($filename, $arrFilenames);
-
-							// Wenn eine Datei vorhanden (egal ob neu uebergeben oder bereits vorhanden) und diese nicht geloescht wird, wird kein Fehler zurueckgegeben!
-							if ($_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]['upload'][$sentKey] || ($savedKey !== false && !$arrFieldVars['delete'][$sentKey])) {
-								unset($valueCheck[$fieldName]);
-							}
-						}
-					}
-
-					if ($fieldConfig['internal_type'] == 'db' && !isset($this->piVars[$this->contentId][tx_datamintsfeuser_utils::getSpecialFieldKey($fieldName)])) {
-						$valueCheck[$fieldName] = 'required';
-					}
-
-					break;
-
-				default:
-					if (!$this->piVars[$this->contentId][tx_datamintsfeuser_utils::getSpecialFieldKey($fieldName)]) {
-						$valueCheck[tx_datamintsfeuser_utils::getSpecialFieldKey($fieldName)] = 'required';
-					}
-
-					break;
-
+			// Durch die versteckten Felder wird immer ein Wert uebergeben, dadurch muss nur ueberprueft werden, ob der Inhalt ungleich einem Leerstring ist!
+			if ($fieldValue != '') {
+				unset($valueCheck[$fieldName]);
 			}
 		}
 
@@ -2862,7 +2850,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		return $configuration;
 	}
-
 
 }
 
