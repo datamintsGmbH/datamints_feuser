@@ -30,7 +30,7 @@
  *
  *   47: class tx_datamintsfeuser_pi1_wizicon
  *   55:     function proc($wizardItems)
- *   75:     function includeLocalLang()
+ *   73:     function includeLocalLang()
  *
  *
  * TOTAL FUNCTIONS: 2
@@ -53,14 +53,12 @@ class tx_datamintsfeuser_pi1_wizicon {
 	 * @return	array		$wizardItems: Modified array with wizard items.
 	 */
 	function proc($wizardItems) {
-		global $LANG;
-
 		$LL = $this->includeLocalLang();
 
 		$wizardItems['plugins_tx_datamintsfeuser_pi1'] = array(
 			'icon' => t3lib_extMgm::extRelPath('datamints_feuser') . 'pi1/ce_wiz.gif',
-			'title' => $LANG->getLLL('pi1_title', $LL),
-			'description' => $LANG->getLLL('pi1_plus_wiz_description', $LL),
+			'title' => $GLOBALS['LANG']->getLLL('pi1_title', $LL),
+			'description' => $GLOBALS['LANG']->getLLL('pi1_plus_wiz_description', $LL),
 			'params' => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=datamints_feuser_pi1'
 		);
 
@@ -74,7 +72,14 @@ class tx_datamintsfeuser_pi1_wizicon {
 	 */
 	function includeLocalLang() {
 		$llFile = t3lib_extMgm::extPath('datamints_feuser') . 'locallang.xml';
-		$LOCAL_LANG = t3lib_div::readLLXMLfile($llFile, $GLOBALS['LANG']->lang);
+		$version = class_exists('t3lib_utility_VersionNumber') ? t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) : t3lib_div::int_from_ver(TYPO3_version);
+
+		if ($version < 4006000) {
+			$LOCAL_LANG = t3lib_div::readLLXMLfile($llFile, $GLOBALS['LANG']->lang);
+		} else {
+			$llxmlParser = t3lib_div::makeInstance('t3lib_l10n_parser_Llxml');
+			$LOCAL_LANG = $llxmlParser->getParsedData($llFile, $GLOBALS['LANG']->lang);
+		}
 
 		return $LOCAL_LANG;
 	}

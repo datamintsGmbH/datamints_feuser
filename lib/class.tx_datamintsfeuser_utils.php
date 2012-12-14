@@ -28,28 +28,29 @@
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
  *
- *   63: class tx_datamintsfeuser_utils
- *   72:     function getFeUsersTca($feUsersTca)
- *   89:     function getStoragePid($storagePid)
- *  105:     function getTypoLinkUrl($params, $urlParameters = array())
- *  119:     function fixPath($path)
- *  131:     function htmlspecialcharsPostArray($arrData, $decode)
- *  162:     function generatePassword($password, $arrGenerate = array())
- *  225:     function checkPassword($submitedPassword, $originalPassword)
- *  282:     function userAutoLogin($userId, $pageId = 0, $urlParameters = array())
- *  302:     function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false)
- *  327:     function escapeBrackets($url)
- *  339:     function getSpecialFieldKey($fieldName)
- *  352:     function convertHtmlEmailToPlain($content)
- *  393:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
- *  416:     function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array())
- *  452:     function setFlexformConfigurationValue($key, $value, $conf)
- *  482:     function trimCallback(&$string)
- *  492:     function stripTagsCallback(&$string)
- *  502:     function checkUtf8($str)
+ *   64: class tx_datamintsfeuser_utils
+ *   73:     function getFeUsersTca($feUsersTca)
+ *   90:     function getStoragePid($storagePid)
+ *  106:     function getTypoLinkUrl($params, $urlParameters = array())
+ *  120:     function fixPath($path)
+ *  132:     function htmlspecialcharsPostArray($arrData, $decode)
+ *  163:     function generatePassword($password, $arrGenerate = array())
+ *  226:     function checkPassword($submitedPassword, $originalPassword)
+ *  283:     function userAutoLogin($userId, $pageId = 0, $urlParameters = array())
+ *  303:     function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false)
+ *  328:     function escapeBrackets($url)
+ *  340:     function getSpecialFieldKey($fieldName)
+ *  350:     function getSpecialFieldName($fieldName)
+ *  364:     function convertHtmlEmailToPlain($content)
+ *  405:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
+ *  428:     function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array())
+ *  464:     function setFlexformConfigurationValue($key, $value, $conf)
+ *  494:     function trimCallback(&$string)
+ *  504:     function stripTagsCallback(&$string)
+ *  514:     function checkUtf8($str)
  *
  *
- * TOTAL FUNCTIONS: 16
+ * TOTAL FUNCTIONS: 19
  *
  */
 
@@ -331,15 +332,26 @@ class tx_datamintsfeuser_utils {
 	}
 
 	/**
-	 * Ersetzt die beim Eingeben angegebenen '--' Zeichen vor und hinter dem eigendlichen Feldnamen, falls vorhanden.
+	 * Fuegt die '--' Zeichen vor und hinter dem eigendlichen Feldnamen, hinzu um den eindeutigen Key zu bekommen.
 	 *
 	 * @param	string		$fieldName
 	 * @return	string
 	 */
 	function getSpecialFieldKey($fieldName) {
+		return '--' . $fieldName . '--';
+	}
+
+	/**
+	 * Ersetzt die beim Eingeben angegebenen '--' Zeichen vor und hinter dem eigendlichen Feldnamen, falls vorhanden.
+	 *
+	 * @param	string		$fieldName
+	 * @return	string
+	 */
+	function getSpecialFieldName($fieldName) {
 		if (preg_match('/^--.*--$/', $fieldName)) {
 			return preg_replace('/^--(.*)--$/', '\1', $fieldName);
 		}
+
 		return $fieldName;
 	}
 

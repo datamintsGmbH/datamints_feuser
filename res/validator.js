@@ -156,20 +156,20 @@ function inputItemCheck(evt, input) {
 			switch (validate['type']) {
 
 				case 'password':
-					var input_rep;
+					var inputRep;
 
 					if (input.id.split('_').reverse()[0] != 'rep') {
-						input_rep = document.getElementById(input.id + '_rep');
+						inputRep = document.getElementById(input.id + '_rep');
 					} else {
-						input_rep = document.getElementById(input.id.slice(0, input.id.length - 4));
+						inputRep = document.getElementById(input.id.slice(0, input.id.length - 4));
 					}
 
-					var value_rep = input_rep.value;
+					var valueRep = inputRep.value;
 
-					if (value != '' || value_rep != '') {
+					if (value != '' || valueRep != '') {
 						arrLength = new Array('6');
 
-						if (value == value_rep) {
+						if (value == valueRep) {
 							if (validate['size']) {
 								arrLength = validate['size'].replace(' ', '').split(',');
 							}
@@ -277,30 +277,30 @@ function getEventTarget(evt) {
 }
 
 function showInfo(fieldName, error) {
-	var error_item_father = getErrorItemFather(fieldName);
+	var errorLabelFather = getErrorLabelFather(fieldName);
 
-	if (error_item_father) {
-		if (error_item_father.lastChild.className == 'error error-' + fieldName) {
-			error_item_father.removeChild(error_item_father.lastChild);
+	if (errorLabelFather) {
+		if (errorLabelFather.lastChild.className == 'error-label error-' + fieldName) {
+			errorLabelFather.removeChild(errorLabelFather.lastChild);
 		}
 
 		var div = document.createElement('div');
 
-		div.className = 'error error-' + fieldName;
+		div.className = 'error-label error-' + fieldName;
 		div.innerHTML = datamints_feuser_config[datamints_feuser_formId][fieldName][error];
-		error_item_father.appendChild(div);
+		errorLabelFather.appendChild(div);
 	}
 }
 
 function removeInfo(fieldName) {
-	var error_item_father = getErrorItemFather(fieldName);
+	var errorLabelFather = getErrorLabelFather(fieldName);
 
-	if (error_item_father && error_item_father.lastChild.className == 'error error-' + fieldName) {
-		error_item_father.removeChild(error_item_father.lastChild);
+	if (errorLabelFather && errorLabelFather.lastChild.className == 'error-label error-' + fieldName) {
+		errorLabelFather.removeChild(errorLabelFather.lastChild);
 	}
 }
 
-function getErrorItemFather(fieldName) {
+function getErrorLabelFather(fieldName) {
 	var fieldNameWrapper = fieldName;
 
 	if (datamints_feuser_config[datamints_feuser_formId][fieldName]['validation'] && datamints_feuser_config[datamints_feuser_formId][fieldName]['validation']['type'] == 'password') {
