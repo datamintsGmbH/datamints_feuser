@@ -28,7 +28,7 @@ window.onload = function() {
 			}
 		}
 	}
-}
+};
 
 function formCheck(evt) {
 	var error;
@@ -37,7 +37,7 @@ function formCheck(evt) {
 	// ID des aktuell verwendeten Formulars ueber das aktuell verwendete Input Element ermitteln.
 	datamints_feuser_formId = getEventTarget(evt).id.split('_')[2];
 
-	for (fieldId in datamints_feuser_inputids[datamints_feuser_formId]) {
+	for (var fieldId in datamints_feuser_inputids[datamints_feuser_formId]) {
 		if (typeof(datamints_feuser_inputids[datamints_feuser_formId][fieldId]) != 'string') {
 			continue;
 		}
@@ -67,7 +67,7 @@ function inputItemCheck(evt, input) {
 
 	if (input.type == 'select-multiple') {
 		j = 0;
-		value = new Array();
+		value = [];
 
 		for (i = 0; i < input.options.length; i++) {
 			if (input.options[i] != null && input.options[i].selected) {
@@ -106,8 +106,8 @@ function inputItemCheck(evt, input) {
 	}
 
 	if (input.type == 'file') {
-		var present = new Array();
-		var deleted = new Array();
+		var present = [];
+		var deleted = [];
 
 		value = false;
 		name = input.id.slice(0, input.id.lastIndexOf('_upload_'));
@@ -209,7 +209,7 @@ function inputItemCheck(evt, input) {
 
 						return true;
 					}
-					break
+					break;
 
 				case 'emptystring':
 					if (value == '') {
@@ -217,7 +217,7 @@ function inputItemCheck(evt, input) {
 
 						return true;
 					}
-					break
+					break;
 
 				case 'custom':
 					if (validate['regexp']) {
@@ -263,7 +263,7 @@ function addEvent(obj, type, fn) {
       obj.addEventListener(type, fn, false);
    } else if (obj.attachEvent) {
       obj["e" + type + fn] = fn;
-      obj[type + fn] = function() {obj["e" + type + fn](window.event);}
+      obj[type + fn] = function() {obj["e" + type + fn](window.event);};
       obj.attachEvent("on" + type, obj[type + fn]);
    }
 }

@@ -103,21 +103,21 @@
 .tx-datamintsfeuser-pi1 .type-group .item .delete {
 	float: left;
 }
-.tx-datamintsfeuser-pi1 .type-captcha .captcha {
+.tx-datamintsfeuser-pi1 .name-captcha .captcha {
 	display: inline;
 	margin-right: 20px;
 }
-.tx-datamintsfeuser-pi1 .type-captcha .captcha img {
+.tx-datamintsfeuser-pi1 .name-captcha .captcha img {
 	vertical-align: middle;
 }
-.tx-datamintsfeuser-pi1 .type-captcha input {
+.tx-datamintsfeuser-pi1 .name-captcha input {
 	width: 100px;
 	vertical-align: middle;
 }
-.tx-datamintsfeuser-pi1 .type-submit {
+.tx-datamintsfeuser-pi1 .name-submit {
 	margin-top: 20px;
 }
-.tx-datamintsfeuser-pi1 .type-submit input {
+.tx-datamintsfeuser-pi1 .name-submit input {
 	width: auto;
 	margin-left: 170px;
 }
