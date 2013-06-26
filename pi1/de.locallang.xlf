@@ -201,11 +201,11 @@
 			</trans-unit>
 			<trans-unit id="doubleoptin_adminapproval_sent" xml:space="preserve" approved="yes">
 				<source>To activate your account click the activation link in the e-mail we sent you! Then the Administrator has to unlock it!</source>
-				<target>Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde! Sobald das geschehen ist, werden Sie durch den Administartors freigeschalten!</target>
+				<target>Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde! Sobald das geschehen ist, werden Sie durch den Administrators freigeschalten!</target>
 			</trans-unit>
 			<trans-unit id="adminapproval_doubleoptin_sent" xml:space="preserve" approved="yes">
 				<source>To activate your account, the Administrator has to unlock it! Then click the activation link in the e-mail we will sent you!</source>
-				<target>Um Ihren Account zu aktivieren, müssen Sie auf die Freischaltung des Administartors warten! Sobald das geschehen ist, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wird!</target>
+				<target>Um Ihren Account zu aktivieren, müssen Sie auf die Freischaltung des Administrators warten! Sobald das geschehen ist, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wird!</target>
 			</trans-unit>
 			<trans-unit id="doubleoptin_success" xml:space="preserve" approved="yes">
 				<source>Your account has been successfully unlocked!</source>

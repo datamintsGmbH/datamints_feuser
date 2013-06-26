@@ -118,7 +118,7 @@ class tx_datamintsfeuser_utils {
 	 * @return	string		$path
 	 */
 	function fixPath($path) {
-		return dirname($path . DIRECTORY_SEPARATOR . '.') . DIRECTORY_SEPARATOR;
+		return dirname($path . '/.') . '/';
 	}
 
 	/**

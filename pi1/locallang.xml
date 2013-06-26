@@ -119,8 +119,8 @@
 			<label index="edit_success">Ihre Daten wurde erfolgreich geändert! Sie werden in wenigen Sekunden zurück geleitet!</label>
 			<label index="doubleoptin_sent">Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde!</label>
 			<label index="adminapproval_sent">Sie werden durch den Administrator freigeschalten!</label>
-			<label index="doubleoptin_adminapproval_sent">Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde! Sobald das geschehen ist, werden Sie durch den Administartors freigeschalten!</label>
-			<label index="adminapproval_doubleoptin_sent">Um Ihren Account zu aktivieren, müssen Sie auf die Freischaltung des Administartors warten! Sobald das geschehen ist, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wird!</label>
+			<label index="doubleoptin_adminapproval_sent">Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde! Sobald das geschehen ist, werden Sie durch den Administrators freigeschalten!</label>
+			<label index="adminapproval_doubleoptin_sent">Um Ihren Account zu aktivieren, müssen Sie auf die Freischaltung des Administrators warten! Sobald das geschehen ist, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wird!</label>
 			<label index="doubleoptin_success">Ihr Account wurde erfolgreich freigeschaltet!</label>
 			<label index="adminapproval_success">Der Benutzeraccount wurde erfolgreich freigeschaltet!</label>
 			<label index="doubleoptin_deleted">Die Aktivierung Ihres Accounts wurde erfolgreich abgelehnt!</label>

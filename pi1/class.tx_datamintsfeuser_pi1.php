@@ -296,72 +296,74 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Sonderfaelle behandeln!
 		foreach ($this->arrUsedFields as $fieldName) {
-			if ($this->feUsersTca['columns'][$fieldName]) {
-				$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
-				$arrFieldConfigEval = t3lib_div::trimExplode(',', $fieldConfig['eval'], true);
+			if (!is_array($this->feUsersTca['columns'][$fieldName])) {
+				continue;
+			}
 
-				// Ist das Feld schon gesaeubert worden (MySQL, PHP, HTML, ...).
-				$isCleaned = false;
+			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
+			$arrFieldConfigEval = t3lib_div::trimExplode(',', $fieldConfig['eval'], true);
 
-				// Datumsfelder behandeln.
-				if (in_array('date', $arrFieldConfigEval)) {
-					$arrUpdate[$fieldName] = date_timestamp_get(date_create_from_format($this->conf['format.']['date'], $this->piVars[$this->contentId][$fieldName]));
-					$isCleaned = true;
+			// Ist das Feld schon gesaeubert worden (MySQL, PHP, HTML, ...).
+			$isCleaned = false;
+
+			// Datumsfelder behandeln.
+			if (in_array('date', $arrFieldConfigEval)) {
+				$arrUpdate[$fieldName] = date_timestamp_get(date_create_from_format($this->conf['format.']['date'], $this->piVars[$this->contentId][$fieldName]));
+				$isCleaned = true;
+			}
+
+			// Datumzeitfelder behandeln.
+			if (in_array('datetime', $arrFieldConfigEval)) {
+				$arrUpdate[$fieldName] = date_timestamp_get(date_create_from_format($this->conf['format.']['datetime'], $this->piVars[$this->contentId][$fieldName]));
+				$isCleaned = true;
+			}
+
+			// Passwordfelder behandeln.
+			if (in_array('password', $arrFieldConfigEval)) {
+				$arrUpdate = $this->cleanPasswordField($fieldName, $fieldConfig, $arrUpdate);
+				$isCleaned = true;
+			}
+
+			// Read only behandeln.
+			if ($fieldConfig['readOnly']) {
+				$isCleaned = true;
+			}
+
+			// Checkboxen behandeln.
+			if ($fieldConfig['type'] == 'check') {
+				$arrUpdate = $this->cleanCheckField($fieldName, $fieldConfig, $arrUpdate);
+				$isCleaned = true;
+			}
+
+			// Multiple Checkboxen / Selectboxen.
+			if ($fieldConfig['type'] == 'select' && $fieldConfig['size'] > 1) {
+				$arrUpdate = $this->cleanMultipleSelectField($fieldName, $fieldConfig, $arrUpdate);
+				$isCleaned = true;
+			}
+
+			// Dateifelder behandeln.
+			if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'file') {
+				$arrUpdate[$fieldName] = $GLOBALS['TSFE']->fe_user->user[$fieldName];
+
+				// Das Bild hochladen oder loeschen. Gibt einen Fehlerstring per Referenz zurueck falls ein Fehler auftritt!
+				$arrUpdate = $this->saveDeleteFiles($fieldName, $fieldConfig, $arrUpdate, $valueCheck[$fieldName]);
+
+				if ($valueCheck[$fieldName]) {
+					return $this->showForm($valueCheck);
 				}
 
-				// Datumzeitfelder behandeln.
-				if (in_array('datetime', $arrFieldConfigEval)) {
-					$arrUpdate[$fieldName] = date_timestamp_get(date_create_from_format($this->conf['format.']['datetime'], $this->piVars[$this->contentId][$fieldName]));
-					$isCleaned = true;
-				}
+				$isCleaned = true;
+			}
 
-				// Passwordfelder behandeln.
-				if (in_array('password', $arrFieldConfigEval)) {
-					$arrUpdate = $this->cleanPasswordField($fieldName, $fieldConfig, $arrUpdate);
-					$isCleaned = true;
-				}
+			// Datenbank-Gruppenfelder.
+			if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db') {
+				$arrUpdate = $this->cleanGroupDatabaseField($fieldName, $fieldConfig, $arrUpdate);
+				$isCleaned = true;
+			}
 
-				// Read only behandeln.
-				if ($fieldConfig['readOnly']) {
-					$isCleaned = true;
-				}
-
-				// Checkboxen behandeln.
-				if ($fieldConfig['type'] == 'check') {
-					$arrUpdate = $this->cleanCheckField($fieldName, $fieldConfig, $arrUpdate);
-					$isCleaned = true;
-				}
-
-				// Multiple Checkboxen / Selectboxen.
-				if ($fieldConfig['type'] == 'select' && $fieldConfig['size'] > 1) {
-					$arrUpdate = $this->cleanMultipleSelectField($fieldName, $fieldConfig, $arrUpdate);
-					$isCleaned = true;
-				}
-
-				// Dateifelder behandeln.
-				if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'file') {
-					$arrUpdate[$fieldName] = $GLOBALS['TSFE']->fe_user->user[$fieldName];
-
-					// Das Bild hochladen oder loeschen. Gibt einen Fehlerstring per Referenz zurueck falls ein Fehler auftritt!
-					$arrUpdate = $this->saveDeleteFiles($fieldName, $fieldConfig, $arrUpdate, $valueCheck[$fieldName]);
-
-					if ($valueCheck[$fieldName]) {
-						return $this->showForm($valueCheck);
-					}
-
-					$isCleaned = true;
-				}
-
-				// Datenbank-Gruppenfelder.
-				if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db') {
-					$arrUpdate = $this->cleanGroupDatabaseField($fieldName, $fieldConfig, $arrUpdate);
-					$isCleaned = true;
-				}
-
-				// Wenn noch nicht gesaeubert dann nachholen!
-				if (!$isCleaned && isset($this->piVars[$this->contentId][$fieldName])) {
-					$arrUpdate = $this->cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate);
-				}
+			// Wenn noch nicht gesaeubert dann nachholen!
+			if (!$isCleaned && isset($this->piVars[$this->contentId][$fieldName])) {
+				$arrUpdate = $this->cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate);
 			}
 		}
 
@@ -463,7 +465,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 
 			// Wenn der im TypoScript angegebene Feldname nicht im TCA ist, dann naechstes Feld vornehmen.
-			if (!$this->feUsersTca['columns'][$fieldName]) {
+			if (!is_array($this->feUsersTca['columns'][$fieldName])) {
 				continue;
 			}
 
@@ -615,12 +617,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Geht alle benoetigten Felder durch und ermittelt fehlende.
 		foreach ($this->arrRequiredFields as $fieldName) {
-			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
-
 			// Ueberpruefen, ob das Feld ueberhaupt angezeigt wurde.
 			if (!in_array($fieldName, $this->arrUsedFields)) {
 				continue;
 			}
+
+			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
 
 			$fieldName = tx_datamintsfeuser_utils::getSpecialFieldName($fieldName);
 			$fieldValue = $this->piVars[$this->contentId][$fieldName];
@@ -854,7 +856,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Falls nur eine Tabelle im TCA angegeben ist, wird nur die uid gespeichert.
-		// ToDo: TCA "prepend_tname" beachten!
+		// ToDo: TCA Option "prepend_tname" beachten!
 		if (count($arrAllowed) == 1) {
 			foreach ($arrCleanedValues as $key => $val) {
 				$arrCleanedValues[$key] = substr($val, strripos($val, '_') + 1);
@@ -1067,13 +1069,16 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Editiert einen vorhandenen User, anhand des uebergebenen Arrays.
+	 * Aktualisiert einen vorhandenen User, anhand des uebergebenen Arrays.
 	 *
 	 * @param	array		$arrUpdate
 	 * @return	array		$arrMode
 	 */
 	function doUserEdit($arrUpdate) {
 		$arrMode = array();
+
+		// ToDo: MM-Relation, MM-Relationen setzen und die Anzahl der Relationen aktualisieren.
+		$this->insertRelationInserts($this->userId, $this->getRelationInserts($arrUpdate));
 
 		// Der User hat seine Daten editiert.
 		$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , $arrUpdate);
@@ -1130,11 +1135,17 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$arrUpdate['disable'] = '1';
 		}
 
+		// ToDo: MM-Relation, MM-Relationen ermitteln und die Anzahl der Relationen aktualisieren.
+		$arrRelationInserts = $this->getRelationInserts($arrUpdate);
+
 		// User erstellen.
 		$GLOBALS['TYPO3_DB']->exec_INSERTquery('fe_users', $arrUpdate);
 
 		// Userid ermittln und Global definieren!
 		$this->userId = $GLOBALS['TYPO3_DB']->sql_insert_id();
+
+		// ToDo: MM-Relation, Ermittelte MM-Relationen setzen.
+		$this->insertRelationInserts($this->userId, $arrRelationInserts);
 
 		// Wenn nach der Registrierung weitergeleitet werden soll.
 		if ($arrUpdate['tx_datamintsfeuser_approval_level'] > 0) {
@@ -1164,6 +1175,68 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		return $arrMode;
+	}
+
+	/**
+	 * Ermittelt die neuen Relationen anhand des uebergebenen Arrays.
+	 *
+	 * @param	array		$arrUpdate // Call by reference Das Array in dem die Anzahl der Relationen aktualisiert werden.
+	 * @return	array		$arrInserts
+	 */
+	function getRelationInserts(&$arrUpdate) {
+		$arrInserts = array();
+
+		foreach (array_keys($arrUpdate) as $fieldName) {
+			if (!is_array($this->feUsersTca['columns'][$fieldName])) {
+				continue;
+			}
+
+			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
+
+			if (!$fieldConfig['MM'] && !($fieldConfig['type'] == 'select' || ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db'))) {
+				continue;
+			}
+
+			$arrRelations = t3lib_div::trimExplode(',', $arrUpdate[$fieldName]);
+
+			$arrUpdate[$fieldName] = count($arrRelations);
+
+			$arrInserts[$fieldConfig['MM']] = array();
+
+			foreach($arrRelations as $relation) {
+				$arrInserts[$fieldConfig['MM']][] = intval($relation) ? $relation : substr($relation, strripos($relation, '_') + 1);
+			}
+		}
+
+		return $arrInserts;
+	}
+
+	/**
+	 * Ersetzt die aktuellen Relationen mit den neuen hier uebergebenen Relationen.
+	 *
+	 * @param	array		$userId
+	 * @param	array		$arrInserts
+	 */
+	function insertRelationInserts($userId, $arrInserts = array()) {
+		foreach ($arrInserts as $foreignTable => $arrRelations) {
+			$rows = array();
+			$fields = array('uid_local', 'uid_foreign');
+
+			foreach ($arrRelations as $relation) {
+				if (!ctype_digit($relation)) {
+					continue;
+				}
+
+				$rows[] = array(
+					'uid_local' => intval($userId),
+					'uid_foreign' => intval($relation)
+				);
+			}
+
+			$GLOBALS['TYPO3_DB']->exec_DELETEquery($foreignTable, 'uid_local = ' . intval($userId));
+
+			$GLOBALS['TYPO3_DB']->exec_INSERTmultipleRows($foreignTable, $fields, $rows);
+		}
 	}
 
 	/**
@@ -1680,9 +1753,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Beim editieren der Userdaten, die Felder vorausfuellen.
 		if ($this->conf['showtype'] == self::showtypeKeyEdit) {
 			$arrCurrentData = (array)$GLOBALS['TSFE']->fe_user->user;
+
+			// ToDo: MM-Relation, Merge MM-Values erweitern.
+			$arrCurrentData = $this->mergeMMRelationValues($arrCurrentData);
 		}
 
-		// Wenn das Formular schon einmal abgesendet wurde aber ein Fehler auftrat, dann die bereits vom User uebertragenen Userdaten vorausfuellen.
+		// Wenn das Formular schon einmal abgesendet wurde, aber ein Fehler auftrat, dann die bereits vom User uebertragenen Userdaten vorausfuellen.
 		if ($this->piVars[$this->contentId]) {
 			$arrCurrentData = array_merge($arrCurrentData, (array)$this->piVars[$this->contentId]);
 		}
@@ -1880,6 +1956,57 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
+	 * Ersetzt bei Feldern mit einer MM-Relation den Wert aus dem FE User Datensatz (Anzahl der Relationen) mit den eigentlichen IDs der verknuepften Datensaetze.
+	 *
+	 * @param	array		$arrCurrentData
+	 * @return	array		$arrCurrentData
+	 */
+	function mergeMMRelationValues($arrCurrentData) {
+		foreach ($this->arrUsedFields as $fieldName) {
+			if (!is_array($this->feUsersTca['columns'][$fieldName])) {
+				continue;
+			}
+
+			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
+
+			if (!$fieldConfig['MM'] && !($fieldConfig['type'] == 'select' || ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db'))) {
+				continue;
+			}
+
+			$options = '';
+			$mmTable = $fieldConfig['MM'];
+
+			$arrCurrentData[$fieldName] = array();
+
+			if ($fieldConfig['type'] == 'select') {
+				$arrForeignTables = t3lib_div::trimExplode(',', $fieldConfig['foreign_table'], true);
+
+				// Falls kein AND, OR, GROUP BY, ORDER BY oder LIMIT am Anfang des where steht, ein AND voranstellen!
+				$options = strtolower(substr(trim($fieldConfig['foreign_table_where']), 0, 3));
+				$options = ' ' . trim((!$options || $options == 'and' || $options == 'or ' || $options == 'gro' || $options == 'ord' || $options == 'lim') ? $fieldConfig['foreign_table_where'] : 'AND ' . $fieldConfig['foreign_table_where']);
+			}
+
+			if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db') {
+				$arrForeignTables = t3lib_div::trimExplode(',', $fieldConfig['allowed'], true);
+			}
+
+			foreach ($arrForeignTables as $foreignTable) {
+				if (!$GLOBALS['TCA'][$foreignTable]) {
+					continue;
+				}
+
+				$res = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query($foreignTable . '.uid', 'fe_users', $mmTable, $foreignTable, $this->cObj->enableFields($foreignTable) . $options);
+
+				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+					$arrCurrentData[$fieldName][] = $row['uid'];
+				}
+			}
+		}
+
+		return $arrCurrentData;
+	}
+
+	/**
 	 * Rendert Inputfelder.
 	 *
 	 * @param	string		$fieldName
@@ -1892,14 +2019,17 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function showInput($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '', $valueCheck = array(), $iItem = 0) {
 		$content = '';
+		$additionalAttributes = '';
 
 		$arrFieldConfigEval = t3lib_div::trimExplode(',', $fieldConfig['eval'], true);
 
 		// Datumsfeld und Datumzeitfeld.
 		if (in_array('date', $arrFieldConfigEval) || in_array('datetime', $arrFieldConfigEval)) {
-			$datum = '';
+			// Vom User ausgefuellten Wert vorbelegen, da bei einem Fehler im Formular das Datum nicht in einen Timestamp zurueck konvertiert wird.
+			$datum = ($arrCurrentData[$fieldName]) ? $arrCurrentData[$fieldName] : '';
 
-			if ($arrCurrentData[$fieldName] != 0) {
+			// Nur als Datum formatieren, wenn der aktuelle Wert ein Timestamp ist.
+			if ($arrCurrentData[$fieldName] && ctype_digit($arrCurrentData[$fieldName])) {
 				// Timestamp zu "tt.mm.jjjj" machen.
 				if (in_array('date', $arrFieldConfigEval)) {
 					$datum = strftime($this->conf['format.']['date'], $arrCurrentData[$fieldName]);
@@ -1927,7 +2057,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Normales Inputfeld.
-		$content .= '<input type="text" name="' . $this->getFieldName($fieldName) . '" value="' . $arrCurrentData[$fieldName] . '"' . $disabledField . ' id="' . $this->getFieldId($fieldName) . '" />';
+		$additionalAttributes .= ($fieldConfig['max']) ? ' maxlength="' . $fieldConfig['max'] . '"' : '';
+
+		$content .= '<input type="text" name="' . $this->getFieldName($fieldName) . '" value="' . $arrCurrentData[$fieldName] . '"' . $disabledField . ' id="' . $this->getFieldId($fieldName) . '"' . $additionalAttributes . ' />';
 
 		return $content;
 	}
@@ -2090,11 +2222,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Select-Items aus DB holen.
 			$select = 'uid, ' . $labelFieldName;
 
-			// Wenn AND, OR, GROUP BY, ORDER BY oder LIMIT am Anfang des where steht, eine 1 voranstellen!
+			// Falls kein AND, OR, GROUP BY, ORDER BY oder LIMIT am Anfang des where steht, ein AND voranstellen!
 			$options = strtolower(substr(trim($fieldConfig['foreign_table_where']), 0, 3));
-			$options = '1 ' . $this->cObj->enableFields($table) . ' ' . trim((!$options || $options == 'and' || $options == 'or ' || $options == 'gro' || $options == 'ord' || $options == 'lim') ? $fieldConfig['foreign_table_where'] : 'AND ' . $fieldConfig['foreign_table_where']);
+			$options = trim((!$options || $options == 'and' || $options == 'or ' || $options == 'gro' || $options == 'ord' || $options == 'lim') ? $fieldConfig['foreign_table_where'] : 'AND ' . $fieldConfig['foreign_table_where']);
 
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select , $table, $options);
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select , $table, '1 ' . $this->cObj->enableFields($table) . ' ' . $options);
 
 			$i = 1;
 
@@ -2119,11 +2251,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Mehrzeiliges oder Einzeiliges Select (Auswahlliste).
 		$multiple = ($fieldConfig['size'] > 1) ? ' size="' . $fieldConfig['size'] . '" multiple="multiple"' : '';
 
-		if ($multiple || $fieldConfig['renderMode'] == 'checkbox') {
-			$content .= '<input type="hidden" name="' . $this->getFieldName($fieldName, '') . '" value="" />';
-		}
-
 		if ($fieldConfig['renderMode'] == 'checkbox') {
+			$content .= '<input type="hidden" name="' . $this->getFieldName($fieldName, '') . '" value="" />';
+
 			$content .= '<div class="list">';
 			$content .= $optionlist;
 			$content .= '</div>';
@@ -2866,7 +2996,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Bei jedem Durchgang der Schleife wird die Konfiguration fuer ein Datenbankfeld geschrieben. Ausnahmen sind hierbei Passwordfelder.
 		// Gleichzeitig werden die ID's der Felder in ein Array geschrieben und am Ende zusammen gesetzt "inputids".
 		foreach ($this->arrUsedFields as $fieldName) {
-			if (!($this->feUsersTca['columns'][$fieldName] && is_array($this->conf['validate.'][$fieldName . '.']) || in_array($fieldName, $this->arrRequiredFields))) {
+			if (!(is_array($this->feUsersTca['columns'][$fieldName]) && is_array($this->conf['validate.'][$fieldName . '.']) || in_array($fieldName, $this->arrRequiredFields))) {
 				continue;
 			}
 
