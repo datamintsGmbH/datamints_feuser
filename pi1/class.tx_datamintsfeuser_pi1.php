@@ -98,14 +98,16 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	var $extKey = 'datamints_feuser';
 	var $prefixId = 'tx_datamintsfeuser_pi1';
 	var $scriptRelPath = 'pi1/class.tx_datamintsfeuser_pi1.php';
-	var $pi_checkCHash = true;
+
 	var $conf = array();
 	var $lang = array();
 	var $extConf = array();
 	var $feUsersTca = array();
+
 	var $userId = 0;
-	var $contentUid = 0;
-	var $storagePid = 0;
+	var $contentId = 0;
+	var $storagePageId = 0;
+
 	var $arrUsedFields = array();
 	var $arrUniqueFields = array();
 	var $arrRequiredFields = array();
@@ -167,6 +169,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$this->determineConfiguration();
 		$this->pi_loadLL();
 
+		// Niemals einen cHash setzen!
+		$this->pi_USER_INT_obj = 1;
+
 		// ToDo: Bessere Lösung für das Problem ab 4.6.? finden, dass ein Label nur zum LOCAL_LANG Array hinzugefügt wird, wenn die Sprache bereits im Array vorhanden ist!
 		if (t3lib_div::compat_version('4.6')) {
 			foreach (t3lib_div::removeDotsFromTS((array)$this->conf['_LOCAL_LANG.']) as $lang => $arrLang) {
@@ -185,7 +190,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$this->contentId = $this->cObj->data['uid'];
 
 		$this->feUsersTca = tx_datamintsfeuser_utils::getFeUsersTca($this->conf['fieldconfig.']);
-		$this->storagePid = tx_datamintsfeuser_utils::getStoragePid($this->getConfigurationByShowtype('userfolder'));
+		$this->storagePageId = tx_datamintsfeuser_utils::getStoragePageId($this->getConfigurationByShowtype('userfolder'));
 
 		// Stylesheets in den Head einbinden.
 		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[stylesheet]'] = ($this->conf['disablestylesheet']) ? '' : '<link rel="stylesheet" type="text/css" href="' . (($this->conf['stylesheetpath']) ? $this->conf['stylesheetpath'] : tx_datamintsfeuser_utils::getTypoLinkUrl(t3lib_extMgm::siteRelPath($this->extKey) . 'res/datamints_feuser.css')) . '" />';
@@ -200,7 +205,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Wenn ein "userfolder" angegeben ist, der aktuelle User aber nicht in diesem ist, kann man auch nicht editieren!
-		if ($this->conf['showtype'] == self::showtypeKeyEdit && $this->getConfigurationByShowtype('userfolder') && $GLOBALS['TSFE']->fe_user->user['pid'] != $this->storagePid) {
+		if ($this->conf['showtype'] == self::showtypeKeyEdit && $this->getConfigurationByShowtype('userfolder') && $GLOBALS['TSFE']->fe_user->user['pid'] != $this->storagePageId) {
 			return $this->pi_wrapInBaseClass($this->showOutputRedirect('edit_error', 'storage'));
 		}
 
@@ -237,6 +242,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$params = array();
 		$arrUpdate = array();
 
+		// Falls ein Leerstring in einem Array-Wert an erster Stelle steht, handelt es sich um ein verstecktes Feld. Dieses muss entfernt werden.
+		tx_datamintsfeuser_utils::shiftEmptyArrayValuePostArray($this->piVars[$this->contentId]);
+
 		// Jedes Element in piVars trimmen.
 		array_walk_recursive($this->piVars[$this->contentId], 'tx_datamintsfeuser_utils::trimCallback');
 
@@ -261,9 +269,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Falls der Anzeigetyp "list" ist (Liste der im Cookie gespeicherten User), alle uebergebenen User ermitteln und fuer das erneute zusenden verwenden. Ansonsten die uebergebene E-Mail verwenden.
 //			if ($this->conf['shownotactivated'] == 'list') {
 //				$arrNotActivated = $this->getNotActivatedUserArray($this->piVars[$this->contentId][$fieldName]);
-//				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tx_datamintsfeuser_approval_level', 'fe_users', 'pid = ' . $this->storagePid . ' AND uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
+//				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tx_datamintsfeuser_approval_level', 'fe_users', 'pid = ' . $this->storagePageId . ' AND uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
 //			} else {
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tx_datamintsfeuser_approval_level', 'fe_users', 'pid = ' . $this->storagePid . ' AND email = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr(strtolower($this->piVars[$this->contentId][self::specialfieldKeyResendactivation]), 'fe_users') . ' AND disable = 1 AND deleted = 0', '', '', '1');
+				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tx_datamintsfeuser_approval_level', 'fe_users', 'pid = ' . $this->storagePageId . ' AND email = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr(strtolower($this->piVars[$this->contentId][self::specialfieldKeyResendactivation]), 'fe_users') . ' AND disable = 1 AND deleted = 0', '', '', '1');
 //			}
 
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
@@ -320,7 +328,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Passwordfelder behandeln.
 			if (in_array('password', $arrFieldConfigEval)) {
-				$arrUpdate = $this->cleanPasswordField($fieldName, $fieldConfig, $arrUpdate);
+				$this->cleanPasswordField($arrUpdate, $fieldName, $fieldConfig);
+
 				$isCleaned = true;
 			}
 
@@ -331,13 +340,14 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Checkboxen behandeln.
 			if ($fieldConfig['type'] == 'check') {
-				$arrUpdate = $this->cleanCheckField($fieldName, $fieldConfig, $arrUpdate);
+				$this->cleanCheckField($arrUpdate, $fieldName, $fieldConfig);
+
 				$isCleaned = true;
 			}
 
 			// Multiple Checkboxen / Selectboxen.
 			if ($fieldConfig['type'] == 'select' && $fieldConfig['size'] > 1) {
-				$arrUpdate = $this->cleanMultipleSelectField($fieldName, $fieldConfig, $arrUpdate);
+				$this->cleanMultipleSelectField($arrUpdate, $fieldName, $fieldConfig);
 				$isCleaned = true;
 			}
 
@@ -346,7 +356,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$arrUpdate[$fieldName] = $GLOBALS['TSFE']->fe_user->user[$fieldName];
 
 				// Das Bild hochladen oder loeschen. Gibt einen Fehlerstring per Referenz zurueck falls ein Fehler auftritt!
-				$arrUpdate = $this->saveDeleteFiles($fieldName, $fieldConfig, $arrUpdate, $valueCheck[$fieldName]);
+				$valueCheck[$fieldName] = $this->saveDeleteFiles($arrUpdate, $fieldName, $fieldConfig);
 
 				if ($valueCheck[$fieldName]) {
 					return $this->showForm($valueCheck);
@@ -357,18 +367,18 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Datenbank-Gruppenfelder.
 			if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db') {
-				$arrUpdate = $this->cleanGroupDatabaseField($fieldName, $fieldConfig, $arrUpdate);
+				$this->cleanGroupDatabaseField($arrUpdate, $fieldName, $fieldConfig);
 				$isCleaned = true;
 			}
 
 			// Wenn noch nicht gesaeubert dann nachholen!
 			if (!$isCleaned && isset($this->piVars[$this->contentId][$fieldName])) {
-				$arrUpdate = $this->cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate);
+				$this->cleanUncleanedField($arrUpdate, $fieldName, $fieldConfig);
 			}
 		}
 
 		// Konvertiert alle moeglichen Zeichen die fuer die Ausgabe angepasst wurden zurueck.
-		$arrUpdate = tx_datamintsfeuser_utils::htmlspecialcharsPostArray($arrUpdate, true);
+		tx_datamintsfeuser_utils::htmlspecialcharsPostArray($arrUpdate, true);
 
 		// Zusatzfelder setzten, die nicht aus der Form uebergeben wurden.
 		$arrUpdate['tstamp'] = time();
@@ -379,7 +389,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Kopiert den Inhalt eines Feldes in ein anderes Feld.
-		$arrUpdate = $this->copyFields($arrUpdate);
+		$this->copyFields($arrUpdate);
 
 		// Der User hat seine Daten editiert.
 		if ($this->conf['showtype'] == self::showtypeKeyEdit) {
@@ -446,7 +456,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Besonderes Feld das fest in der Extension verbaut ist (resendactivation), und ueberprueft werden soll.
 			if ($fieldName == self::specialfieldKeyResendactivation && $value) {
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . $this->storagePid . ' AND (uid = ' . intval($value) . ' OR email = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr(strtolower($value), 'fe_users') . ') AND disable = 1 AND deleted = 0');
+				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . $this->storagePageId . ' AND (uid = ' . intval($value) . ' OR email = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr(strtolower($value), 'fe_users') . ') AND disable = 1 AND deleted = 0');
 				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 
 				if ($row['count'] < 1) {
@@ -590,7 +600,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Wenn beim Bearbeiten keine "userfolder" gesetzt ist, soll global ueberprueft werden, ansonsten nur im Storage!
 		if (!$this->conf['uniqueglobal'] && $this->getConfigurationByShowtype('userfolder')) {
-			$where .= ' AND pid = ' . $this->storagePid;
+			$where .= ' AND pid = ' . $this->storagePageId;
 		}
 
 		foreach ($this->arrUniqueFields as $fieldName) {
@@ -733,12 +743,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Falls angegebe das Passwort fuer ein Passwortfeld generieren und / oder verschluesseln.
 	 *
+	 * @param	array		$arrUpdate // Call by reference: Das Array in dem das zu saubernde Feld ist.
 	 * @param	string		$fieldName
 	 * @param	array		$fieldConfig
-	 * @param	array		$arrUpdate
-	 * @return	array		$arrUpdate
+	 * @return	boolean
 	 */
-	function cleanPasswordField($fieldName, $fieldConfig, $arrUpdate) {
+	function cleanPasswordField(&$arrUpdate, $fieldName, $fieldConfig) {
 		// Password generieren und verschluesseln je nach Einstellung.
 		$password = tx_datamintsfeuser_utils::generatePassword($this->piVars[$this->contentId][$fieldName], $this->getConfigurationByShowtype('generatepassword.'));
 		$arrUpdate[$fieldName] = $password['encrypted'];
@@ -748,19 +758,19 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			unset($arrUpdate[$fieldName]);
 		}
 
-		return $arrUpdate;
+		return true;
 	}
 
 	/**
 	 * Saeubert Checkboxfelder, indem die uebergebenen Werte durch 1 oder 0 ausgetauscht werden.
 	 * Gilt fuer eine oder mehrere Checkboxen (nicht fuer scrollbare Listen).
 	 *
+	 * @param	array		$arrUpdate // Call by reference: Das Array in dem das zu saubernde Feld ist.
 	 * @param	string		$fieldName
 	 * @param	array		$fieldConfig
-	 * @param	array		$arrUpdate
-	 * @return	array		$arrUpdate
+	 * @return	boolean
 	 */
-	function cleanCheckField($fieldName, $fieldConfig, $arrUpdate) {
+	function cleanCheckField(&$arrUpdate, $fieldName, $fieldConfig) {
 		$checkItemsCount = count($fieldConfig['items']);
 
 		// Mehrere Checkboxen oder eine Checkbox.
@@ -784,24 +794,24 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 		}
 
-		return $arrUpdate;
+		return true;
 	}
 
 	/**
 	 * Saeubert MultipleSelectboxfelder indem auf jeden uebergebenen Wert intval() angewendet wird.
 	 *
+	 * @param	array		$arrUpdate // Call by reference: Das Array in dem das zu saubernde Feld ist.
 	 * @param	string		$fieldName
 	 * @param	array		$fieldConfig
-	 * @param	array		$arrUpdate
-	 * @return	array		$arrUpdate
+	 * @return	boolean
 	 */
-	function cleanMultipleSelectField($fieldName, $fieldConfig, $arrUpdate) {
+	function cleanMultipleSelectField(&$arrUpdate, $fieldName, $fieldConfig) {
 		$maxItemsCount = 1;
 		$arrCleanedValues = array();
 
-		// Wenn nichts ausgewaehlt wurde, wird auch dieser Parameter nicht uebergeben, daher zuerst ueberpruefen, ob etwas vorhanden ist.
+		// Wenn nichts ausgewaehlt wurde, wird dieser Parameter auch nicht uebergeben, daher zuerst ueberpruefen, ob etwas vorhanden ist.
 		if (!is_array($this->piVars[$this->contentId][$fieldName])) {
-			return $arrUpdate;
+			return false;
 		}
 
 		foreach ($this->piVars[$this->contentId][$fieldName] as $val) {
@@ -820,18 +830,18 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		$arrUpdate[$fieldName] = implode(',', $arrCleanedValues);
 
-		return $arrUpdate;
+		return true;
 	}
 
 	/**
 	 * Saeubert Group- und MultipleCheckboxfelder (scrollbare Liste).
 	 *
+	 * @param	array		$arrUpdate // Call by reference: Das Array in dem das zu saubernde Feld ist.
 	 * @param	string		$fieldName
 	 * @param	array		$fieldConfig
-	 * @param	array		$arrUpdate
-	 * @return	array		$arrUpdate
+	 * @return	boolean
 	 */
-	function cleanGroupDatabaseField($fieldName, $fieldConfig, $arrUpdate) {
+	function cleanGroupDatabaseField(&$arrUpdate, $fieldName, $fieldConfig) {
 		$maxItemsCount = 1;
 		$arrCleanedValues = array();
 
@@ -865,23 +875,23 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		$arrUpdate[$fieldName] = implode(',', $arrCleanedValues);
 
-		return $arrUpdate;
+		return true;
 	}
 
 	/**
 	 * Saeubert die uebrigen Felder (Input, Textarea, ...).
 	 *
+	 * @param	array		$arrUpdate // Call by reference: Das Array in dem das zu saubernde Feld ist.
 	 * @param	string		$fieldName
 	 * @param	array		$fieldConfig
-	 * @param	array		$arrUpdate
-	 * @return	array		$arrUpdate
+	 * @return	boolean
 	 */
-	function cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate) {
+	function cleanUncleanedField(&$arrUpdate, $fieldName, $fieldConfig) {
 		// Wenn eine Selectbox die Ihren Inhalt aus einer anderen Tabelle hat angezeigt wurde, dann darf nur eine Zahl kommen!
 		if ($fieldConfig['type'] == 'select' && $fieldConfig['foreign_table']) {
 			$arrUpdate[$fieldName] = intval($this->piVars[$this->contentId][$fieldName]);
 
-			return $arrUpdate;
+			return true;
 		}
 
 		// Ansonsten Standardsaeuberung.
@@ -892,19 +902,18 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$arrUpdate[$fieldName] = strtolower($arrUpdate[$fieldName]);
 		}
 
-		return $arrUpdate;
+		return true;
 	}
 
 	/**
 	 * The saveDeleteImage method is used to update or delete an image of an address
 	 *
+	 * @param	array		$arrUpdate // Call by reference: Das Array in dem das zu saubernde Feld ist.
 	 * @param	string		$fieldName
 	 * @param	array		$fieldConfig
-	 * @param	array		$arrUpdate
-	 * @param	string		$error // Call by reference Gibt den ersten auftretenden Fehler zurueck.
-	 * @return	array		$arrUpdate
+	 * @return	string		$error
 	 */
-	function saveDeleteFiles($fieldName, $fieldConfig, $arrUpdate, &$error = '') {
+	function saveDeleteFiles(&$arrUpdate, $fieldName, $fieldConfig) {
 		$arrFieldVars = (array)$this->piVars[$this->contentId][$fieldName];
 
 		$maxSize = $fieldConfig['max_size'] * 1024;
@@ -1008,19 +1017,19 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		$arrUpdate[$fieldName] = implode(',', $arrFilenames);
 
-		return $arrUpdate;
+		return $error;
 	}
 
 	/**
 	 * Kopiert anhand der angegebenen Konfigurationen Inhalte in dem uebergebenen Array an eine neue oder andere Stelle.
 	 * Dabei wird auf jeden kopierten Inhalt die stdWrap Funktionen angewendet.
 	 *
-	 * @param	array		$arrUpdate
-	 * @return	array		$arrUpdate
+	 * @param	array		$arrUpdate // Call by reference: Das Array dessen Inhalte kopiert werden.
+	 * @return	boolean
 	 */
-	function copyFields($arrUpdate) {
+	function copyFields(&$arrUpdate) {
 		if (!is_array($this->conf['copyfields.'])) {
-			return $arrUpdate;
+			return false;
 		}
 
 		// Kopiert den Inhalt eines Feldes in ein anderes Feld.
@@ -1065,16 +1074,16 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 		}
 
-		return $arrUpdate;
+		return true;
 	}
 
 	/**
 	 * Aktualisiert einen vorhandenen User, anhand des uebergebenen Arrays.
 	 *
-	 * @param	array		$arrUpdate
+	 * @param	array		$arrUpdate // Call by reference: Das Array mit den bearbeiteten Userdaten.
 	 * @return	array		$arrMode
 	 */
-	function doUserEdit($arrUpdate) {
+	function doUserEdit(&$arrUpdate) {
 		$arrMode = array();
 
 		// ToDo: MM-Relation, MM-Relationen setzen und die Anzahl der Relationen aktualisieren.
@@ -1112,14 +1121,14 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Erstellt einen User, anhand des uebergebenen Arrays.
 	 *
-	 * @param	array		$arrUpdate
+	 * @param	array		$arrUpdate // Call by reference: Das Array mit den neuen Userdaten.
 	 * @return	array		$arrMode
 	 */
-	function doUserRegister($arrUpdate) {
+	function doUserRegister(&$arrUpdate) {
 		$arrMode = array();
 
-		// Standartkonfigurationen anwenden.
-		$arrUpdate['pid'] = $this->storagePid;
+		// Standard-Konfigurationen anwenden.
+		$arrUpdate['pid'] = $this->storagePageId;
 		$arrUpdate['crdate'] = $arrUpdate['tstamp'];
 		$arrUpdate['usergroup'] = ($arrUpdate['usergroup']) ? $arrUpdate['usergroup'] : $this->getConfigurationByShowtype('usergroup');
 
@@ -1180,7 +1189,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Ermittelt die neuen Relationen anhand des uebergebenen Arrays.
 	 *
-	 * @param	array		$arrUpdate // Call by reference Das Array in dem die Anzahl der Relationen aktualisiert werden.
+	 * @param	array		$arrUpdate // Call by reference: Das Array in dem die Anzahl der Relationen aktualisiert werden.
 	 * @return	array		$arrInserts
 	 */
 	function getRelationInserts(&$arrUpdate) {
@@ -1220,7 +1229,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	function insertRelationInserts($userId, $arrInserts = array()) {
 		foreach ($arrInserts as $foreignTable => $arrRelations) {
 			$rows = array();
-			$fields = array('uid_local', 'uid_foreign');
+
+			$sorting = 1;
 
 			foreach ($arrRelations as $relation) {
 				if (!ctype_digit($relation)) {
@@ -1228,14 +1238,19 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				}
 
 				$rows[] = array(
+					'sorting' => $sorting,
 					'uid_local' => intval($userId),
 					'uid_foreign' => intval($relation)
 				);
+
+				$sorting++;
 			}
 
 			$GLOBALS['TYPO3_DB']->exec_DELETEquery($foreignTable, 'uid_local = ' . intval($userId));
 
-			$GLOBALS['TYPO3_DB']->exec_INSERTmultipleRows($foreignTable, $fields, $rows);
+			if (count($rows) > 0) {
+				$GLOBALS['TYPO3_DB']->exec_INSERTmultipleRows($foreignTable, array_keys($rows[0]), $rows);
+			}
 		}
 	}
 
@@ -1402,7 +1417,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function doApprovalCheck() {
 		// Userdaten ermitteln.
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tstamp, tx_datamintsfeuser_approval_level', 'fe_users', 'uid = ' . $this->userId . ' AND pid = ' . $this->storagePid, '', '', '1');
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tstamp, tx_datamintsfeuser_approval_level', 'fe_users', 'uid = ' . $this->userId . ' AND pid = ' . $this->storagePageId, '', '', '1');
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 
 		// Genehmigungstyp ermitteln um die richtige E-Mail zu senden, bzw. die richtige Ausgabe zu ermitteln.
@@ -1755,7 +1770,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$arrCurrentData = (array)$GLOBALS['TSFE']->fe_user->user;
 
 			// ToDo: MM-Relation, Merge MM-Values erweitern.
-			$arrCurrentData = $this->mergeMMRelationValues($arrCurrentData);
+			$arrCurrentData = $this->mergeRelationValues($arrCurrentData);
 		}
 
 		// Wenn das Formular schon einmal abgesendet wurde, aber ein Fehler auftrat, dann die bereits vom User uebertragenen Userdaten vorausfuellen.
@@ -1764,7 +1779,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Alle moeglichen Zeichen der Ausgabe, die stoeren koennten (XSS) konvertieren / entfernen.
-		$arrCurrentData = tx_datamintsfeuser_utils::htmlspecialcharsPostArray($arrCurrentData, false);
+		tx_datamintsfeuser_utils::htmlspecialcharsPostArray($arrCurrentData, false);
 
 		// Seite, die den Request entgegennimmt (TypoLink).
 		$requestLink = $this->pi_getPageLink($this->conf['requestpid']);
@@ -1909,7 +1924,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				// Noch nicht fertig gestellte Listenansicht der nicht aktivierten User.
 //				if ($this->conf['shownotactivated'] == 'list') {
 //					$arrNotActivated = $this->getNotActivatedUserArray();
-//					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, username', 'fe_users', 'pid = ' . $this->storagePid . ' AND uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
+//					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, username', 'fe_users', 'pid = ' . $this->storagePageId . ' AND uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
 //
 //					while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 //						$content .= '<div id="' . $this->getFieldId($fieldName, 'wrapper') . '" class="' . $this->getFieldClasses($iItem, $fieldName) . ' ' . $this->conf['shownotactivated'] . '">';
@@ -1961,7 +1976,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @param	array		$arrCurrentData
 	 * @return	array		$arrCurrentData
 	 */
-	function mergeMMRelationValues($arrCurrentData) {
+	function mergeRelationValues($arrCurrentData) {
 		foreach ($this->arrUsedFields as $fieldName) {
 			if (!is_array($this->feUsersTca['columns'][$fieldName])) {
 				continue;
@@ -2102,7 +2117,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$arrCurrentData[$fieldName] = str_split(strrev(decbin($arrCurrentData[$fieldName])));
 			}
 
-			$content .= '<input type="hidden" name="' . $this->getFieldName($fieldName, '') . '" value="" />';
+			$content .= '<input type="hidden" name="' . $this->getFieldName($fieldName) . '[]" value="" />';
 
 			$content .= '<div class="list clearfix">';
 
@@ -2201,7 +2216,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$checked = (in_array($value, $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
 
 				$optionlist .= '<div id="' . $this->getFieldId($fieldName, 'item', $i, 'wrapper') . '" class="item item-' . $i . '">';
-				$optionlist .= '<input type="checkbox"  name="' . $this->getFieldName($fieldName, '') . '" value="' . $value . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
+				$optionlist .= '<input type="checkbox"  name="' . $this->getFieldName($fieldName) . '[]" value="' . $value . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
 				$optionlist .= '<label for="' . $this->getFieldId($fieldName, 'item', $i) . '">' . $this->getLabel($label, false) . '</label>';
 				$optionlist .= '</div>';
 			} else {
@@ -2235,7 +2250,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					$checked = (in_array($row['uid'], $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
 
 					$optionlist .= '<div id="' . $this->getFieldId($fieldName, 'item', $i, 'wrapper') . '" class="item item-' . $i . '">';
-					$optionlist .= '<input type="checkbox" name="' . $this->getFieldName($fieldName, '') . '" value="' . $row['uid'] . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
+					$optionlist .= '<input type="checkbox" name="' . $this->getFieldName($fieldName) . '[]" value="' . $row['uid'] . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
 					$optionlist .= '<label for="' . $this->getFieldId($fieldName, 'item', $i) . '">' . $row[$labelFieldName] . '</label>';
 					$optionlist .= '</div>';
 				} else {
@@ -2251,9 +2266,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Mehrzeiliges oder Einzeiliges Select (Auswahlliste).
 		$multiple = ($fieldConfig['size'] > 1) ? ' size="' . $fieldConfig['size'] . '" multiple="multiple"' : '';
 
-		if ($fieldConfig['renderMode'] == 'checkbox') {
-			$content .= '<input type="hidden" name="' . $this->getFieldName($fieldName, '') . '" value="" />';
+		// Wenn kein Wert in im mehrzeiligen Select oder bei den Checkboxen ausgewählt ist, wurde das Feld nicht mit uebermittelt werden. Somit koennte man nie nichts auswaehlen!
+		if ($multiple || $fieldConfig['renderMode'] == 'checkbox') {
+			$content .= '<input type="hidden" name="' . $this->getFieldName($fieldName) . '[]" value="" />';
+		}
 
+		if ($fieldConfig['renderMode'] == 'checkbox') {
 			$content .= '<div class="list">';
 			$content .= $optionlist;
 			$content .= '</div>';
@@ -2267,7 +2285,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Rendert Groupfelder.
+	 * Rendert Groupfelder (z.B. Dateien oder externe Tabellen).
 	 *
 	 * @param	string		$fieldName
 	 * @param	array		$fieldConfig
@@ -2278,7 +2296,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {
 		$content = '';
 
-		// GROUP (z.B. Files oder externe Tabellen).
 		// Wenn es sich um den "internal_type" FILE handelt && es ein Bild ist, dann ein Vorschaubild erstellen und ein File-Inputfeld anzeigen.
 		if ($fieldConfig['internal_type'] == 'file') {
 			// Verzeichniss ermitteln.
@@ -2355,7 +2372,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				}
 			}
 
-			$content .= '<input type="hidden" name="' . $this->getFieldName($fieldName, '') . '" value="" />';
+			$content .= '<input type="hidden" name="' . $this->getFieldName($fieldName) . '[]" value="" />';
 
 			$content .= '<div class="list">';
 
@@ -2370,7 +2387,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$checked = (array_intersect(array($key, substr($key, strripos($key, '_') + 1)), $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
 
 				$content .= '<div id="' . $this->getFieldId($fieldName, 'item', $i, 'wrapper') . '" class="item item-' . $i . '">';
-				$content .= '<input type="checkbox" name="' . $this->getFieldName($fieldName, '') . '" value="' . $key . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
+				$content .= '<input type="checkbox" name="' . $this->getFieldName($fieldName) . '[]" value="' . $key . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
 				$content .= '<label for="' . $this->getFieldId($fieldName, 'item', $i) . '">'. $label . '</label>';
 				$content .= '</div>';
 
@@ -2715,8 +2732,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * Das Pfad-Array ist ein eindimensinales Array, dessen fortlaufende Werte die jeweilige Ebene im durchsuchten und geschriebenen Array repraesentieren!
 	 *
 	 * @param	array		$arrParamNameParts
-	 * @param	array		$arrRequest // Call by reference Das Array in dem gesucht wird.
-	 * @param	array		$arrParams // Call by reference das Array in das der Pfad und der Wert geschrieben werden.
+	 * @param	array		$arrRequest // Call by reference: Das Array in dem gesucht wird.
+	 * @param	array		$arrParams // Call by reference: Das Array in das der Pfad und der Wert geschrieben werden.
 	 * @return	void
 	 */
 	function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams) {

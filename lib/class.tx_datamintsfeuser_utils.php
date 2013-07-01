@@ -84,16 +84,16 @@ class tx_datamintsfeuser_utils {
 	/**
 	 * Ermittelt die General Record Storage Pid, falls keine Pid uebergeben wurde.
 	 *
-	 * @param	integer		$storagePid
+	 * @param	integer		$storagePageId
 	 * @return	integer		$storagePid
 	 */
-	function getStoragePid($storagePid) {
-		if (!$storagePid) {
+	function getStoragePageId($storagePageId) {
+		if (!$storagePageId) {
 			$arrayRootPids = $GLOBALS['TSFE']->getStorageSiterootPids();
-			$storagePid = $arrayRootPids['_STORAGE_PID'];
+			$storagePageId = $arrayRootPids['_STORAGE_PID'];
 		}
 
-		return intval($storagePid);
+		return intval($storagePageId);
 	}
 
 	/**
@@ -122,35 +122,54 @@ class tx_datamintsfeuser_utils {
 	}
 
 	/**
-	 * Konvertiert alle Inhalte des uebergebenen Arrays um z.B. XSS zu verhindern.
-	 * Der Modus gibt an ob das Array encodiert oder decodiert werden soll.
+	 * Konvertiert alle Werte des uebergebenen Post Arrays um z.B. XSS zu verhindern.
+	 * Der Modus gibt an ob die Werte encodiert oder decodiert werden soll.
 	 *
-	 * @param	array		$arrUpdate
+	 * @param	array		$arrPost // Call by reference: Das Post Array dessen Werte konvertiert werden.
 	 * @param	boolean		$decode
-	 * @return	array		$arrUpdate
+	 * @return	boolean
 	 */
-	function htmlspecialcharsPostArray($arrData, $decode) {
+	function htmlspecialcharsPostArray(&$arrPost, $decode) {
 		if ($decode) {
 			// Konvertiert alle moeglichen Zeichen die fuer die Ausgabe angepasst wurden zurueck.
-			foreach ($arrData as $key => $val) {
-				if (!is_array($arrData[$key])) {
-					$arrData[$key] = htmlspecialchars_decode($val);
+			foreach ($arrPost as $key => $val) {
+				if (!is_array($arrPost[$key])) {
+					$arrPost[$key] = htmlspecialchars_decode($val);
 				}
 			}
 		} else {
 			// Konvertiert alle moeglichen Zeichen der Ausgabe, die stoeren koennten (XSS).
-			foreach ($arrData as $key => $val) {
+			foreach ($arrPost as $key => $val) {
 				// Falls es kein Array ist, darf auch HTML enthalten sein, deshalb nur htmlspecialchars() anwenden!
-				if (!is_array($arrData[$key])) {
-					$arrData[$key] = htmlspecialchars($val);
+				if (!is_array($arrPost[$key])) {
+					$arrPost[$key] = htmlspecialchars($val);
 				} else {
 					// Wenn es ein Array ist, dann auf alle Elemente strip_tags() anwenden!
-					array_walk_recursive($arrData[$key], 'tx_datamintsfeuser_utils::stripTagsCallback');
+					array_walk_recursive($arrPost[$key], 'tx_datamintsfeuser_utils::stripTagsCallback');
 				}
 			}
 		}
 
-		return $arrData;
+		return true;
+	}
+
+	/**
+	 * Es wird jeder Wert im Post Array ueberprueft ob er ein Array ist.
+	 * Wenn dass der Fall ist, wird der erste Wert in diesem Array entfernt, falls dieser ein Leerstring ist.
+	 *
+	 * @param	array		$arrPost // Call by reference: Das Post Array
+	 * @return	boolean
+	 */
+	function shiftEmptyArrayValuePostArray(&$arrPost) {
+		foreach($arrPost as $key => $value) {
+			if (is_array($value) && $value[0] === '') {
+				array_shift($value);
+
+				$arrPost[$key] = $value;
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -486,9 +505,9 @@ class tx_datamintsfeuser_utils {
 	}
 
 	/**
-	 * Nimmt einen String per Call by Reference entgegen um auf diesen ein trim() anzuwenden.
+	 * Nimmt einen String entgegen um auf diesen ein trim() anzuwenden.
 	 *
-	 * @param	string		$string
+	 * @param	string		$string // Call by reference: Der String der getrimmt wird.
 	 * @return	void
 	 */
 	function trimCallback(&$string) {
@@ -496,9 +515,9 @@ class tx_datamintsfeuser_utils {
 	}
 
 	/**
-	 * Nimmt einen String per Call by Reference entgegen um auf diesen ein strip_tags() anzuwenden.
+	 * Nimmt einen String entgegen um auf diesen ein strip_tags() anzuwenden.
 	 *
-	 * @param	string		$string
+	 * @param	string		$string // Call by reference: Der String der gesaubert wird.
 	 * @return	void
 	 */
 	function stripTagsCallback(&$string) {
