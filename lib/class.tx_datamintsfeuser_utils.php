@@ -28,26 +28,27 @@
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
  *
- *   64: class tx_datamintsfeuser_utils
- *   73:     function getFeUsersTca($feUsersTca)
- *   90:     function getStoragePid($storagePid)
- *  106:     function getTypoLinkUrl($params, $urlParameters = array())
- *  120:     function fixPath($path)
- *  132:     function htmlspecialcharsPostArray($arrData, $decode)
- *  163:     function generatePassword($password, $arrGenerate = array())
- *  226:     function checkPassword($submitedPassword, $originalPassword)
- *  283:     function userAutoLogin($userId, $pageId = 0, $urlParameters = array())
- *  303:     function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false)
- *  328:     function escapeBrackets($url)
- *  340:     function getSpecialFieldKey($fieldName)
- *  350:     function getSpecialFieldName($fieldName)
- *  364:     function convertHtmlEmailToPlain($content)
- *  405:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
- *  428:     function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array())
- *  464:     function setFlexformConfigurationValue($key, $value, $conf)
- *  494:     function trimCallback(&$string)
- *  504:     function stripTagsCallback(&$string)
- *  514:     function checkUtf8($str)
+ *   65: class tx_datamintsfeuser_utils
+ *   74:     function getFeUsersTca($feUsersTca)
+ *   91:     function getStoragePageId($storagePageId)
+ *  107:     function getTypoLinkUrl($params, $urlParameters = array())
+ *  121:     function fixPath($path)
+ *  133:     function htmlspecialcharsPostArray(&$arrPost, $decode)
+ *  164:     function shiftEmptyArrayValuePostArray(&$arrPost)
+ *  183:     function generatePassword($password, $arrGenerate = array())
+ *  246:     function checkPassword($submitedPassword, $originalPassword)
+ *  303:     function userAutoLogin($userId, $pageId = 0, $urlParameters = array())
+ *  323:     function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false)
+ *  348:     function escapeBrackets($url)
+ *  360:     function getSpecialFieldKey($fieldName)
+ *  370:     function getSpecialFieldName($fieldName)
+ *  384:     function convertHtmlEmailToPlain($content)
+ *  425:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
+ *  448:     function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array())
+ *  484:     function setFlexformConfigurationValue($key, $value, $conf)
+ *  514:     function trimCallback(&$string)
+ *  524:     function stripTagsCallback(&$string)
+ *  534:     function checkUtf8($str)
  *
  *
  * TOTAL FUNCTIONS: 19

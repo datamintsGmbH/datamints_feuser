@@ -28,56 +28,60 @@
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
  *
- *   97: class tx_datamintsfeuser_pi1 extends tslib_pibase
- *  155:     function main($content, $conf)
- *  234:     function doFormSubmit()
- *  421:     function checkValid()
- *  574:     function checkUnique()
- *  607:     function checkRequired()
- *  667:     function checkCaptcha($value)
- *  733:     function cleanPasswordField($fieldName, $fieldConfig, $arrUpdate)
- *  755:     function cleanCheckboxField($fieldName, $fieldConfig, $arrUpdate)
- *  790:     function cleanMultipleSelectboxField($fieldName, $fieldConfig, $arrUpdate)
- *  826:     function cleanGroupAndMultipleCheckboxField($fieldName, $fieldConfig, $arrUpdate)
- *  870:     function cleanUncleanedField($fieldName, $fieldConfig, $arrUpdate)
- *  898:     function saveDeleteFiles($fieldName, $fieldConfig, $arrUpdate, &$error = '')
- * 1012:     function copyFields($arrUpdate)
- * 1068:     function doUserEdit($arrUpdate)
- * 1106:     function doUserRegister($arrUpdate)
- * 1171:     function showOutputRedirect($mode, $submode = '', $params = array())
- * 1276:     function sendActivationMail($userId = 0)
- * 1323:     function doApprovalCheck()
- * 1401:     function getApprovalTypes()
- * 1412:     function setNotActivatedCookie($userId)
- * 1425:     function getNotActivatedUserArray($arrNotActivated = array())
- * 1457:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
- * 1579:     function isAdminMail($approvalType)
- * 1591:     function getTemplateSubpart($templatePart, $markerArray = array(), $config = array())
- * 1612:     function getChangedForMail($arrNewData, $config)
- * 1649:     function getPasswordForMail()
- * 1670:     function showForm($valueCheck = array())
- * 1885:     function showInput($fieldName, $fieldConfig, $arrCurrentData, $valueCheck, $disabledField = '')
- * 1936:     function showText($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 1953:     function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2007:     function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2043:     function showSelect($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2140:     function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2255:     function showCaptcha($fieldName, $valueCheck)
- * 2324:     function getFieldId()
- * 2346:     function getFieldName()
- * 2369:     function getLabel($fieldName, $checkRequired = true)
- * 2412:     function getErrorType($fieldName, $valueCheck)
- * 2429:     function getErrorClass($fieldName, $valueCheck)
- * 2447:     function getErrorLabel($fieldName, $valueCheck)
- * 2464:     function isRequiredField($fieldName)
- * 2479:     function getTableLabelFieldName($table)
- * 2494:     function getHiddenParamsArray()
- * 2511:     function getHiddenParamsHiddenFields()
- * 2560:     function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams)
- * 2603:     function determineConfiguration()
- * 2649:     function determineIrreConfiguration()
- * 2801:     function getConfigurationByShowtype($subConfig = '')
- * 2814:     function getJSValidationConfiguration()
+ *  101: class tx_datamintsfeuser_pi1 extends tslib_pibase
+ *  161:     function main($content, $conf)
+ *  243:     function doFormSubmit()
+ *  443:     function checkValid()
+ *  596:     function checkUnique()
+ *  629:     function checkRequired()
+ *  689:     function checkCaptcha($value)
+ *  755:     function cleanPasswordField(&$arrUpdate, $fieldName, $fieldConfig)
+ *  777:     function cleanCheckField(&$arrUpdate, $fieldName, $fieldConfig)
+ *  812:     function cleanMultipleSelectField(&$arrUpdate, $fieldName, $fieldConfig)
+ *  848:     function cleanGroupDatabaseField(&$arrUpdate, $fieldName, $fieldConfig)
+ *  893:     function cleanUncleanedField(&$arrUpdate, $fieldName, $fieldConfig)
+ *  920:     function saveDeleteFiles(&$arrUpdate, $fieldName, $fieldConfig)
+ * 1034:     function copyFields(&$arrUpdate)
+ * 1090:     function doUserEdit(&$arrUpdate)
+ * 1131:     function doUserRegister(&$arrUpdate)
+ * 1199:     function getRelationInserts(&$arrUpdate)
+ * 1234:     function insertRelationInserts($userId, $arrInserts = array())
+ * 1271:     function showOutputRedirect($mode, $submode = '', $params = array())
+ * 1376:     function sendActivationMail($userId = 0)
+ * 1423:     function doApprovalCheck()
+ * 1501:     function getApprovalTypes()
+ * 1512:     function setNotActivatedCookie($userId)
+ * 1525:     function getNotActivatedUserArray($arrNotActivated = array())
+ * 1557:     function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
+ * 1679:     function isAdminMail($approvalType)
+ * 1691:     function getTemplateSubpart($templatePart, $markerArray = array(), $config = array())
+ * 1712:     function getChangedForMail($arrNewData, $config)
+ * 1749:     function getPasswordForMail()
+ * 1770:     function showForm($valueCheck = array())
+ * 1984:     function mergeRelationValues($arrCurrentData)
+ * 2040:     function showInput($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '', $valueCheck = array(), $iItem = 0)
+ * 2096:     function showText($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2113:     function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2167:     function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2203:     function showSelect($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2301:     function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2416:     function showCaptcha($fieldName, $valueCheck, $iItem)
+ * 2485:     function getFieldId()
+ * 2510:     function getFieldClasses($iItem, $fieldName, $fieldType = '', $valueCheck = array())
+ * 2530:     function getFieldName()
+ * 2553:     function getLabel($fieldName, $checkRequired = true)
+ * 2596:     function getErrorType($fieldName, $valueCheck)
+ * 2613:     function getErrorClass($fieldName, $valueCheck)
+ * 2631:     function getErrorLabel($fieldName, $valueCheck)
+ * 2648:     function isRequiredField($fieldName)
+ * 2663:     function getTableLabelFieldName($table)
+ * 2678:     function getHiddenParamsArray()
+ * 2695:     function getHiddenParamsHiddenFields()
+ * 2744:     function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams)
+ * 2787:     function determineConfiguration()
+ * 2833:     function determineIrreConfiguration()
+ * 2985:     function getConfigurationByShowtype($subConfig = '')
+ * 2998:     function getJSValidationConfiguration()
  *
  *
  * TOTAL FUNCTIONS: 49
@@ -1202,7 +1206,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
 
-			if (!$fieldConfig['MM'] && !($fieldConfig['type'] == 'select' || ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db'))) {
+			if (!$fieldConfig['MM'] || !($fieldConfig['type'] == 'select' || ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db'))) {
 				continue;
 			}
 
@@ -1225,6 +1229,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 *
 	 * @param	array		$userId
 	 * @param	array		$arrInserts
+	 * @return	void
 	 */
 	function insertRelationInserts($userId, $arrInserts = array()) {
 		foreach ($arrInserts as $foreignTable => $arrRelations) {
