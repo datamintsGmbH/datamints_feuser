@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2012-10-08T11:26:28Z" product-name="datamints_feuser">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-07-02T11:40:00Z" product-name="datamints_feuser">
 		<header/>
 		<body>
 			<trans-unit id="tt_content.list_type_pi1" xml:space="preserve">
@@ -61,13 +61,13 @@
 				<source>Info Item</source>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.userdelete" xml:space="preserve">
-				<source>&quot;Delete User&quot; Checkbox</source>
+				<source>"Delete User" Checkbox</source>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.passwordconfirmation" xml:space="preserve">
-				<source>&quot;Current Password&quot; Field</source>
+				<source>"Current Password" Field</source>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.resendactivation" xml:space="preserve">
-				<source>&quot;Resend Activation&quot; Field</source>
+				<source>"Resend Activation" Field</source>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.captcha" xml:space="preserve">
 				<source>Captcha Field</source>
@@ -151,31 +151,31 @@
 				<source>Admin approval</source>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.redirect.register" xml:space="preserve">
-				<source>Redirect Site ID &quot;Registration&quot;:</source>
+				<source>Redirect Site ID "Registration":</source>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.redirect.doubleoptin_success" xml:space="preserve">
-				<source>Redirect Site ID &quot;Double Opt-in - Activated&quot;:</source>
+				<source>Redirect Site ID "Double Opt-in - Activated":</source>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.redirect.doubleoptin_deleted" xml:space="preserve">
-				<source>Redirect Site ID &quot;Double Opt-in - Denied&quot;:</source>
+				<source>Redirect Site ID "Double Opt-in - Denied":</source>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.redirect.adminapproval_success" xml:space="preserve">
-				<source>Redirect Site ID &quot;Admin Approval - Activated&quot;:</source>
+				<source>Redirect Site ID "Admin Approval - Activated":</source>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.redirect.adminapproval_deleted" xml:space="preserve">
-				<source>Redirect Site ID &quot;Admin Approval - Denied&quot;:</source>
+				<source>Redirect Site ID "Admin Approval - Denied":</source>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.redirect.resendactivation" xml:space="preserve">
-				<source>Redirect Site ID &quot;Resend Activation&quot;:</source>
+				<source>Redirect Site ID "Resend Activation":</source>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.redirect.edit" xml:space="preserve">
-				<source>Redirect Site ID &quot;Edit&quot;:</source>
+				<source>Redirect Site ID "Edit":</source>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.redirect.userdelete" xml:space="preserve">
-				<source>Redirect Site ID &quot;Delete User&quot;:</source>
+				<source>Redirect Site ID "Delete User":</source>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.shownotactivated" xml:space="preserve">
-				<source>Type Of View For &quot;Resend Activation&quot; Field:</source>
+				<source>Type Of View For "Resend Activation" Field:</source>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.shownotactivated.input" xml:space="preserve">
 				<source>E-Mail Input Field</source>

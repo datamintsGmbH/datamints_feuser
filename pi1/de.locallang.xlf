@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2012-10-08T11:26:32Z" product-name="datamints_feuser">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-07-02T11:40:00Z" product-name="datamints_feuser">
 		<header/>
 		<body>
 			<trans-unit id="username_error_required" xml:space="preserve" approved="yes">
@@ -121,11 +121,11 @@
 			</trans-unit>
 			<trans-unit id="userdelete" xml:space="preserve" approved="yes">
 				<source>Delete Current User?</source>
-				<target>Aktuellen User löschen?</target>
+				<target>Aktuellen Benutzer löschen?</target>
 			</trans-unit>
 			<trans-unit id="userdelete_success" xml:space="preserve" approved="yes">
 				<source>The User was successfully deleted!</source>
-				<target>Der User wurde erfolgreich gelöscht!</target>
+				<target>Der Benutzer wurde erfolgreich gelöscht!</target>
 			</trans-unit>
 			<trans-unit id="passwordconfirmation" xml:space="preserve" approved="yes">
 				<source>Current Password:</source>
@@ -145,7 +145,7 @@
 			</trans-unit>
 			<trans-unit id="resendactivation_list" xml:space="preserve" approved="yes">
 				<source>Resend activation mail to the following User:</source>
-				<target>Aktivierungsmail für folgenden User erneut senden:</target>
+				<target>Aktivierungsmail für folgenden Benutzer erneut senden:</target>
 			</trans-unit>
 			<trans-unit id="resendactivation_sent" xml:space="preserve" approved="yes">
 				<source>A new activation mail was sent to the entered e-mail!</source>
@@ -153,7 +153,7 @@
 			</trans-unit>
 			<trans-unit id="resendactivation_failure" xml:space="preserve" approved="yes">
 				<source>You have to wait for admin activation!</source>
-				<target>Sie müssen auf die Aktivierung durch den Administrators warten!</target>
+				<target>Sie müssen auf die Aktivierung durch den Administrator warten!</target>
 			</trans-unit>
 			<trans-unit id="resendactivation_error_required" xml:space="preserve" approved="yes">
 				<source>Please enter the e-mail address you have registered with!</source>
@@ -201,7 +201,7 @@
 			</trans-unit>
 			<trans-unit id="doubleoptin_adminapproval_sent" xml:space="preserve" approved="yes">
 				<source>To activate your account click the activation link in the e-mail we sent you! Then the Administrator has to unlock it!</source>
-				<target>Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde! Sobald das geschehen ist, werden Sie durch den Administrators freigeschalten!</target>
+				<target>Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde! Sobald das geschehen ist, werden Sie durch den Administrator freigeschalten!</target>
 			</trans-unit>
 			<trans-unit id="adminapproval_doubleoptin_sent" xml:space="preserve" approved="yes">
 				<source>To activate your account, the Administrator has to unlock it! Then click the activation link in the e-mail we will sent you!</source>
@@ -237,11 +237,11 @@
 			</trans-unit>
 			<trans-unit id="edit_error_login" xml:space="preserve" approved="yes">
 				<source>You can not edit the user data if you are not logged in!</source>
-				<target>Die Userdaten können nicht bearbeitet werden wenn man nicht eingelogt ist!</target>
+				<target>Die Benutzerdaten können nicht bearbeitet werden wenn man nicht eingeloggt ist!</target>
 			</trans-unit>
 			<trans-unit id="edit_error_storage" xml:space="preserve" approved="yes">
 				<source>You can not edit the user data here!</source>
-				<target>Die Userdaten können hier nicht bearbeitet werden!</target>
+				<target>Die Benutzerdaten können hier nicht bearbeitet werden!</target>
 			</trans-unit>
 		</body>
 	</file>

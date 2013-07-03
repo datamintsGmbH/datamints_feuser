@@ -94,7 +94,7 @@
 			<label index="tt_content.pi_flexform.databasefield">Datenbankfeld</label>
 			<label index="tt_content.pi_flexform.separator">Trenner / Legende</label>
 			<label index="tt_content.pi_flexform.infoitem">Infoitem</label>
-			<label index="tt_content.pi_flexform.userdelete">"User löschen" Checkbox</label>
+			<label index="tt_content.pi_flexform.userdelete">"Benutzer löschen" Checkbox</label>
 			<label index="tt_content.pi_flexform.passwordconfirmation">"Aktuelles Passwort" Feld</label>
 			<label index="tt_content.pi_flexform.resendactivation">"Aktivierung erneut senden" Feld</label>
 			<label index="tt_content.pi_flexform.captcha">Captcha Feld</label>
@@ -109,7 +109,7 @@
 			<label index="tt_content.pi_flexform.userfolder">Standard Benutzerordner:</label>
 			<label index="tt_content.pi_flexform.generatepassword.mode">Passwort generieren?</label>
 			<label index="tt_content.pi_flexform.generatepassword.length">Länge des generierten Passworts:</label>
-			<label index="tt_content.pi_flexform.sendusermail">User E-Mail senden?</label>
+			<label index="tt_content.pi_flexform.sendusermail">Benutzer E-Mail senden?</label>
 			<label index="tt_content.pi_flexform.sendadminmail">Admin E-Mail senden?</label>
 			<label index="tt_content.pi_flexform.mailtype">E-Mail Typ:</label>
 			<label index="tt_content.pi_flexform.mailtype.text">Text</label>
@@ -131,16 +131,16 @@
 			<label index="tt_content.pi_flexform.redirect.adminapproval_deleted">Weiterleitungsseiten ID "Administratorgenehmigung - Verweigert":</label>
 			<label index="tt_content.pi_flexform.redirect.resendactivation">Weiterleitungsseiten ID "Aktivierung erneut senden":</label>
 			<label index="tt_content.pi_flexform.redirect.edit">Weiterleitungsseiten ID "Bearbeitung":</label>
-			<label index="tt_content.pi_flexform.redirect.userdelete">Weiterleitungsseiten ID "User löschen":</label>
+			<label index="tt_content.pi_flexform.redirect.userdelete">Weiterleitungsseiten ID "Benutzer löschen":</label>
 			<label index="tt_content.pi_flexform.shownotactivated">"Resend Activation" Anzeigetyp:</label>
 			<label index="tt_content.pi_flexform.shownotactivated.input">E-Mail Eingabefeld</label>
-			<label index="tt_content.pi_flexform.shownotactivated.list">Liste der per Cookie gespeicherten User</label>
+			<label index="tt_content.pi_flexform.shownotactivated.list">Liste der per Cookie gespeicherten Benutzer</label>
 			<label index="tt_content.pi_flexform.disablestylesheet">Deaktiviere integriertes Stylesheet:</label>
 			<label index="tt_content.pi_flexform.stylesheetpath">Verwende eigenes Stylesheet:</label>
 			<label index="tt_content.pi_flexform.disablejsvalidator">Deaktiviere integrierten JavaScript Validator:</label>
 			<label index="tt_content.pi_flexform.jsvalidatorpath">Verwende eigenen JavaScript Validator:</label>
 			<label index="tt_content.pi_flexform.disablejsconfig">Deaktiviere integrierte JavaScript Konfiguration:</label>
-			<label index="tt_content.pi_flexform.edit.sendusermail">User E-Mail senden?</label>
+			<label index="tt_content.pi_flexform.edit.sendusermail">Benutzer E-Mail senden?</label>
 			<label index="tt_content.pi_flexform.edit.sendadminmail">Administrator E-Mail senden?</label>
 		</languageKey>
 	</data>

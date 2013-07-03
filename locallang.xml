@@ -13,7 +13,7 @@
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="pi1_title">Frontend User Management</label>
-			<label index="pi1_plus_wiz_description">Dieses Plug-In fügt Ihren Seiten ein Registrierungs- oder Bearbeitungs-Formular hinzu.</label>
+			<label index="pi1_plus_wiz_description">Dieses Plug-In fügt ein Registrierungs- oder Bearbeitungs-Formular ein.</label>
 		</languageKey>
 	</data>
 </T3locallang>

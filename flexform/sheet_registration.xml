@@ -9,7 +9,7 @@
 
 			<register.userfolder>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.userfolder</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.userfolder</label>
 					<config>
 						<type>group</type>
 						<internal_type>db</internal_type>

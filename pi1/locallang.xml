@@ -2,7 +2,7 @@
 <T3locallang>
 	<meta type="array">
 		<type>module</type>
-		<description>Language labels for plugin &quot;tx_datamintsfeuser_pi1&quot;</description>
+		<description>Language labels for plugin "tx_datamintsfeuser_pi1"</description>
 		<labelContext type="array">
 		</labelContext>
 	</meta>
@@ -99,15 +99,15 @@
 			<label index="image_error_type">Die Hochgeladene Datei ist kein Bild!</label>
 			<label index="image_error_upload">Das Bild konnte nicht hochgeladen werden!</label>
 			<label index="image_error_delete">Das Bild konnte nicht gelöscht werden!</label>
-			<label index="userdelete">Aktuellen User löschen?</label>
-			<label index="userdelete_success">Der User wurde erfolgreich gelöscht!</label>
+			<label index="userdelete">Aktuellen Benutzer löschen?</label>
+			<label index="userdelete_success">Der Benutzer wurde erfolgreich gelöscht!</label>
 			<label index="passwordconfirmation">Aktuelles Passwort:</label>
 			<label index="passwordconfirmation_error_required">Es muss das aktuelle Passwort eingegeben werden!</label>
 			<label index="passwordconfirmation_error_valid">Das eingegebene Passwort stimmt nicht mit dem aktuellen Passwort überein!</label>
 			<label index="resendactivation">Aktivierungsmail für folgende E-Mail erneut senden:</label>
-			<label index="resendactivation_list">Aktivierungsmail für folgenden User erneut senden:</label>
+			<label index="resendactivation_list">Aktivierungsmail für folgenden Benutzer erneut senden:</label>
 			<label index="resendactivation_sent">Es wurde eine neue Aktivierungsmail an die von Ihnen angegebene E-Mail geschickt!</label>
-			<label index="resendactivation_failure">Sie müssen auf die Aktivierung durch den Administrators warten!</label>
+			<label index="resendactivation_failure">Sie müssen auf die Aktivierung durch den Administrator warten!</label>
 			<label index="resendactivation_error_required">Es muss die E-Mail eingeben werden, mit der Sie sich registriert haben!</label>
 			<label index="resendactivation_error_valid">Die eingegebene E-Mail ist noch nicht registriert, oder wurde schon aktiviert!</label>
 			<label index="captcha">Geben Sie die Buchstaben aus dem Bild ein:</label>
@@ -119,7 +119,7 @@
 			<label index="edit_success">Ihre Daten wurde erfolgreich geändert! Sie werden in wenigen Sekunden zurück geleitet!</label>
 			<label index="doubleoptin_sent">Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde!</label>
 			<label index="adminapproval_sent">Sie werden durch den Administrator freigeschalten!</label>
-			<label index="doubleoptin_adminapproval_sent">Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde! Sobald das geschehen ist, werden Sie durch den Administrators freigeschalten!</label>
+			<label index="doubleoptin_adminapproval_sent">Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde! Sobald das geschehen ist, werden Sie durch den Administrator freigeschalten!</label>
 			<label index="adminapproval_doubleoptin_sent">Um Ihren Account zu aktivieren, müssen Sie auf die Freischaltung des Administrators warten! Sobald das geschehen ist, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wird!</label>
 			<label index="doubleoptin_success">Ihr Account wurde erfolgreich freigeschaltet!</label>
 			<label index="adminapproval_success">Der Benutzeraccount wurde erfolgreich freigeschaltet!</label>
@@ -128,8 +128,8 @@
 			<label index="doubleoptin_failure">Ihr Aktivierungslink ist leider nicht gültig!</label>
 			<label index="adminapproval_failure">Der Aktivierungslink ist leider nicht gültig, oder der Account wurde schon aktiviert!</label>
 			<label index="approvalcheck_failure">Der Aktivierungslink ist leider nicht gültig, oder Ihr Account wurde schon aktiviert!</label>
-			<label index="edit_error_login">Die Userdaten können nicht bearbeitet werden wenn man nicht eingelogt ist!</label>
-			<label index="edit_error_storage">Die Userdaten können hier nicht bearbeitet werden!</label>
+			<label index="edit_error_login">Die Benutzerdaten können nicht bearbeitet werden wenn man nicht eingeloggt ist!</label>
+			<label index="edit_error_storage">Die Benutzerdaten können hier nicht bearbeitet werden!</label>
 		</languageKey>
 	</data>
 </T3locallang>
