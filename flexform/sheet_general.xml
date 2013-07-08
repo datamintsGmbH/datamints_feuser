@@ -2,23 +2,23 @@
 
 	<ROOT>
 		<TCEforms>
-			<sheetTitle>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sheet.general</sheetTitle>
+			<sheetTitle>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.sheet.general</sheetTitle>
 		</TCEforms>
 		<type>array</type>
 		<el>
 
 			<showtype>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.showtype</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.showtype</label>
 					<config>
 						<type>select</type>
 						<items type="array">
 							<numIndex index="0" type="array">
-								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.showtype.register</numIndex>
+								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.showtype.register</numIndex>
 								<numIndex index="1">register</numIndex>
 							</numIndex>
 							<numIndex index="1" type="array">
-								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.showtype.edit</numIndex>
+								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.showtype.edit</numIndex>
 								<numIndex index="1">edit</numIndex>
 							</numIndex>
 							<numIndex index="2" type="array">
@@ -34,13 +34,13 @@
 
 			<usedfields>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.usedfields</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.usedfields</label>
 					<config>
 						<type>select</type>
 						<minitems>0</minitems>
 						<maxitems>100</maxitems>
 							<numIndex index="2" type="array">
-								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.showtype.edit</numIndex>
+								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.showtype.edit</numIndex>
 								<numIndex index="1">edit</numIndex>
 							</numIndex>
 						<size>10</size>
@@ -86,7 +86,7 @@
 
 			<requiredfields>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.requiredfields</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.requiredfields</label>
 					<config>
 						<type>select</type>
 						<size>5</size>
@@ -113,7 +113,7 @@
 
 			<uniquefields>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.uniquefields</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.uniquefields</label>
 					<config>
 						<type>select</type>
 						<size>5</size>

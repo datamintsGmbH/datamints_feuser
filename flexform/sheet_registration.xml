@@ -2,14 +2,14 @@
 
 	<ROOT>
 		<TCEforms>
-			<sheetTitle>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sheet.registration</sheetTitle>
+			<sheetTitle>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.sheet.registration</sheetTitle>
 		</TCEforms>
 		<type>array</type>
 		<el>
 
 			<register.userfolder>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.userfolder</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.userfolder</label>
 					<config>
 						<type>group</type>
 						<internal_type>db</internal_type>
@@ -28,7 +28,7 @@
 
 			<register.usergroup>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.usergroup</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.register.usergroup</label>
 					<config>
 						<type>select</type>
 						<size>3</size>
@@ -45,7 +45,7 @@
 
 			<register.generatepassword.mode>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.generatepassword.mode</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.generatepassword.mode</label>
 					<config>
 						<type>check</type>
 					</config>
@@ -54,7 +54,7 @@
 
 			<register.generatepassword.length>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.generatepassword.length</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.generatepassword.length</label>
 					<config>
 						<type>input</type>
 						<size>5</size>
@@ -66,7 +66,7 @@
 
 			<register.autologin>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.autologin</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.register.autologin</label>
 					<config>
 						<type>check</type>
 					</config>
@@ -75,7 +75,7 @@
 
 			<register.approvalcheck>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.approvalcheck</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.register.approvalcheck</label>
 					<config>
 						<type>select</type>
 						<size>3</size>
@@ -87,11 +87,11 @@
 						<allowNonIdValues>1</allowNonIdValues>
 						<items type="array">
 							<numIndex index="0" type="array">
-								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.approvalcheck.doubleoptin</numIndex>
+								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.register.approvalcheck.doubleoptin</numIndex>
 								<numIndex index="1">doubleoptin</numIndex>
 							</numIndex>
 							<numIndex index="1" type="array">
-								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.register.approvalcheck.adminapproval</numIndex>
+								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.register.approvalcheck.adminapproval</numIndex>
 								<numIndex index="1">adminapproval</numIndex>
 							</numIndex>
 						</items>
@@ -101,7 +101,7 @@
 
 			<register.sendusermail>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sendusermail</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.sendusermail</label>
 					<config>
 						<type>check</type>
 					</config>
@@ -110,7 +110,7 @@
 
 			<register.sendadminmail>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sendadminmail</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.sendadminmail</label>
 					<config>
 						<type>check</type>
 					</config>
@@ -119,7 +119,7 @@
 
 			<register.mailtype>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.mailtype</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.mailtype</label>
 					<config>
 						<type>select</type>
 						<items type="array">
@@ -128,11 +128,11 @@
 								<numIndex index="1"></numIndex>
 							</numIndex>
 							<numIndex index="1" type="array">
-								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.mailtype.text</numIndex>
+								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.mailtype.text</numIndex>
 								<numIndex index="1">text</numIndex>
 							</numIndex>
 							<numIndex index="2" type="array">
-								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.mailtype.html</numIndex>
+								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.mailtype.html</numIndex>
 								<numIndex index="1">html</numIndex>
 							</numIndex>
 						</items>
@@ -144,7 +144,7 @@
 
 			<register.emailtemplate>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.emailtemplate</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.emailtemplate</label>
 					<config>
 						<type>input</type>
 						<size>20</size>
@@ -154,7 +154,7 @@
 							<_PADDING type="integer">2</_PADDING>
 							<link type="array">
 								<type>popup</type>
-								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.emailtemplate</title>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.emailtemplate</title>
 								<icon>link_popup.gif</icon>
 								<script>browse_links.php?act=file&amp;mode=wizard</script>
 								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
@@ -166,7 +166,7 @@
 
 			<register.sendername>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sendername</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.sendername</label>
 					<config>
 						<type>input</type>
 						<size>10</size>
@@ -178,7 +178,7 @@
 
 			<register.sendermail>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sendermail</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.sendermail</label>
 					<config>
 						<type>input</type>
 						<size>10</size>
@@ -190,7 +190,7 @@
 
 			<register.adminname>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.adminname</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.adminname</label>
 					<config>
 						<type>input</type>
 						<size>10</size>
@@ -202,7 +202,7 @@
 
 			<register.adminmail>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.adminmail</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.adminmail</label>
 					<config>
 						<type>input</type>
 						<size>10</size>

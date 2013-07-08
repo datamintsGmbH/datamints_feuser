@@ -2,23 +2,23 @@
 
 	<ROOT>
 		<TCEforms>
-			<sheetTitle>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sheet.extended</sheetTitle>
+			<sheetTitle>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.sheet.extended</sheetTitle>
 		</TCEforms>
 		<type>array</type>
 		<el>
 <!--
 			<shownotactivated>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.shownotactivated</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.shownotactivated</label>
 					<config>
 						<type>select</type>
 						<items type="array">
 							<numIndex index="0" type="array">
-								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.shownotactivated.input</numIndex>
+								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.shownotactivated.input</numIndex>
 								<numIndex index="1">input</numIndex>
 							</numIndex>
 							<numIndex index="1" type="array">
-								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.shownotactivated.list</numIndex>
+								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.shownotactivated.list</numIndex>
 								<numIndex index="1">list</numIndex>
 							</numIndex>
 						</items>
@@ -30,7 +30,7 @@
 -->
 			<disablestylesheet>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.disablestylesheet</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.disablestylesheet</label>
 					<config>
 						<type>check</type>
 					</config>
@@ -39,7 +39,7 @@
 
 			<stylesheetpath>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.stylesheetpath</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.stylesheetpath</label>
 					<config>
 						<type>input</type>
 						<size>20</size>
@@ -49,7 +49,7 @@
 							<_PADDING type="integer">2</_PADDING>
 							<link type="array">
 								<type>popup</type>
-								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.stylesheetpath</title>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.stylesheetpath</title>
 								<icon>link_popup.gif</icon>
 								<script>browse_links.php?act=file&amp;mode=wizard</script>
 								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
@@ -61,7 +61,7 @@
 
 			<disablejsvalidator>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.disablejsvalidator</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.disablejsvalidator</label>
 					<config>
 						<type>check</type>
 					</config>
@@ -70,7 +70,7 @@
 
 			<jsvalidatorpath>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.jsvalidatorpath</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.jsvalidatorpath</label>
 					<config>
 						<type>input</type>
 						<size>20</size>
@@ -80,7 +80,7 @@
 							<_PADDING type="integer">2</_PADDING>
 							<link type="array">
 								<type>popup</type>
-								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.jsvalidatorpath</title>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.jsvalidatorpath</title>
 								<icon>link_popup.gif</icon>
 								<script>browse_links.php?act=file&amp;mode=wizard</script>
 								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
@@ -92,7 +92,7 @@
 
 			<disablejsconfig>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.disablejsconfig</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.disablejsconfig</label>
 					<config>
 						<type>check</type>
 					</config>
