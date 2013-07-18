@@ -1217,7 +1217,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$arrInserts[$fieldConfig['MM']] = array();
 
 			foreach($arrRelations as $relation) {
-				$arrInserts[$fieldConfig['MM']][] = intval($relation) ? $relation : substr($relation, strripos($relation, '_') + 1);
+				$arrInserts[$fieldConfig['MM']][] = intval(ctype_digit($relation) ? $relation : substr($relation, strripos($relation, '_') + 1));
 			}
 		}
 
@@ -1527,7 +1527,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Nicht aktivierte User ueber den Cookie ermitteln, und vor Missbrauch schuetzen.
 		if (!$arrNotActivated) {
-			$arrNotActivated = array_map('intval', array_unique(t3lib_div::trimExplode(',', $_COOKIE[$this->prefixId]['not_activated'], true)));
+			$arrNotActivated = array_unique(array_map('intval', t3lib_div::trimExplode(',', $_COOKIE[$this->prefixId]['not_activated'], true)));
 		}
 
 		// Wenn nach dem reinigen noch User uebrig bleiben.
@@ -2049,15 +2049,15 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$datum = ($arrCurrentData[$fieldName]) ? $arrCurrentData[$fieldName] : '';
 
 			// Nur als Datum formatieren, wenn der aktuelle Wert ein Timestamp ist.
-			if ($arrCurrentData[$fieldName] && ctype_digit($arrCurrentData[$fieldName])) {
+			if ($arrCurrentData[$fieldName] && is_numeric($arrCurrentData[$fieldName])) {
 				// Timestamp zu "tt.mm.jjjj" machen.
 				if (in_array('date', $arrFieldConfigEval)) {
-					$datum = strftime($this->conf['format.']['date'], $arrCurrentData[$fieldName]);
+					$datum = date($this->conf['format.']['date'], $arrCurrentData[$fieldName]);
 				}
 
 				// Timestamp zu "hh:mm tt.mm.jjjj" machen.
 				if (in_array('datetime', $arrFieldConfigEval)) {
-					$datum = strftime($this->conf['format.']['datetime'], $arrCurrentData[$fieldName]);
+					$datum = date($this->conf['format.']['datetime'], $arrCurrentData[$fieldName]);
 				}
 			}
 

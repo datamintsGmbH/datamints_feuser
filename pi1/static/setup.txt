@@ -27,8 +27,8 @@ plugin.tx_datamintsfeuser_pi1 {
 	}
 
 	format {
-		date = %d.%m.%Y
-		datetime = %H:%M %d.%m.%Y
+		date = d.m.Y
+		datetime = H:i d.m.Y
 	}
 
 	thumb {
