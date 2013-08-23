@@ -185,6 +185,7 @@ function inputItemCheck(evt, input) {
 							return true;
 						}
 					}
+
 					break;
 
 				case 'email':
@@ -193,6 +194,7 @@ function inputItemCheck(evt, input) {
 
 						return true;
 					}
+
 					break;
 
 				case 'username':
@@ -201,6 +203,7 @@ function inputItemCheck(evt, input) {
 
 						return true;
 					}
+
 					break;
 
 				case 'zero':
@@ -209,6 +212,7 @@ function inputItemCheck(evt, input) {
 
 						return true;
 					}
+
 					break;
 
 				case 'emptystring':
@@ -217,6 +221,7 @@ function inputItemCheck(evt, input) {
 
 						return true;
 					}
+
 					break;
 
 				case 'custom':
@@ -239,6 +244,7 @@ function inputItemCheck(evt, input) {
 							}
 						}
 					}
+
 					if (validate['size']) {
 						arrLength = validate['size'].replace(' ', '').split(',');
 
@@ -248,6 +254,7 @@ function inputItemCheck(evt, input) {
 							return true;
 						}
 					}
+
 					break;
 
 			}
