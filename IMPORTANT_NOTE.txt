@@ -1,5 +1,0 @@
-##################
-# IMPORTANT NOTE #
-##################
-
-This extension is kept under version control with git; please commit any changes to the extension's files and do a 'git push' when done.
