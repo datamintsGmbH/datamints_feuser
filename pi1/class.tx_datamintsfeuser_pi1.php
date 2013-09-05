@@ -1217,7 +1217,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$arrInserts[$fieldConfig['MM']] = array();
 
 			foreach($arrRelations as $relation) {
-				$arrInserts[$fieldConfig['MM']][] = intval(ctype_digit($relation) ? $relation : substr($relation, strripos($relation, '_') + 1));
+				$arrInserts[$fieldConfig['MM']][] = intval(($dividerPosition = strripos($relation, '_')) ? substr($relation, $dividerPosition + 1) : $relation);
 			}
 		}
 
@@ -1238,7 +1238,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$sorting = 1;
 
 			foreach ($arrRelations as $relation) {
-				if (!ctype_digit($relation)) {
+				if (intval($relation) <= 0) {
 					continue;
 				}
 
@@ -1989,7 +1989,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
 
-			if (!$fieldConfig['MM'] && !($fieldConfig['type'] == 'select' || ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db'))) {
+			if (!$fieldConfig['MM'] || !($fieldConfig['type'] == 'select' || ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db'))) {
 				continue;
 			}
 
