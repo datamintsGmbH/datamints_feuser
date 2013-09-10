@@ -1,2 +1,4 @@
+EXT: datamints_feuser
+=====================
 
-http://typo3.org/documentation/document-library/extension-manuals/datamints_feuser/0.4.1/view/
+Online documentation: http://typo3.org/documentation/document-library/extension-manuals/datamints_feuser/0.9.4/view/
