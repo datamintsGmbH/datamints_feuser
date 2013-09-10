@@ -970,7 +970,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					break;
 				}
 
-				$newFiletype = pathinfo(strtolower($_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]['upload'][$sentKey]),  PATHINFO_EXTENSION);
+				$newFiletype = pathinfo(strtolower($_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]['upload'][$sentKey]), PATHINFO_EXTENSION);
 
 				// Wenn nur bestimmte Datei-Typen erlaubt sind, und der aktuelle Typ nicht in den Erlaubten enthalten ist!
 				if ($allowedTypes && !in_array($newFiletype, $allowedTypes)) {
@@ -1094,7 +1094,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$this->insertRelationInserts($this->userId, $this->getRelationInserts($arrUpdate));
 
 		// Der User hat seine Daten editiert.
-		$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , $arrUpdate);
+		$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, $arrUpdate);
 
 		// User und Admin Benachrichtigung schicken, aber nur wenn etwas geaendert wurde.
 		if ($this->getConfigurationByShowtype('sendusermail') || $this->getConfigurationByShowtype('sendadminmail')) {
@@ -1446,7 +1446,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Wenn der Approval-Hash richtig ist, des letzte Genehmigungslevel aber noch nicht erreicht ist.
 		if ($this->piVars[$this->contentId][self::submitparameterKeyHash] == $hashApproval && $row['tx_datamintsfeuser_approval_level'] > 1) {
 			// Genehmigungslevel updaten.
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , array('tstamp' => time(), 'tx_datamintsfeuser_approval_level' => $row['tx_datamintsfeuser_approval_level'] - 1));
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('tstamp' => time(), 'tx_datamintsfeuser_approval_level' => $row['tx_datamintsfeuser_approval_level'] - 1));
 
 			// Aktivierungsmail schicken.
 			$this->sendActivationMail();
@@ -1458,7 +1458,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Wenn der Approval-Hash richtig ist, und das letzte Genehmigungslevel erreicht ist.
 		if ($this->piVars[$this->contentId][self::submitparameterKeyHash] == $hashApproval && $row['tx_datamintsfeuser_approval_level'] == 1) {
 			// User aktivieren.
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId , array('tstamp' => time(), 'disable' => '0', 'tx_datamintsfeuser_approval_level' => '0'));
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('tstamp' => time(), 'disable' => '0', 'tx_datamintsfeuser_approval_level' => '0'));
 
 			// Registrierungs E-Mail schicken.
 			if ($this->getConfigurationByShowtype('sendadminmail')) {
@@ -1480,7 +1480,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Wenn der Disapproval-Hash richtig ist.
 		if ($this->piVars[$this->contentId][self::submitparameterKeyHash] == $hashDisapproval) {
 			// User loeschen.
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId ,array('tstamp' => time(), 'deleted' => '1'));
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('tstamp' => time(), 'deleted' => '1'));
 
 			// Eine Account-Abgelehnt Mail senden, wenn User ablehnt an den Administrator, oder andersrum.
 			$this->sendMail($this->userId, 'disapproval', !$this->isAdminMail($approvalType), $this->getConfigurationByShowtype());
@@ -1499,7 +1499,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	array
 	 */
 	function getApprovalTypes() {
-		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => Beim Exploden kommt dann ein leeres Arrayelement heraus, das nach dem entfernen einen leeren Platz uebrig laesst.
+		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => Beim Exploden kommt dann ein leeres Arrayelement heraus, das nach dem entfernen einen leeren Platz uebrig lassen wuerde.
 		return array_values(t3lib_div::trimExplode(',', $this->getConfigurationByShowtype(self::modeKeyApprovalcheck), true));
 	}
 
@@ -2112,11 +2112,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {
 		$content = '';
-		$checkItemsCount = count($fieldConfig['items']);
 
-		if ($checkItemsCount > 1) {
-			$checkItems = array_values($fieldConfig['items']);
-
+		if (count($fieldConfig['items']) > 1) {
+			// ToDo: Logik von Anzeige trennen!
 			// Moeglichkeit das der gespeicherte Wert eine Bitmap ist, daher aufsplitten in ein Array, wie es auch von einem abgesendeten Formular kommen wuerde.
 			if (!is_array($arrCurrentData[$fieldName])) {
 				$arrCurrentData[$fieldName] = str_split(strrev(decbin($arrCurrentData[$fieldName])));
@@ -2129,7 +2127,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$i = 1;
 
 			// Items, die in der TCA-Konfiguration festgelegt wurden.
-			for ($key = 0; $key < $checkItemsCount; $key++) {
+			for (array_values($fieldConfig['items']) as $key => $checkItem) {
+				// ToDo: Nicht auf den Key verlassen!
 				if ($key > 0 && ($key % $fieldConfig['cols']) == 0) {
 					$content .= '</div><div class="list clearfix">';
 				}
@@ -2138,7 +2137,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 				$content .= '<div id="' . $this->getFieldId($fieldName, 'item', $i, 'wrapper') . '" class="item item-' . $i . '">';
 				$content .= '<input type="checkbox" name="' . $this->getFieldName($fieldName, $key) . '" value="1"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
-				$content .= '<label for="' . $this->getFieldId($fieldName, 'item', $i) . '">' . $this->getLabel($checkItems[$key][0], false) . '</label>';
+				$content .= '<label for="' . $this->getFieldId($fieldName, 'item', $i) . '">' . $this->getLabel($checkItem[0], false) . '</label>';
 				$content .= '</div>';
 
 				$i++;
@@ -2166,20 +2165,18 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {
 		$content = '';
-		$radioItems = array_values($fieldConfig['items']);
 
 		$content .= '<div class="list">';
 
 		$i = 1;
 
-		for ($key = 0; $key < count($fieldConfig['items']); $key++) {
-			$value = $radioItems[$key][1];
-			$checked = ($arrCurrentData[$fieldName] == $value) ? ' checked="checked"' : '';
+		foreach (array_values($fieldConfig['items']) as $radioItem) {
+			$checked = ($arrCurrentData[$fieldName] == $radioItem[1]) ? ' checked="checked"' : '';
 
 			$content .= '<div id="' . $this->getFieldId($fieldName, 'item', $i, 'wrapper') . '" class="item item-' . $i . '">';
-			$content .= '<input type="radio" name="' . $this->getFieldName($fieldName) . '" value="' . $value . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
+			$content .= '<input type="radio" name="' . $this->getFieldName($fieldName) . '" value="' . $radioItem[1] . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
 			$content .= '<label for="' . $this->getFieldId($fieldName, 'item', $i) . '">';
-			$content .= $this->getLabel($radioItems[$key][0], false);
+			$content .= $this->getLabel($radioItem[0], false);
 			$content .= '</label>';
 			$content .= '</div>';
 
@@ -2204,6 +2201,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$content = '';
 		$optionlist = '';
 
+		// ToDo: Logik von Anzeige trennen!
 		// Moeglichkeit das der gespeicherte Wert eine kommseparierte Liste ist, daher aufsplitten in ein Array, wie es auch von einem abgesendeten Formular kommen wuerde.
 		if (!is_array($arrCurrentData[$fieldName])) {
 			$arrCurrentData[$fieldName] = t3lib_div::trimExplode(',', $arrCurrentData[$fieldName], true);
@@ -2213,21 +2211,18 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$i = 1;
 
 		// Items, die in der TCA-Konfiguration festgelegt wurden.
-		for ($key = 0; $key < count($fieldConfig['items']); $key++) {
-			$label = $fieldConfig['items'][$key][0];
-			$value = $fieldConfig['items'][$key][1];
-
+		foreach (array_values($fieldConfig['items']) as $selectItem) {
 			if ($fieldConfig['renderMode'] == 'checkbox') {
-				$checked = (in_array($value, $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
+				$checked = (in_array($selectItem[1], $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
 
 				$optionlist .= '<div id="' . $this->getFieldId($fieldName, 'item', $i, 'wrapper') . '" class="item item-' . $i . '">';
-				$optionlist .= '<input type="checkbox"  name="' . $this->getFieldName($fieldName) . '[]" value="' . $value . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
-				$optionlist .= '<label for="' . $this->getFieldId($fieldName, 'item', $i) . '">' . $this->getLabel($label, false) . '</label>';
+				$optionlist .= '<input type="checkbox"  name="' . $this->getFieldName($fieldName) . '[]" value="' . $selectItem[1] . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
+				$optionlist .= '<label for="' . $this->getFieldId($fieldName, 'item', $i) . '">' . $this->getLabel($selectItem[0], false) . '</label>';
 				$optionlist .= '</div>';
 			} else {
-				$selected = (in_array($value, $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
+				$selected = (in_array($selectItem[1], $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
 
-				$optionlist .= '<option value="' . $value . '"' . $selected . '>' . $this->getLabel($label, false) . '</option>';
+				$optionlist .= '<option value="' . $selectItem[1] . '"' . $selected . '>' . $this->getLabel($selectItem[0], false) . '</option>';
 			}
 
 			$i++;
@@ -2246,7 +2241,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$options = strtolower(substr(trim($fieldConfig['foreign_table_where']), 0, 3));
 			$options = trim((!$options || $options == 'and' || $options == 'or ' || $options == 'gro' || $options == 'ord' || $options == 'lim') ? $fieldConfig['foreign_table_where'] : 'AND ' . $fieldConfig['foreign_table_where']);
 
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select , $table, '1 ' . $this->cObj->enableFields($table) . ' ' . $options);
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $table, '1 ' . $this->cObj->enableFields($table) . ' ' . $options);
 
 			$i = 1;
 
@@ -2301,11 +2296,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {
 		$content = '';
 
-		// Wenn es sich um den "internal_type" FILE handelt && es ein Bild ist, dann ein Vorschaubild erstellen und ein File-Inputfeld anzeigen.
+		// Wenn es sich um den Typ FILE handelt && es ein Bild ist, dann ein Vorschaubild erstellen und ein File-Inputfeld anzeigen.
 		if ($fieldConfig['internal_type'] == 'file') {
 			// Verzeichniss ermitteln.
 			$uploadFolder = tx_datamintsfeuser_utils::fixPath($fieldConfig['uploadfolder']);
 
+			// ToDo: Logik von Anzeige trennen!
 			$arrCurrentFieldData = t3lib_div::trimExplode(',', $arrCurrentData[$fieldName], true);
 
 			$content .= '<div class="list">';
@@ -2327,6 +2323,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					if ($image) {
 						$content .= '<div class="thumb">' . $image . '</div>';
 					}
+
+					// ToDo: Falls kein Bild ermittelt werden konnte, leeres div mit den Klassen "thumb none" anzeigen!
 				}
 
 				if ($fieldConfig['show_thumbs'] && !$filename) {
@@ -2357,7 +2355,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$content .= '</div>';
 		}
 
-		// Wenn es sich um den "internal_type" DB handelt.
+		// Wenn es sich um den Typ DB handelt.
 		// Hier werden absichtlich nur die Erlaubten Tabellen benutzt, da es sonst unmengen an möglichen Optionen geben wuerde!
 		if ($fieldConfig['internal_type'] == 'db') {
 			$arrItems = array();
@@ -2370,7 +2368,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 				$labelFieldName = $this->getTableLabelFieldName($table);
 
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, ' . $labelFieldName , $table, '1 ' . $this->cObj->enableFields($table));
+				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, ' . $labelFieldName, $table, '1 ' . $this->cObj->enableFields($table));
 
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 					$arrItems[$table . '_' . $row['uid']] = $row[$labelFieldName];
@@ -2384,7 +2382,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$i = 1;
 
 			foreach ($arrItems as $key => $label) {
-				// Moeglichkeit das der gespeicherte Wert eine kommseparierte Liste ist, daher aufsplitten in ein Array, wie es auch von einem abgesendeten Formular kommen wuerde.
+				// ToDo: Logik von Anzeige trennen!
+				// Ist der gespeicherte Wert eine kommseparierte Liste, dann in ein Array aufsplitten, wie es auch von einem abgesendeten Formular kommen wuerde.
 				if (!is_array($arrCurrentData[$fieldName])) {
 					$arrCurrentData[$fieldName] = t3lib_div::trimExplode(',', $arrCurrentData[$fieldName], true);
 				}
@@ -3045,7 +3044,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						continue;
 					}
 
-					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(*) as count' , $table, '1 ' . $this->cObj->enableFields($table));
+					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(*) as count', $table, '1 ' . $this->cObj->enableFields($table));
 					$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 
 					$itemCount += $row['count'];

@@ -52,15 +52,12 @@ class tx_datamintsfeuser_flexform {
 	 * @return	array		$config
 	 */
 	function getFieldNames($config) {
-		// Damit $TCA hier zur Verfuegung steht.
-		global $TCA;
-
-		// $TCA-Teil laden. Damit koennen wir alle Felder durchgehen.
+		// TCA-Teil laden. Damit koennen wir alle Felder durchgehen.
 		t3lib_div::loadTCA('fe_users');
 
 		$fieldList = array();
 
-		foreach ($TCA['fe_users']['columns'] as $key => $_){
+		foreach ($GLOBALS['TCA']['fe_users']['columns'] as $key => $_){
 			$fieldList[] = array($key, $key);
 		}
 
