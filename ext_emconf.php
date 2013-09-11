@@ -40,7 +40,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'conflicts' => array(
 		),
 		'suggests' => array(
-			'xliff' => '',
+			'xliff' => '1.0.1',
 		),
 	),
 	'suggests' => array(
