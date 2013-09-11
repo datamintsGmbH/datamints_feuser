@@ -1,9 +1,9 @@
 <?php
 
-/* * *************************************************************
+/***************************************************************
  *  Copyright notice
  *
- *  (c) 2009 Bernhard baumgartl <b.baumgartl@datamints.com>
+ *  (c) 2009 Bernhard Baumgartl <b.baumgartl@datamints.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -21,19 +21,18 @@
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- * ************************************************************* */
+ ***************************************************************/
 
 /**
  *
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
  *
- *   47: class tx_datamintsfeuser_pi1_wizicon
- *   55:     function proc($wizardItems)
- *   73:     function includeLocalLang()
+ *   46: class tx_datamintsfeuser_pi1_wizicon
+ *   54:     public function proc($wizardItems)
  *
  *
- * TOTAL FUNCTIONS: 2
+ * TOTAL FUNCTIONS: 1
  *
  */
 
@@ -52,7 +51,7 @@ class tx_datamintsfeuser_pi1_wizicon {
 	 * @param	array		$wizardItems: The wizard items.
 	 * @return	array		$wizardItems: Modified array with wizard items.
 	 */
-	function proc($wizardItems) {
+	public function proc($wizardItems) {
 		$wizardItems['plugins_tx_datamintsfeuser_pi1'] = array(
 			'icon' => t3lib_extMgm::extRelPath('datamints_feuser') . 'pi1/ce_wiz.gif',
 			'title' => $GLOBALS['LANG']->sL('LLL:EXT:datamints_feuser/locallang.xlf:pi1_title'),

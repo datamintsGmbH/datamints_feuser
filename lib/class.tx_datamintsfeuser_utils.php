@@ -29,29 +29,29 @@
  *
  *
  *   65: class tx_datamintsfeuser_utils
- *   74:     function getFeUsersTca($feUsersTca)
- *   91:     function getStoragePageId($storagePageId)
- *  107:     function getTypoLinkUrl($params, $urlParameters = array())
- *  121:     function fixPath($path)
- *  133:     function htmlspecialcharsPostArray(&$arrPost, $decode)
- *  164:     function shiftEmptyArrayValuePostArray(&$arrPost)
- *  183:     function generatePassword($password, $arrGenerate = array())
- *  246:     function checkPassword($submitedPassword, $originalPassword)
- *  303:     function userAutoLogin($userId, $pageId = 0, $urlParameters = array())
- *  323:     function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false)
- *  348:     function escapeBrackets($url)
- *  360:     function getSpecialFieldKey($fieldName)
- *  370:     function getSpecialFieldName($fieldName)
- *  384:     function convertHtmlEmailToPlain($content)
- *  425:     function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
- *  448:     function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array())
- *  484:     function setFlexformConfigurationValue($key, $value, $conf)
- *  514:     function trimCallback(&$string)
- *  524:     function stripTagsCallback(&$string)
- *  534:     function checkUtf8($str)
+ *   73:     public function getFeUsersTca($feUsersTca)
+ *   90:     public function getStoragePageId($storagePageId)
+ *  106:     public function getTypoLinkUrl($params, $urlParameters = array())
+ *  120:     public function fixPath($path)
+ *  132:     public function htmlspecialcharsPostArray(&$arrPost, $decode)
+ *  163:     public function shiftEmptyArrayValuePostArray(&$arrPost)
+ *  182:     public function generatePassword($password, $arrGenerate = array())
+ *  245:     public function checkPassword($submitedPassword, $originalPassword)
+ *  302:     public function userAutoLogin($userId, $pageId = 0, $urlParameters = array())
+ *  322:     public function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = FALSE)
+ *  347:     public function escapeBrackets($url)
+ *  359:     public function getSpecialFieldKey($fieldName)
+ *  369:     public function getSpecialFieldName($fieldName)
+ *  383:     public function convertHtmlEmailToPlain($content)
+ *  424:     public function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
+ *  447:     public function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array())
+ *  483:     public function setFlexformConfigurationValue($key, $value, $conf)
+ *  513:     public function trimCallback(&$string)
+ *  523:     public function stripTagsCallback(&$string)
+ *  533:     public function checkUtf8($str)
  *
  *
- * TOTAL FUNCTIONS: 19
+ * TOTAL FUNCTIONS: 20
  *
  */
 
@@ -64,14 +64,13 @@
  */
 class tx_datamintsfeuser_utils {
 
-
 	/**
 	 * Ueberschreibt eventuell vorhandene TCA Konfiguration mit TypoScript Konfiguration.
 	 *
 	 * @param	array		$feUsersTca
 	 * @return	array		$globalFeUsersTca
 	 */
-	function getFeUsersTca($feUsersTca) {
+	public function getFeUsersTca($feUsersTca) {
 		$GLOBALS['TSFE']->includeTCA();
 		$globalFeUsersTca = $GLOBALS['TCA']['fe_users'];
 
@@ -88,7 +87,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	integer		$storagePageId
 	 * @return	integer		$storagePid
 	 */
-	function getStoragePageId($storagePageId) {
+	public function getStoragePageId($storagePageId) {
 		if (!$storagePageId) {
 			$arrayRootPids = $GLOBALS['TSFE']->getStorageSiterootPids();
 			$storagePageId = $arrayRootPids['_STORAGE_PID'];
@@ -104,7 +103,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$urlParameters
 	 * @return	string		$pageLink
 	 */
-	function getTypoLinkUrl($params, $urlParameters = array()) {
+	public function getTypoLinkUrl($params, $urlParameters = array()) {
 		$cObj = t3lib_div::makeInstance('tslib_cObj');
 		$pageLink = $cObj->getTypoLink_URL($params, $urlParameters);
 
@@ -118,7 +117,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$path
 	 * @return	string		$path
 	 */
-	function fixPath($path) {
+	public function fixPath($path) {
 		return dirname($path . '/.') . '/';
 	}
 
@@ -130,7 +129,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	boolean		$decode
 	 * @return	boolean
 	 */
-	function htmlspecialcharsPostArray(&$arrPost, $decode) {
+	public function htmlspecialcharsPostArray(&$arrPost, $decode) {
 		if ($decode) {
 			// Konvertiert alle moeglichen Zeichen die fuer die Ausgabe angepasst wurden zurueck.
 			foreach ($arrPost as $key => $val) {
@@ -151,7 +150,7 @@ class tx_datamintsfeuser_utils {
 			}
 		}
 
-		return true;
+		return TRUE;
 	}
 
 	/**
@@ -161,7 +160,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$arrPost // Call by reference: Das Post Array
 	 * @return	boolean
 	 */
-	function shiftEmptyArrayValuePostArray(&$arrPost) {
+	public function shiftEmptyArrayValuePostArray(&$arrPost) {
 		foreach($arrPost as $key => $value) {
 			if (is_array($value) && $value[0] === '') {
 				array_shift($value);
@@ -170,7 +169,7 @@ class tx_datamintsfeuser_utils {
 			}
 		}
 
-		return true;
+		return TRUE;
 	}
 
 	/**
@@ -180,7 +179,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$arrGenerate
 	 * @return	array		$arrPassword
 	 */
-	function generatePassword($password, $arrGenerate = array()) {
+	public function generatePassword($password, $arrGenerate = array()) {
 		$arrPassword = array();
 
 		// Uebergebenes Password setzten.
@@ -243,8 +242,8 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$originalPassword
 	 * @return	boolean		$check
 	 */
-	function checkPassword($submitedPassword, $originalPassword) {
-		$check = false;
+	public function checkPassword($submitedPassword, $originalPassword) {
+		$check = FALSE;
 
 		// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password ueberprueft.
 		if (t3lib_extMgm::isLoaded('saltedpasswords') && $GLOBALS['TYPO3_CONF_VARS']['FE']['loginSecurityLevel']) {
@@ -253,7 +252,7 @@ class tx_datamintsfeuser_utils {
 			if ($saltedpasswords['enabled']) {
 				$tx_saltedpasswords = t3lib_div::makeInstance($saltedpasswords['saltedPWHashingMethod']);
 				if ($tx_saltedpasswords->checkPassword($submitedPassword, $originalPassword)) {
-					$check = true;
+					$check = TRUE;
 				}
 			}
 		}
@@ -264,7 +263,7 @@ class tx_datamintsfeuser_utils {
 
 			if ($arrConf['activate']) {
 				if (md5($submitedPassword) == $originalPassword) {
-					$check = true;
+					$check = TRUE;
 				}
 			}
 		}
@@ -277,7 +276,7 @@ class tx_datamintsfeuser_utils {
 				require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/lib/class.tx_t3secsaltedpw_phpass.php';
 				$tx_t3secsaltedpw_phpass = t3lib_div::makeInstance('tx_t3secsaltedpw_phpass');
 				if ($tx_t3secsaltedpw_phpass->checkPassword($submitedPassword, $originalPassword)) {
-					$check = true;
+					$check = TRUE;
 				}
 			}
 		}
@@ -285,7 +284,7 @@ class tx_datamintsfeuser_utils {
 		// Wenn keine der oberen Extensions installiert ist (also keine Verschluesselung).
 		else {
 			if ($submitedPassword == $originalPassword) {
-				$check = true;
+				$check = TRUE;
 			}
 		}
 
@@ -300,7 +299,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$urlParameters
 	 * @return	void
 	 */
-	function userAutoLogin($userId, $pageId = 0, $urlParameters = array()) {
+	public function userAutoLogin($userId, $pageId = 0, $urlParameters = array()) {
 		// Login vollziehen.
 		$GLOBALS['TSFE']->fe_user->checkPid = 0;
 
@@ -309,7 +308,7 @@ class tx_datamintsfeuser_utils {
 		$GLOBALS['TSFE']->fe_user->createUserSession($userRecord);
 
 		// Umleiten, damit der Login wirksam wird.
-		self::userRedirect($pageId, $urlParameters, true);
+		self::userRedirect($pageId, $urlParameters, TRUE);
 	}
 
 	/**
@@ -320,7 +319,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	boolean		$disableAccessCheck
 	 * @return	void
 	 */
-	function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = false) {
+	public function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = FALSE) {
 		// Normalen Redirect, oder Redirect auf die gewuenschte Seite.
 		if (!$pageId) {
 			$pageId = $GLOBALS['TSFE']->id;
@@ -345,7 +344,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$url
 	 * @return	string
 	 */
-	function escapeBrackets($url) {
+	public function escapeBrackets($url) {
 		$replace = array('[' => '%5b', ']' => '%5d');
 
 		return str_replace(array_keys($replace), array_values($replace), $url);
@@ -357,7 +356,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$fieldName
 	 * @return	string
 	 */
-	function getSpecialFieldKey($fieldName) {
+	public function getSpecialFieldKey($fieldName) {
 		return '--' . $fieldName . '--';
 	}
 
@@ -367,7 +366,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$fieldName
 	 * @return	string
 	 */
-	function getSpecialFieldName($fieldName) {
+	public function getSpecialFieldName($fieldName) {
 		if (preg_match('/^--.*--$/', $fieldName)) {
 			return preg_replace('/^--(.*)--$/', '\1', $fieldName);
 		}
@@ -381,7 +380,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$content
 	 * @return	string		$content
 	 */
-	function convertHtmlEmailToPlain($content) {
+	public function convertHtmlEmailToPlain($content) {
 		$newLine = chr(13) . chr(10);
 
 		// Den Head entfernen.
@@ -422,7 +421,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$markerArray
 	 * @return	string		$template
 	 */
-	function getTemplateSubpart($templateFile, $templatePart, $markerArray = array()) {
+	public function getTemplateSubpart($templateFile, $templatePart, $markerArray = array()) {
 		// Template laden.
 		$cObj = t3lib_div::makeInstance('tslib_cObj');
 		$template = $cObj->fileResource($templateFile);
@@ -445,7 +444,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$conf
 	 * @return	array		$conf
 	 */
-	function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array()) {
+	public function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array()) {
 		 if (is_array($flexData)) {
 			 if (isset($flexData['data'][$sTab]['lDEF'])) {
 				 $flexData = $flexData['data'][$sTab]['lDEF'];
@@ -481,9 +480,9 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$conf
 	 * @return	array		$conf
 	 */
-	function setFlexformConfigurationValue($key, $value, $conf) {
-		if (strpos($key, '.') !== false && $value) {
-			$arrKey = t3lib_div::trimExplode('.', $key, true);
+	public function setFlexformConfigurationValue($key, $value, $conf) {
+		if (strpos($key, '.') !== FALSE && $value) {
+			$arrKey = t3lib_div::trimExplode('.', $key, TRUE);
 
 			for ($i = count($arrKey) - 1; $i >= 0; $i--) {
 				$newValue = array();
@@ -511,7 +510,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$string // Call by reference: Der String der getrimmt wird.
 	 * @return	void
 	 */
-	function trimCallback(&$string) {
+	public function trimCallback(&$string) {
 		$string = trim($string);
 	}
 
@@ -521,7 +520,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$string // Call by reference: Der String der gesaubert wird.
 	 * @return	void
 	 */
-	function stripTagsCallback(&$string) {
+	public function stripTagsCallback(&$string) {
 		$string = strip_tags($string);
 	}
 
@@ -531,14 +530,14 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$str
 	 * @return	boolean
 	 */
-	function checkUtf8($str) {
+	public function checkUtf8($str) {
 		$len = strlen($str);
 		for ($i = 0; $i < $len; $i++) {
 			$c = ord($str[$i]);
 
 			if ($c > 128) {
 				if (($c > 247)) {
-					return false;
+					return FALSE;
 				} else if ($c > 239) {
 					$bytes = 4;
 				} else if ($c > 223) {
@@ -546,11 +545,11 @@ class tx_datamintsfeuser_utils {
 				} else if ($c > 191) {
 					$bytes = 2;
 				} else {
-					return false;
+					return FALSE;
 				}
 
 				if (($i + $bytes) > $len) {
-					return false;
+					return FALSE;
 				}
 
 				while ($bytes > 1) {
@@ -558,7 +557,7 @@ class tx_datamintsfeuser_utils {
 					$b = ord($str[$i]);
 
 					if ($b < 128 || $b > 191) {
-						return false;
+						return FALSE;
 					}
 
 					$bytes--;
@@ -566,7 +565,7 @@ class tx_datamintsfeuser_utils {
 			}
 		}
 
-		return true;
+		return TRUE;
 	}
 
 }

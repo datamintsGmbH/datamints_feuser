@@ -29,7 +29,7 @@
  *
  *
  *   46: class tx_datamintsfeuser_salesforce
- *   56:     function main($params, $pObj)
+ *   56:     public function main($params, $pObj)
  *
  *
  * TOTAL FUNCTIONS: 1
@@ -53,7 +53,7 @@ class tx_datamintsfeuser_salesforce {
 	 * @param	object		$pObj
 	 * @return	null
 	 */
-	function main($params, $pObj) {
+	public function main($params, $pObj) {
 		if ($GLOBALS['userAlreadyAddedToSalesforceInThisSession']) {
 			return;
 		}
@@ -79,9 +79,9 @@ class tx_datamintsfeuser_salesforce {
 
 		$curlOptions = array(
 			CURLOPT_URL => $pObj->conf['salesforce.']['target'],
-			CURLOPT_POST => true,
+			CURLOPT_POST => TRUE,
 			CURLOPT_POSTFIELDS => http_build_query($fields),
-			CURLOPT_FAILONERROR => true
+			CURLOPT_FAILONERROR => TRUE
 		);
 
 		$resource = curl_init();
