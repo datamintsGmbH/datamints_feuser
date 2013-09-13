@@ -1,30 +1,101 @@
 2009-10-29 Bernhard Baumgartl  <b.baumgartl@datamints.com>
 
-0.0.0	Initial code generated with kickstarter.
 0.1.0	First version released.
 0.1.1	An editable legend to each fieldset.
 0.1.2	Configurable info item to show between input items.
 0.1.4	Definable aditional crdate fields.
 0.2.0	Added new Flexform configuration methods.
-0.2.1	Fixed caching problem und updated the manual.
+0.2.1	Fixed caching problem.
 0.2.2	Updates in validation system.
 0.2.3	Fixed security issues.
-0.3.0	Added stand-alone frontend JavaScript validation, new stylesheet definitions, new backend flexform configuration and some fixed bugs.
-0.3.1	New manual.
-		Fixed flexform error with email type.
-		New charset check for email template.
-		PLEASE check sent emails!
-0.3.2	Internal changes.
-		Check for reentered data, because of PHP log warning.
-		Fixed password save problem with no encryption extension.
-		JavaScript optimization.
+0.3.0	Added stand-alone Frontend JavaScript validation, new stylesheet definitions, new backend flexform configuration and some fixed bugs.
+0.3.1	Fixed flexform error with email type.
+		New charset check for email template. ATTENTION: Please check sent emails!
+0.3.2	Check for reentered data, because of PHP log warning.
+		Fixed password save problem with no encryption extension. JavaScript optimization.
 0.4.0	Fixed bug with IRRE separators.
 		Added label input to IRRE Elements.
-		Added new approval type “adminapproval” and new approval check system (ATTENTION: You have to move “doubleoptin” configuration to “approvalcheck” configuration in TypoScript. Please check the Flexform configuration).
-		You can add more than one plugin/form to a site.
-		New fieldtypes are implemented (“--userdelete--”, “--passwordconfirmation--”, “--resendactivation--”, “--submit--”).
-		ATTENTION: Moved “register.redirect” to “redirect.register” and added  a redirect page configuration for each step.
+		Added new approval type "adminapproval" and new approval check system. ATTENTION: You have to move "doubleoptin" configuration to "approvalcheck" configuration in TypoScript! Please check the Flexform configuration!
+		You can add more than one plugin/form to a site. New fieldtypes are implemented ("--userdelete--", "--passwordconfirmation--", "--resendactivation--", "--submit--").
+		ATTENTION: Moved "register.redirect" to "redirect.register" and added  a redirect page configuration for each step.
 		Multilingual plugin flexform configuration (english/german).
 0.4.1	Fixed password save problem with no encryption extension.
 		Fixed bugs in language file.
-		Updated the manual, changelog, readme, and function index.
+0.5.0	Adding support for sending notification mail if the user edits his data (for user and/or admin).
+0.5.1	Added support for radio buttons.
+		Added a hook before an email is sent, to edit the mail function parameters.
+		Updated the Frontend validation.
+		Added new validation methods.
+0.5.2	Fixed bug in generatePassword method.
+0.5.3	Fixed bug #10041.
+		Changed approvalcheck.
+		Added disapproval link (check e-mail temlate).
+0.5.4	Fixed some little problems.
+0.5.5	Fixed bug in "Current Password" field.
+		Added disapproval mails.
+		Added trim before validate field.
+0.5.6	Fixed bug #10382.
+		Added new output type (group db).
+0.5.7	Fixed bug #10766.
+		Some changes in getLabel function.
+0.6.0	Fixed bugs and added features (#12672, #11078, #11075, #10338, #14047, #11069, #10144).
+		Cleand up CSS file.
+		Added Multiple checkbox and checkbox rendering for select fields.
+		Fixed bug in Message Display System (wrong determined ApprovalType).
+		Fixed Language bug for Flexforms.
+		Added "required_item" class to wrapper and required star.
+		Changed JS validator config variable names.
+		Added new E-Mail template subparts and transformed it to HTML template.
+		Fixed bug with hidden redirect pages before AutoLogin.
+		Changed Hooks to "t3lib_div::callUserFunction".
+		Added possibility to suppress "registered" mail.
+		Added "copyfields".
+		Updated flexform configuration.
+0.6.1	Fixed bug in JS validatior.
+0.6.2	Fixed a bug in flexform label system.
+		Added email labels for fe_users table fields.
+0.6.3	Fixed bug in approvalsystem (link was not correct sent).
+0.6.4	Fixed bug in "foreign_table_where" of the TCA "select " type.
+		Added IE JPEG mime type.
+		Fixed bug with typo3 installations in sub folder of the root directory (CSS and JS path was wrong).
+0.6.5	Fixed bug #27944.
+		Removed hardcoded UTF8 encoding for E-Mail.
+		Switched to new E-Mail System "t3lib_mail" (Changed Mail Hook!).
+0.6.6	Fixed bug in SendMail function.
+0.7.0	Fixed several submitted bugs.
+		Added captcha field type and configuration option.
+		Added format strings to the date and datetime field types.
+0.7.1	Updated the JavaScript Frontend validator.
+0.7.2	Fixed encoding bug and exception error with typo3 4.4.x in the mail function.
+0.7.3	Fixed bug with the meta redirection if baseURL and absRefPrefix is set.
+		Fixed bug with new mail API.
+0.8.0	Fixed bugs #34019, #32207, #28385, #11070, #41322, #40482, #35772, #35771, #33144.
+		Added feature #35770 by combining the mode and the submode (success, deleted) for use as additional redirect options (doubleuptin_success, doubleoptin_deleted).
+		Added possibility to limit the users which can edit there account in the edit form by storage pid.
+		Added possibility to use a other database field as label in a select field / box.
+		Added new hook before every output or redirect is made.
+		Added support for single and multiple file upload.
+		Added support for hiddenparams arrays.
+		Added xlf translations.
+		Added feature to submit the userdata of a new registered user to salesforce.
+		The mapping of the fe_user fields and the salesforce fields can be done by the TypoScript.
+		The generated plain text version of a html mail is now much more better.
+		Copyfields have now the option to only be copied if the copy from field was present in the form.
+0.8.1	Fixed bug #41756.
+0.8.2	Added "disallowed" to type "db" (internal_type = "file").
+0.8.3	Updated the required check function to work better with the new hidden field implementation.
+0.9.0	Fixed bugs: #44441, #44513, #44680, #45571.
+		Added Features: #30597, #34910, #42828, #43461, #44162, #46690.
+		Added support for simple MM-Relations.
+		New option value "onlychanged" for "sendadminmail" and "sendusermail" in showtype "edit".
+		ATTENTION: New wrapper classes "error", "error-$errorType" and "name-$fieldName"! Changed wrapper classes prefix "type-" for fields "submit", "captcha", "infotiem", "userdelete", "resendactivation", "passwordconfirmation" to "name-"! Changed error label class to "error-label" and "error-$fieldName"!
+0.9.1	Updated the language files.
+		Romoved deprecated II-XML files and added "xliff" extension suggestion.
+0.9.2	Added correct language files to the extension and flexform configuration.
+		Fixed bug in the wizicon function.
+0.9.3	Fixed bugs: #50123, #50143.
+0.9.4	Fixed bug #50162.
+		Replaced ctype_digit function because of a failed condition if the parameter is no string.
+0.9.5	Added version number to xliff suggestion.
+		Fixed some Typo3 rule violations (UpperCaseConstantFound, MethodScopeMissing, MemberVarScopeMissing, ForLoopWithTestFunctionCallNotAllowed, GlobalKeywordNotAllowed, LineEndingsInvalidEOLChar, FunctionCallArgumentSpacingSpaceBeforeComma, FunctionCallArgumentSpacingNoSpaceAfterComma, FunctionCallArgumentSpacingTooMuchSpaceAfterComma).
+0.9.6	Added the old II-XML again for Typo3 4.5.x support (xliff extension did not work correctly).

@@ -2,23 +2,23 @@
 
 	<ROOT>
 		<TCEforms>
-			<sheetTitle>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.sheet.general</sheetTitle>
+			<sheetTitle>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sheet.general</sheetTitle>
 		</TCEforms>
 		<type>array</type>
 		<el>
 
 			<showtype>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.showtype</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.showtype</label>
 					<config>
 						<type>select</type>
 						<items type="array">
 							<numIndex index="0" type="array">
-								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.showtype.register</numIndex>
+								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.showtype.register</numIndex>
 								<numIndex index="1">register</numIndex>
 							</numIndex>
 							<numIndex index="1" type="array">
-								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.showtype.edit</numIndex>
+								<numIndex index="0">LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.showtype.edit</numIndex>
 								<numIndex index="1">edit</numIndex>
 							</numIndex>
 							<numIndex index="2" type="array">
@@ -39,14 +39,14 @@
 
 					<databasefield>
 						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.databasefield</title>
+							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.databasefield</title>
 						</tx_templavoila>
 						<type>array</type>
 						<el>
 
 							<label>
 								<TCEforms>
-									<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.label</label>
+									<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.label</label>
 									<config>
 										<type>input</type>
 									</config>
@@ -55,7 +55,7 @@
 
 							<field>
 								<TCEforms>
-									<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.field</label>
+									<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.field</label>
 									<config>
 										<type>select</type>
 										<minitems>0</minitems>
@@ -69,7 +69,7 @@
 
 							<required>
 								<TCEforms>
-									<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.required</label>
+									<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.required</label>
 									<config>
 										<type>check</type>
 									</config>
@@ -78,7 +78,7 @@
 
 							<unique>
 								<TCEforms>
-									<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.unique</label>
+									<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.unique</label>
 									<config>
 										<type>check</type>
 									</config>
@@ -90,14 +90,14 @@
 
 					<separator>
 						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.separator</title>
+							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.separator</title>
 						</tx_templavoila>
 						<type>array</type>
 						<el>
 
 							<separator>
 								<TCEforms>
-									<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.legend</label>
+									<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.legend</label>
 									<config>
 										<type>input</type>
 									</config>
@@ -109,14 +109,14 @@
 
 					<infoitem>
 						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.infoitem</title>
+							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.infoitem</title>
 						</tx_templavoila>
 						<type>array</type>
 						<el>
 
 							<infoitem>
 								<TCEforms>
-									<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.infoitemtext</label>
+									<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.infoitemtext</label>
 									<config>
 										<type>text</type>
 									</config>
@@ -128,14 +128,14 @@
 
 					<userdelete>
 						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.userdelete</title>
+							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.userdelete</title>
 						</tx_templavoila>
 						<type>array</type>
 						<el>
 
 							<userdelete>
 								<TCEforms>
-									<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.label</label>
+									<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.label</label>
 									<config>
 										<type>input</type>
 									</config>
@@ -144,7 +144,7 @@
 
 							<required>
 								<TCEforms>
-									<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.required</label>
+									<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.required</label>
 									<config>
 										<type>check</type>
 									</config>
@@ -156,14 +156,14 @@
 
 					<passwordconfirmation>
 						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.passwordconfirmation</title>
+							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.passwordconfirmation</title>
 						</tx_templavoila>
 						<type>array</type>
 						<el>
 
 							<passwordconfirmation>
 								<TCEforms>
-									<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.label</label>
+									<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.label</label>
 									<config>
 										<type>input</type>
 									</config>
@@ -175,14 +175,14 @@
 
 					<resendactivation>
 						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.resendactivation</title>
+							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.resendactivation</title>
 						</tx_templavoila>
 						<type>array</type>
 						<el>
 
 							<resendactivation>
 								<TCEforms>
-									<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.label</label>
+									<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.label</label>
 									<config>
 										<type>input</type>
 									</config>
@@ -191,7 +191,7 @@
 
 							<required>
 								<TCEforms>
-									<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.required</label>
+									<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.required</label>
 									<config>
 										<type>check</type>
 									</config>
@@ -203,14 +203,14 @@
 
 					<captcha>
 						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.captcha</title>
+							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.captcha</title>
 						</tx_templavoila>
 						<type>array</type>
 						<el>
 
 							<captcha>
 								<TCEforms>
-									<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.label</label>
+									<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.label</label>
 									<config>
 										<type>input</type>
 									</config>
@@ -222,14 +222,14 @@
 
 					<submit>
 						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.submit</title>
+							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.submit</title>
 						</tx_templavoila>
 						<type>array</type>
 						<el>
 
 							<submit>
 								<TCEforms>
-									<label>LLL:EXT:datamints_feuser/locallang_db.xlf:tt_content.pi_flexform.caption</label>
+									<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.caption</label>
 									<config>
 										<type>input</type>
 									</config>

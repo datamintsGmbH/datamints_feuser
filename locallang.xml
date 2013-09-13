@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for plugin belonging to extension 'datamints_feuser'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi1_title">Frontend User Management</label>
+			<label index="pi1_plus_wiz_description">This plugin adds an register or edit form to your page.</label>
+		</languageKey>
+
+		<languageKey index="de" type="array">
+			<label index="pi1_title">Frontend User Management</label>
+			<label index="pi1_plus_wiz_description">Dieses Plug-In fügt ein Registrierungs- oder Bearbeitungs-Formular ein.</label>
+		</languageKey>
+	</data>
+</T3locallang>

@@ -54,8 +54,8 @@ class tx_datamintsfeuser_pi1_wizicon {
 	public function proc($wizardItems) {
 		$wizardItems['plugins_tx_datamintsfeuser_pi1'] = array(
 			'icon' => t3lib_extMgm::extRelPath('datamints_feuser') . 'pi1/ce_wiz.gif',
-			'title' => $GLOBALS['LANG']->sL('LLL:EXT:datamints_feuser/locallang.xlf:pi1_title'),
-			'description' => $GLOBALS['LANG']->sL('LLL:EXT:datamints_feuser/locallang.xlf:pi1_plus_wiz_description'),
+			'title' => $GLOBALS['LANG']->sL('LLL:EXT:datamints_feuser/locallang.xml:pi1_title'),
+			'description' => $GLOBALS['LANG']->sL('LLL:EXT:datamints_feuser/locallang.xml:pi1_plus_wiz_description'),
 			'params' => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=datamints_feuser_pi1'
 		);
 

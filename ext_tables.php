@@ -8,7 +8,7 @@ if (TYPO3_MODE == 'BE') {
 	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_datamintsfeuser_pi1_wizicon'] = t3lib_extMgm::extPath($_EXTKEY) . 'pi1/class.tx_datamintsfeuser_pi1_wizicon.php';
 }
 
-t3lib_extMgm::addPlugin(array('LLL:EXT:' . $_EXTKEY . '/locallang_db.xlf:tt_content.list_type_pi1', $_EXTKEY . '_pi1', t3lib_extMgm::extRelPath($_EXTKEY) . 'ext_icon.gif'), 'list_type');
+t3lib_extMgm::addPlugin(array('LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:tt_content.list_type_pi1', $_EXTKEY . '_pi1', t3lib_extMgm::extRelPath($_EXTKEY) . 'ext_icon.gif'), 'list_type');
 t3lib_extMgm::addStaticFile($_EXTKEY, 'pi1/static/', 'Frontend User Management');
 
 // Salesforce.
@@ -40,18 +40,18 @@ if ($confArray['enableSalesforce']) {
 $tempColumns = array (
 	'gender' => array (
 		'exclude' => '1',
-		'label' => 'LLL:EXT:datamints_feuser/locallang_db.xlf:fe_users.gender',
+		'label' => 'LLL:EXT:datamints_feuser/locallang_db.xml:fe_users.gender',
 		'config' => array (
 			'type' => 'radio',
 			'items' => array (
-				array('LLL:EXT:datamints_feuser/locallang_db.xlf:fe_users.gender.I.0', '0'),
-				array('LLL:EXT:datamints_feuser/locallang_db.xlf:fe_users.gender.I.1', '1')
+				array('LLL:EXT:datamints_feuser/locallang_db.xml:fe_users.gender.I.0', '0'),
+				array('LLL:EXT:datamints_feuser/locallang_db.xml:fe_users.gender.I.1', '1')
 			),
 		)
 	),
 	'tx_datamintsfeuser_approval_level' => array (
 		'exclude' => '1',
-		'label' => 'LLL:EXT:datamints_feuser/locallang_db.xlf:fe_users.tx_datamintsfeuser_approval_level',
+		'label' => 'LLL:EXT:datamints_feuser/locallang_db.xml:fe_users.tx_datamintsfeuser_approval_level',
 		'config' => array (
 			'type' => 'input',
 			'size' => '2',
@@ -69,6 +69,6 @@ t3lib_div::loadTCA('fe_users');
 t3lib_extMgm::addTCAcolumns('fe_users', $tempColumns, 1);
 
 t3lib_extMgm::addToAllTCAtypes('fe_users', 'gender', '', 'before:name');
-t3lib_extMgm::addToAllTCAtypes('fe_users', '--div--;LLL:EXT:' . $_EXTKEY . '/locallang_db.xlf:tt_content.list_type_pi1, tx_datamintsfeuser_approval_level;;;;1-1-1');
+t3lib_extMgm::addToAllTCAtypes('fe_users', '--div--;LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:tt_content.list_type_pi1, tx_datamintsfeuser_approval_level;;;;1-1-1');
 
 ?>
