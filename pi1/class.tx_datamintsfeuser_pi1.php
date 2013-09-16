@@ -99,9 +99,9 @@ require_once t3lib_extmgm::extPath('datamints_feuser', 'lib/class.tx_datamintsfe
  * @subpackage	tx_datamintsfeuser
  */
 class tx_datamintsfeuser_pi1 extends tslib_pibase {
-	private $extKey = 'datamints_feuser';
-	private $prefixId = 'tx_datamintsfeuser_pi1';
-	private $scriptRelPath = 'pi1/class.tx_datamintsfeuser_pi1.php';
+	public $extKey = 'datamints_feuser';
+	public $prefixId = 'tx_datamintsfeuser_pi1';
+	public $scriptRelPath = 'pi1/class.tx_datamintsfeuser_pi1.php';
 
 	public $conf = array();
 	public $lang = array();

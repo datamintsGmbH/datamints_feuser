@@ -100,3 +100,4 @@
 		Fixed some Typo3 rule violations (UpperCaseConstantFound, MethodScopeMissing, MemberVarScopeMissing, ForLoopWithTestFunctionCallNotAllowed, GlobalKeywordNotAllowed, LineEndingsInvalidEOLChar, FunctionCallArgumentSpacingSpaceBeforeComma, FunctionCallArgumentSpacingNoSpaceAfterComma, FunctionCallArgumentSpacingTooMuchSpaceAfterComma).
 0.9.6	Added the old II-XML again for Typo3 4.5.x support (xliff extension did not work correctly).
 0.9.7	Fixed bug #52034.
+0.9.8	Fixed bug #52042.
