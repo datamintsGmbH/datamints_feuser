@@ -2127,7 +2127,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$i = 1;
 
 			// Items, die in der TCA-Konfiguration festgelegt wurden.
-			for (array_values($fieldConfig['items']) as $key => $checkItem) {
+			foreach (array_values($fieldConfig['items']) as $key => $checkItem) {
 				// ToDo: Nicht auf den Key verlassen!
 				if ($key > 0 && ($key % $fieldConfig['cols']) == 0) {
 					$content .= '</div><div class="list clearfix">';
