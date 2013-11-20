@@ -28,11 +28,12 @@
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
  *
- *   46: class tx_datamintsfeuser_salesforce
- *   56:     public function main($params, $pObj)
+ *   47: class tx_datamintsfeuser_salesforce
+ *   59:     public function main($params, $pObj)
+ *  101:     public function getMappingFields($mappings, $variables)
  *
  *
- * TOTAL FUNCTIONS: 1
+ * TOTAL FUNCTIONS: 2
  *
  */
 
@@ -45,20 +46,22 @@
  */
 class tx_datamintsfeuser_salesforce {
 
+	const alreadyExecuted = 'userAlreadyAddedToSalesforceInThisSession';
+
 	/**
 	 * Maps the typo3 fields to the salesforce fields and submits it to salesforce.
-	 * This will only done if the user is completely activated!
+	 * This will only be done if the user is completely activated!
 	 *
 	 * @param	array		$params
 	 * @param	object		$pObj
 	 * @return	null
 	 */
 	public function main($params, $pObj) {
-		if ($GLOBALS['userAlreadyAddedToSalesforceInThisSession']) {
+		if ($GLOBALS[self::alreadyExecuted]) {
 			return;
 		}
 
-		if (!$pObj->conf['salesforce.']['enable'] || !$pObj->conf['salesforce.']['oid']) {
+		if (!$pObj->conf['salesforce.'] || !$pObj->conf['salesforce.']['enable']) {
 			return;
 		}
 
@@ -66,33 +69,50 @@ class tx_datamintsfeuser_salesforce {
 			return;
 		}
 
+		if (!$pObj->conf['salesforce.']['target'] || !$pObj->conf['salesforce.']['oid']) {
+			return;
+		}
+
 		$fields = array(
 			'oid' => $pObj->conf['salesforce.']['oid']
 		);
 
-		foreach ($pObj->conf['salesforce.']['mapping.'] as $field => $stdWrapConfig) {
-			$cObj = t3lib_div::makeInstance('tslib_cObj');
-			$cObj->data = $params['variables']['markerArray'];
-
-			$fields[rtrim($field, '.')] = $cObj->stdWrap('', $stdWrapConfig);
-		}
-
-		$curlOptions = array(
-			CURLOPT_URL => $pObj->conf['salesforce.']['target'],
-			CURLOPT_POST => TRUE,
-			CURLOPT_POSTFIELDS => http_build_query($fields),
-			CURLOPT_FAILONERROR => TRUE
-		);
+		$mappingFields = self::getMappingFields($pObj->conf['salesforce.']['mapping.'], $params['variables']['markerArray']);
 
 		$resource = curl_init();
 
-		curl_setopt_array($resource, $curlOptions);
+		curl_setopt_array($resource, array(
+			CURLOPT_URL => $pObj->conf['salesforce.']['target'],
+			CURLOPT_POST => TRUE,
+			CURLOPT_POSTFIELDS => http_build_query(array_merge($mappingFields, $fields)),
+			CURLOPT_FAILONERROR => TRUE
+		));
 
-		$GLOBALS['userAlreadyAddedToSalesforceInThisSession'] = curl_exec($resource);
+		$GLOBALS[self::alreadyExecuted] = curl_exec($resource);
 
 		curl_close($resource);
 
 		return;
+	}
+
+	/**
+	 * Gets the mapped fields.
+	 *
+	 * @param	array		$mappings
+	 * @param	array		$variables
+	 * @return	array		$fields
+	 */
+	public function getMappingFields($mappings, $variables) {
+		$fields = array();
+
+		$cObj = t3lib_div::makeInstance('tslib_cObj');
+		$cObj->data = $variables;
+
+		foreach ($mappings as $field => $stdWrapConfig) {
+			$fields[rtrim($field, '.')] = $cObj->stdWrap('', $stdWrapConfig);
+		}
+
+		return $fields;
 	}
 
 }

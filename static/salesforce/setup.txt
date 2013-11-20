@@ -1,7 +1,14 @@
-plugin.tx_datamintsfeuser_pi1 {
 
+plugin.tx_datamintsfeuser_pi1 {
 	salesforce {
 		target = https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8
-	}
 
+		oid = {$plugin.tx_datamintsfeuser_pi1.salesforce.oid}
+
+		mapping {
+			first_name.field = first_name
+			last_name.field = last_name
+			email.field = email
+		}
+	}
 }
