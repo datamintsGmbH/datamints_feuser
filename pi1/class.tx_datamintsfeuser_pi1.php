@@ -58,30 +58,30 @@
  * 1712:     public function getChangedForMail($arrNewData, $config)
  * 1749:     public function getPasswordForMail()
  * 1770:     public function showForm($valueCheck = array())
- * 1984:     public function mergeRelationValues($arrCurrentData)
- * 2040:     public function showInput($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '', $valueCheck = array(), $iItem = 0)
- * 2096:     public function showText($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2113:     public function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2166:     public function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2200:     public function showSelect($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2296:     public function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
- * 2415:     public function showCaptcha($fieldName, $valueCheck, $iItem)
- * 2484:     public function getFieldId()
- * 2509:     public function getFieldClasses($iItem, $fieldName, $fieldType = '', $valueCheck = array())
- * 2529:     public function getFieldName()
- * 2552:     public function getLabel($fieldName, $checkRequired = TRUE)
- * 2595:     public function getErrorType($fieldName, $valueCheck)
- * 2612:     public function getErrorClass($fieldName, $valueCheck)
- * 2630:     public function getErrorLabel($fieldName, $valueCheck)
- * 2647:     public function isRequiredField($fieldName)
- * 2662:     public function getTableLabelFieldName($table)
- * 2677:     public function getHiddenParamsArray()
- * 2694:     public function getHiddenParamsHiddenFields()
- * 2743:     public function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams)
- * 2786:     public function determineConfiguration()
- * 2832:     public function determineIrreConfiguration()
- * 2984:     public function getConfigurationByShowtype($subConfig = '')
- * 2997:     public function getJSValidationConfiguration()
+ * 1985:     public function mergeRelationValues($userId, $arrCurrentData)
+ * 2047:     public function showInput($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '', $valueCheck = array(), $iItem = 0)
+ * 2103:     public function showText($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2120:     public function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2173:     public function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2207:     public function showSelect($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2303:     public function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '')
+ * 2422:     public function showCaptcha($fieldName, $valueCheck, $iItem)
+ * 2491:     public function getFieldId()
+ * 2516:     public function getFieldClasses($iItem, $fieldName, $fieldType = '', $valueCheck = array())
+ * 2536:     public function getFieldName()
+ * 2559:     public function getLabel($fieldName, $checkRequired = TRUE)
+ * 2602:     public function getErrorType($fieldName, $valueCheck)
+ * 2619:     public function getErrorClass($fieldName, $valueCheck)
+ * 2637:     public function getErrorLabel($fieldName, $valueCheck)
+ * 2654:     public function isRequiredField($fieldName)
+ * 2669:     public function getTableLabelFieldName($table)
+ * 2684:     public function getHiddenParamsArray()
+ * 2701:     public function getHiddenParamsHiddenFields()
+ * 2750:     public function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams)
+ * 2793:     public function determineConfiguration()
+ * 2839:     public function determineIrreConfiguration()
+ * 2991:     public function getConfigurationByShowtype($subConfig = '')
+ * 3004:     public function getJSValidationConfiguration()
  *
  *
  * TOTAL FUNCTIONS: 53
@@ -1775,7 +1775,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$arrCurrentData = (array)$GLOBALS['TSFE']->fe_user->user;
 
 			// ToDo: MM-Relation, Merge MM-Values erweitern.
-			$arrCurrentData = $this->mergeRelationValues($arrCurrentData);
+			$arrCurrentData = $this->mergeRelationValues($this->userId, $arrCurrentData);
 		}
 
 		// Wenn das Formular schon einmal abgesendet wurde, aber ein Fehler auftrat, dann die bereits vom User uebertragenen Userdaten vorausfuellen.
@@ -1978,10 +1978,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	/**
 	 * Ersetzt bei Feldern mit einer MM-Relation den Wert aus dem FE User Datensatz (Anzahl der Relationen) mit den eigentlichen IDs der verknuepften Datensaetze.
 	 *
+	 * @param	array		$userId
 	 * @param	array		$arrCurrentData
 	 * @return	array		$arrCurrentData
 	 */
-	public function mergeRelationValues($arrCurrentData) {
+	public function mergeRelationValues($userId, $arrCurrentData) {
 		foreach ($this->arrUsedFields as $fieldName) {
 			if (!is_array($this->feUsersTca['columns'][$fieldName])) {
 				continue;
@@ -1993,10 +1994,16 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				continue;
 			}
 
+			$where = '';
 			$options = '';
 			$mmTable = $fieldConfig['MM'];
 
 			$arrCurrentData[$fieldName] = array();
+
+			// Beim Bearbeiten, nur die eigenen Datensaetze anzeigen.
+			if ($this->conf['showtype'] == self::showtypeKeyEdit) {
+				$where .= ' AND fe_users.uid = ' . intval($userId);
+			}
 
 			if ($fieldConfig['type'] == 'select') {
 				$arrForeignTables = t3lib_div::trimExplode(',', $fieldConfig['foreign_table'], TRUE);
@@ -2015,7 +2022,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					continue;
 				}
 
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query($foreignTable . '.uid', 'fe_users', $mmTable, $foreignTable, $this->cObj->enableFields($foreignTable) . $options);
+				$res = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query($foreignTable . '.uid', 'fe_users', $mmTable, $foreignTable, $where . $this->cObj->enableFields($foreignTable) . $options);
 
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 					$arrCurrentData[$fieldName][] = $row['uid'];

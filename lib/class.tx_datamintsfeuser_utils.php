@@ -188,15 +188,13 @@ class tx_datamintsfeuser_utils {
 
 		// Erstellt ein Password.
 		if ($arrGenerate['mode']) {
-			$i = 1;
-			$arrPassword['normal'] = '';
 			$chars = '23456789abcdefghjkmnpqrstuvwxyzABCDEFGHIKLMNPQRSTUVWXYZ';
 
-			while ($i <= (($arrGenerate['length']) ? $arrGenerate['length'] : 8)) {
-				$arrPassword['normal'] .= $chars{mt_rand(0, strlen($chars))};
-				$i++;
-			}
+			$arrPassword['normal'] = '';
 
+			for ($i = 0; $i < (($arrGenerate['length']) ? $arrGenerate['length'] : 8); $i++) {
+				$arrPassword['normal'] .= $chars{mt_rand(0, strlen($chars))};
+			}
 		}
 
 		// Unverschluesseltes Passwort uebertragen.
@@ -208,6 +206,7 @@ class tx_datamintsfeuser_utils {
 
 			if ($saltedpasswords['enabled']) {
 				$tx_saltedpasswords = t3lib_div::makeInstance($saltedpasswords['saltedPWHashingMethod']);
+
 				$arrPassword['encrypted'] = $tx_saltedpasswords->getHashedPassword($arrPassword['normal']);
 			}
 		} else
@@ -227,7 +226,9 @@ class tx_datamintsfeuser_utils {
 
 			if (tx_t3secsaltedpw_div::isUsageEnabled()) {
 				require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/lib/class.tx_t3secsaltedpw_phpass.php';
+
 				$tx_t3secsaltedpw_phpass = t3lib_div::makeInstance('tx_t3secsaltedpw_phpass');
+
 				$arrPassword['encrypted'] = $tx_t3secsaltedpw_phpass->getHashedPassword($arrPassword['normal']);
 			}
 		}
@@ -238,11 +239,11 @@ class tx_datamintsfeuser_utils {
 	/**
 	 * Ueberprueft anhand der aktuellen Verschluesselungsextension, ob das uebergebene unverschluesselte Passwort mit dem uebergebenen verschluesselten Passwort uebereinstimmt.
 	 *
-	 * @param	string		$submitedPassword
+	 * @param	string		$submittedPassword
 	 * @param	string		$originalPassword
 	 * @return	boolean		$check
 	 */
-	public function checkPassword($submitedPassword, $originalPassword) {
+	public function checkPassword($submittedPassword, $originalPassword) {
 		$check = FALSE;
 
 		// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password ueberprueft.
@@ -251,7 +252,8 @@ class tx_datamintsfeuser_utils {
 
 			if ($saltedpasswords['enabled']) {
 				$tx_saltedpasswords = t3lib_div::makeInstance($saltedpasswords['saltedPWHashingMethod']);
-				if ($tx_saltedpasswords->checkPassword($submitedPassword, $originalPassword)) {
+
+				if ($tx_saltedpasswords->checkPassword($submittedPassword, $originalPassword)) {
 					$check = TRUE;
 				}
 			}
@@ -262,7 +264,7 @@ class tx_datamintsfeuser_utils {
 			$arrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['md5passwords']);
 
 			if ($arrConf['activate']) {
-				if (md5($submitedPassword) == $originalPassword) {
+				if (md5($submittedPassword) == $originalPassword) {
 					$check = TRUE;
 				}
 			}
@@ -274,8 +276,10 @@ class tx_datamintsfeuser_utils {
 
 			if (tx_t3secsaltedpw_div::isUsageEnabled()) {
 				require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/lib/class.tx_t3secsaltedpw_phpass.php';
+
 				$tx_t3secsaltedpw_phpass = t3lib_div::makeInstance('tx_t3secsaltedpw_phpass');
-				if ($tx_t3secsaltedpw_phpass->checkPassword($submitedPassword, $originalPassword)) {
+
+				if ($tx_t3secsaltedpw_phpass->checkPassword($submittedPassword, $originalPassword)) {
 					$check = TRUE;
 				}
 			}
@@ -283,7 +287,7 @@ class tx_datamintsfeuser_utils {
 
 		// Wenn keine der oberen Extensions installiert ist (also keine Verschluesselung).
 		else {
-			if ($submitedPassword == $originalPassword) {
+			if ($submittedPassword == $originalPassword) {
 				$check = TRUE;
 			}
 		}
