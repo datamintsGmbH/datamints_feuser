@@ -70,7 +70,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$feUsersTca
 	 * @return	array		$globalFeUsersTca
 	 */
-	public function getFeUsersTca($feUsersTca) {
+	public static function getFeUsersTca($feUsersTca) {
 		$GLOBALS['TSFE']->includeTCA();
 		$globalFeUsersTca = $GLOBALS['TCA']['fe_users'];
 
@@ -87,7 +87,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	integer		$storagePageId
 	 * @return	integer		$storagePid
 	 */
-	public function getStoragePageId($storagePageId) {
+	public static function getStoragePageId($storagePageId) {
 		if (!$storagePageId) {
 			$arrayRootPids = $GLOBALS['TSFE']->getStorageSiterootPids();
 			$storagePageId = $arrayRootPids['_STORAGE_PID'];
@@ -103,7 +103,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$urlParameters
 	 * @return	string		$pageLink
 	 */
-	public function getTypoLinkUrl($params, $urlParameters = array()) {
+	public static function getTypoLinkUrl($params, $urlParameters = array()) {
 		$cObj = t3lib_div::makeInstance('tslib_cObj');
 		$pageLink = $cObj->getTypoLink_URL($params, $urlParameters);
 
@@ -117,7 +117,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$path
 	 * @return	string		$path
 	 */
-	public function fixPath($path) {
+	public static function fixPath($path) {
 		return dirname($path . '/.') . '/';
 	}
 
@@ -129,7 +129,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	boolean		$decode
 	 * @return	boolean
 	 */
-	public function htmlspecialcharsPostArray(&$arrPost, $decode) {
+	public static function htmlspecialcharsPostArray(&$arrPost, $decode) {
 		if ($decode) {
 			// Konvertiert alle moeglichen Zeichen die fuer die Ausgabe angepasst wurden zurueck.
 			foreach ($arrPost as $key => $val) {
@@ -160,7 +160,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$arrPost // Call by reference: Das Post Array
 	 * @return	boolean
 	 */
-	public function shiftEmptyArrayValuePostArray(&$arrPost) {
+	public static function shiftEmptyArrayValuePostArray(&$arrPost) {
 		foreach($arrPost as $key => $value) {
 			if (is_array($value) && $value[0] === '') {
 				array_shift($value);
@@ -179,7 +179,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$arrGenerate
 	 * @return	array		$arrPassword
 	 */
-	public function generatePassword($password, $arrGenerate = array()) {
+	public static function generatePassword($password, $arrGenerate = array()) {
 		$arrPassword = array();
 
 		// Uebergebenes Password setzten.
@@ -243,7 +243,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$originalPassword
 	 * @return	boolean		$check
 	 */
-	public function checkPassword($submittedPassword, $originalPassword) {
+	public static function checkPassword($submittedPassword, $originalPassword) {
 		$check = FALSE;
 
 		// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password ueberprueft.
@@ -303,7 +303,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$urlParameters
 	 * @return	void
 	 */
-	public function userAutoLogin($userId, $pageId = 0, $urlParameters = array()) {
+	public static function userAutoLogin($userId, $pageId = 0, $urlParameters = array()) {
 		// Login vollziehen.
 		$GLOBALS['TSFE']->fe_user->checkPid = 0;
 
@@ -323,7 +323,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	boolean		$disableAccessCheck
 	 * @return	void
 	 */
-	public function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = FALSE) {
+	public static function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = FALSE) {
 		// Normalen Redirect, oder Redirect auf die gewuenschte Seite.
 		if (!$pageId) {
 			$pageId = $GLOBALS['TSFE']->id;
@@ -348,7 +348,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$url
 	 * @return	string
 	 */
-	public function escapeBrackets($url) {
+	public static function escapeBrackets($url) {
 		$replace = array('[' => '%5b', ']' => '%5d');
 
 		return str_replace(array_keys($replace), array_values($replace), $url);
@@ -360,7 +360,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$fieldName
 	 * @return	string
 	 */
-	public function getSpecialFieldKey($fieldName) {
+	public static function getSpecialFieldKey($fieldName) {
 		return '--' . $fieldName . '--';
 	}
 
@@ -370,7 +370,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$fieldName
 	 * @return	string
 	 */
-	public function getSpecialFieldName($fieldName) {
+	public static function getSpecialFieldName($fieldName) {
 		if (preg_match('/^--.*--$/', $fieldName)) {
 			return preg_replace('/^--(.*)--$/', '\1', $fieldName);
 		}
@@ -384,7 +384,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$content
 	 * @return	string		$content
 	 */
-	public function convertHtmlEmailToPlain($content) {
+	public static function convertHtmlEmailToPlain($content) {
 		$newLine = chr(13) . chr(10);
 
 		// Den Head entfernen.
@@ -425,7 +425,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$markerArray
 	 * @return	string		$template
 	 */
-	public function getTemplateSubpart($templateFile, $templatePart, $markerArray = array()) {
+	public static function getTemplateSubpart($templateFile, $templatePart, $markerArray = array()) {
 		// Template laden.
 		$cObj = t3lib_div::makeInstance('tslib_cObj');
 		$template = $cObj->fileResource($templateFile);
@@ -444,11 +444,11 @@ class tx_datamintsfeuser_utils {
 	 * Parst das Flexform Konfigurations Array und schreibt alle Werte in $conf.
 	 *
 	 * @param	array		$flexData
-	 * @param	string		$sType
+	 * @param	string		$sTab
 	 * @param	array		$conf
 	 * @return	array		$conf
 	 */
-	public function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array()) {
+	public static function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array()) {
 		 if (is_array($flexData)) {
 			 if (isset($flexData['data'][$sTab]['lDEF'])) {
 				 $flexData = $flexData['data'][$sTab]['lDEF'];
@@ -484,7 +484,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	array		$conf
 	 * @return	array		$conf
 	 */
-	public function setFlexformConfigurationValue($key, $value, $conf) {
+	public static function setFlexformConfigurationValue($key, $value, $conf) {
 		if (strpos($key, '.') !== FALSE && $value) {
 			$arrKey = t3lib_div::trimExplode('.', $key, TRUE);
 
@@ -514,7 +514,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$string // Call by reference: Der String der getrimmt wird.
 	 * @return	void
 	 */
-	public function trimCallback(&$string) {
+	public static function trimCallback(&$string) {
 		$string = trim($string);
 	}
 
@@ -524,7 +524,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$string // Call by reference: Der String der gesaubert wird.
 	 * @return	void
 	 */
-	public function stripTagsCallback(&$string) {
+	public static function stripTagsCallback(&$string) {
 		$string = strip_tags($string);
 	}
 
@@ -534,7 +534,7 @@ class tx_datamintsfeuser_utils {
 	 * @param	string		$str
 	 * @return	boolean
 	 */
-	public function checkUtf8($str) {
+	public static function checkUtf8($str) {
 		$len = strlen($str);
 		for ($i = 0; $i < $len; $i++) {
 			$c = ord($str[$i]);
