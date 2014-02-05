@@ -1949,7 +1949,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Profil loeschen Link anzeigen.
 			if ($fieldName == self::specialfieldKeyUserdelete && $this->conf['showtype'] == self::showtypeKeyEdit) {
-				$content .= '<div id="' . $this->getFieldId($fieldName, 'wrapper') . '" class="' . $this->getFieldClasses($iItem, $fieldName, '', $valueCheck) . '">';
+				$content .= '<div id="' . $this->getFieldId($fieldName, 'wrapper') . '" class="' . $this->getFieldClasses($iItem, $fieldName, 'check', $valueCheck) . '">';
 				$content .= '<label for="' . $this->getFieldId($fieldName) . '">' . $this->getLabel($fieldName) . '</label>';
 				$content .= '<input type="checkbox" name="' . $this->getFieldName($fieldName) . '" value="1" id="' . $this->getFieldId($fieldName) . '" />';
 				$content .= $this->getErrorLabel($fieldName, $valueCheck);
@@ -1974,7 +1974,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 //						$iItem++;
 //					}
 //				} else {
-					$content .= '<div id="' . $this->getFieldId($fieldName, 'wrapper') . '" class="' . $this->getFieldClasses($iItem, $fieldName, '', $valueCheck) . '">';
+					$content .= '<div id="' . $this->getFieldId($fieldName, 'wrapper') . '" class="' . $this->getFieldClasses($iItem, $fieldName, 'input', $valueCheck) . '">';
 					$content .= '<label for="' . $this->getFieldId($fieldName) . '">' . $this->getLabel($fieldName) . '</label>';
 					$content .= '<input type="text" name="' . $this->getFieldName($fieldName) . '" value="" id="' . $this->getFieldId($fieldName) . '" />';
 					$content .= $this->getErrorLabel($fieldName, $valueCheck);
@@ -1986,7 +1986,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Passwortbestaetigung anzeigen.
 			if ($fieldName == self::specialfieldKeyPasswordconfirmation && $this->conf['showtype'] == self::showtypeKeyEdit) {
-				$content .= '<div id="' . $this->getFieldId($fieldName, 'wrapper') . '" class="' . $this->getFieldClasses($iItem, $fieldName, '', $valueCheck) . '">';
+				$content .= '<div id="' . $this->getFieldId($fieldName, 'wrapper') . '" class="' . $this->getFieldClasses($iItem, $fieldName, 'input', $valueCheck) . '">';
 				$content .= '<label for="' . $this->getFieldId($fieldName) . '">' . $this->getLabel($fieldName) . '</label>';
 				$content .= '<input type="password" name="' . $this->getFieldName($fieldName) . '" value="" id="' . $this->getFieldId($fieldName) . '" />';
 				$content .= $this->getErrorLabel($fieldName, $valueCheck);
