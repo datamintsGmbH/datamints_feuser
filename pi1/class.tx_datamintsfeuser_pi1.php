@@ -395,6 +395,16 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Kopiert den Inhalt eines Feldes in ein anderes Feld.
 		$this->copyFields($arrUpdate);
 
+		if ($arrUpdate['deleted']) {
+			$arrMode = $this->doUserDelete();
+
+			// Ausgabe vorbereiten.
+			$mode = $arrMode['mode'];
+			$submode = $arrMode['submode'];
+
+			return $this->showOutputRedirect($mode, $submode);
+		}
+
 		// Der User hat seine Daten editiert.
 		if ($this->conf['showtype'] == self::showtypeKeyEdit) {
 			$arrMode = $this->doUserEdit($arrUpdate);
@@ -1082,6 +1092,28 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
+	 * Loescht einen vorhandenen User.
+	 *
+	 * @return	array		$arrMode
+	 */
+	public function doUserDelete() {
+		$arrMode = array();
+
+		if ($this->getConfigurationByShowtype('userdelete')) {
+			// Den User endgueltig loeschen.
+			$GLOBALS['TYPO3_DB']->exec_DELETEquery('fe_users', 'uid = ' . $this->userId);
+		} else {
+			// Den User als geloescht markieren.
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('tstamp' => time(), 'deleted' => '1'));
+		}
+
+		$arrMode['mode'] = 'userdelete';
+		$arrMode['submode'] = self::submodeKeySuccess;
+
+		return $arrMode;
+	}
+
+	/**
 	 * Aktualisiert einen vorhandenen User, anhand des uebergebenen Arrays.
 	 *
 	 * @param	array		$arrUpdate // Call by reference: Das Array mit den bearbeiteten Userdaten.
@@ -1480,10 +1512,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Wenn der Disapproval-Hash richtig ist.
 		if ($this->piVars[$this->contentId][self::submitparameterKeyHash] == $hashDisapproval) {
 			// User loeschen.
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('tstamp' => time(), 'deleted' => '1'));
+			$this->doUserDelete();
 
-			// Eine Account-Abgelehnt Mail senden, wenn User ablehnt an den Administrator, oder andersrum.
-			$this->sendMail($this->userId, 'disapproval', !$this->isAdminMail($approvalType), $this->getConfigurationByShowtype());
+			// Wenn der User deaktiviert wird, eine Account-Abgelehnt Mail senden (wenn User ablehnt an den Administrator, oder andersrum).
+			if (!$this->getConfigurationByShowtype('userdelete')) {
+				$this->sendMail($this->userId, 'disapproval', !$this->isAdminMail($approvalType), $this->getConfigurationByShowtype());
+			}
 
 			// Ausgabe vorbereiten.
 			$submode = 'deleted';
