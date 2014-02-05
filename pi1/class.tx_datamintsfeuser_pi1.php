@@ -935,7 +935,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$savedKey = array_search($filename, $arrFilenames);
 
 			// Falls schon abgearbeitet oder die maximale Anzahl erricht ist, abbrechen!
-			if (in_array($sentKey, $arrProcessedKeys) || count($arrProcessedKeys) >= $fieldConfig['maxitems']) {
+			if (in_array($sentKey, $arrProcessedKeys) || ($fieldConfig['maxitems'] && count($arrProcessedKeys) >= $fieldConfig['maxitems'])) {
 				continue;
 			}
 
