@@ -3085,26 +3085,37 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			if (is_array($this->conf['validate.'][$fieldName . '.'])) {
 				$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]=[];';
 
-				// Da es mehrere Validierungskonfiguration pro Feld geben kann, muss hier jede einzeln durchgelaufen werden.
+				// Da es mehrere Validierungsoptionen pro Feld geben kann, muss hier jede einzeln durchgelaufen werden.
 				foreach ($this->conf['validate.'][$fieldName . '.'] as $key => $val) {
-					$cleanedVal = str_replace('"', '\\"', $val);
+					$labelKey = 'valid';
+					$validationKey = $key;
+					$validationValue = '"' . str_replace('"', '\\"', $val) . '"';
 
-					if ($key == 'length') {
-						$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["size"]="' . $cleanedVal . '";';
-						$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["size"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_' . self::validationerrorKeyLength, FALSE)) . '";';
-					} else if ($key == 'regexp') {
-						$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . $key . '"]=new RegExp("' . $cleanedVal . '");';
-					} else {
-						$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . $key . '"]="' . $cleanedVal . '";';
+					switch ($key) {
+
+						case 'type':
+							if ($val == 'password') {
+								$labelKey = 'equal';
+							}
+
+							break;
+
+						case 'length':
+							$labelKey = 'size';
+							$validationKey = 'size';
+
+							break;
+
+						case 'regexp':
+							$validationValue = $val;
+
+							break;
+
 					}
 
-					if ($key == 'type' && $val == 'password') {
-						$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["equal"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_' . self::validationerrorKeyEqual, FALSE)) . '";';
-					}
-				}
+					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . $validationKey . '"]=' . $validationValue . ';';
 
-				if ($this->conf['validate.'][$fieldName . '.']['type'] != 'password') {
-					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["valid"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_' . self::validationerrorKeyValid, FALSE)) . '";';
+					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["' . $labelKey . '"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_' . self::validationerrorKeyValid, FALSE)) . '";';
 				}
 			}
 
