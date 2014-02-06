@@ -121,6 +121,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	const modeKeyApprovalcheck = 'approvalcheck';
 
 	const submodeKeySent = 'sent';
+	const submodeKeyError = 'error';
 	const submodeKeyFailure = 'failure';
 	const submodeKeySuccess = 'success';
 
@@ -205,12 +206,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Wenn nicht eingeloggt kann man auch nicht editieren!
 		if ($this->conf['showtype'] == self::showtypeKeyEdit && !$this->userId) {
-			return $this->pi_wrapInBaseClass($this->showOutputRedirect('edit_error', 'login'));
+			return $this->pi_wrapInBaseClass($this->showOutputRedirect(self::showtypeKeyEdit, self::submodeKeyError . '_login'));
 		}
 
 		// Wenn ein "userfolder" angegeben ist, der aktuelle User aber nicht in diesem ist, kann man auch nicht editieren!
 		if ($this->conf['showtype'] == self::showtypeKeyEdit && $this->getConfigurationByShowtype('userfolder') && $GLOBALS['TSFE']->fe_user->user['pid'] != $this->storagePageId) {
-			return $this->pi_wrapInBaseClass($this->showOutputRedirect('edit_error', 'storage'));
+			return $this->pi_wrapInBaseClass($this->showOutputRedirect(self::showtypeKeyEdit, self::submodeKeyError . '_userfolder'));
 		}
 
 		switch ($this->piVars[$this->contentId][self::submitparameterKeyMode]) {
@@ -241,8 +242,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	string
 	 */
 	public function doFormSubmit() {
-		$mode = '';
-		$submode = '';
+		$mode = $this->conf['showtype'];
+		$submode = self::submodeKeyFailure;
 		$params = array();
 		$arrUpdate = array();
 
@@ -287,14 +288,16 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				// Ausgabe vorbereiten.
 				$mode = self::specialfieldKeyResendactivation;
 
-				// Fehler anzeigen, falls das naechste aktuelle Genehmigungsverfahren den Admin betrifft.
-				$submode = self::submodeKeyFailure;
+				if ($approvalType) {
+					if (!$this->isAdminMail($approvalType)) {
+						// Aktivierungsmail senden und Ausgabe anpassen.
+						$submode = self::submodeKeySent;
 
-				// Aktivierungsmail senden und Ausgabe anpassen.
-				if ($approvalType && !$this->isAdminMail($approvalType)) {
-					$submode = self::submodeKeySent;
-
-					$this->sendActivationMail($row['uid']);
+						$this->sendActivationMail($row['uid']);
+					} else {
+						// Fehler anzeigen, falls das naechste Genehmigungsverfahren den Admin betrifft.
+						$submode = self::submodeKeyError . '_admin';
+					}
 				}
 			}
 
@@ -394,16 +397,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Kopiert den Inhalt eines Feldes in ein anderes Feld.
 		$this->copyFields($arrUpdate);
-
-		if ($arrUpdate['deleted']) {
-			$arrMode = $this->doUserDelete();
-
-			// Ausgabe vorbereiten.
-			$mode = $arrMode['mode'];
-			$submode = $arrMode['submode'];
-
-			return $this->showOutputRedirect($mode, $submode);
-		}
 
 		// Der User hat seine Daten editiert.
 		if ($this->conf['showtype'] == self::showtypeKeyEdit) {
@@ -1092,28 +1085,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Loescht einen vorhandenen User.
-	 *
-	 * @return	array		$arrMode
-	 */
-	public function doUserDelete() {
-		$arrMode = array();
-
-		if ($this->getConfigurationByShowtype('userdelete')) {
-			// Den User endgueltig loeschen.
-			$GLOBALS['TYPO3_DB']->exec_DELETEquery('fe_users', 'uid = ' . $this->userId);
-		} else {
-			// Den User als geloescht markieren.
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('tstamp' => time(), 'deleted' => '1'));
-		}
-
-		$arrMode['mode'] = 'userdelete';
-		$arrMode['submode'] = self::submodeKeySuccess;
-
-		return $arrMode;
-	}
-
-	/**
 	 * Aktualisiert einen vorhandenen User, anhand des uebergebenen Arrays.
 	 *
 	 * @param	array		$arrUpdate // Call by reference: Das Array mit den bearbeiteten Userdaten.
@@ -1121,6 +1092,17 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	public function doUserEdit(&$arrUpdate) {
 		$arrMode = array();
+
+		if ($arrUpdate['deleted']) {
+			$this->deleteUser();
+
+			// Ausgabe vorbereiten.
+			$arrMode['mode'] = $this->conf['showtype'];
+			$arrMode['submode'] = self::specialfieldKeyUserdelete;
+			$arrMode['params'] = array('refresh' => t3lib_div::getIndpEnv('TYPO3_SITE_URL'));
+
+			return $arrMode;
+		}
 
 		// ToDo: MM-Relation, MM-Relationen setzen und die Anzahl der Relationen aktualisieren.
 		$this->insertRelationInserts($this->userId, $this->getRelationInserts($arrUpdate));
@@ -1145,13 +1127,24 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Ausgabe vorbereiten.
 		$arrMode['mode'] = $this->conf['showtype'];
 		$arrMode['submode'] = self::submodeKeySuccess;
-
-		// Wenn der User geloescht wurde, weiterleiten.
-		if ($arrUpdate['deleted']) {
-			$arrMode['mode'] = 'userdelete';
-		}
+		$arrMode['params'] = array('refresh' => t3lib_div::locationHeaderUrl(tx_datamintsfeuser_utils::getTypoLinkUrl($GLOBALS['TSFE']->id)));
 
 		return $arrMode;
+	}
+
+	/**
+	 * Loescht einen vorhandenen User.
+	 *
+	 * @return	array		$arrMode
+	 */
+	public function deleteUser() {
+		if ($this->getConfigurationByShowtype(self::specialfieldKeyUserdelete)) {
+			// Den User endgueltig loeschen.
+			$GLOBALS['TYPO3_DB']->exec_DELETEquery('fe_users', 'uid = ' . $this->userId);
+		} else {
+			// Den User als geloescht markieren.
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('tstamp' => time(), 'deleted' => '1'));
+		}
 	}
 
 	/**
@@ -1200,7 +1193,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Ausgabe fuer gemischte Genehmigungstypen erstellen (z.B. erst adminapproval und dann doubleoptin).
 			$arrMode['mode'] = array_shift($arrApprovalTypes);
 			$arrMode['submode'] = ((count($arrApprovalTypes) > 0) ? implode('_', $arrApprovalTypes) . '_' : '') . self::submodeKeySent;
-			$arrMode['params'] = array('mode' => $this->conf['showtype']);
 		} else {
 			// Registrierungs E-Mail schicken.
 			if ($this->getConfigurationByShowtype('sendadminmail')) {
@@ -1329,37 +1321,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					$autologin = TRUE;
 				}
 
-				// WICHTIG: Hier KEIN break, da der nächste Teil von adminapproval auch fuer register und doubleoptin gilt.
-
-			case 'adminapproval':
-				// Dieser Modus wird uebergeben, wenn die Registrierung abgeschlossen ist, aber noch Approval Mails versendet werden.
-				// Wenn hier dann fuer den uebergebenen Modus ein Weiterleitungsziel angegeben ist, wird dieses verwendet!
-				// Dies ist noetig, da man ja nicht die "Registrierung abgeschlossen!" Meldung anzeigen will, sondern "Approval versendet!".
-				// Das Weiterleitungsziel soll aber immer noch das Gleich wie das ohne Approval Mail sein!
-				if ($params['mode']) {
-					if ($this->conf['redirect.'][$params['mode']]) {
-						$redirectKey = $params['mode'];
-					} else {
-						$redirect = FALSE;
-					}
-				}
-
-				break;
-
-			case 'edit_error':
-				$label = '<div class="' . $mode . ' ' . $submode . '">' . $label . '</div>';
-
 				break;
 
 			case 'edit':
-				// Einen Refresh der aktuellen Seite am Client ausfuehren, damit nach dem Editieren wieder das Formular angezeigt wird.
-				$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=' . t3lib_div::locationHeaderUrl(tx_datamintsfeuser_utils::getTypoLinkUrl($GLOBALS['TSFE']->id)) . '" />';
-
-				break;
-
-			case 'userdelete':
-				// Einen Refresh auf der aktuellen Seite am Client ausfuehren, damit nach dem Loeschen des Users die Startseite angezeigt wird.
-				$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . '" />';
+				if ($params['refresh']) {
+					// Einen Refresh der aktuellen Seite am Client ausfuehren.
+					$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=' . $params['refresh'] . '" />';
+				}
 
 				break;
 
@@ -1396,7 +1364,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			tx_datamintsfeuser_utils::userRedirect($this->conf['redirect.'][$redirectKey], $this->getHiddenParamsArray());
 		}
 
-		return $label;
+		return '<div class="' . $mode . ' ' . $submode . '">' . $label . '</div>';
 	}
 
 	/**
@@ -1458,17 +1426,19 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 
 		// Genehmigungstyp ermitteln um die richtige E-Mail zu senden, bzw. die richtige Ausgabe zu ermitteln.
-		$arrApprovalTypes = $this->getApprovalTypes();
-		$approvalType = $arrApprovalTypes[count($arrApprovalTypes) - $row['tx_datamintsfeuser_approval_level']];
+		$arrApprovalTypes = array_slice($this->getApprovalTypes(), -$row['tx_datamintsfeuser_approval_level']);
+		$approvalType = array_shift($arrApprovalTypes);
 
 		// Wenn kein Genehmigungstyp ermittelt werden konnte.
 		if (!$approvalType) {
 			return $this->showOutputRedirect(self::modeKeyApprovalcheck, self::submodeKeyFailure);
 		}
 
+		$submodePrefix = ((count($arrApprovalTypes) > 0) ? implode('_', $arrApprovalTypes) . '_' : '');
+
 		// Ausgabe vorbereiten.
 		$mode = $approvalType;
-		$submode = self::submodeKeyFailure;
+		$submode = $submodePrefix . self::submodeKeyFailure;
 		$params = array();
 
 		// Daten vorbereiten.
@@ -1484,7 +1454,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$this->sendActivationMail();
 
 			// Ausgabe vorbereiten.
-			$submode = self::submodeKeySuccess;
+			$submode = $submodePrefix . self::submodeKeySuccess;
 		}
 
 		// Wenn der Approval-Hash richtig ist, und das letzte Genehmigungslevel erreicht ist.
@@ -1512,15 +1482,15 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Wenn der Disapproval-Hash richtig ist.
 		if ($this->piVars[$this->contentId][self::submitparameterKeyHash] == $hashDisapproval) {
 			// User loeschen.
-			$this->doUserDelete();
+			$this->deleteUser();
 
 			// Wenn der User deaktiviert wird, eine Account-Abgelehnt Mail senden (wenn User ablehnt an den Administrator, oder andersrum).
-			if (!$this->getConfigurationByShowtype('userdelete')) {
+			if (!$this->getConfigurationByShowtype(self::specialfieldKeyUserdelete)) {
 				$this->sendMail($this->userId, 'disapproval', !$this->isAdminMail($approvalType), $this->getConfigurationByShowtype());
 			}
 
 			// Ausgabe vorbereiten.
-			$submode = 'deleted';
+			$submode = $submodePrefix . self::specialfieldKeyUserdelete;
 		}
 
 		return $this->showOutputRedirect($mode, $submode, $params);
@@ -1534,7 +1504,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	public function getApprovalTypes() {
 		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => Beim Exploden kommt dann ein leeres Arrayelement heraus, das nach dem entfernen einen leeren Platz uebrig lassen wuerde.
-		return array_values(t3lib_div::trimExplode(',', $this->getConfigurationByShowtype(self::modeKeyApprovalcheck), TRUE));
+		return array_unique(array_values(t3lib_div::trimExplode(',', $this->getConfigurationByShowtype(self::modeKeyApprovalcheck), TRUE)));
 	}
 
 	/**

@@ -7,9 +7,9 @@
 		<type>array</type>
 		<el>
 
-			<redirect.register>
+			<redirect.register_success>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.register</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.register_success</label>
 					<config>
 						<type>input</type>
 						<size>5</size>
@@ -19,7 +19,7 @@
 							<_PADDING type="integer">2</_PADDING>
 							<link type="array">
 								<type>popup</type>
-								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.register</title>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.register_success</title>
 								<icon>link_popup.gif</icon>
 								<script>browse_links.php?act=page&amp;mode=wizard</script>
 								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
@@ -27,7 +27,7 @@
 						</wizards>
 					</config>
 				</TCEforms>
-			</redirect.register>
+			</redirect.register_success>
 
 			<redirect.doubleoptin_success>
 				<TCEforms>
@@ -117,9 +117,9 @@
 				</TCEforms>
 			</redirect.adminapproval_deleted>
 
-			<redirect.resendactivation>
+			<redirect.resendactivation_sent>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.resendactivation</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.resendactivation_sent</label>
 					<config>
 						<type>input</type>
 						<size>5</size>
@@ -129,7 +129,7 @@
 							<_PADDING type="integer">2</_PADDING>
 							<link type="array">
 								<type>popup</type>
-								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.resendactivation</title>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.resendactivation_sent</title>
 								<icon>link_popup.gif</icon>
 								<script>browse_links.php?act=page&amp;mode=wizard</script>
 								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
@@ -137,11 +137,11 @@
 						</wizards>
 					</config>
 				</TCEforms>
-			</redirect.resendactivation>
+			</redirect.resendactivation_sent>
 
-			<redirect.edit>
+			<redirect.edit_success>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.edit</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.edit_success</label>
 					<config>
 						<type>input</type>
 						<size>5</size>
@@ -151,7 +151,7 @@
 							<_PADDING type="integer">2</_PADDING>
 							<link type="array">
 								<type>popup</type>
-								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.edit</title>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.edit_success</title>
 								<icon>link_popup.gif</icon>
 								<script>browse_links.php?act=page&amp;mode=wizard</script>
 								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
@@ -159,11 +159,11 @@
 						</wizards>
 					</config>
 				</TCEforms>
-			</redirect.edit>
+			</redirect.edit_success>
 
-			<redirect.userdelete>
+			<redirect.edit_userdelete>
 				<TCEforms>
-					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.userdelete</label>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.edit_userdelete</label>
 					<config>
 						<type>input</type>
 						<size>5</size>
@@ -173,7 +173,7 @@
 							<_PADDING type="integer">2</_PADDING>
 							<link type="array">
 								<type>popup</type>
-								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.userdelete</title>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.edit_userdelete</title>
 								<icon>link_popup.gif</icon>
 								<script>browse_links.php?act=page&amp;mode=wizard</script>
 								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
@@ -181,7 +181,7 @@
 						</wizards>
 					</config>
 				</TCEforms>
-			</redirect.userdelete>
+			</redirect.edit_userdelete>
 
 		</el>
 	</ROOT>

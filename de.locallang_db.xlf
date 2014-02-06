@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-07-02T11:40:00Z" product-name="datamints_feuser">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-02-06T16:26:35Z" product-name="datamints_feuser">
 		<header/>
 		<body>
 			<trans-unit id="tt_content.list_type_pi1" xml:space="preserve" approved="yes">
@@ -80,16 +80,16 @@
 				<target>Infoitem</target>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.userdelete" xml:space="preserve" approved="yes">
-				<source>"Delete User" Checkbox</source>
-				<target>"Benutzer löschen" Checkbox</target>
+				<source>&quot;Delete User&quot; Checkbox</source>
+				<target>&quot;Benutzer löschen&quot; Checkbox</target>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.passwordconfirmation" xml:space="preserve" approved="yes">
-				<source>"Current Password" Field</source>
-				<target>"Aktuelles Passwort" Feld</target>
+				<source>&quot;Current Password&quot; Field</source>
+				<target>&quot;Aktuelles Passwort&quot; Feld</target>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.resendactivation" xml:space="preserve" approved="yes">
-				<source>"Resend Activation" Field</source>
-				<target>"Aktivierung erneut senden" Feld</target>
+				<source>&quot;Resend Activation&quot; Field</source>
+				<target>&quot;Aktivierung erneut senden&quot; Feld</target>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.captcha" xml:space="preserve" approved="yes">
 				<source>Captcha Field</source>
@@ -199,41 +199,41 @@
 				<source>Admin approval</source>
 				<target>Administratorgenehmigung</target>
 			</trans-unit>
-			<trans-unit id="tt_content.pi_flexform.redirect.register" xml:space="preserve" approved="yes">
-				<source>Redirect Site ID "Registration":</source>
-				<target>Weiterleitungsseiten ID "Registrierung":</target>
+			<trans-unit id="tt_content.pi_flexform.redirect.register_success" xml:space="preserve" approved="yes">
+				<source>Redirect Site ID &quot;Registration&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Registrierung&quot;:</target>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.redirect.doubleoptin_success" xml:space="preserve" approved="yes">
-				<source>Redirect Site ID "Double Opt-in - Activated":</source>
-				<target>Weiterleitungsseiten ID "Double-Opt-In - Aktiviert":</target>
+				<source>Redirect Site ID &quot;Double Opt-in - Activated&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Double-Opt-In - Aktiviert&quot;:</target>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.redirect.doubleoptin_deleted" xml:space="preserve" approved="yes">
-				<source>Redirect Site ID "Double Opt-in - Denied":</source>
-				<target>Weiterleitungsseiten ID "Double-Opt-In - Verweigert":</target>
+				<source>Redirect Site ID &quot;Double Opt-in - Denied&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Double-Opt-In - Verweigert&quot;:</target>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.redirect.adminapproval_success" xml:space="preserve" approved="yes">
-				<source>Redirect Site ID "Admin Approval - Activated":</source>
-				<target>Weiterleitungsseiten ID "Administratorgenehmigung - Aktiviert":</target>
+				<source>Redirect Site ID &quot;Admin Approval - Activated&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Administratorgenehmigung - Aktiviert&quot;:</target>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.redirect.adminapproval_deleted" xml:space="preserve" approved="yes">
-				<source>Redirect Site ID "Admin Approval - Denied":</source>
-				<target>Weiterleitungsseiten ID "Administratorgenehmigung - Verweigert":</target>
+				<source>Redirect Site ID &quot;Admin Approval - Denied&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Administratorgenehmigung - Verweigert&quot;:</target>
 			</trans-unit>
-			<trans-unit id="tt_content.pi_flexform.redirect.resendactivation" xml:space="preserve" approved="yes">
-				<source>Redirect Site ID "Resend Activation":</source>
-				<target>Weiterleitungsseiten ID "Aktivierung erneut senden":</target>
+			<trans-unit id="tt_content.pi_flexform.redirect.resendactivation_sent" xml:space="preserve" approved="yes">
+				<source>Redirect Site ID &quot;Resend Activation&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Aktivierung erneut senden&quot;:</target>
 			</trans-unit>
-			<trans-unit id="tt_content.pi_flexform.redirect.edit" xml:space="preserve" approved="yes">
-				<source>Redirect Site ID "Edit":</source>
-				<target>Weiterleitungsseiten ID "Bearbeitung":</target>
+			<trans-unit id="tt_content.pi_flexform.redirect.edit_success" xml:space="preserve" approved="yes">
+				<source>Redirect Site ID &quot;Edit&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Bearbeitung&quot;:</target>
 			</trans-unit>
-			<trans-unit id="tt_content.pi_flexform.redirect.userdelete" xml:space="preserve" approved="yes">
-				<source>Redirect Site ID "Delete User":</source>
-				<target>Weiterleitungsseiten ID "Benutzer löschen":</target>
+			<trans-unit id="tt_content.pi_flexform.redirect.edit_userdelete" xml:space="preserve" approved="yes">
+				<source>Redirect Site ID &quot;Delete User&quot;:</source>
+				<target>Weiterleitungsseiten ID &quot;Benutzer löschen&quot;:</target>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.shownotactivated" xml:space="preserve" approved="yes">
-				<source>Type Of View For "Resend Activation" Field:</source>
-				<target>"Resend Activation" Anzeigetyp:</target>
+				<source>Type Of View For &quot;Resend Activation&quot; Field:</source>
+				<target>&quot;Resend Activation&quot; Anzeigetyp:</target>
 			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.shownotactivated.input" xml:space="preserve" approved="yes">
 				<source>E-Mail Input Field</source>
