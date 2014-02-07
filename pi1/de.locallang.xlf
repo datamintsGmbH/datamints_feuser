@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-02-06T16:26:38Z" product-name="datamints_feuser">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-02-07T14:15:53Z" product-name="datamints_feuser">
 		<header/>
 		<body>
 			<trans-unit id="username_error_required" xml:space="preserve" approved="yes">
@@ -18,6 +18,10 @@
 			<trans-unit id="password_rep" xml:space="preserve" approved="yes">
 				<source>Confirm Password:</source>
 				<target>Passwort wiederholen:</target>
+			</trans-unit>
+			<trans-unit id="password_placeholder" xml:space="preserve" approved="yes">
+				<source>********</source>
+				<target>********</target>
 			</trans-unit>
 			<trans-unit id="password_error_equal" xml:space="preserve" approved="yes">
 				<source>You have to enter the same password twice!</source>
@@ -118,6 +122,14 @@
 			<trans-unit id="image_error_delete" xml:space="preserve" approved="yes">
 				<source>The image could not be deleted!</source>
 				<target>Das Bild konnte nicht gelöscht werden!</target>
+			</trans-unit>
+			<trans-unit id="check_yes" xml:space="preserve" approved="yes">
+				<source>Yes</source>
+				<target>Ja</target>
+			</trans-unit>
+			<trans-unit id="check_no" xml:space="preserve" approved="yes">
+				<source>No</source>
+				<target>Nein</target>
 			</trans-unit>
 			<trans-unit id="userdelete" xml:space="preserve" approved="yes">
 				<source>Delete Current User?</source>

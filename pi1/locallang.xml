@@ -10,6 +10,7 @@
 			<label index="username_error_unique">This username already exists!</label>
 			<label index="username_error_valid">The username must not contain any spaces!</label>
 			<label index="password_rep">Confirm Password:</label>
+			<label index="password_placeholder">********</label>
 			<label index="password_error_equal">You have to enter the same password twice!</label>
 			<label index="password_error_length">The password must be at least 6 characters long!</label>
 			<label index="password_error_required">You must enter a password!</label>
@@ -35,6 +36,8 @@
 			<label index="image_error_type">The uploaded file is not an image!</label>
 			<label index="image_error_upload">The image could not be uploaded!</label>
 			<label index="image_error_delete">The image could not be deleted!</label>
+			<label index="check_yes">Yes</label>
+			<label index="check_no">No</label>
 			<label index="userdelete">Delete Current User?</label>
 			<label index="passwordconfirmation">Current Password:</label>
 			<label index="passwordconfirmation_error_required">Please enter your current password!</label>
@@ -81,6 +84,7 @@
 			<label index="username_error_unique">Dieser Benutzername ist bereits vorhanden!</label>
 			<label index="username_error_valid">Der Benutzername darf keine Leerzeichen beinhalten!</label>
 			<label index="password_rep">Passwort wiederholen:</label>
+			<label index="password_placeholder">********</label>
 			<label index="password_error_equal">Es muss zwei mal das gleiche Passwort eingegeben werden!</label>
 			<label index="password_error_length">Das Passwort muss mindestens 6 Zeichen lang sein!</label>
 			<label index="password_error_required">Es muss ein Passwort angegeben werden!</label>
@@ -106,6 +110,8 @@
 			<label index="image_error_type">Die Hochgeladene Datei ist kein Bild!</label>
 			<label index="image_error_upload">Das Bild konnte nicht hochgeladen werden!</label>
 			<label index="image_error_delete">Das Bild konnte nicht gelöscht werden!</label>
+			<label index="check_yes">Ja</label>
+			<label index="check_no">Nein</label>
 			<label index="userdelete">Aktuellen Benutzer löschen?</label>
 			<label index="passwordconfirmation">Aktuelles Passwort:</label>
 			<label index="passwordconfirmation_error_required">Es muss das aktuelle Passwort eingegeben werden!</label>

@@ -1560,8 +1560,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	public function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array()) {
 		// Userdaten ermitteln.
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . intval($userId), '', '', '1');
-		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+		if ($this->userId) {
+			$row = $this->getValuesForMail();
+		} else {
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . intval($userId), '', '', '1');
+			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+		}
 
 		$markerArray = array_merge((array)$config, (array)$row, (array)$extraMarkers);
 
@@ -1588,8 +1592,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Template laden.
 			$content = $this->getTemplateSubpart($templatePart, $markerArray, $config);
 
-			$toName = $row['username'];
-			$toEmail = $row['email'];
+			$toName = $markerArray['username'];
+			$toEmail = $markerArray['email'];
 		}
 
 		// Betreff ermitteln und aus dem E-Mail Content entfernen.
@@ -1707,7 +1711,165 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Ermittlet alle geaenderten Daten und schreibt sie in ein Markerarray.
+	 * Ermittlet alle Benutzer Daten und schreibt diese in ein Markerarray.
+	 *
+	 * @return	array		$extraMarkers
+	 */
+	public function getValuesForMail() {
+		$extraMarkers = array();
+
+		// Userdaten ermitteln.
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . $this->userId, '', '', '1');
+		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+
+		// ToDo: MM-Relation, Merge MM-Values erweitern.
+		$arrCurrentData = $this->mergeRelationValues($this->userId, $row);
+
+		// Alle ausgewaehlten Felder durchgehen.
+		foreach ($arrCurrentData as $fieldName => $rawValue) {
+			$value = $rawValue;
+			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
+
+			// Wenn das Feld existiert.
+			if ($this->feUsersTca['columns'][$fieldName]) {
+				switch ($fieldConfig['type']) {
+
+					case 'input':
+						$arrFieldConfigEval = t3lib_div::trimExplode(',', $fieldConfig['eval'], TRUE);
+
+						// Datumsfeld und Datumzeitfeld.
+						if (in_array('date', $arrFieldConfigEval) || in_array('datetime', $arrFieldConfigEval)) {
+							// Nur als Datum formatieren, wenn der aktuelle Wert ein Timestamp ist.
+							if ($rawValue && is_numeric($rawValue)) {
+								// Timestamp zu "tt.mm.jjjj" machen.
+								if (in_array('date', $arrFieldConfigEval)) {
+									$value = date($this->conf['format.']['date'], $rawValue);
+								}
+
+								// Timestamp zu "hh:mm tt.mm.jjjj" machen.
+								if (in_array('datetime', $arrFieldConfigEval)) {
+									$value = date($this->conf['format.']['datetime'], $rawValue);
+								}
+							}
+						}
+
+						// Passwordfeld.
+						if (in_array('password', $arrFieldConfigEval)) {
+							$value = $this->getLabel('password_placeholder', FALSE);
+						}
+
+						break;
+
+					case 'check':
+						if (count($fieldConfig['items']) > 1) {
+							$value = array();
+
+							if (!is_array($rawValue)) {
+								$rawValue = str_split(strrev(decbin($rawValue)));
+							}
+
+							foreach (array_values($fieldConfig['items']) as $key => $checkItem) {
+								if ($rawValue[$key]) {
+									$value[] = $this->getLabel($checkItem[0], FALSE);
+								}
+							}
+
+							$value = implode(', ', $value);
+						} else {
+							$value = ($rawValue) ? $this->getLabel('check_yes', FALSE) : $this->getLabel('check_no', FALSE);
+						}
+
+						break;
+
+					case 'radio':
+						$value = '';
+
+						foreach (array_values($fieldConfig['items']) as $radioItem) {
+							if ($rawValue == $radioItem[1]) {
+								$value = $this->getLabel($radioItem[0], FALSE);
+							}
+						}
+
+						break;
+
+					case 'select':
+						$value = array();
+
+						foreach (array_values($fieldConfig['items']) as $selectItem) {
+							if (in_array($selectItem[1], $rawValue)) {
+								$value[] = $this->getLabel($selectItem[0], FALSE);
+							}
+						}
+
+						if ($fieldConfig['foreign_table']) {
+							$table = $fieldConfig['foreign_table'];
+
+							$labelFieldName = $this->getTableLabelFieldName($table);
+
+							// Select-Items aus DB holen.
+							$select = 'uid, ' . $labelFieldName;
+
+							// Falls kein AND, OR, GROUP BY, ORDER BY oder LIMIT am Anfang des where steht, ein AND voranstellen!
+							$options = strtolower(substr(trim($fieldConfig['foreign_table_where']), 0, 3));
+							$options = trim((!$options || $options == 'and' || $options == 'or ' || $options == 'gro' || $options == 'ord' || $options == 'lim') ? $fieldConfig['foreign_table_where'] : 'AND ' . $fieldConfig['foreign_table_where']);
+
+							$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $table, '1 ' . $this->cObj->enableFields($table) . ' ' . $options);
+
+							while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+								if (in_array($row['uid'], $rawValue)) {
+									$value[] = $row[$labelFieldName];
+								}
+							}
+						}
+
+						$value = implode(', ', $value);
+
+						break;
+
+					case 'group':
+						if ($fieldConfig['internal_type'] == 'db') {
+							$value = array();
+
+							$arrItems = array();
+							$arrAllowed = t3lib_div::trimExplode(',', $fieldConfig['allowed'], TRUE);
+
+							foreach ($arrAllowed as $table) {
+								if (!$GLOBALS['TCA'][$table]) {
+									continue;
+								}
+
+								$labelFieldName = $this->getTableLabelFieldName($table);
+
+								$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, ' . $labelFieldName, $table, '1 ' . $this->cObj->enableFields($table));
+
+								while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+									$arrItems[$table . '_' . $row['uid']] = $row[$labelFieldName];
+								}
+							}
+
+							foreach ($arrItems as $key => $label) {
+								if (array_intersect(array($key, substr($key, strripos($key, '_') + 1)), $rawValue)) {
+									$value[] = $label;
+								}
+							}
+
+							$value = implode(', ', $value);
+						}
+
+						break;
+
+				}
+			}
+
+			$extraMarkers[$fieldName] = $value;
+			$extraMarkers[$fieldName . '_raw'] = $rawValue;
+		}
+
+		return $extraMarkers;
+	}
+
+	/**
+	 * Ermittlet alle geaenderten Benutzer Daten und schreibt diese in ein Markerarray.
 	 *
 	 * @param	array		$arrNewData
 	 * @param	array		$config
@@ -1746,7 +1908,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Erstellt ein neues Passwort, falls Passwort generieren eingestellt ist. Das Passwort kannn dann ueber den Marker "###PASSWORD###" mit der Registrierungsmail gesendet werden.
+	 * Erstellt ein neues Passwort, falls Passwort generieren eingestellt ist.
+	 * Dieses Passwort kannn dann ueber den Marker "###PASSWORD###" mit der Registrierungsmail gesendet werden.
 	 *
 	 * @return	array		$extraMarkers
 	 */

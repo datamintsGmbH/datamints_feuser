@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2014-02-06T16:26:38Z" product-name="datamints_feuser">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-02-07T14:15:53Z" product-name="datamints_feuser">
 		<header/>
 		<body>
 			<trans-unit id="username_error_required" xml:space="preserve">
@@ -14,6 +14,9 @@
 			</trans-unit>
 			<trans-unit id="password_rep" xml:space="preserve">
 				<source>Confirm Password:</source>
+			</trans-unit>
+			<trans-unit id="password_placeholder" xml:space="preserve">
+				<source>********</source>
 			</trans-unit>
 			<trans-unit id="password_error_equal" xml:space="preserve">
 				<source>You have to enter the same password twice!</source>
@@ -89,6 +92,12 @@
 			</trans-unit>
 			<trans-unit id="image_error_delete" xml:space="preserve">
 				<source>The image could not be deleted!</source>
+			</trans-unit>
+			<trans-unit id="check_yes" xml:space="preserve">
+				<source>Yes</source>
+			</trans-unit>
+			<trans-unit id="check_no" xml:space="preserve">
+				<source>No</source>
 			</trans-unit>
 			<trans-unit id="userdelete" xml:space="preserve">
 				<source>Delete Current User?</source>
