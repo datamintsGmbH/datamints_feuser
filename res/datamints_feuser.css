@@ -46,8 +46,8 @@
 .tx-datamintsfeuser-pi1 textarea {
 	width: 300px;
 }
-.tx-datamintsfeuser-pi1 select {
-	max-height: 100px;
+.tx-datamintsfeuser-pi1 select[multiple] {
+	height: auto;
 }
 .tx-datamintsfeuser-pi1 .type-check input {
 	width: auto;
