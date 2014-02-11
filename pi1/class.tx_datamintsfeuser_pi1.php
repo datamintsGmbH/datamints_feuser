@@ -405,6 +405,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Ausgabe vorbereiten.
 			$mode = $arrMode['mode'];
 			$submode = $arrMode['submode'];
+			$params = $arrMode['params'];
 		}
 
 		// Ein neuer User hat sich angemeldet.
@@ -3299,7 +3300,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/pi1/class.tx_datamintsfeuser_pi1.php'])	{
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/pi1/class.tx_datamintsfeuser_pi1.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/pi1/class.tx_datamintsfeuser_pi1.php']);
 }
 
