@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-02-07T14:15:53Z" product-name="datamints_feuser">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-02-14T14:33:32Z" product-name="datamints_feuser">
 		<header/>
 		<body>
 			<trans-unit id="username_error_required" xml:space="preserve" approved="yes">
@@ -184,107 +184,107 @@
 				<target>Speichern</target>
 			</trans-unit>
 			<trans-unit id="register_success" xml:space="preserve" approved="yes">
-				<source>You have successfully registered!</source>
+				<source>You have been successfully registered.</source>
 				<target>Sie haben sich erfolgreich registriert!</target>
 			</trans-unit>
 			<trans-unit id="register_failure" xml:space="preserve" approved="yes">
-				<source>There was an error while processing your data!</source>
-				<target>Es ist ein Problem beim verarbeiten des Formulars aufgetreten!</target>
+				<source>There was an error while processing your data.</source>
+				<target>Es ist ein Problem beim Verarbeiten des Formulars aufgetreten!</target>
 			</trans-unit>
 			<trans-unit id="resendactivation_sent" xml:space="preserve" approved="yes">
-				<source>A new activation mail was sent to the entered e-mail!</source>
+				<source>A new activation mail was sent to your e-mail address.</source>
 				<target>Es wurde eine neue Aktivierungsmail an die von Ihnen angegebene E-Mail geschickt!</target>
 			</trans-unit>
 			<trans-unit id="resendactivation_error_admin" xml:space="preserve" approved="yes">
-				<source>You have to wait for admin activation!</source>
+				<source>Please wait for admin approval.</source>
 				<target>Sie müssen auf die Aktivierung durch den Administrator warten!</target>
 			</trans-unit>
 			<trans-unit id="approvalcheck_failure" xml:space="preserve" approved="yes">
-				<source>The given activation link is unfortunately not valid or the account has already been activated!</source>
-				<target>Der Aktivierungslink ist leider nicht gültig, oder Ihr Account wurde schon aktiviert!</target>
+				<source>Sorry, this activation link is not valid or your account has already been activated.</source>
+				<target>Der Aktivierungslink ist leider nicht gültig oder Ihr Account wurde schon aktiviert!</target>
 			</trans-unit>
 			<trans-unit id="doubleoptin_sent" xml:space="preserve" approved="yes">
-				<source>To activate your account click the activation link in the e-mail we sent you!</source>
-				<target>Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde!</target>
+				<source>To activate your account click the activation link in the e-mail we sent to you.</source>
+				<target>Um Ihren Account zu aktivieren, klicken Sie auf den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde!</target>
 			</trans-unit>
 			<trans-unit id="doubleoptin_success" xml:space="preserve" approved="yes">
-				<source>Your account has been successfully unlocked!</source>
+				<source>Your account has been successfully activated.</source>
 				<target>Ihr Account wurde erfolgreich freigeschaltet!</target>
 			</trans-unit>
 			<trans-unit id="doubleoptin_userdelete" xml:space="preserve" approved="yes">
-				<source>The activation of our account has been successfully rejected!</source>
+				<source>Your account has been successfully deleted.</source>
 				<target>Die Aktivierung Ihres Accounts wurde erfolgreich abgelehnt!</target>
 			</trans-unit>
 			<trans-unit id="doubleoptin_failure" xml:space="preserve" approved="yes">
-				<source>Your activation link is unfortunately not valid!</source>
+				<source>Sorry, your activation link is not valid.</source>
 				<target>Ihr Aktivierungslink ist leider nicht gültig!</target>
 			</trans-unit>
 			<trans-unit id="doubleoptin_adminapproval_sent" xml:space="preserve" approved="yes">
-				<source>To activate your account click the activation link in the e-mail we sent you! Then the Administrator has to unlock it!</source>
+				<source>To activate your account click the activation link in the e-mail we sent to you. Afterwards the administrator has to activation it.</source>
 				<target>Um Ihren Account zu aktivieren, klicken Sie den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde! Sobald das geschehen ist, werden Sie durch den Administrator freigeschalten!</target>
 			</trans-unit>
 			<trans-unit id="doubleoptin_adminapproval_success" xml:space="preserve" approved="yes">
-				<source>Your account has been successfully unlocked! Now the Administrator has to unlock you!</source>
+				<source>Your account has been successfully created. Now the administrator has to unlock it.</source>
 				<target>Ihr Account wurde erfolgreich freigeschaltet! Im nächsten Schritt werden Sie durch den Administrator aktiviert!</target>
 			</trans-unit>
 			<trans-unit id="doubleoptin_adminapproval_userdelete" xml:space="preserve" approved="yes">
-				<source>The activation of our account has been successfully rejected!</source>
+				<source>The activation of your account has been successfully deleted.</source>
 				<target>Die Aktivierung Ihres Accounts wurde erfolgreich abgelehnt!</target>
 			</trans-unit>
 			<trans-unit id="doubleoptin_adminapproval_failure" xml:space="preserve" approved="yes">
-				<source>Your activation link is unfortunately not valid!</source>
+				<source>Sorry, your activation link is not valid.</source>
 				<target>Ihr Aktivierungslink ist leider nicht gültig!</target>
 			</trans-unit>
 			<trans-unit id="adminapproval_sent" xml:space="preserve" approved="yes">
-				<source>To activate your account, the Administrator has to unlock it!</source>
+				<source>To activate your account, the administrator has to activate it.</source>
 				<target>Sie werden durch den Administrator freigeschalten!</target>
 			</trans-unit>
 			<trans-unit id="adminapproval_success" xml:space="preserve" approved="yes">
-				<source>The customers account has been successfully unlocked!</source>
+				<source>The users account has been successfully activated.</source>
 				<target>Der Benutzeraccount wurde erfolgreich freigeschaltet!</target>
 			</trans-unit>
 			<trans-unit id="adminapproval_userdelete" xml:space="preserve" approved="yes">
-				<source>The activation of the customers account has been successfully rejected!</source>
+				<source>The activation of the users account has been successfully rejected.</source>
 				<target></target>
 			</trans-unit>
 			<trans-unit id="adminapproval_failure" xml:space="preserve" approved="yes">
-				<source>The given activation link is unfortunately not valid or the account has already been activated!</source>
+				<source>Sorry, this activation link is not valid or this account has already been activated.</source>
 				<target>Der Aktivierungslink ist leider nicht gültig, oder der Account wurde schon aktiviert!</target>
 			</trans-unit>
 			<trans-unit id="adminapproval_doubleoptin_sent" xml:space="preserve" approved="yes">
-				<source>To activate your account, the Administrator has to unlock it! Then click the activation link in the e-mail we will sent you!</source>
+				<source>To activate your account, the administrator has to activate it. Afterwards you have to click the activation link in the e-mail we sent to you.</source>
 				<target>Um Ihren Account zu aktivieren, müssen Sie auf die Freischaltung des Administrators warten! Sobald das geschehen ist, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wird!</target>
 			</trans-unit>
 			<trans-unit id="adminapproval_doubleoptin_success" xml:space="preserve" approved="yes">
-				<source>The customers account has been successfully unlocked! Now he has to click the activation link in the e-mail we sent him!</source>
-				<target>Der Benutzeraccount wurde erfolgreich freigeschaltet! Als nächstes muss der Benutzer selbst der Registrierung zustimmen!</target>
+				<source>The users account has been successfully activated. Now he has to click the activation link in the e-mail he received.</source>
+				<target>Der Benutzeraccount wurde erfolgreich freigeschaltet! Als Nächstes muss der Benutzer selbst der Registrierung zustimmen!</target>
 			</trans-unit>
 			<trans-unit id="adminapproval_doubleoptin_userdelete" xml:space="preserve" approved="yes">
-				<source>The activation of the customers account has been successfully rejected!</source>
+				<source>The activation of the users account has been successfully rejected.</source>
 				<target></target>
 			</trans-unit>
 			<trans-unit id="adminapproval_doubleoptin_failure" xml:space="preserve" approved="yes">
-				<source>The given activation link is unfortunately not valid or the account has already been activated!</source>
+				<source>Sorry, this activation link is not valid or this account has already been activated.</source>
 				<target>Der Aktivierungslink ist leider nicht gültig, oder der Account wurde schon aktiviert!</target>
 			</trans-unit>
 			<trans-unit id="edit_success" xml:space="preserve" approved="yes">
-				<source>Your data was successfully changed! You'll be redirected back in a few seconds!</source>
-				<target>Ihre Daten wurde erfolgreich geändert! Sie werden in wenigen Sekunden zurück geleitet!</target>
+				<source>Your profile has been successfully updated. You‘ll be redirected back in a few seconds.</source>
+				<target>Ihre Daten wurden erfolgreich geändert! Sie werden in wenigen Sekunden zurück geleitet!</target>
 			</trans-unit>
 			<trans-unit id="edit_userdelete" xml:space="preserve" approved="yes">
-				<source>Your account has been successfully deleted! You'll be redirected to the home page in a few seconds!</source>
+				<source>Your account has been successfully deleted. You‘ll be redirected to the home page in a few seconds.</source>
 				<target>Der Benutzer wurde erfolgreich gelöscht!</target>
 			</trans-unit>
 			<trans-unit id="edit_failure" xml:space="preserve" approved="yes">
-				<source>There was an error while processing your data!</source>
-				<target>Es ist ein Problem beim verarbeiten des Formulars aufgetreten!</target>
+				<source>There was an error while processing your data.</source>
+				<target>Es ist ein Problem beim Verarbeiten des Formulars aufgetreten!</target>
 			</trans-unit>
 			<trans-unit id="edit_error_login" xml:space="preserve" approved="yes">
-				<source>You can not edit your user data if you are not logged in!</source>
+				<source>You can not edit your user data if you are not logged in.</source>
 				<target>Die Benutzerdaten können nicht bearbeitet werden wenn man nicht eingeloggt ist!</target>
 			</trans-unit>
 			<trans-unit id="edit_error_userfolder" xml:space="preserve" approved="yes">
-				<source>You can not edit your user data here!</source>
+				<source>You can not edit your user data here.</source>
 				<target>Die Benutzerdaten können hier nicht bearbeitet werden!</target>
 			</trans-unit>
 			<trans-unit id="adminapproval_deleted" xml:space="preserve" approved="yes">

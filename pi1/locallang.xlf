@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2014-02-07T14:15:53Z" product-name="datamints_feuser">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-02-14T14:33:32Z" product-name="datamints_feuser">
 		<header/>
 		<body>
 			<trans-unit id="username_error_required" xml:space="preserve">
@@ -139,82 +139,82 @@
 				<source>Save</source>
 			</trans-unit>
 			<trans-unit id="register_success" xml:space="preserve">
-				<source>You have successfully registered!</source>
+				<source>You have been successfully registered.</source>
 			</trans-unit>
 			<trans-unit id="register_failure" xml:space="preserve">
-				<source>There was an error while processing your data!</source>
+				<source>There was an error while processing your data.</source>
 			</trans-unit>
 			<trans-unit id="resendactivation_sent" xml:space="preserve">
-				<source>A new activation mail was sent to the entered e-mail!</source>
+				<source>A new activation mail was sent to your e-mail address.</source>
 			</trans-unit>
 			<trans-unit id="resendactivation_error_admin" xml:space="preserve">
-				<source>You have to wait for admin activation!</source>
+				<source>Please wait for admin approval.</source>
 			</trans-unit>
 			<trans-unit id="approvalcheck_failure" xml:space="preserve">
-				<source>The given activation link is unfortunately not valid or the account has already been activated!</source>
+				<source>Sorry, this activation link is not valid or your account has already been activated.</source>
 			</trans-unit>
 			<trans-unit id="doubleoptin_sent" xml:space="preserve">
-				<source>To activate your account click the activation link in the e-mail we sent you!</source>
+				<source>To activate your account click the activation link in the e-mail we sent to you.</source>
 			</trans-unit>
 			<trans-unit id="doubleoptin_success" xml:space="preserve">
-				<source>Your account has been successfully unlocked!</source>
+				<source>Your account has been successfully activated.</source>
 			</trans-unit>
 			<trans-unit id="doubleoptin_userdelete" xml:space="preserve">
-				<source>The activation of our account has been successfully rejected!</source>
+				<source>Your account has been successfully deleted.</source>
 			</trans-unit>
 			<trans-unit id="doubleoptin_failure" xml:space="preserve">
-				<source>Your activation link is unfortunately not valid!</source>
+				<source>Sorry, your activation link is not valid.</source>
 			</trans-unit>
 			<trans-unit id="doubleoptin_adminapproval_sent" xml:space="preserve">
-				<source>To activate your account click the activation link in the e-mail we sent you! Then the Administrator has to unlock it!</source>
+				<source>To activate your account click the activation link in the e-mail we sent to you. Afterwards the administrator has to activation it.</source>
 			</trans-unit>
 			<trans-unit id="doubleoptin_adminapproval_success" xml:space="preserve">
-				<source>Your account has been successfully unlocked! Now the Administrator has to unlock you!</source>
+				<source>Your account has been successfully created. Now the administrator has to unlock it.</source>
 			</trans-unit>
 			<trans-unit id="doubleoptin_adminapproval_userdelete" xml:space="preserve">
-				<source>The activation of our account has been successfully rejected!</source>
+				<source>The activation of your account has been successfully deleted.</source>
 			</trans-unit>
 			<trans-unit id="doubleoptin_adminapproval_failure" xml:space="preserve">
-				<source>Your activation link is unfortunately not valid!</source>
+				<source>Sorry, your activation link is not valid.</source>
 			</trans-unit>
 			<trans-unit id="adminapproval_sent" xml:space="preserve">
-				<source>To activate your account, the Administrator has to unlock it!</source>
+				<source>To activate your account, the administrator has to activate it.</source>
 			</trans-unit>
 			<trans-unit id="adminapproval_success" xml:space="preserve">
-				<source>The customers account has been successfully unlocked!</source>
+				<source>The users account has been successfully activated.</source>
 			</trans-unit>
 			<trans-unit id="adminapproval_userdelete" xml:space="preserve">
-				<source>The activation of the customers account has been successfully rejected!</source>
+				<source>The activation of the users account has been successfully rejected.</source>
 			</trans-unit>
 			<trans-unit id="adminapproval_failure" xml:space="preserve">
-				<source>The given activation link is unfortunately not valid or the account has already been activated!</source>
+				<source>Sorry, this activation link is not valid or this account has already been activated.</source>
 			</trans-unit>
 			<trans-unit id="adminapproval_doubleoptin_sent" xml:space="preserve">
-				<source>To activate your account, the Administrator has to unlock it! Then click the activation link in the e-mail we will sent you!</source>
+				<source>To activate your account, the administrator has to activate it. Afterwards you have to click the activation link in the e-mail we sent to you.</source>
 			</trans-unit>
 			<trans-unit id="adminapproval_doubleoptin_success" xml:space="preserve">
-				<source>The customers account has been successfully unlocked! Now he has to click the activation link in the e-mail we sent him!</source>
+				<source>The users account has been successfully activated. Now he has to click the activation link in the e-mail he received.</source>
 			</trans-unit>
 			<trans-unit id="adminapproval_doubleoptin_userdelete" xml:space="preserve">
-				<source>The activation of the customers account has been successfully rejected!</source>
+				<source>The activation of the users account has been successfully rejected.</source>
 			</trans-unit>
 			<trans-unit id="adminapproval_doubleoptin_failure" xml:space="preserve">
-				<source>The given activation link is unfortunately not valid or the account has already been activated!</source>
+				<source>Sorry, this activation link is not valid or this account has already been activated.</source>
 			</trans-unit>
 			<trans-unit id="edit_success" xml:space="preserve">
-				<source>Your data was successfully changed! You'll be redirected back in a few seconds!</source>
+				<source>Your profile has been successfully updated. You‘ll be redirected back in a few seconds.</source>
 			</trans-unit>
 			<trans-unit id="edit_userdelete" xml:space="preserve">
-				<source>Your account has been successfully deleted! You'll be redirected to the home page in a few seconds!</source>
+				<source>Your account has been successfully deleted. You‘ll be redirected to the home page in a few seconds.</source>
 			</trans-unit>
 			<trans-unit id="edit_failure" xml:space="preserve">
-				<source>There was an error while processing your data!</source>
+				<source>There was an error while processing your data.</source>
 			</trans-unit>
 			<trans-unit id="edit_error_login" xml:space="preserve">
-				<source>You can not edit your user data if you are not logged in!</source>
+				<source>You can not edit your user data if you are not logged in.</source>
 			</trans-unit>
 			<trans-unit id="edit_error_userfolder" xml:space="preserve">
-				<source>You can not edit your user data here!</source>
+				<source>You can not edit your user data here.</source>
 			</trans-unit>
 		</body>
 	</file>
