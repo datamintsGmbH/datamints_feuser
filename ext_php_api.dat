@@ -23,11 +23,11 @@ The getFields method is used to get the "fe_users" field names into the flexform
 
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_flexform.php'])	{
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_flexform.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_flexform.php']);
 }
 
-?>";i:1;i:0;}s:12:"content_size";i:584;s:13:"content_lines";i:20;s:6:"atLine";i:52;}}s:10:"usageCount";a:2:{s:12:"H_bc78dc17ad";a:2:{s:24:"_searchtime_milliseconds";d:12;s:15:"_functionHeader";s:35:"class tx_datamintsfeuser_flexform {";}s:12:"H_a268f3a649";a:2:{s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:40:"public function getFieldNames($config) {";}}}s:14:"MD5_d945c5944b";a:5:{s:8:"filename";s:43:"lib/class.tx_datamintsfeuser_salesforce.php";s:8:"filesize";i:3305;s:6:"header";a:5:{s:4:"text";s:61:"
+?>";i:1;i:0;}s:12:"content_size";i:584;s:13:"content_lines";i:20;s:6:"atLine";i:52;}}s:10:"usageCount";a:2:{s:12:"H_bc78dc17ad";a:2:{s:24:"_searchtime_milliseconds";d:2;s:15:"_functionHeader";s:35:"class tx_datamintsfeuser_flexform {";}s:12:"H_a268f3a649";a:2:{s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:40:"public function getFieldNames($config) {";}}}s:14:"MD5_d945c5944b";a:5:{s:8:"filename";s:43:"lib/class.tx_datamintsfeuser_salesforce.php";s:8:"filesize";i:3398;s:6:"header";a:5:{s:4:"text";s:61:"
 
 Library 'Salesforce' for the 'datamints_feuser' extension.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:54:"@author	Bernhard Baumgartl <b.baumgartl@datamints.com>";i:1;s:14:"@package	TYPO3";i:2;s:30:"@subpackage	tx_datamintsfeuser";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:46:"Bernhard Baumgartl <b.baumgartl@datamints.com>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:19:"tx_datamintsfeuser ";}}}s:3:"DAT";a:3:{i:1;a:8:{s:6:"header";s:37:"class tx_datamintsfeuser_salesforce {";s:5:"class";i:1;s:11:"parentClass";s:29:"tx_datamintsfeuser_salesforce";s:4:"cDat";a:5:{s:4:"text";s:61:"
@@ -57,18 +57,18 @@ Gets the mapped fields.
 
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_salesforce.php'])	{
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_salesforce.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_salesforce.php']);
 }
 
-?>";i:1;i:0;}s:12:"content_size";i:518;s:13:"content_lines";i:18;s:6:"atLine";i:99;}}s:10:"usageCount";a:3:{s:12:"H_32c2929e28";a:2:{s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:37:"class tx_datamintsfeuser_salesforce {";}s:12:"H_9c088bb76a";a:2:{s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:38:"public function main($params, $pObj) {";}s:12:"H_1cb7ca714b";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_d945c5944b";a:3:{s:8:"fileName";s:43:"lib/class.tx_datamintsfeuser_salesforce.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:57:"public function getMappingFields($mappings, $variables) {";}}}s:14:"MD5_850248a7ec";a:5:{s:8:"filename";s:38:"lib/class.tx_datamintsfeuser_utils.php";s:8:"filesize";i:18243;s:6:"header";a:5:{s:4:"text";s:56:"
+?>";i:1;i:0;}s:12:"content_size";i:518;s:13:"content_lines";i:18;s:6:"atLine";i:103;}}s:10:"usageCount";a:3:{s:12:"H_32c2929e28";a:2:{s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:37:"class tx_datamintsfeuser_salesforce {";}s:12:"H_9c088bb76a";a:2:{s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:38:"public function main($params, $pObj) {";}s:12:"H_1cb7ca714b";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_d945c5944b";a:3:{s:8:"fileName";s:43:"lib/class.tx_datamintsfeuser_salesforce.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:57:"public function getMappingFields($mappings, $variables) {";}}}s:14:"MD5_850248a7ec";a:5:{s:8:"filename";s:38:"lib/class.tx_datamintsfeuser_utils.php";s:8:"filesize";i:18382;s:6:"header";a:5:{s:4:"text";s:56:"
 
 Library 'Utils' for the 'datamints_feuser' extension.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:54:"@author	Bernhard Baumgartl <b.baumgartl@datamints.com>";i:1;s:14:"@package	TYPO3";i:2;s:30:"@subpackage	tx_datamintsfeuser";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:46:"Bernhard Baumgartl <b.baumgartl@datamints.com>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:19:"tx_datamintsfeuser ";}}}s:3:"DAT";a:21:{i:1;a:8:{s:6:"header";s:32:"class tx_datamintsfeuser_utils {";s:5:"class";i:1;s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:5:{s:4:"text";s:56:"
 
 Library 'Utils' for the 'datamints_feuser' extension.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:54:"@author	Bernhard Baumgartl <b.baumgartl@datamints.com>";i:1;s:14:"@package	TYPO3";i:2;s:30:"@subpackage	tx_datamintsfeuser";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:46:"Bernhard Baumgartl <b.baumgartl@datamints.com>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:19:"tx_datamintsfeuser ";}}}s:7:"content";a:2:{i:0;s:2:"
-	";i:1;i:-1;}s:12:"content_size";i:2;s:13:"content_lines";i:1;s:6:"atLine";i:63;}i:3;a:7:{s:6:"header";s:44:"public function getFeUsersTca($feUsersTca) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:85:"
+	";i:1;i:-1;}s:12:"content_size";i:2;s:13:"content_lines";i:1;s:6:"atLine";i:63;}i:3;a:7:{s:6:"header";s:51:"public static function getFeUsersTca($feUsersTca) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:85:"
 
 Ueberschreibt eventuell vorhandene TCA Konfiguration mit TypoScript Konfiguration.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:11:"$feUsersTca";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:17:"$globalFeUsersTca";}}s:7:"content";a:2:{i:0;s:308:"		$GLOBALS['TSFE']->includeTCA();
@@ -81,7 +81,7 @@ Ueberschreibt eventuell vorhandene TCA Konfiguration mit TypoScript Konfiguratio
 		return $globalFeUsersTca;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:308;s:13:"content_lines";i:10;s:6:"atLine";i:71;}i:5;a:7:{s:6:"header";s:50:"public function getStoragePageId($storagePageId) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:78:"
+	";i:1;i:0;}s:12:"content_size";i:308;s:13:"content_lines";i:10;s:6:"atLine";i:71;}i:5;a:7:{s:6:"header";s:57:"public static function getStoragePageId($storagePageId) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:78:"
 
 Ermittelt die General Record Storage Pid, falls keine Pid uebergeben wurde.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:14:"$storagePageId";}}s:6:"return";a:2:{i:0;s:7:"integer";i:1;s:11:"$storagePid";}}s:7:"content";a:2:{i:0;s:184:"		if (!$storagePageId) {
@@ -92,7 +92,7 @@ Ermittelt die General Record Storage Pid, falls keine Pid uebergeben wurde.
 		return intval($storagePageId);
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:184;s:13:"content_lines";i:8;s:6:"atLine";i:88;}i:7;a:7:{s:6:"header";s:67:"public function getTypoLinkUrl($params, $urlParameters = array()) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:53:"
+	";i:1;i:0;}s:12:"content_size";i:184;s:13:"content_lines";i:8;s:6:"atLine";i:88;}i:7;a:7:{s:6:"header";s:74:"public static function getTypoLinkUrl($params, $urlParameters = array()) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:53:"
 
 Ermittelt die Url zu einer Seite oder einer Datei.
 ";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:7:"$params";}i:1;a:2:{i:0;s:5:"array";i:1;s:14:"$urlParameters";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:9:"$pageLink";}}s:7:"content";a:2:{i:0;s:138:"		$cObj = t3lib_div::makeInstance('tslib_cObj');
@@ -101,14 +101,14 @@ Ermittelt die Url zu einer Seite oder einer Datei.
 		return $pageLink;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:138;s:13:"content_lines";i:6;s:6:"atLine";i:104;}i:9;a:7:{s:6:"header";s:32:"public function fixPath($path) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:129:"
+	";i:1;i:0;}s:12:"content_size";i:138;s:13:"content_lines";i:6;s:6:"atLine";i:104;}i:9;a:7:{s:6:"header";s:39:"public static function fixPath($path) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:129:"
 
 Wird verwendet, um doppelte Schraegstriche zu vermeiden.
 Der Pfad wird mit einem abschliessenden Schraegstrich zurueckgegeben.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:5:"$path";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:5:"$path";}}s:7:"content";a:2:{i:0;s:43:"		return dirname($path . '/.') . '/';
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:43;s:13:"content_lines";i:3;s:6:"atLine";i:118;}i:11;a:7:{s:6:"header";s:63:"public function htmlspecialcharsPostArray(&$arrPost, $decode) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:150:"
+	";i:1;i:0;}s:12:"content_size";i:43;s:13:"content_lines";i:3;s:6:"atLine";i:118;}i:11;a:7:{s:6:"header";s:70:"public static function htmlspecialcharsPostArray(&$arrPost, $decode) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:150:"
 
 Konvertiert alle Werte des uebergebenen Post Arrays um z.B. XSS zu verhindern.
 Der Modus gibt an ob die Werte encodiert oder decodiert werden soll.
@@ -131,7 +131,7 @@ Der Modus gibt an ob die Werte encodiert oder decodiert werden soll.
 		return TRUE;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:784;s:13:"content_lines";i:23;s:6:"atLine";i:130;}i:13;a:7:{s:6:"header";s:58:"public function shiftEmptyArrayValuePostArray(&$arrPost) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:171:"
+	";i:1;i:1;}s:12:"content_size";i:784;s:13:"content_lines";i:23;s:6:"atLine";i:130;}i:13;a:7:{s:6:"header";s:65:"public static function shiftEmptyArrayValuePostArray(&$arrPost) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:171:"
 
 Es wird jeder Wert im Post Array ueberprueft ob er ein Array ist.
 Wenn dass der Fall ist, wird der erste Wert in diesem Array entfernt, falls dieser ein Leerstring ist.
@@ -146,7 +146,7 @@ Wenn dass der Fall ist, wird der erste Wert in diesem Array entfernt, falls dies
 		return TRUE;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:172;s:13:"content_lines";i:11;s:6:"atLine";i:161;}i:15;a:7:{s:6:"header";s:69:"public function generatePassword($password, $arrGenerate = array()) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:125:"
+	";i:1;i:0;}s:12:"content_size";i:172;s:13:"content_lines";i:11;s:6:"atLine";i:161;}i:15;a:7:{s:6:"header";s:76:"public static function generatePassword($password, $arrGenerate = array()) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:125:"
 
 Erstellt wenn gefordert ein Password, und verschluesselt dieses, oder das uebergebene, wenn es verschluesselt werden soll.
 ";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:9:"$password";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"$arrGenerate";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:12:"$arrPassword";}}s:7:"content";a:2:{i:0;s:507:"		$arrPassword = array();
@@ -166,7 +166,7 @@ rd['encrypted'] = $tx_t3secsaltedpw_phpass->getHashedPassword($arrPassword['norm
 		return $arrPassword;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:2192;s:13:"content_lines";i:56;s:6:"atLine";i:180;}i:17;a:7:{s:6:"header";s:70:"public function checkPassword($submittedPassword, $originalPassword) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:172:"
+	";i:1;i:1;}s:12:"content_size";i:2192;s:13:"content_lines";i:56;s:6:"atLine";i:180;}i:17;a:7:{s:6:"header";s:77:"public static function checkPassword($submittedPassword, $originalPassword) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:172:"
 
 Ueberprueft anhand der aktuellen Verschluesselungsextension, ob das uebergebene unverschluesselte Passwort mit dem uebergebenen verschluesselten Passwort uebereinstimmt.
 ";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:18:"$submittedPassword";}i:1;a:2:{i:0;s:6:"string";i:1;s:17:"$originalPassword";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:6:"$check";}}s:7:"content";a:2:{i:0;s:507:"		$check = FALSE;
@@ -188,7 +188,7 @@ chluesselung).
 		return $check;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:1740;s:13:"content_lines";i:51;s:6:"atLine";i:244;}i:19;a:7:{s:6:"header";s:79:"public function userAutoLogin($userId, $pageId = 0, $urlParameters = array()) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:43:"
+	";i:1;i:1;}s:12:"content_size";i:1740;s:13:"content_lines";i:51;s:6:"atLine";i:244;}i:19;a:7:{s:6:"header";s:86:"public static function userAutoLogin($userId, $pageId = 0, $urlParameters = array()) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:43:"
 
 Vollzieht einen Login ohne ein Passwort.
 ";s:5:"param";a:3:{i:0;a:2:{i:0;s:7:"integer";i:1;s:7:"$userId";}i:1;a:2:{i:0;s:7:"integer";i:1;s:7:"$pageId";}i:2;a:2:{i:0;s:5:"array";i:1;s:14:"$urlParameters";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:302:"		// Login vollziehen.
@@ -202,7 +202,7 @@ Vollzieht einen Login ohne ein Passwort.
 		self::userRedirect($pageId, $urlParameters, TRUE);
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:302;s:13:"content_lines";i:11;s:6:"atLine";i:304;}i:21;a:7:{s:6:"header";s:98:"public function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = FALSE) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:82:"
+	";i:1;i:0;}s:12:"content_size";i:302;s:13:"content_lines";i:11;s:6:"atLine";i:304;}i:21;a:7:{s:6:"header";s:105:"public static function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = FALSE) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:82:"
 
 Vollzieht einen Redirect mit der Seite die benutzt wird, oder auf die aktuelle.
 ";s:5:"param";a:3:{i:0;a:2:{i:0;s:7:"integer";i:1;s:7:"$pageId";}i:1;a:2:{i:0;s:5:"array";i:1;s:14:"$urlParameters";}i:2;a:2:{i:0;s:7:"boolean";i:1;s:19:"$disableAccessCheck";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		// Normalen Redirect, oder Redirect auf die gewuenschte Seite.
@@ -219,7 +219,7 @@ lf::getTypoLinkUrl($pageId, $urlParameters);
 		exit;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:803;s:13:"content_lines";i:18;s:6:"atLine";i:324;}i:23;a:7:{s:6:"header";s:38:"public function escapeBrackets($url) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:50:"
+	";i:1;i:1;}s:12:"content_size";i:803;s:13:"content_lines";i:18;s:6:"atLine";i:324;}i:23;a:7:{s:6:"header";s:45:"public static function escapeBrackets($url) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:50:"
 
 URL encoded die eckigen Klammern in einem Link.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:4:"$url";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:128:"		$replace = array('[' => '%5b', ']' => '%5d');
@@ -227,13 +227,13 @@ URL encoded die eckigen Klammern in einem Link.
 		return str_replace(array_keys($replace), array_values($replace), $url);
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:128;s:13:"content_lines";i:5;s:6:"atLine";i:349;}i:25;a:7:{s:6:"header";s:48:"public function getSpecialFieldKey($fieldName) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:110:"
+	";i:1;i:0;}s:12:"content_size";i:128;s:13:"content_lines";i:5;s:6:"atLine";i:349;}i:25;a:7:{s:6:"header";s:55:"public static function getSpecialFieldKey($fieldName) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:110:"
 
 Fuegt die '--' Zeichen vor und hinter dem eigendlichen Feldnamen, hinzu um den eindeutigen Key zu bekommen.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:40:"		return '--' . $fieldName . '--';
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:40;s:13:"content_lines";i:3;s:6:"atLine";i:361;}i:27;a:7:{s:6:"header";s:49:"public function getSpecialFieldName($fieldName) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:113:"
+	";i:1;i:0;}s:12:"content_size";i:40;s:13:"content_lines";i:3;s:6:"atLine";i:361;}i:27;a:7:{s:6:"header";s:56:"public static function getSpecialFieldName($fieldName) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:113:"
 
 Ersetzt die beim Eingeben angegebenen '--' Zeichen vor und hinter dem eigendlichen Feldnamen, falls vorhanden.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:135:"		if (preg_match('/^--.*--$/', $fieldName)) {
@@ -243,7 +243,7 @@ Ersetzt die beim Eingeben angegebenen '--' Zeichen vor und hinter dem eigendlich
 		return $fieldName;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:135;s:13:"content_lines";i:7;s:6:"atLine";i:371;}i:29;a:7:{s:6:"header";s:51:"public function convertHtmlEmailToPlain($content) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:59:"
+	";i:1;i:0;}s:12:"content_size";i:135;s:13:"content_lines";i:7;s:6:"atLine";i:371;}i:29;a:7:{s:6:"header";s:58:"public static function convertHtmlEmailToPlain($content) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:59:"
 
 Convertiert eine HTML E-Mail zu einer Plain Text E-Mail.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		$newLine = chr(13) . chr(10);
@@ -263,7 +263,7 @@ araus machen.
 		return $content;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:980;s:13:"content_lines";i:32;s:6:"atLine";i:385;}i:31;a:7:{s:6:"header";s:90:"public function getTemplateSubpart($templateFile, $templatePart, $markerArray = array()) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:74:"
+	";i:1;i:1;}s:12:"content_size";i:980;s:13:"content_lines";i:32;s:6:"atLine";i:385;}i:31;a:7:{s:6:"header";s:97:"public static function getTemplateSubpart($templateFile, $templatePart, $markerArray = array()) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:74:"
 
 Holt einen Subpart des Standardtemplates und ersetzt uebergeben Marker.
 ";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"string";i:1;s:13:"$templateFile";}i:1;a:2:{i:0;s:6:"string";i:1;s:13:"$templatePart";}i:2;a:2:{i:0;s:5:"array";i:1;s:12:"$markerArray";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:9:"$template";}}s:7:"content";a:2:{i:0;s:404:"		// Template laden.
@@ -280,10 +280,10 @@ Holt einen Subpart des Standardtemplates und ersetzt uebergeben Marker.
 		return $template;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:404;s:13:"content_lines";i:14;s:6:"atLine";i:426;}i:33;a:7:{s:6:"header";s:84:"public function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array()) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:76:"
+	";i:1;i:0;}s:12:"content_size";i:404;s:13:"content_lines";i:14;s:6:"atLine";i:426;}i:33;a:7:{s:6:"header";s:91:"public static function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array()) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:76:"
 
 Parst das Flexform Konfigurations Array und schreibt alle Werte in $conf.
-";s:5:"param";a:3:{i:0;a:2:{i:0;s:5:"array";i:1;s:9:"$flexData";}i:1;a:2:{i:0;s:6:"string";i:1;s:6:"$sType";}i:2;a:2:{i:0;s:5:"array";i:1;s:5:"$conf";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:5:"$conf";}}s:7:"content";a:2:{i:0;s:507:"		 if (is_array($flexData)) {
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:5:"array";i:1;s:9:"$flexData";}i:1;a:2:{i:0;s:6:"string";i:1;s:5:"$sTab";}i:2;a:2:{i:0;s:5:"array";i:1;s:5:"$conf";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:5:"$conf";}}s:7:"content";a:2:{i:0;s:507:"		 if (is_array($flexData)) {
 			 if (isset($flexData['data'][$sTab]['lDEF'])) {
 				 $flexData = $flexData['data'][$sTab]['lDEF'];
 			 }
@@ -306,7 +306,7 @@ ab, $conf);
 		 return $conf;
 	 }
 
-	";i:1;i:1;}s:12:"content_size";i:722;s:13:"content_lines";i:27;s:6:"atLine";i:449;}i:35;a:7:{s:6:"header";s:68:"public function setFlexformConfigurationValue($key, $value, $conf) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:106:"
+	";i:1;i:1;}s:12:"content_size";i:722;s:13:"content_lines";i:27;s:6:"atLine";i:449;}i:35;a:7:{s:6:"header";s:75:"public static function setFlexformConfigurationValue($key, $value, $conf) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:106:"
 
 Ueberschreibt eventuell vorhandene TypoScript Konfigurationen mit den Konfigurationen aus der Flexform.
 ";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"string";i:1;s:4:"$key";}i:1;a:2:{i:0;s:6:"string";i:1;s:6:"$value";}i:2;a:2:{i:0;s:5:"array";i:1;s:5:"$conf";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:5:"$conf";}}s:7:"content";a:2:{i:0;s:489:"		if (strpos($key, '.') !== FALSE && $value) {
@@ -332,16 +332,16 @@ Ueberschreibt eventuell vorhandene TypoScript Konfigurationen mit den Konfigurat
 		return $conf;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:489;s:13:"content_lines";i:23;s:6:"atLine";i:485;}i:37;a:7:{s:6:"header";s:40:"public function trimCallback(&$string) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:67:"
+	";i:1;i:0;}s:12:"content_size";i:489;s:13:"content_lines";i:23;s:6:"atLine";i:485;}i:37;a:7:{s:6:"header";s:47:"public static function trimCallback(&$string) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:67:"
 
 Nimmt einen String entgegen um auf diesen ein trim() anzuwenden.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:59:"$string // Call by reference: Der String der getrimmt wird.";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:32:"		$string = trim($string);
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:32;s:13:"content_lines";i:3;s:6:"atLine";i:515;}i:39;a:4:{s:6:"header";s:45:"public function stripTagsCallback(&$string) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:73:"
+	";i:1;i:0;}s:12:"content_size";i:32;s:13:"content_lines";i:3;s:6:"atLine";i:515;}i:39;a:4:{s:6:"header";s:52:"public static function stripTagsCallback(&$string) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:73:"
 
 Nimmt einen String entgegen um auf diesen ein strip_tags() anzuwenden.
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:60:"$string // Call by reference: Der String der gesaubert wird.";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:6:"atLine";i:525;}i:41;a:7:{s:6:"header";s:33:"public function checkUtf8($str) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:45:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:60:"$string // Call by reference: Der String der gesaubert wird.";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:6:"atLine";i:525;}i:41;a:7:{s:6:"header";s:40:"public static function checkUtf8($str) {";s:11:"parentClass";s:24:"tx_datamintsfeuser_utils";s:4:"cDat";a:3:{s:4:"text";s:45:"
 
 Checks if a string is utf8 encoded or not.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:4:"$str";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		$len = strlen($str);
@@ -371,13 +371,13 @@ Checks if a string is utf8 encoded or not.
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_utils.php']);
 }
 
-?>";i:1;i:1;}s:12:"content_size";i:803;s:13:"content_lines";i:43;s:6:"atLine";i:535;}}s:10:"usageCount";a:21:{s:12:"H_53a2e46ba8";a:2:{s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:32:"class tx_datamintsfeuser_utils {";}s:12:"H_d5470ab782";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:44:"public function getFeUsersTca($feUsersTca) {";}s:12:"H_a2ea918c26";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:50:"public function getStoragePageId($storagePageId) {";}s:12:"H_3d321d78f0";a:5:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:6;s:5:"TOTAL";i:6;}s:14:"MD5_850248a7ec";a:3:{s:8:"fileName";s:38:"lib/class.tx_datamintsfeuser_utils.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:5;s:5:"TOTAL";i:5;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:67:"public function getTypoLinkUrl($params, $urlParameters = array()) {";}s:12:"H_fe3fa99139";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:32:"public function fixPath($path) {";}s:12:"H_0aad0a58da";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:63:"public function htmlspecialcharsPostArray(&$arrPost, $decode) {";}s:12:"H_583dd7e103";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:58:"public function shiftEmptyArrayValuePostArray(&$arrPost) {";}s:12:"H_48f4bedf72";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:69:"public function generatePassword($password, $arrGenerate = array()) {";}s:12:"H_d921418f5b";a:5:{s:3:"ALL";a:3:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:3;s:14:"nonObjectUsage";i:1;}s:14:"MD5_850248a7ec";a:3:{s:8:"fileName";s:38:"lib/class.tx_datamintsfeuser_utils.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:70:"public function checkPassword($submittedPassword, $originalPassword) {";}s:12:"H_503c1ac742";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:79:"public function userAutoLogin($userId, $pageId = 0, $urlParameters = array()) {";}s:12:"H_bd64c6f56a";a:5:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_850248a7ec";a:3:{s:8:"fileName";s:38:"lib/class.tx_datamintsfeuser_utils.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:98:"public function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = FALSE) {";}s:12:"H_860a392bee";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:38:"public function escapeBrackets($url) {";}s:12:"H_dd88174826";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:14;s:5:"TOTAL";i:14;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:14;s:5:"TOTAL";i:14;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:48:"public function getSpecialFieldKey($fieldName) {";}s:12:"H_96a9048a47";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:4;s:5:"TOTAL";i:4;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:4;s:5:"TOTAL";i:4;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:49:"public function getSpecialFieldName($fieldName) {";}s:12:"H_47bff921ed";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:51:"public function convertHtmlEmailToPlain($content) {";}s:12:"H_ea0877be73";a:4:{s:3:"ALL";a:3:{s:11:"objectUsage";i:5;s:5:"TOTAL";i:6;s:14:"nonObjectUsage";i:1;}s:14:"MD5_8f66ccd171";a:4:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:5;s:5:"TOTAL";i:6;s:14:"nonObjectUsage";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:90:"public function getTemplateSubpart($templateFile, $templatePart, $markerArray = array()) {";}s:12:"H_fdbbd1ab5b";a:5:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_850248a7ec";a:3:{s:8:"fileName";s:38:"lib/class.tx_datamintsfeuser_utils.php";s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:84:"public function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array()) {";}s:12:"H_76cd68de0a";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:68:"public function setFlexformConfigurationValue($key, $value, $conf) {";}s:12:"H_d25f4d8846";a:2:{s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:40:"public function trimCallback(&$string) {";}s:12:"H_6274888c90";a:2:{s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:45:"public function stripTagsCallback(&$string) {";}s:12:"H_3f014bc373";a:5:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_850248a7ec";a:3:{s:8:"fileName";s:38:"lib/class.tx_datamintsfeuser_utils.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:33:"public function checkUtf8($str) {";}}}s:14:"MD5_8f66ccd171";a:5:{s:8:"filename";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:8:"filesize";i:119915;s:6:"header";a:5:{s:4:"text";s:74:"
+?>";i:1;i:1;}s:12:"content_size";i:803;s:13:"content_lines";i:43;s:6:"atLine";i:535;}}s:10:"usageCount";a:21:{s:12:"H_53a2e46ba8";a:2:{s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:32:"class tx_datamintsfeuser_utils {";}s:12:"H_b5a830a3cd";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:51:"public static function getFeUsersTca($feUsersTca) {";}s:12:"H_abeb6301d6";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:57:"public static function getStoragePageId($storagePageId) {";}s:12:"H_657c480ffe";a:5:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:6;s:5:"TOTAL";i:6;}s:14:"MD5_850248a7ec";a:3:{s:8:"fileName";s:38:"lib/class.tx_datamintsfeuser_utils.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:5;s:5:"TOTAL";i:5;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:74:"public static function getTypoLinkUrl($params, $urlParameters = array()) {";}s:12:"H_559619e871";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:39:"public static function fixPath($path) {";}s:12:"H_bce587439a";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:70:"public static function htmlspecialcharsPostArray(&$arrPost, $decode) {";}s:12:"H_224e2cce6b";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:65:"public static function shiftEmptyArrayValuePostArray(&$arrPost) {";}s:12:"H_b2991a901f";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:76:"public static function generatePassword($password, $arrGenerate = array()) {";}s:12:"H_8e3c8a0cbe";a:5:{s:3:"ALL";a:3:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:3;s:14:"nonObjectUsage";i:1;}s:14:"MD5_850248a7ec";a:3:{s:8:"fileName";s:38:"lib/class.tx_datamintsfeuser_utils.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:77:"public static function checkPassword($submittedPassword, $originalPassword) {";}s:12:"H_db775202fd";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:86:"public static function userAutoLogin($userId, $pageId = 0, $urlParameters = array()) {";}s:12:"H_ebc984bee3";a:5:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_850248a7ec";a:3:{s:8:"fileName";s:38:"lib/class.tx_datamintsfeuser_utils.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:105:"public static function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = FALSE) {";}s:12:"H_8399c6f660";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:45:"public static function escapeBrackets($url) {";}s:12:"H_aa617655f6";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:14;s:5:"TOTAL";i:14;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:14;s:5:"TOTAL";i:14;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:55:"public static function getSpecialFieldKey($fieldName) {";}s:12:"H_c7c06c8dab";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:4;s:5:"TOTAL";i:4;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:4;s:5:"TOTAL";i:4;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:56:"public static function getSpecialFieldName($fieldName) {";}s:12:"H_096962f472";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:58:"public static function convertHtmlEmailToPlain($content) {";}s:12:"H_c96fe4eeef";a:4:{s:3:"ALL";a:3:{s:11:"objectUsage";i:5;s:5:"TOTAL";i:6;s:14:"nonObjectUsage";i:1;}s:14:"MD5_8f66ccd171";a:4:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:5;s:5:"TOTAL";i:6;s:14:"nonObjectUsage";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:97:"public static function getTemplateSubpart($templateFile, $templatePart, $markerArray = array()) {";}s:12:"H_eac843efc2";a:5:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_850248a7ec";a:3:{s:8:"fileName";s:38:"lib/class.tx_datamintsfeuser_utils.php";s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:91:"public static function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array()) {";}s:12:"H_705b41b24d";a:4:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:75:"public static function setFlexformConfigurationValue($key, $value, $conf) {";}s:12:"H_d60341968f";a:2:{s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:47:"public static function trimCallback(&$string) {";}s:12:"H_9dbeb03dc6";a:2:{s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:52:"public static function stripTagsCallback(&$string) {";}s:12:"H_8e08dc0426";a:5:{s:3:"ALL";a:2:{s:14:"nonObjectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_850248a7ec";a:3:{s:8:"fileName";s:38:"lib/class.tx_datamintsfeuser_utils.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:40:"public static function checkUtf8($str) {";}}}s:14:"MD5_8f66ccd171";a:5:{s:8:"filename";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:8:"filesize";i:124336;s:6:"header";a:5:{s:4:"text";s:74:"
 
 Plugin 'Frontend User Management' for the 'datamints_feuser' extension.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:54:"@author	Bernhard Baumgartl <b.baumgartl@datamints.com>";i:1;s:14:"@package	TYPO3";i:2;s:30:"@subpackage	tx_datamintsfeuser";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:46:"Bernhard Baumgartl <b.baumgartl@datamints.com>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:19:"tx_datamintsfeuser ";}}}s:3:"DAT";a:54:{i:1;a:8:{s:6:"header";s:51:"class tx_datamintsfeuser_pi1 extends tslib_pibase {";s:5:"class";i:1;s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:74:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:54:"@author	Bernhard Baumgartl <b.baumgartl@datamints.com>";i:1;s:14:"@package	TYPO3";i:2;s:30:"@subpackage	tx_datamintsfeuser";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:46:"Bernhard Baumgartl <b.baumgartl@datamints.com>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:19:"tx_datamintsfeuser ";}}}s:3:"DAT";a:56:{i:1;a:8:{s:6:"header";s:51:"class tx_datamintsfeuser_pi1 extends tslib_pibase {";s:5:"class";i:1;s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:74:"
 
 Plugin 'Frontend User Management' for the 'datamints_feuser' extension.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:54:"@author	Bernhard Baumgartl <b.baumgartl@datamints.com>";i:1;s:14:"@package	TYPO3";i:2;s:30:"@subpackage	tx_datamintsfeuser";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:46:"Bernhard Baumgartl <b.baumgartl@datamints.com>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:19:"tx_datamintsfeuser ";}}}s:7:"content";a:2:{i:0;s:1702:"	public $extKey = 'datamints_feuser';
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:54:"@author	Bernhard Baumgartl <b.baumgartl@datamints.com>";i:1;s:14:"@package	TYPO3";i:2;s:30:"@subpackage	tx_datamintsfeuser";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:46:"Bernhard Baumgartl <b.baumgartl@datamints.com>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:19:"tx_datamintsfeuser ";}}}s:7:"content";a:2:{i:0;s:1736:"	public $extKey = 'datamints_feuser';
 	public $prefixId = 'tx_datamintsfeuser_pi1';
 	public $scriptRelPath = 'pi1/class.tx_datamintsfeuser_pi1.php';
 
@@ -399,6 +399,7 @@ Plugin 'Frontend User Management' for the 'datamints_feuser' extension.
 	const modeKeyApprovalcheck = 'approvalcheck';
 
 	const submodeKeySent = 'sent';
+	const submodeKeyError = 'error';
 	const submodeKeyFailure = 'failure';
 	const submodeKeySuccess = 'success';
 
@@ -429,7 +430,7 @@ Plugin 'Frontend User Management' for the 'datamints_feuser' extension.
 	const specialfieldKeyResendactivation = 'resendactivation';
 	const specialfieldKeyPasswordconfirmation = 'passwordconfirmation';
 
-	";i:1;i:-1;}s:12:"content_size";i:1702;s:13:"content_lines";i:52;s:6:"atLine";i:99;}i:3;a:7:{s:6:"header";s:39:"public function main($content, $conf) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:32:"
+	";i:1;i:-1;}s:12:"content_size";i:1736;s:13:"content_lines";i:53;s:6:"atLine";i:101;}i:3;a:7:{s:6:"header";s:39:"public function main($content, $conf) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:32:"
 
 The main method of the PlugIn
 ";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:8:"$content";}i:1;a:2:{i:0;s:5:"array";i:1;s:5:"$conf";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		$this->conf = $conf;
@@ -456,19 +457,18 @@ The main method of the PlugIn
 		return $this->pi_wrapInBaseClass($content);
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:3533;s:13:"content_lines";i:76;s:6:"atLine";i:159;}i:5;a:7:{s:6:"header";s:32:"public function doFormSubmit() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:122:"
+	";i:1;i:1;}s:12:"content_size";i:3604;s:13:"content_lines";i:76;s:6:"atLine";i:162;}i:5;a:7:{s:6:"header";s:32:"public function doFormSubmit() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:122:"
 
 Bereitet die uebergebenen Daten fuer den Import in die Datenbank vor, und fuehrt diesen, wenn es keine Fehler gab, aus.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		$mode = '';
-		$submode = '';
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		$mode = $this->conf['showtype'];
+		$submode = self::submodeKeyFailure;
 		$params = array();
 		$arrUpdate = array();
 
 		// Falls ein Leerstring in einem Array-Wert an erster Stelle steht, handelt es sich um ein verstecktes Feld. Dieses muss entfernt werden.
 		tx_datamintsfeuser_utils::shiftEmptyArrayValuePostArray($this->piVars[$this->contentId]);
 
-		// Jedes Element in piVars trimmen.
-		array_walk_recursive($thi
+		// Jedes Element in p
 [...]
 ::callUserFunction($_funcRef, $_params, $this);
 			}
@@ -477,7 +477,7 @@ Bereitet die uebergebenen Daten fuer den Import in die Datenbank vor, und fuehrt
 		return $this->showOutputRedirect($mode, $submode, $params);
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:8050;s:13:"content_lines";i:194;s:6:"atLine";i:241;}i:7;a:7:{s:6:"header";s:30:"public function checkValid() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:56:"
+	";i:1;i:1;}s:12:"content_size";i:8162;s:13:"content_lines";i:197;s:6:"atLine";i:244;}i:7;a:7:{s:6:"header";s:30:"public function checkValid() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:56:"
 
 Ueberprueft ob alle Validierungen eingehalten wurden.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:7:"content";a:2:{i:0;s:507:"		$valueCheck = array();
@@ -503,7 +503,7 @@ eck[$fieldName] = self::validationerrorKeyLength;
 		return $valueCheck;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:5314;s:13:"content_lines";i:147;s:6:"atLine";i:441;}i:9;a:7:{s:6:"header";s:31:"public function checkUnique() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:112:"
+	";i:1;i:1;}s:12:"content_size";i:5314;s:13:"content_lines";i:147;s:6:"atLine";i:447;}i:9;a:7:{s:6:"header";s:31:"public function checkUnique() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:112:"
 
 Ueberprueft die uebergebenen Inhalte, bei bestimmten Feldern, ob diese in der Datenbank schon vorhanden sind.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:7:"content";a:2:{i:0;s:507:"		$where = '';
@@ -526,7 +526,7 @@ w['count'] >= 1) {
 		return $valueCheck;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:1002;s:13:"content_lines";i:27;s:6:"atLine";i:594;}i:11;a:7:{s:6:"header";s:33:"public function checkRequired() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:73:"
+	";i:1;i:1;}s:12:"content_size";i:1002;s:13:"content_lines";i:27;s:6:"atLine";i:600;}i:11;a:7:{s:6:"header";s:33:"public function checkRequired() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:73:"
 
 Ueberprueft ob alle benoetigten Felder mit Inhalten uebergeben wurden.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:7:"content";a:2:{i:0;s:507:"		$valueCheck = array();
@@ -551,7 +551,7 @@ h einem Leerstring ist!
 		return $valueCheck;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:2134;s:13:"content_lines";i:53;s:6:"atLine";i:627;}i:13;a:7:{s:6:"header";s:38:"public function checkCaptcha($value) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:55:"
+	";i:1;i:1;}s:12:"content_size";i:2134;s:13:"content_lines";i:53;s:6:"atLine";i:633;}i:13;a:7:{s:6:"header";s:38:"public function checkCaptcha($value) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:55:"
 
 Ueberprueft ob das Captcha richtig eingegeben wurde.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:6:"$value";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		if (!t3lib_extMgm::isLoaded($this->conf['captcha.']['use'])) {
@@ -585,7 +585,7 @@ culatingcaptcha->correctCode($value)) {
 		return '';
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:1334;s:13:"content_lines";i:57;s:6:"atLine";i:687;}i:15;a:7:{s:6:"header";s:75:"public function cleanPasswordField(&$arrUpdate, $fieldName, $fieldConfig) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:90:"
+	";i:1;i:1;}s:12:"content_size";i:1334;s:13:"content_lines";i:57;s:6:"atLine";i:693;}i:15;a:7:{s:6:"header";s:75:"public function cleanPasswordField(&$arrUpdate, $fieldName, $fieldConfig) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:90:"
 
 Falls angegebe das Passwort fuer ein Passwortfeld generieren und / oder verschluesseln.
 ";s:5:"param";a:3:{i:0;a:2:{i:0;s:5:"array";i:1;s:76:"$arrUpdate // Call by reference: Das Array in dem das zu saubernde Feld ist.";}i:1;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:2;a:2:{i:0;s:5:"array";i:1;s:12:"$fieldConfig";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:431:"		// Password generieren und verschluesseln je nach Einstellung.
@@ -600,7 +600,7 @@ Falls angegebe das Passwort fuer ein Passwortfeld generieren und / oder verschlu
 		return TRUE;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:431;s:13:"content_lines";i:12;s:6:"atLine";i:753;}i:17;a:7:{s:6:"header";s:72:"public function cleanCheckField(&$arrUpdate, $fieldName, $fieldConfig) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:163:"
+	";i:1;i:0;}s:12:"content_size";i:431;s:13:"content_lines";i:12;s:6:"atLine";i:759;}i:17;a:7:{s:6:"header";s:72:"public function cleanCheckField(&$arrUpdate, $fieldName, $fieldConfig) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:163:"
 
 Saeubert Checkboxfelder, indem die uebergebenen Werte durch 1 oder 0 ausgetauscht werden.
 Gilt fuer eine oder mehrere Checkboxen (nicht fuer scrollbare Listen).
@@ -630,7 +630,7 @@ Gilt fuer eine oder mehrere Checkboxen (nicht fuer scrollbare Listen).
 		return TRUE;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:565;s:13:"content_lines";i:26;s:6:"atLine";i:775;}i:19;a:7:{s:6:"header";s:81:"public function cleanMultipleSelectField(&$arrUpdate, $fieldName, $fieldConfig) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:95:"
+	";i:1;i:0;}s:12:"content_size";i:565;s:13:"content_lines";i:26;s:6:"atLine";i:781;}i:19;a:7:{s:6:"header";s:81:"public function cleanMultipleSelectField(&$arrUpdate, $fieldName, $fieldConfig) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:95:"
 
 Saeubert MultipleSelectboxfelder indem auf jeden uebergebenen Wert intval() angewendet wird.
 ";s:5:"param";a:3:{i:0;a:2:{i:0;s:5:"array";i:1;s:76:"$arrUpdate // Call by reference: Das Array in dem das zu saubernde Feld ist.";}i:1;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:2;a:2:{i:0;s:5:"array";i:1;s:12:"$fieldConfig";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		$maxItemsCount = 1;
@@ -653,7 +653,7 @@ Saeubert MultipleSelectboxfelder indem auf jeden uebergebenen Wert intval() ange
 		return TRUE;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:751;s:13:"content_lines";i:27;s:6:"atLine";i:810;}i:21;a:7:{s:6:"header";s:80:"public function cleanGroupDatabaseField(&$arrUpdate, $fieldName, $fieldConfig) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:65:"
+	";i:1;i:1;}s:12:"content_size";i:751;s:13:"content_lines";i:27;s:6:"atLine";i:816;}i:21;a:7:{s:6:"header";s:80:"public function cleanGroupDatabaseField(&$arrUpdate, $fieldName, $fieldConfig) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:65:"
 
 Saeubert Group- und MultipleCheckboxfelder (scrollbare Liste).
 ";s:5:"param";a:3:{i:0;a:2:{i:0;s:5:"array";i:1;s:76:"$arrUpdate // Call by reference: Das Array in dem das zu saubernde Feld ist.";}i:1;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:2;a:2:{i:0;s:5:"array";i:1;s:12:"$fieldConfig";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		$maxItemsCount = 1;
@@ -674,7 +674,7 @@ r($val, strripos($val, '_') + 1);
 		return TRUE;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:1069;s:13:"content_lines";i:36;s:6:"atLine";i:846;}i:23;a:7:{s:6:"header";s:76:"public function cleanUncleanedField(&$arrUpdate, $fieldName, $fieldConfig) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:55:"
+	";i:1;i:1;}s:12:"content_size";i:1069;s:13:"content_lines";i:36;s:6:"atLine";i:852;}i:23;a:7:{s:6:"header";s:76:"public function cleanUncleanedField(&$arrUpdate, $fieldName, $fieldConfig) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:55:"
 
 Saeubert die uebrigen Felder (Input, Textarea, ...).
 ";s:5:"param";a:3:{i:0;a:2:{i:0;s:5:"array";i:1;s:76:"$arrUpdate // Call by reference: Das Array in dem das zu saubernde Feld ist.";}i:1;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:2;a:2:{i:0;s:5:"array";i:1;s:12:"$fieldConfig";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		// Wenn eine Selectbox die Ihren Inhalt aus einer anderen Tabelle hat angezeigt wurde, dann darf nur eine Zahl kommen!
@@ -695,7 +695,7 @@ ren.
 		return TRUE;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:608;s:13:"content_lines";i:18;s:6:"atLine";i:891;}i:25;a:7:{s:6:"header";s:72:"public function saveDeleteFiles(&$arrUpdate, $fieldName, $fieldConfig) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:80:"
+	";i:1;i:1;}s:12:"content_size";i:608;s:13:"content_lines";i:18;s:6:"atLine";i:897;}i:25;a:7:{s:6:"header";s:72:"public function saveDeleteFiles(&$arrUpdate, $fieldName, $fieldConfig) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:80:"
 
 The saveDeleteImage method is used to update or delete an image of an address
 ";s:5:"param";a:3:{i:0;a:2:{i:0;s:5:"array";i:1;s:76:"$arrUpdate // Call by reference: Das Array in dem das zu saubernde Feld ist.";}i:1;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:2;a:2:{i:0;s:5:"array";i:1;s:12:"$fieldConfig";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:6:"$error";}}s:7:"content";a:2:{i:0;s:507:"		$arrFieldVars = (array)$this->piVars[$this->contentId][$fieldName];
@@ -718,7 +718,7 @@ The saveDeleteImage method is used to update or delete an image of an address
 		return $error;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:4047;s:13:"content_lines";i:106;s:6:"atLine";i:918;}i:27;a:7:{s:6:"header";s:41:"public function copyFields(&$arrUpdate) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:189:"
+	";i:1;i:1;}s:12:"content_size";i:4077;s:13:"content_lines";i:106;s:6:"atLine";i:924;}i:27;a:7:{s:6:"header";s:41:"public function copyFields(&$arrUpdate) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:189:"
 
 Kopiert anhand der angegebenen Konfigurationen Inhalte in dem uebergebenen Array an eine neue oder andere Stelle.
 Dabei wird auf jeden kopierten Inhalt die stdWrap Funktionen angewendet.
@@ -743,28 +743,42 @@ Field] = $cObj->stdWrap($arrUpdate[$fieldToCopy], $arrCopyToFields[$copyToField 
 		return TRUE;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:1506;s:13:"content_lines";i:49;s:6:"atLine";i:1032;}i:29;a:7:{s:6:"header";s:41:"public function doUserEdit(&$arrUpdate) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:71:"
+	";i:1;i:1;}s:12:"content_size";i:1506;s:13:"content_lines";i:49;s:6:"atLine";i:1038;}i:29;a:7:{s:6:"header";s:41:"public function doUserEdit(&$arrUpdate) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:71:"
 
 Aktualisiert einen vorhandenen User, anhand des uebergebenen Arrays.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:74:"$arrUpdate // Call by reference: Das Array mit den bearbeiteten Userdaten.";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:8:"$arrMode";}}s:7:"content";a:2:{i:0;s:507:"		$arrMode = array();
 
-		// ToDo: MM-Relation, MM-Relationen setzen und die Anzahl der Relationen aktualisieren.
-		$this->insertRelationInserts($this->userId, $this->getRelationInserts($arrUpdate));
-
-		// Der User hat seine Daten editiert.
-		$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, $arrUpdate);
-
-		// User und Admin Benachrichtigung schic
-[...]
-loescht wurde, weiterleiten.
 		if ($arrUpdate['deleted']) {
-			$arrMode['mode'] = 'userdelete';
+			$this->deleteUser();
+
+			// Ausgabe vorbereiten.
+			$arrMode['mode'] = $this->conf['showtype'];
+			$arrMode['submode'] = self::specialfieldKeyUserdelete;
+			$arrMode['params'] = array('refresh' => t3lib_div::getIndpEnv('TYPO3_SITE_URL'));
+
+			return $arrMode;
 		}
+
+		// ToDo: MM-Relation, MM-Relationen setzen und die 
+[...]
+' => t3lib_div::locationHeaderUrl(tx_datamintsfeuser_utils::getTypoLinkUrl($GLOBALS['TSFE']->id)));
 
 		return $arrMode;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:1556;s:13:"content_lines";i:34;s:6:"atLine";i:1088;}i:31;a:7:{s:6:"header";s:45:"public function doUserRegister(&$arrUpdate) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:55:"
+	";i:1;i:1;}s:12:"content_size";i:1870;s:13:"content_lines";i:41;s:6:"atLine";i:1094;}i:31;a:7:{s:6:"header";s:30:"public function deleteUser() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:34:"
+
+Loescht einen vorhandenen User.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:8:"$arrMode";}}s:7:"content";a:2:{i:0;s:379:"		if ($this->getConfigurationByShowtype(self::specialfieldKeyUserdelete)) {
+			// Den User endgueltig loeschen.
+			$GLOBALS['TYPO3_DB']->exec_DELETEquery('fe_users', 'uid = ' . $this->userId);
+		} else {
+			// Den User als geloescht markieren.
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('tstamp' => time(), 'deleted' => '1'));
+		}
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:379;s:13:"content_lines";i:9;s:6:"atLine";i:1141;}i:33;a:7:{s:6:"header";s:45:"public function doUserRegister(&$arrUpdate) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:55:"
 
 Erstellt einen User, anhand des uebergebenen Arrays.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:67:"$arrUpdate // Call by reference: Das Array mit den neuen Userdaten.";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:8:"$arrMode";}}s:7:"content";a:2:{i:0;s:507:"		$arrMode = array();
@@ -783,7 +797,7 @@ Erstellt einen User, anhand des uebergebenen Arrays.
 		return $arrMode;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:2810;s:13:"content_lines";i:61;s:6:"atLine";i:1129;}i:33;a:7:{s:6:"header";s:49:"public function getRelationInserts(&$arrUpdate) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:65:"
+	";i:1;i:1;}s:12:"content_size";i:2744;s:13:"content_lines";i:60;s:6:"atLine";i:1157;}i:35;a:7:{s:6:"header";s:49:"public function getRelationInserts(&$arrUpdate) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:65:"
 
 Ermittelt die neuen Relationen anhand des uebergebenen Arrays.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:96:"$arrUpdate // Call by reference: Das Array in dem die Anzahl der Relationen aktualisiert werden.";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:11:"$arrInserts";}}s:7:"content";a:2:{i:0;s:507:"		$arrInserts = array();
@@ -804,7 +818,7 @@ ion = strripos($relation, '_')) ? substr($relation, $dividerPosition + 1) : $rel
 		return $arrInserts;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:795;s:13:"content_lines";i:27;s:6:"atLine";i:1197;}i:35;a:7:{s:6:"header";s:71:"public function insertRelationInserts($userId, $arrInserts = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:79:"
+	";i:1;i:1;}s:12:"content_size";i:795;s:13:"content_lines";i:27;s:6:"atLine";i:1224;}i:37;a:7:{s:6:"header";s:71:"public function insertRelationInserts($userId, $arrInserts = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:79:"
 
 Ersetzt die aktuellen Relationen mit den neuen hier uebergebenen Relationen.
 ";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:7:"$userId";}i:1;a:2:{i:0;s:5:"array";i:1;s:11:"$arrInserts";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:582:"		foreach ($arrInserts as $foreignTable => $arrRelations) {
@@ -834,7 +848,7 @@ Ersetzt die aktuellen Relationen mit den neuen hier uebergebenen Relationen.
 		}
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:582;s:13:"content_lines";i:27;s:6:"atLine";i:1232;}i:37;a:7:{s:6:"header";s:77:"public function showOutputRedirect($mode, $submode = '', $params = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:174:"
+	";i:1;i:0;}s:12:"content_size";i:582;s:13:"content_lines";i:27;s:6:"atLine";i:1259;}i:39;a:7:{s:6:"header";s:77:"public function showOutputRedirect($mode, $submode = '', $params = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:174:"
 
 Erledigt allen Output der nichts mit dem eigendlichen Formular zu tun hat.
 Fuer besondere Faelle kann hier eine Ausnahme, oder zusaetzliche Konfigurationen gesetzt werden.
@@ -856,13 +870,13 @@ Fuer besondere Faelle kann hier eine Ausnahme, oder zusaetzliche Konfigurationen
 		// Label ermitteln
 		$label = 
 [...]
-euser_utils::userRedirect($this->conf['redirect.'][$redirectKey], $this->getHiddenParamsArray());
+Key], $this->getHiddenParamsArray());
 		}
 
-		return $label;
+		return '<div class="' . $mode . ' ' . $submode . '">' . $label . '</div>';
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:3410;s:13:"content_lines";i:98;s:6:"atLine";i:1269;}i:39;a:7:{s:6:"header";s:49:"public function sendActivationMail($userId = 0) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:56:"
+	";i:1;i:1;}s:12:"content_size";i:2168;s:13:"content_lines";i:74;s:6:"atLine";i:1296;}i:41;a:7:{s:6:"header";s:49:"public function sendActivationMail($userId = 0) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:56:"
 
 Sendet die Aktivierungsmail an den uebergebenen User.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:7:"$userId";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		$userId = intval($userId);
@@ -883,7 +897,7 @@ arkers);
 		$this->setNotActivatedCookie($userId);
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:2566;s:13:"content_lines";i:41;s:6:"atLine";i:1374;}i:41;a:7:{s:6:"header";s:35:"public function doApprovalCheck() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:89:"
+	";i:1;i:1;}s:12:"content_size";i:2566;s:13:"content_lines";i:41;s:6:"atLine";i:1377;}i:43;a:7:{s:6:"header";s:35:"public function doApprovalCheck() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:89:"
 
 Ueberprueft ob die Linkbestaetigung gueltig ist und aktiviert gegebenenfalls den User.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		// Userdaten ermitteln.
@@ -893,23 +907,21 @@ Ueberprueft ob die Linkbestaetigung gueltig ist und aktiviert gegebenenfalls den
 		// Genehmigungstyp ermitteln um die richtige E-Mail zu senden, bzw. die richtige Ausgabe zu ermitteln.
 
 [...]
-
-			// Ausgabe vorbereiten.
-			$submode = 'deleted';
+ = $submodePrefix . self::specialfieldKeyUserdelete;
 		}
 
 		return $this->showOutputRedirect($mode, $submode, $params);
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:3462;s:13:"content_lines";i:71;s:6:"atLine";i:1421;}i:43;a:7:{s:6:"header";s:36:"public function getApprovalTypes() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:103:"
+	";i:1;i:1;}s:12:"content_size";i:3649;s:13:"content_lines";i:75;s:6:"atLine";i:1424;}i:45;a:7:{s:6:"header";s:36:"public function getApprovalTypes() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:103:"
 
 Ermittelt alle Genehmigungstypen.
 Wird benoetigt um das Level dem richtigen Typ zuordnen zu koennen.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:308:"		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => Beim Exploden kommt dann ein leeres Arrayelement heraus, das nach dem entfernen einen leeren Platz uebrig lassen wuerde.
-		return array_values(t3lib_div::trimExplode(',', $this->getConfigurationByShowtype(self::modeKeyApprovalcheck), TRUE));
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:322:"		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => Beim Exploden kommt dann ein leeres Arrayelement heraus, das nach dem entfernen einen leeren Platz uebrig lassen wuerde.
+		return array_unique(array_values(t3lib_div::trimExplode(',', $this->getConfigurationByShowtype(self::modeKeyApprovalcheck), TRUE)));
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:308;s:13:"content_lines";i:4;s:6:"atLine";i:1499;}i:45;a:7:{s:6:"header";s:48:"public function setNotActivatedCookie($userId) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:90:"
+	";i:1;i:0;}s:12:"content_size";i:322;s:13:"content_lines";i:4;s:6:"atLine";i:1506;}i:47;a:7:{s:6:"header";s:48:"public function setNotActivatedCookie($userId) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:90:"
 
 Setzt einen Cookie fuer den neu angelegten Account, falls dieser aktiviert werden muss.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:7:"$userId";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:212:"		$arrNotActivated = $this->getNotActivatedUserArray();
@@ -918,7 +930,7 @@ Setzt einen Cookie fuer den neu angelegten Account, falls dieser aktiviert werde
 		setcookie($this->prefixId . '[not_activated]', implode(',', $arrNotActivated), time() + 60 * 60 * 24 * 30);
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:212;s:13:"content_lines";i:6;s:6:"atLine";i:1510;}i:47;a:7:{s:6:"header";s:70:"public function getNotActivatedUserArray($arrNotActivated = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:55:"
+	";i:1;i:0;}s:12:"content_size";i:212;s:13:"content_lines";i:6;s:6:"atLine";i:1517;}i:49;a:7:{s:6:"header";s:70:"public function getNotActivatedUserArray($arrNotActivated = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:55:"
 
 Ermittelt alle nicht aktivierten Accounts des Users.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:16:"$arrNotActivated";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:23:"$arrNotActivatedCleaned";}}s:7:"content";a:2:{i:0;s:507:"		$arrNotActivatedCleaned = array();
@@ -939,17 +951,20 @@ DB']->sql_fetch_assoc($res)) {
 		return $arrNotActivatedCleaned;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:796;s:13:"content_lines";i:20;s:6:"atLine";i:1523;}i:49;a:7:{s:6:"header";s:121:"public function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:100:"
+	";i:1;i:1;}s:12:"content_size";i:796;s:13:"content_lines";i:20;s:6:"atLine";i:1530;}i:51;a:7:{s:6:"header";s:121:"public function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:100:"
 
 Sendet die E-Mails mit dem uebergebenen Template und falls angegeben, auch mit den extra Markern.
 ";s:5:"param";a:6:{i:0;a:2:{i:0;s:7:"integer";i:1;s:7:"$userId";}i:1;a:2:{i:0;s:6:"string";i:1;s:13:"$templatePart";}i:2;a:2:{i:0;s:7:"boolean";i:1;s:10:"$adminMail";}i:3;a:2:{i:0;s:5:"array";i:1;s:7:"$config";}i:4;a:2:{i:0;s:5:"array";i:1;s:13:"$extraMarkers";}i:5;a:2:{i:0;s:5:"array";i:1;s:13:"$extraSuparts";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		// Userdaten ermitteln.
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . intval($userId), '', '', '1');
-		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+		if ($this->userId) {
+			$row = $this->getValuesForMail();
+		} else {
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . intval($userId), '', '', '1');
+			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+		}
 
 		$markerArray = array_merge((array)$config, (array)$row, (array)$extraMarkers);
 
-		foreach ($markerArray as $key => $val) {
-			$markerArray['label_' . $key] = $this->getLabel($key, FALSE
+		foreach ($markerArray as $
 [...]
 g['mailtype'] == 'html') {
 					$mail->setHTML($mail->encodeMsg($bodyHtml));
@@ -960,13 +975,13 @@ g['mailtype'] == 'html') {
 		}
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:3643;s:13:"content_lines";i:115;s:6:"atLine";i:1555;}i:51;a:7:{s:6:"header";s:44:"public function isAdminMail($approvalType) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:177:"
+	";i:1;i:1;}s:12:"content_size";i:3736;s:13:"content_lines";i:119;s:6:"atLine";i:1562;}i:53;a:7:{s:6:"header";s:44:"public function isAdminMail($approvalType) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:177:"
 
 Ueberprueft anhand des Genehmigungstyps ob die Mail eine Adminmail oder eine Usermail ist. Wenn 'admin' im Namen des Genehmigungstyps steht, dann ist die Mail eine Adminmail.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:13:"$approvalType";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:73:"		return (strpos($approvalType, 'admin') === FALSE) ? FALSE : TRUE;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:73;s:13:"content_lines";i:3;s:6:"atLine";i:1677;}i:53;a:7:{s:6:"header";s:94:"public function getTemplateSubpart($templatePart, $markerArray = array(), $config = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:74:"
+	";i:1;i:0;}s:12:"content_size";i:73;s:13:"content_lines";i:3;s:6:"atLine";i:1688;}i:55;a:7:{s:6:"header";s:94:"public function getTemplateSubpart($templatePart, $markerArray = array(), $config = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:74:"
 
 Holt einen Subpart des Standardtemplates und ersetzt uebergeben Marker.
 ";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"string";i:1;s:13:"$templatePart";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"$markerArray";}i:2;a:2:{i:0;s:5:"array";i:1;s:7:"$config";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:9:"$template";}}s:7:"content";a:2:{i:0;s:325:"		// Template holen.
@@ -982,9 +997,31 @@ Holt einen Subpart des Standardtemplates und ersetzt uebergeben Marker.
 		return $template;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:325;s:13:"content_lines";i:13;s:6:"atLine";i:1689;}i:55;a:7:{s:6:"header";s:57:"public function getChangedForMail($arrNewData, $config) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:72:"
+	";i:1;i:0;}s:12:"content_size";i:325;s:13:"content_lines";i:13;s:6:"atLine";i:1700;}i:57;a:7:{s:6:"header";s:36:"public function getValuesForMail() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:71:"
 
-Ermittlet alle geaenderten Daten und schreibt sie in ein Markerarray.
+Ermittlet alle Benutzer Daten und schreibt diese in ein Markerarray.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:13:"$extraMarkers";}}s:7:"content";a:2:{i:0;s:507:"		$extraMarkers = array();
+
+		// Userdaten ermitteln.
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . $this->userId, '', '', '1');
+		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+
+		// ToDo: MM-Relation, Merge MM-Values erweitern.
+		$arrCurrentData = $this->mergeRelationValues($this->userId, $row);
+
+		// Alle ausgewaehlten Felder durchgehe
+[...]
+
+			$extraMarkers[$fieldName] = $value;
+			$extraMarkers[$fieldName . '_raw'] = $rawValue;
+		}
+
+		return $extraMarkers;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:4700;s:13:"content_lines";i:152;s:6:"atLine";i:1719;}i:59;a:7:{s:6:"header";s:57:"public function getChangedForMail($arrNewData, $config) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:83:"
+
+Ermittlet alle geaenderten Benutzer Daten und schreibt diese in ein Markerarray.
 ";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:11:"$arrNewData";}i:1;a:2:{i:0;s:5:"array";i:1;s:7:"$config";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:13:"$extraMarkers";}}s:7:"content";a:2:{i:0;s:507:"		$count = 0;
 		$template =  $this->getTemplateSubpart('changed_items', array(), $config);
 		$extraMarkers = array();
@@ -1006,9 +1043,10 @@ Ermittlet alle geaenderten Daten und schreibt sie in ein Markerarray.
 		return $extraMarkers;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:986;s:13:"content_lines";i:31;s:6:"atLine";i:1710;}i:57;a:7:{s:6:"header";s:38:"public function getPasswordForMail() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:176:"
+	";i:1;i:1;}s:12:"content_size";i:986;s:13:"content_lines";i:31;s:6:"atLine";i:1879;}i:61;a:7:{s:6:"header";s:38:"public function getPasswordForMail() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:179:"
 
-Erstellt ein neues Passwort, falls Passwort generieren eingestellt ist. Das Passwort kannn dann ueber den Marker "###PASSWORD###" mit der Registrierungsmail gesendet werden.
+Erstellt ein neues Passwort, falls Passwort generieren eingestellt ist.
+Dieses Passwort kannn dann ueber den Marker "###PASSWORD###" mit der Registrierungsmail gesendet werden.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:13:"$extraMarkers";}}s:7:"content";a:2:{i:0;s:495:"		$extraMarkers = array();
 		$generatePassword = $this->getConfigurationByShowtype('generatepassword.');
 
@@ -1023,7 +1061,7 @@ Erstellt ein neues Passwort, falls Passwort generieren eingestellt ist. Das Pass
 		return $extraMarkers;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:495;s:13:"content_lines";i:14;s:6:"atLine";i:1747;}i:59;a:7:{s:6:"header";s:49:"public function showForm($valueCheck = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:111:"
+	";i:1;i:0;}s:12:"content_size";i:495;s:13:"content_lines";i:14;s:6:"atLine";i:1917;}i:63;a:7:{s:6:"header";s:49:"public function showForm($valueCheck = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:111:"
 
 Gibt alle im Backend definierten Felder (TypoScipt/Flexform) formatiert und der Anzeigeart entsprechend aus.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		$arrCurrentData = array();
@@ -1046,7 +1084,7 @@ ent .= $this->getHiddenParamsHiddenFields();
 		return $content;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:8934;s:13:"content_lines";i:207;s:6:"atLine";i:1768;}i:61;a:7:{s:6:"header";s:63:"public function mergeRelationValues($userId, $arrCurrentData) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:158:"
+	";i:1;i:1;}s:12:"content_size";i:8949;s:13:"content_lines";i:207;s:6:"atLine";i:1938;}i:65;a:7:{s:6:"header";s:63:"public function mergeRelationValues($userId, $arrCurrentData) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:158:"
 
 Ersetzt bei Feldern mit einer MM-Relation den Wert aus dem FE User Datensatz (Anzahl der Relationen) mit den eigentlichen IDs der verknuepften Datensaetze.
 ";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:7:"$userId";}i:1;a:2:{i:0;s:5:"array";i:1;s:15:"$arrCurrentData";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:15:"$arrCurrentData";}}s:7:"content";a:2:{i:0;s:507:"		foreach ($this->arrUsedFields as $fieldName) {
@@ -1071,7 +1109,7 @@ Ersetzt bei Feldern mit einer MM-Relation den Wert aus dem FE User Datensatz (An
 		return $arrCurrentData;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:1858;s:13:"content_lines";i:50;s:6:"atLine";i:1983;}i:63;a:7:{s:6:"header";s:126:"public function showInput($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '', $valueCheck = array(), $iItem = 0) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:23:"
+	";i:1;i:1;}s:12:"content_size";i:1852;s:13:"content_lines";i:50;s:6:"atLine";i:2153;}i:67;a:7:{s:6:"header";s:126:"public function showInput($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '', $valueCheck = array(), $iItem = 0) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:23:"
 
 Rendert Inputfelder.
 ";s:5:"param";a:6:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"$fieldConfig";}i:2;a:2:{i:0;s:5:"array";i:1;s:15:"$arrCurrentData";}i:3;a:2:{i:0;s:6:"string";i:1;s:14:"$disabledField";}i:4;a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}i:5;a:2:{i:0;s:7:"integer";i:1;s:6:"$iItem";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		$content = '';
@@ -1088,7 +1126,7 @@ Rendert Inputfelder.
 		return $content;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:2409;s:13:"content_lines";i:46;s:6:"atLine";i:2045;}i:65;a:7:{s:6:"header";s:90:"public function showText($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:21:"
+	";i:1;i:1;}s:12:"content_size";i:2409;s:13:"content_lines";i:46;s:6:"atLine";i:2215;}i:69;a:7:{s:6:"header";s:90:"public function showText($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:21:"
 
 Rendert Textareas.
 ";s:5:"param";a:4:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"$fieldConfig";}i:2;a:2:{i:0;s:5:"array";i:1;s:15:"$arrCurrentData";}i:3;a:2:{i:0;s:6:"string";i:1;s:14:"$disabledField";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:248:"		$content = '';
@@ -1098,7 +1136,7 @@ Rendert Textareas.
 		return $content;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:248;s:13:"content_lines";i:7;s:6:"atLine";i:2101;}i:67;a:7:{s:6:"header";s:91:"public function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:22:"
+	";i:1;i:0;}s:12:"content_size";i:248;s:13:"content_lines";i:7;s:6:"atLine";i:2271;}i:71;a:7:{s:6:"header";s:91:"public function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:22:"
 
 Rendert Checkboxen.
 ";s:5:"param";a:4:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"$fieldConfig";}i:2;a:2:{i:0;s:5:"array";i:1;s:15:"$arrCurrentData";}i:3;a:2:{i:0;s:6:"string";i:1;s:14:"$disabledField";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		$content = '';
@@ -1115,7 +1153,7 @@ Rendert Checkboxen.
 		return $content;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:1843;s:13:"content_lines";i:43;s:6:"atLine";i:2118;}i:69;a:7:{s:6:"header";s:91:"public function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:24:"
+	";i:1;i:1;}s:12:"content_size";i:1843;s:13:"content_lines";i:43;s:6:"atLine";i:2288;}i:73;a:7:{s:6:"header";s:91:"public function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:24:"
 
 Rendert Radiobuttons.
 ";s:5:"param";a:4:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"$fieldConfig";}i:2;a:2:{i:0;s:5:"array";i:1;s:15:"$arrCurrentData";}i:3;a:2:{i:0;s:6:"string";i:1;s:14:"$disabledField";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		$content = '';
@@ -1142,7 +1180,7 @@ Rendert Radiobuttons.
 		return $content;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:798;s:13:"content_lines";i:24;s:6:"atLine";i:2171;}i:71;a:7:{s:6:"header";s:92:"public function showSelect($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:24:"
+	";i:1;i:1;}s:12:"content_size";i:798;s:13:"content_lines";i:24;s:6:"atLine";i:2341;}i:75;a:7:{s:6:"header";s:92:"public function showSelect($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:24:"
 
 Rendert Selectfelder.
 ";s:5:"param";a:4:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"$fieldConfig";}i:2;a:2:{i:0;s:5:"array";i:1;s:15:"$arrCurrentData";}i:3;a:2:{i:0;s:6:"string";i:1;s:14:"$disabledField";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		$content = '';
@@ -1161,7 +1199,7 @@ Rendert Selectfelder.
 		return $content;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:4354;s:13:"content_lines";i:86;s:6:"atLine";i:2205;}i:73;a:7:{s:6:"header";s:91:"public function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:60:"
+	";i:1;i:1;}s:12:"content_size";i:4354;s:13:"content_lines";i:86;s:6:"atLine";i:2375;}i:77;a:7:{s:6:"header";s:91:"public function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:60:"
 
 Rendert Groupfelder (z.B. Dateien oder externe Tabellen).
 ";s:5:"param";a:4:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"$fieldConfig";}i:2;a:2:{i:0;s:5:"array";i:1;s:15:"$arrCurrentData";}i:3;a:2:{i:0;s:6:"string";i:1;s:14:"$disabledField";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		$content = '';
@@ -1186,7 +1224,7 @@ Rendert Groupfelder (z.B. Dateien oder externe Tabellen).
 		return $content;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:4372;s:13:"content_lines";i:110;s:6:"atLine";i:2301;}i:75;a:7:{s:6:"header";s:62:"public function showCaptcha($fieldName, $valueCheck, $iItem) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:23:"
+	";i:1;i:1;}s:12:"content_size";i:4372;s:13:"content_lines";i:110;s:6:"atLine";i:2471;}i:79;a:7:{s:6:"header";s:62:"public function showCaptcha($fieldName, $valueCheck, $iItem) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:23:"
 
 Rendert ein Captcha.
 ";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}i:2;a:2:{i:0;s:7:"integer";i:1;s:6:"$iItem";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		$content = '';
@@ -1209,7 +1247,7 @@ Rendert ein Captcha.
 		return $content;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:2070;s:13:"content_lines";i:62;s:6:"atLine";i:2420;}i:77;a:7:{s:6:"header";s:30:"public function getFieldId() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:46:"
+	";i:1;i:1;}s:12:"content_size";i:2070;s:13:"content_lines";i:62;s:6:"atLine";i:2590;}i:81;a:7:{s:6:"header";s:30:"public function getFieldId() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:46:"
 
 Ermittelt die ID fuer das uebergebene Feld.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:3:"...";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:333:"		if (!func_num_args()) {
@@ -1227,7 +1265,7 @@ Ermittelt die ID fuer das uebergebene Feld.
 		return implode('_', array_merge($arrParts, $arrFuncArgs));
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:333;s:13:"content_lines";i:15;s:6:"atLine";i:2489;}i:79;a:7:{s:6:"header";s:93:"public function getFieldClasses($iItem, $fieldName, $fieldType = '', $valueCheck = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:53:"
+	";i:1;i:0;}s:12:"content_size";i:333;s:13:"content_lines";i:15;s:6:"atLine";i:2659;}i:83;a:7:{s:6:"header";s:93:"public function getFieldClasses($iItem, $fieldName, $fieldType = '', $valueCheck = array()) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:53:"
 
 Liefert die Klassen für den Feld-Wrapper zurück.
 ";s:5:"param";a:4:{i:0;a:2:{i:0;s:7:"integer";i:1;s:6:"$iItem";}i:1;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:2;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldType";}i:3;a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:332:"		$arrParts = array(
@@ -1243,7 +1281,7 @@ Liefert die Klassen für den Feld-Wrapper zurück.
 		return implode(' ', array_filter($arrParts));
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:332;s:13:"content_lines";i:13;s:6:"atLine";i:2514;}i:81;a:7:{s:6:"header";s:32:"public function getFieldName() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:49:"
+	";i:1;i:0;}s:12:"content_size";i:332;s:13:"content_lines";i:13;s:6:"atLine";i:2684;}i:85;a:7:{s:6:"header";s:32:"public function getFieldName() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:49:"
 
 Ermittelt den Namen fuer das uebergebene Feld.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:3:"...";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:373:"		if (!func_num_args()) {
@@ -1261,7 +1299,7 @@ Ermittelt den Namen fuer das uebergebene Feld.
 		return array_shift($arrParts) . '[' . implode('][', array_merge($arrParts, $arrFuncArgs)) . ']';
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:373;s:13:"content_lines";i:15;s:6:"atLine";i:2534;}i:83;a:7:{s:6:"header";s:61:"public function getLabel($fieldName, $checkRequired = TRUE) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:186:"
+	";i:1;i:0;}s:12:"content_size";i:373;s:13:"content_lines";i:15;s:6:"atLine";i:2704;}i:87;a:7:{s:6:"header";s:61:"public function getLabel($fieldName, $checkRequired = TRUE) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:186:"
 
 Ermittelt ein bestimmtes Label aufgrund des im TCA gespeicherten Languagestrings, des Datenbankfeldnamens oder gibt einfach den uebergeben Wert wieder aus, wenn nichts gefunden wurde.
 ";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:28:"$fieldName / $languageString";}i:1;a:2:{i:0;s:7:"boolean";i:1;s:14:"$checkRequired";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		if (strpos($fieldName, 'LLL:') === FALSE) {
@@ -1280,7 +1318,7 @@ gebenen Wert wieder zurueckliefern.
 		return $fieldName . (($checkRequired) ? $this->isRequiredField($fieldName) : '');
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:1210;s:13:"content_lines";i:35;s:6:"atLine";i:2557;}i:85;a:7:{s:6:"header";s:55:"public function getErrorType($fieldName, $valueCheck) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:45:"
+	";i:1;i:1;}s:12:"content_size";i:1210;s:13:"content_lines";i:35;s:6:"atLine";i:2727;}i:89;a:7:{s:6:"header";s:55:"public function getErrorType($fieldName, $valueCheck) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:45:"
 
 Ermittelt den Fehlertyp aus dem Feldnamen.
 ";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:5:"$type";}}s:7:"content";a:2:{i:0;s:166:"		$type = '';
@@ -1292,7 +1330,7 @@ Ermittelt den Fehlertyp aus dem Feldnamen.
 		return $type;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:166;s:13:"content_lines";i:9;s:6:"atLine";i:2600;}i:87;a:7:{s:6:"header";s:56:"public function getErrorClass($fieldName, $valueCheck) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:48:"
+	";i:1;i:0;}s:12:"content_size";i:166;s:13:"content_lines";i:9;s:6:"atLine";i:2770;}i:91;a:7:{s:6:"header";s:56:"public function getErrorClass($fieldName, $valueCheck) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:48:"
 
 Ermittelt die Fehlerklasse aus dem Feldnamen.
 ";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:6:"$class";}}s:7:"content";a:2:{i:0;s:188:"		$class = '';
@@ -1305,7 +1343,7 @@ Ermittelt die Fehlerklasse aus dem Feldnamen.
 		return $class;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:188;s:13:"content_lines";i:10;s:6:"atLine";i:2617;}i:89;a:7:{s:6:"header";s:56:"public function getErrorLabel($fieldName, $valueCheck) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:47:"
+	";i:1;i:0;}s:12:"content_size";i:188;s:13:"content_lines";i:10;s:6:"atLine";i:2787;}i:93;a:7:{s:6:"header";s:56:"public function getErrorLabel($fieldName, $valueCheck) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:47:"
 
 Ermittelt das Fehlerlabel aus dem Feldnamen.
 ";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}i:1;a:2:{i:0;s:5:"array";i:1;s:11:"$valueCheck";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:6:"$label";}}s:7:"content";a:2:{i:0;s:285:"		$label = '';
@@ -1318,7 +1356,7 @@ Ermittelt das Fehlerlabel aus dem Feldnamen.
 		return $label;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:285;s:13:"content_lines";i:10;s:6:"atLine";i:2635;}i:91;a:7:{s:6:"header";s:45:"public function isRequiredField($fieldName) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:82:"
+	";i:1;i:0;}s:12:"content_size";i:285;s:13:"content_lines";i:10;s:6:"atLine";i:2805;}i:95;a:7:{s:6:"header";s:45:"public function isRequiredField($fieldName) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:82:"
 
 Ueberprueft ob das uebergebene Feld benoetigt wird um erfolgreich zu speichern.
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$fieldName";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:203:"		if (array_intersect(array($fieldName, tx_datamintsfeuser_utils::getSpecialFieldKey($fieldName)), $this->arrRequiredFields)) {
@@ -1328,7 +1366,7 @@ Ueberprueft ob das uebergebene Feld benoetigt wird um erfolgreich zu speichern.
 		}
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:203;s:13:"content_lines";i:7;s:6:"atLine";i:2652;}i:93;a:7:{s:6:"header";s:48:"public function getTableLabelFieldName($table) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:175:"
+	";i:1;i:0;}s:12:"content_size";i:203;s:13:"content_lines";i:7;s:6:"atLine";i:2822;}i:97;a:7:{s:6:"header";s:48:"public function getTableLabelFieldName($table) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:175:"
 
 Ueberprüft ob es für die uebergebene Tabelle eine andere Labelkonfiguration gibt.
 Dieses LabelField wird dann benutzt, um für Listen Elmente das richtige Label zu holen.
@@ -1341,7 +1379,7 @@ Dieses LabelField wird dann benutzt, um für Listen Elmente das richtige Label z
 		return $labelFieldName;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:210;s:13:"content_lines";i:9;s:6:"atLine";i:2667;}i:95;a:7:{s:6:"header";s:40:"public function getHiddenParamsArray() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:77:"
+	";i:1;i:0;}s:12:"content_size";i:210;s:13:"content_lines";i:9;s:6:"atLine";i:2837;}i:99;a:7:{s:6:"header";s:40:"public function getHiddenParamsArray() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:77:"
 
 Erstellt GET-Parameter fuer vordefinierte Parameter die uebergeben wurden.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:10:"$arrParams";}}s:7:"content";a:2:{i:0;s:265:"		$arrParams = array();
@@ -1355,7 +1393,7 @@ Erstellt GET-Parameter fuer vordefinierte Parameter die uebergeben wurden.
 		return $arrParams;
 	}
 
-	";i:1;i:0;}s:12:"content_size";i:265;s:13:"content_lines";i:11;s:6:"atLine";i:2682;}i:97;a:7:{s:6:"header";s:47:"public function getHiddenParamsHiddenFields() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:77:"
+	";i:1;i:0;}s:12:"content_size";i:265;s:13:"content_lines";i:11;s:6:"atLine";i:2852;}i:101;a:7:{s:6:"header";s:47:"public function getHiddenParamsHiddenFields() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:77:"
 
 Erstellt Hidden Fields fuer vordefinierte Parameter die uebergeben wurden.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:8:"$content";}}s:7:"content";a:2:{i:0;s:507:"		$content = '';
@@ -1382,7 +1420,7 @@ aramNamePart]) . '" />';
 		return $content;
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:1129;s:13:"content_lines";i:39;s:6:"atLine";i:2699;}i:99;a:7:{s:6:"header";s:96:"public function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:306:"
+	";i:1;i:1;}s:12:"content_size";i:1129;s:13:"content_lines";i:39;s:6:"atLine";i:2869;}i:103;a:7:{s:6:"header";s:96:"public function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams) {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:306:"
 
 Durchsucht ein mehrdimensionales Array mit dem uebergebenen Pfad-Array, und uebernimmt den gefundenen Wert gesaubert in ein neues mehrdimensionales Array.
 Das Pfad-Array ist ein eindimensinales Array, dessen fortlaufende Werte die jeweilige Ebene im durchsuchten und geschriebenen Array repraesentieren!
@@ -1408,7 +1446,7 @@ arams = &$arrParams[$paramNamePart];
 		}
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:854;s:13:"content_lines";i:31;s:6:"atLine";i:2748;}i:101;a:7:{s:6:"header";s:42:"public function determineConfiguration() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:123:"
+	";i:1;i:1;}s:12:"content_size";i:854;s:13:"content_lines";i:31;s:6:"atLine";i:2918;}i:105;a:7:{s:6:"header";s:42:"public function determineConfiguration() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:123:"
 
 Holt Konfigurationen aus der Flexform (Tab-bedingt) und ersetzt diese pro Konfiguration in der TypoScript Konfiguration.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}s:5:"other";a:6:{i:0;s:19:"@global	$this->conf";i:1;s:22:"@global	$this->extConf";i:2;s:28:"@global	$this->arrUsedFields";i:3;s:30:"@global	$this->arrUniqueFields";i:4;s:32:"@global	$this->arrRequiredFields";i:5;s:30:"@global	$this->arrHiddenParams";}s:11:"other_index";a:1:{s:7:"@global";a:6:{i:0;s:12:"$this->conf ";i:1;s:15:"$this->extConf ";i:2;s:21:"$this->arrUsedFields ";i:3;s:23:"$this->arrUniqueFields ";i:4;s:25:"$this->arrRequiredFields ";i:5;s:23:"$this->arrHiddenParams ";}}}s:7:"content";a:2:{i:0;s:507:"		$flexConf = array();
@@ -1424,7 +1462,7 @@ Holt Konfigurationen aus der Flexform (Tab-bedingt) und ersetzt diese pro Konfig
 		$this->arrRequiredFields[] = tx_datamintsfeuser_utils::getSpecialFieldKey(self::specialfieldKeyPasswordconfirmation);
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:1935;s:13:"content_lines";i:39;s:6:"atLine";i:2791;}i:103;a:7:{s:6:"header";s:46:"public function determineIrreConfiguration() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:128:"
+	";i:1;i:1;}s:12:"content_size";i:1935;s:13:"content_lines";i:39;s:6:"atLine";i:2961;}i:107;a:7:{s:6:"header";s:46:"public function determineIrreConfiguration() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:5:{s:4:"text";s:128:"
 
 Ueberschreibt eventuell vorhandene TypoScript Konfigurationen oder Flexform Konfigurationen mit den Konfigurationen aus IRRE.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}s:5:"other";a:1:{i:0;s:19:"@global	$this->conf";}s:11:"other_index";a:1:{s:7:"@global";a:1:{i:0;s:12:"$this->conf ";}}}s:7:"content";a:2:{i:0;s:507:"		if (!is_array($this->conf['databasefields'])) {
@@ -1449,10 +1487,10 @@ s->conf['uniquefields'] = implode(',', $uniquefields);
 		$this->conf['requiredfields'] = implode(',', $requiredfields);
 	}
 
-	";i:1;i:1;}s:12:"content_size";i:5115;s:13:"content_lines";i:145;s:6:"atLine";i:2837;}i:105;a:4:{s:6:"header";s:61:"public function getConfigurationByShowtype($subConfig = '') {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:94:"
+	";i:1;i:1;}s:12:"content_size";i:5115;s:13:"content_lines";i:145;s:6:"atLine";i:3007;}i:109;a:4:{s:6:"header";s:61:"public function getConfigurationByShowtype($subConfig = '') {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:94:"
 
 Ermittelt die komplette oder die uebergebene Unter-Konfiguration des aktuellen Anzeigetyps.
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$subConfig";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:0:"";}}s:6:"atLine";i:2989;}i:107;a:7:{s:6:"header";s:48:"public function getJSValidationConfiguration() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:96:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"$subConfig";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:0:"";}}s:6:"atLine";i:3159;}i:111;a:7:{s:6:"header";s:48:"public function getJSValidationConfiguration() {";s:11:"parentClass";s:22:"tx_datamintsfeuser_pi1";s:4:"cDat";a:3:{s:4:"text";s:96:"
 
 Gibt die komplette Validierungskonfiguration fuer die JavaScript Frontendvalidierung zurueck.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:14:"$configuration";}}s:7:"content";a:2:{i:0;s:507:"		// Hier eine fertig generierte Konfiguration:
@@ -1462,8 +1500,8 @@ Gibt die komplette Validierungskonfiguration fuer die JavaScript Frontendvalidie
 		// datamints_feuser_config[11]["username"]["validation"]["type"]="username";
 		// datamints_feuser_config[11]["username"]["valid"]="Der Benutzername darf keine Leerzeichen bein
 [...]
-)	{
+) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/pi1/class.tx_datamintsfeuser_pi1.php']);
 }
 
-?>";i:1;i:1;}s:12:"content_size";i:6765;s:13:"content_lines";i:123;s:6:"atLine";i:3002;}}s:10:"usageCount";a:54:{s:12:"H_6670368143";a:2:{s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:51:"class tx_datamintsfeuser_pi1 extends tslib_pibase {";}s:12:"H_4645e17721";a:2:{s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:39:"public function main($content, $conf) {";}s:12:"H_9e325fb1f9";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:32:"public function doFormSubmit() {";}s:12:"H_0d8e5d0367";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:30:"public function checkValid() {";}s:12:"H_a77301eb73";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:31:"public function checkUnique() {";}s:12:"H_8785dd8c33";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:33:"public function checkRequired() {";}s:12:"H_02a77dcef9";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:38:"public function checkCaptcha($value) {";}s:12:"H_00cb16d451";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:75:"public function cleanPasswordField(&$arrUpdate, $fieldName, $fieldConfig) {";}s:12:"H_fc4f5b072a";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:72:"public function cleanCheckField(&$arrUpdate, $fieldName, $fieldConfig) {";}s:12:"H_8030b5bdd5";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:81:"public function cleanMultipleSelectField(&$arrUpdate, $fieldName, $fieldConfig) {";}s:12:"H_b92182dc44";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:80:"public function cleanGroupDatabaseField(&$arrUpdate, $fieldName, $fieldConfig) {";}s:12:"H_be575b368f";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:76:"public function cleanUncleanedField(&$arrUpdate, $fieldName, $fieldConfig) {";}s:12:"H_a579975cbb";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:72:"public function saveDeleteFiles(&$arrUpdate, $fieldName, $fieldConfig) {";}s:12:"H_ca6aa2e4c7";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:41:"public function copyFields(&$arrUpdate) {";}s:12:"H_0fb054361d";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:41:"public function doUserEdit(&$arrUpdate) {";}s:12:"H_45ad02f885";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:45:"public function doUserRegister(&$arrUpdate) {";}s:12:"H_e71f30861f";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:49:"public function getRelationInserts(&$arrUpdate) {";}s:12:"H_7ac23b2213";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:71:"public function insertRelationInserts($userId, $arrInserts = array()) {";}s:12:"H_0d827b13af";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:7;s:5:"TOTAL";i:7;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:7;s:5:"TOTAL";i:7;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:77:"public function showOutputRedirect($mode, $submode = '', $params = array()) {";}s:12:"H_164ec3153e";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:49:"public function sendActivationMail($userId = 0) {";}s:12:"H_ed51e6e8d3";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:35:"public function doApprovalCheck() {";}s:12:"H_5cd31bb337";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:36:"public function getApprovalTypes() {";}s:12:"H_28f0c3c0a5";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:48:"public function setNotActivatedCookie($userId) {";}s:12:"H_bc3bb0c238";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:70:"public function getNotActivatedUserArray($arrNotActivated = array()) {";}s:12:"H_264d10b945";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:8;s:5:"TOTAL";i:8;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:8;s:5:"TOTAL";i:8;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:121:"public function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array()) {";}s:12:"H_4f3a8497d9";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:44:"public function isAdminMail($approvalType) {";}s:12:"H_b616dd4b35";a:4:{s:3:"ALL";a:3:{s:11:"objectUsage";i:5;s:5:"TOTAL";i:6;s:14:"nonObjectUsage";i:1;}s:14:"MD5_8f66ccd171";a:4:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:5;s:5:"TOTAL";i:6;s:14:"nonObjectUsage";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:94:"public function getTemplateSubpart($templatePart, $markerArray = array(), $config = array()) {";}s:12:"H_b6937464a1";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:57:"public function getChangedForMail($arrNewData, $config) {";}s:12:"H_a04650f17b";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:38:"public function getPasswordForMail() {";}s:12:"H_c39d3c4741";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:49:"public function showForm($valueCheck = array()) {";}s:12:"H_894267dd37";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:63:"public function mergeRelationValues($userId, $arrCurrentData) {";}s:12:"H_d6e656e3a3";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:126:"public function showInput($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '', $valueCheck = array(), $iItem = 0) {";}s:12:"H_f3e297b784";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:90:"public function showText($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";}s:12:"H_3bf29a685d";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:91:"public function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";}s:12:"H_b8ce20afc2";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:91:"public function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";}s:12:"H_96e504dae1";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:92:"public function showSelect($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";}s:12:"H_c55141557d";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:91:"public function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";}s:12:"H_047091a9f3";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:62:"public function showCaptcha($fieldName, $valueCheck, $iItem) {";}s:12:"H_89188ac3f1";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:52;s:5:"TOTAL";i:52;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:52;s:5:"TOTAL";i:52;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:30:"public function getFieldId() {";}s:12:"H_945e96161b";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:9;s:5:"TOTAL";i:9;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:9;s:5:"TOTAL";i:9;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:93:"public function getFieldClasses($iItem, $fieldName, $fieldType = '', $valueCheck = array()) {";}s:12:"H_57a62f1a26";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:28;s:5:"TOTAL";i:28;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:28;s:5:"TOTAL";i:28;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:32:"public function getFieldName() {";}s:12:"H_c1898c51a9";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:21;s:5:"TOTAL";i:21;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:21;s:5:"TOTAL";i:21;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:61:"public function getLabel($fieldName, $checkRequired = TRUE) {";}s:12:"H_666d8c389b";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:55:"public function getErrorType($fieldName, $valueCheck) {";}s:12:"H_49b43ad325";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:56:"public function getErrorClass($fieldName, $valueCheck) {";}s:12:"H_172a6ca790";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:5;s:5:"TOTAL";i:5;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:5;s:5:"TOTAL";i:5;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:56:"public function getErrorLabel($fieldName, $valueCheck) {";}s:12:"H_5713dfa728";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:6;s:5:"TOTAL";i:6;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:6;s:5:"TOTAL";i:6;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:45:"public function isRequiredField($fieldName) {";}s:12:"H_cc0930d3f0";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:48:"public function getTableLabelFieldName($table) {";}s:12:"H_2e05846d1d";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:40:"public function getHiddenParamsArray() {";}s:12:"H_c784cf4ed6";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:47:"public function getHiddenParamsHiddenFields() {";}s:12:"H_b297b08b07";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:96:"public function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams) {";}s:12:"H_e8a6c694c7";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:42:"public function determineConfiguration() {";}s:12:"H_2b6dd406e3";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:46:"public function determineIrreConfiguration() {";}s:12:"H_d03a87fefe";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:28;s:5:"TOTAL";i:28;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:28;s:5:"TOTAL";i:28;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:61:"public function getConfigurationByShowtype($subConfig = '') {";}s:12:"H_6f9a56f528";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:48:"public function getJSValidationConfiguration() {";}}}}}
+?>";i:1;i:1;}s:12:"content_size";i:6177;s:13:"content_lines";i:134;s:6:"atLine";i:3172;}}s:10:"usageCount";a:56:{s:12:"H_6670368143";a:2:{s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:51:"class tx_datamintsfeuser_pi1 extends tslib_pibase {";}s:12:"H_4645e17721";a:2:{s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:39:"public function main($content, $conf) {";}s:12:"H_9e325fb1f9";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:32:"public function doFormSubmit() {";}s:12:"H_0d8e5d0367";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:30:"public function checkValid() {";}s:12:"H_a77301eb73";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:31:"public function checkUnique() {";}s:12:"H_8785dd8c33";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:33:"public function checkRequired() {";}s:12:"H_02a77dcef9";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:38:"public function checkCaptcha($value) {";}s:12:"H_00cb16d451";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:75:"public function cleanPasswordField(&$arrUpdate, $fieldName, $fieldConfig) {";}s:12:"H_fc4f5b072a";a:5:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_780b7f3cf0";a:3:{s:8:"fileName";s:40:"lib/class.tx_datamintsfeuser_feusers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:72:"public function cleanCheckField(&$arrUpdate, $fieldName, $fieldConfig) {";}s:12:"H_8030b5bdd5";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:81:"public function cleanMultipleSelectField(&$arrUpdate, $fieldName, $fieldConfig) {";}s:12:"H_b92182dc44";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:80:"public function cleanGroupDatabaseField(&$arrUpdate, $fieldName, $fieldConfig) {";}s:12:"H_be575b368f";a:5:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_780b7f3cf0";a:3:{s:8:"fileName";s:40:"lib/class.tx_datamintsfeuser_feusers.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:76:"public function cleanUncleanedField(&$arrUpdate, $fieldName, $fieldConfig) {";}s:12:"H_a579975cbb";a:5:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_780b7f3cf0";a:3:{s:8:"fileName";s:40:"lib/class.tx_datamintsfeuser_feusers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:72:"public function saveDeleteFiles(&$arrUpdate, $fieldName, $fieldConfig) {";}s:12:"H_ca6aa2e4c7";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:41:"public function copyFields(&$arrUpdate) {";}s:12:"H_0fb054361d";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:41:"public function doUserEdit(&$arrUpdate) {";}s:12:"H_b7d7b3b990";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:30:"public function deleteUser() {";}s:12:"H_45ad02f885";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:45:"public function doUserRegister(&$arrUpdate) {";}s:12:"H_e71f30861f";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:49:"public function getRelationInserts(&$arrUpdate) {";}s:12:"H_7ac23b2213";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:71:"public function insertRelationInserts($userId, $arrInserts = array()) {";}s:12:"H_0d827b13af";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:7;s:5:"TOTAL";i:7;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:7;s:5:"TOTAL";i:7;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:77:"public function showOutputRedirect($mode, $submode = '', $params = array()) {";}s:12:"H_164ec3153e";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:49:"public function sendActivationMail($userId = 0) {";}s:12:"H_ed51e6e8d3";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:35:"public function doApprovalCheck() {";}s:12:"H_5cd31bb337";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:36:"public function getApprovalTypes() {";}s:12:"H_28f0c3c0a5";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:48:"public function setNotActivatedCookie($userId) {";}s:12:"H_bc3bb0c238";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:70:"public function getNotActivatedUserArray($arrNotActivated = array()) {";}s:12:"H_264d10b945";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:8;s:5:"TOTAL";i:8;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:8;s:5:"TOTAL";i:8;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:121:"public function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array()) {";}s:12:"H_4f3a8497d9";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:44:"public function isAdminMail($approvalType) {";}s:12:"H_b616dd4b35";a:4:{s:3:"ALL";a:3:{s:11:"objectUsage";i:5;s:5:"TOTAL";i:6;s:14:"nonObjectUsage";i:1;}s:14:"MD5_8f66ccd171";a:4:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:5;s:5:"TOTAL";i:6;s:14:"nonObjectUsage";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:94:"public function getTemplateSubpart($templatePart, $markerArray = array(), $config = array()) {";}s:12:"H_edfe96bc2d";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:36:"public function getValuesForMail() {";}s:12:"H_b6937464a1";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:57:"public function getChangedForMail($arrNewData, $config) {";}s:12:"H_a04650f17b";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:38:"public function getPasswordForMail() {";}s:12:"H_c39d3c4741";a:5:{s:3:"ALL";a:2:{s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:14:"MD5_780b7f3cf0";a:3:{s:8:"fileName";s:40:"lib/class.tx_datamintsfeuser_feusers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:49:"public function showForm($valueCheck = array()) {";}s:12:"H_894267dd37";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:63:"public function mergeRelationValues($userId, $arrCurrentData) {";}s:12:"H_d6e656e3a3";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:126:"public function showInput($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '', $valueCheck = array(), $iItem = 0) {";}s:12:"H_f3e297b784";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:90:"public function showText($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";}s:12:"H_3bf29a685d";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:91:"public function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";}s:12:"H_b8ce20afc2";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:91:"public function showRadio($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";}s:12:"H_96e504dae1";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:92:"public function showSelect($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";}s:12:"H_c55141557d";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:91:"public function showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {";}s:12:"H_047091a9f3";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:62:"public function showCaptcha($fieldName, $valueCheck, $iItem) {";}s:12:"H_89188ac3f1";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:52;s:5:"TOTAL";i:52;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:52;s:5:"TOTAL";i:52;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:30:"public function getFieldId() {";}s:12:"H_945e96161b";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:9;s:5:"TOTAL";i:9;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:9;s:5:"TOTAL";i:9;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:93:"public function getFieldClasses($iItem, $fieldName, $fieldType = '', $valueCheck = array()) {";}s:12:"H_57a62f1a26";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:28;s:5:"TOTAL";i:28;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:28;s:5:"TOTAL";i:28;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:32:"public function getFieldName() {";}s:12:"H_c1898c51a9";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:25;s:5:"TOTAL";i:25;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:25;s:5:"TOTAL";i:25;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:61:"public function getLabel($fieldName, $checkRequired = TRUE) {";}s:12:"H_666d8c389b";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:55:"public function getErrorType($fieldName, $valueCheck) {";}s:12:"H_49b43ad325";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:56:"public function getErrorClass($fieldName, $valueCheck) {";}s:12:"H_172a6ca790";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:5;s:5:"TOTAL";i:5;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:5;s:5:"TOTAL";i:5;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:56:"public function getErrorLabel($fieldName, $valueCheck) {";}s:12:"H_5713dfa728";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:6;s:5:"TOTAL";i:6;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:6;s:5:"TOTAL";i:6;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:45:"public function isRequiredField($fieldName) {";}s:12:"H_cc0930d3f0";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:48:"public function getTableLabelFieldName($table) {";}s:12:"H_2e05846d1d";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:40:"public function getHiddenParamsArray() {";}s:12:"H_c784cf4ed6";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:47:"public function getHiddenParamsHiddenFields() {";}s:12:"H_b297b08b07";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:96:"public function getParamArrayFromParamNameParts($arrParamNameParts, &$arrRequest, &$arrParams) {";}s:12:"H_e8a6c694c7";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:42:"public function determineConfiguration() {";}s:12:"H_2b6dd406e3";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:0;s:15:"_functionHeader";s:46:"public function determineIrreConfiguration() {";}s:12:"H_d03a87fefe";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:30;s:5:"TOTAL";i:30;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:30;s:5:"TOTAL";i:30;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:61:"public function getConfigurationByShowtype($subConfig = '') {";}s:12:"H_6f9a56f528";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_8f66ccd171";a:3:{s:8:"fileName";s:36:"pi1/class.tx_datamintsfeuser_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:1;s:15:"_functionHeader";s:48:"public function getJSValidationConfiguration() {";}}}}}

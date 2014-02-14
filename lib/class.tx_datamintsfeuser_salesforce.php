@@ -30,7 +30,7 @@
  *
  *   47: class tx_datamintsfeuser_salesforce
  *   59:     public function main($params, $pObj)
- *  101:     public function getMappingFields($mappings, $variables)
+ *  105:     public function getMappingFields($mappings, $variables)
  *
  *
  * TOTAL FUNCTIONS: 2
