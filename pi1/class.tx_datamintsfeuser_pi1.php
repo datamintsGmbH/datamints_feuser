@@ -1489,7 +1489,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Wenn der User deaktiviert wird, eine Account-Abgelehnt Mail senden (wenn User ablehnt an den Administrator, oder andersrum).
 			if (!$this->getConfigurationByShowtype(self::specialfieldKeyUserdelete)) {
-				$this->sendMail($this->userId, 'disapproval', !$this->isAdminMail($approvalType), $this->getConfigurationByShowtype());
+				if ($this->getConfigurationByShowtype('sendadminmail') && !$this->isAdminMail($approvalType)) {
+					$this->sendMail($this->userId, 'disapproval', TRUE, $this->getConfigurationByShowtype());
+				}
+
+				if ($this->getConfigurationByShowtype('sendusermail') && $this->isAdminMail($approvalType)) {
+					$this->sendMail($this->userId, 'disapproval', FALSE, $this->getConfigurationByShowtype());
+				}
 			}
 
 			// Ausgabe vorbereiten.
