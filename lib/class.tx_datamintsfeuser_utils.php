@@ -111,6 +111,20 @@ class tx_datamintsfeuser_utils {
 	}
 
 	/**
+	 * Fuehrt einen stdWrap mit den aktuellen Benutzerdaten aus.
+	 *
+	 * @param	string		$content
+	 * @param	array		$stdWrap
+	 * @return	string		$content
+	 */
+	public static function currentUserWrap($content, $stdWrap) {
+		$cObj = t3lib_div::makeInstance('tslib_cObj');
+		$cObj->data = $GLOBALS['TSFE']->fe_user->user;
+
+		return $cObj->stdWrap($content, $stdWrap);
+	}
+
+	/**
 	 * Wird verwendet, um doppelte Schraegstriche zu vermeiden.
 	 * Der Pfad wird mit einem abschliessenden Schraegstrich zurueckgegeben.
 	 *

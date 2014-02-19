@@ -1075,11 +1075,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				if ($arrCopyToFields[$copyToField]) {
 					$arrCopiedFields[] = $copyToField;
 
-					// Datenbank Feldinhalt vor dem Update des Users dem stdWrap zur Verfuegung stellen.
-					$cObj = t3lib_div::makeInstance('tslib_cObj');
-					$cObj->data = $GLOBALS['TSFE']->fe_user->user;
-
-					$arrUpdate[$copyToField] = $cObj->stdWrap($arrUpdate[$fieldToCopy], $arrCopyToFields[$copyToField . '.']);
+					$arrUpdate[$copyToField] = tx_datamintsfeuser_utils::currentUserWrap($arrUpdate[$fieldToCopy], $arrCopyToFields[$copyToField . '.']);
 				}
 			}
 		}
@@ -2070,8 +2066,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Infoitem anzeigen.
 			if ($fieldName == self::specialfieldKeyInfoitem) {
-				if ($this->conf['infoitems.'][$iInfoItem]) {
-					$content .= '<div class="' . $this->getFieldClasses($iInfoItem, $fieldName) . '">' . $this->conf['infoitems.'][$iInfoItem] . '</div>';
+				if ($this->conf['infoitems.'][$iInfoItem] || $this->conf['infoitems.'][$iInfoItem . '.']) {
+					$content .= '<div class="' . $this->getFieldClasses($iInfoItem, $fieldName) . '">' . tx_datamintsfeuser_utils::currentUserWrap($this->conf['infoitems.'][$iInfoItem], $this->conf['infoitems.'][$iInfoItem . '.']) . '</div>';
 				}
 
 				$iInfoItem++;
