@@ -195,7 +195,7 @@
 				<source>A new activation mail was sent to your e-mail address.</source>
 				<target>Es wurde eine neue Aktivierungsmail an die von Ihnen angegebene E-Mail geschickt!</target>
 			</trans-unit>
-			<trans-unit id="resendactivation_error_admin" xml:space="preserve" approved="yes">
+			<trans-unit id="resendactivation_error_adminapproval" xml:space="preserve" approved="yes">
 				<source>Please wait for admin approval.</source>
 				<target>Sie müssen auf die Aktivierung durch den Administrator warten!</target>
 			</trans-unit>

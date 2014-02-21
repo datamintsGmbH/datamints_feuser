@@ -54,7 +54,7 @@
  * 1519:     public function setNotActivatedCookie($userId)
  * 1532:     public function getNotActivatedUserArray($arrNotActivated = array())
  * 1564:     public function sendMail($userId, $templatePart, $adminMail, $config, $extraMarkers = array(), $extraSuparts = array())
- * 1690:     public function isAdminMail($approvalType)
+ * 1690:     public function isAdminApprovalType($approvalType)
  * 1702:     public function getTemplateSubpart($templatePart, $markerArray = array(), $config = array())
  * 1721:     public function getValuesForMail()
  * 1881:     public function getChangedForMail($arrNewData, $config)
@@ -121,11 +121,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 	const modeKeySend = 'send';
 	const modeKeyApprovalcheck = 'approvalcheck';
+	const modeKeyResendactivation = 'resendactivation';
 
 	const submodeKeySent = 'sent';
 	const submodeKeyError = 'error';
 	const submodeKeyFailure = 'failure';
 	const submodeKeySuccess = 'success';
+	const submodeKeyUserdelete = 'userdelete';
 
 	const showtypeKeyEdit = 'edit';
 	const showtypeKeyRegister = 'register';
@@ -288,17 +290,17 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$approvalType = $arrApprovalTypes[count($arrApprovalTypes) - $row['tx_datamintsfeuser_approval_level']];
 
 				// Ausgabe vorbereiten.
-				$mode = self::specialfieldKeyResendactivation;
+				$mode = self::modeKeyResendactivation;
 
 				if ($approvalType) {
-					if (!$this->isAdminMail($approvalType)) {
+					if ($this->isAdminApprovalType($approvalType)) {
+						// Fehler anzeigen, falls das naechste Genehmigungsverfahren den Admin betrifft.
+						$submode = self::submodeKeyError . '_' . $approvalType;
+					} else {
 						// Aktivierungsmail senden und Ausgabe anpassen.
 						$submode = self::submodeKeySent;
 
 						$this->sendActivationMail($row['uid']);
-					} else {
-						// Fehler anzeigen, falls das naechste Genehmigungsverfahren den Admin betrifft.
-						$submode = self::submodeKeyError . '_admin';
 					}
 				}
 			}
@@ -1097,7 +1099,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Ausgabe vorbereiten.
 			$arrMode['mode'] = $this->conf['showtype'];
-			$arrMode['submode'] = self::specialfieldKeyUserdelete;
+			$arrMode['submode'] = self::submodeKeyUserdelete;
 			$arrMode['params'] = array('refresh' => t3lib_div::getIndpEnv('TYPO3_SITE_URL'));
 
 			return $arrMode;
@@ -1137,7 +1139,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	array		$arrMode
 	 */
 	public function deleteUser() {
-		if ($this->getConfigurationByShowtype(self::specialfieldKeyUserdelete)) {
+		if ($this->getConfigurationByShowtype('userdelete')) {
 			// Den User endgueltig loeschen.
 			$GLOBALS['TYPO3_DB']->exec_DELETEquery('fe_users', 'uid = ' . $this->userId);
 		} else {
@@ -1313,7 +1315,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Zusaetzliche Konfigurationen die gesetzt werden, bevor die Ausgabe oder der Redirect ausgefuehrt werden.
 		switch ($mode) {
 
-			case 'register':
+			case self::showtypeKeyRegister:
 			case 'doubleoptin':
 				// Login vormerken.
 				if ($params['autologin']) {
@@ -1322,7 +1324,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 				break;
 
-			case 'edit':
+			case self::showtypeKeyEdit:
 				if ($params['refresh']) {
 					// Einen Refresh der aktuellen Seite am Client ausfuehren.
 					$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=' . $params['refresh'] . '" />';
@@ -1408,7 +1410,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		);
 
 		// E-Mail senden.
-		$this->sendMail($userId, $approvalType, $this->isAdminMail($approvalType), $this->getConfigurationByShowtype(), $extraMarkers);
+		$this->sendMail($userId, $approvalType, $this->isAdminApprovalType($approvalType), $this->getConfigurationByShowtype(), $extraMarkers);
 
 		// Cookie fuer das erneute zusenden des Aktivierungslinks setzten.
 		$this->setNotActivatedCookie($userId);
@@ -1484,18 +1486,18 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$this->deleteUser();
 
 			// Wenn der User deaktiviert wird, eine Account-Abgelehnt Mail senden (wenn User ablehnt an den Administrator, oder andersrum).
-			if (!$this->getConfigurationByShowtype(self::specialfieldKeyUserdelete)) {
-				if ($this->getConfigurationByShowtype('sendadminmail') && !$this->isAdminMail($approvalType)) {
+			if (!$this->getConfigurationByShowtype('userdelete')) {
+				if ($this->getConfigurationByShowtype('sendadminmail') && !$this->isAdminApprovalType($approvalType)) {
 					$this->sendMail($this->userId, 'disapproval', TRUE, $this->getConfigurationByShowtype());
 				}
 
-				if ($this->getConfigurationByShowtype('sendusermail') && $this->isAdminMail($approvalType)) {
+				if ($this->getConfigurationByShowtype('sendusermail') && $this->isAdminApprovalType($approvalType)) {
 					$this->sendMail($this->userId, 'disapproval', FALSE, $this->getConfigurationByShowtype());
 				}
 			}
 
 			// Ausgabe vorbereiten.
-			$submode = $submodePrefix . self::specialfieldKeyUserdelete;
+			$submode = $submodePrefix . self::submodeKeyUserdelete;
 		}
 
 		return $this->showOutputRedirect($mode, $submode, $params);
@@ -1509,7 +1511,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	public function getApprovalTypes() {
 		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => Beim Exploden kommt dann ein leeres Arrayelement heraus, das nach dem entfernen einen leeren Platz uebrig lassen wuerde.
-		return array_unique(array_values(t3lib_div::trimExplode(',', $this->getConfigurationByShowtype(self::modeKeyApprovalcheck), TRUE)));
+		return array_unique(array_values(t3lib_div::trimExplode(',', $this->getConfigurationByShowtype('approvalcheck'), TRUE)));
 	}
 
 	/**
@@ -1689,7 +1691,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @param	string		$approvalType
 	 * @return	boolean
 	 */
-	public function isAdminMail($approvalType) {
+	public function isAdminApprovalType($approvalType) {
 		return (strpos($approvalType, 'admin') === FALSE) ? FALSE : TRUE;
 	}
 
@@ -2135,7 +2137,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// UserId, PageId und Modus anhaengen.
-		$content .= '<input type="hidden" name="' . $this->getFieldName(self::submitparameterKeyMode) . '" value="send" />';
+		$content .= '<input type="hidden" name="' . $this->getFieldName(self::submitparameterKeyMode) . '" value="' . self::modeKeySend . '" />';
 		$content .= '<input type="hidden" name="' . $this->getFieldName(self::submitparameterKeyUser) . '" value="' . $this->userId . '" />';
 		$content .= '<input type="hidden" name="' . $this->getFieldName(self::submitparameterKeyPage) . '" value="' . $GLOBALS['TSFE']->id . '" />';
 		$content .= '<input type="hidden" name="' . $this->getFieldName(self::submitparameterKeySubmode) . '" value="' . $this->conf['showtype'] . '" />';
@@ -3274,7 +3276,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 						case 'length':
 							$labelKey = self::validationerrorKeyLength;
-							$validationKey = self::validationerrorKeyLength;
 
 							break;
 
@@ -3285,9 +3286,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 					}
 
-					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . str_replace(self::validationerrorKeyLength, 'size', $validationKey) . '"]=' . $validationValue . ';';
+					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . str_replace('length', 'size', $validationKey) . '"]=' . $validationValue . ';';
 
-					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["' . str_replace(self::validationerrorKeyLength, 'size', $labelKey) . '"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_' . $labelKey, FALSE)) . '";';
+					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["' . str_replace('length', 'size', $labelKey) . '"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_' . $labelKey, FALSE)) . '";';
 				}
 			}
 

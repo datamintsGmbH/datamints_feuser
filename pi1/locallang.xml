@@ -54,7 +54,7 @@
 			<label index="register_success">You have been successfully registered.</label>
 			<label index="register_failure">There was an error while processing your data.</label>
 			<label index="resendactivation_sent">A new activation mail was sent to your e-mail address.</label>
-			<label index="resendactivation_error_admin">Please wait for admin approval.</label>
+			<label index="resendactivation_error_adminapproval">Please wait for admin approval.</label>
 			<label index="approvalcheck_failure">Sorry, this activation link is not valid or your account has already been activated.</label>
 			<label index="doubleoptin_sent">To activate your account click the activation link in the e-mail we sent to you.</label>
 			<label index="doubleoptin_success">Your account has been successfully activated.</label>
@@ -128,7 +128,7 @@
 			<label index="register_success">Sie haben sich erfolgreich registriert!</label>
 			<label index="register_failure">Es ist ein Problem beim Verarbeiten des Formulars aufgetreten!</label>
 			<label index="resendactivation_sent">Es wurde eine neue Aktivierungsmail an die von Ihnen angegebene E-Mail geschickt!</label>
-			<label index="resendactivation_error_admin">Sie müssen auf die Aktivierung durch den Administrator warten!</label>
+			<label index="resendactivation_error_adminapproval">Sie müssen auf die Aktivierung durch den Administrator warten!</label>
 			<label index="approvalcheck_failure">Der Aktivierungslink ist leider nicht gültig oder Ihr Account wurde schon aktiviert!</label>
 			<label index="doubleoptin_sent">Um Ihren Account zu aktivieren, klicken Sie auf den Aktivierungslink, der an die von Ihnen angegebene E-Mail geschickt wurde!</label>
 			<label index="doubleoptin_success">Ihr Account wurde erfolgreich freigeschaltet!</label>

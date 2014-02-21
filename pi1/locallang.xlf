@@ -147,7 +147,7 @@
 			<trans-unit id="resendactivation_sent" xml:space="preserve">
 				<source>A new activation mail was sent to your e-mail address.</source>
 			</trans-unit>
-			<trans-unit id="resendactivation_error_admin" xml:space="preserve">
+			<trans-unit id="resendactivation_error_adminapproval" xml:space="preserve">
 				<source>Please wait for admin approval.</source>
 			</trans-unit>
 			<trans-unit id="approvalcheck_failure" xml:space="preserve">
