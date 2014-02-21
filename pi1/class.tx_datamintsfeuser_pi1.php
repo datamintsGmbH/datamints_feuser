@@ -3259,7 +3259,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 				// Da es mehrere Validierungsoptionen pro Feld geben kann, muss hier jede einzeln durchgelaufen werden.
 				foreach ($this->conf['validate.'][$fieldName . '.'] as $key => $val) {
-					$labelKey = 'valid';
+					$labelKey = self::validationerrorKeyValid;
 					$validationKey = $key;
 					$validationValue = '"' . str_replace('"', '\\"', $val) . '"';
 
@@ -3267,14 +3267,14 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 						case 'type':
 							if ($val == 'password') {
-								$labelKey = 'equal';
+								$labelKey = self::validationerrorKeyEqual;
 							}
 
 							break;
 
 						case 'length':
-							$labelKey = 'size';
-							$validationKey = 'size';
+							$labelKey = self::validationerrorKeyLength;
+							$validationKey = self::validationerrorKeyLength;
 
 							break;
 
@@ -3285,9 +3285,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 					}
 
-					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . $validationKey . '"]=' . $validationValue . ';';
+					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . (($validationKey == 'length') ? 'size' : $validationKey) . '"]=' . $validationValue . ';';
 
-					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["' . $labelKey . '"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_' . self::validationerrorKeyValid, FALSE)) . '";';
+					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["' . (($labelKey == 'length') ? 'size' : $labelKey) . '"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_' . $labelKey, FALSE)) . '";';
 				}
 			}
 
