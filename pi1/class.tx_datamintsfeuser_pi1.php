@@ -3285,9 +3285,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 					}
 
-					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . (($validationKey == 'length') ? 'size' : $validationKey) . '"]=' . $validationValue . ';';
+					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["validation"]["' . str_replace(self::validationerrorKeyLength, 'size', $validationKey) . '"]=' . $validationValue . ';';
 
-					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["' . (($labelKey == 'length') ? 'size' : $labelKey) . '"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_' . $labelKey, FALSE)) . '";';
+					$configuration .= $this->extKey . '_config[' . $this->contentId . ']["' . $fieldName . '"]["' . str_replace(self::validationerrorKeyLength, 'size', $labelKey) . '"]="' . str_replace('"', '\\"', $this->getLabel($fieldName . '_error_' . $labelKey, FALSE)) . '";';
 				}
 			}
 
