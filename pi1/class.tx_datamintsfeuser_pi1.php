@@ -1482,9 +1482,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Wenn der Disapproval-Hash richtig ist.
 		if ($this->piVars[$this->contentId][self::submitparameterKeyHash] == $hashDisapproval) {
-			// User loeschen.
-			$this->deleteUser();
-
 			// Wenn der User deaktiviert wird, eine Account-Abgelehnt Mail senden (wenn User ablehnt an den Administrator, oder andersrum).
 			if ($this->getConfigurationByShowtype('sendadminmail') && !$this->isAdminApprovalType($approvalType) && !$this->getConfigurationByShowtype('userdelete')) {
 				$this->sendMail($this->userId, 'disapproval', TRUE, $this->getConfigurationByShowtype());
@@ -1493,6 +1490,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			if ($this->getConfigurationByShowtype('sendusermail') && $this->isAdminApprovalType($approvalType)) {
 				$this->sendMail($this->userId, 'disapproval', FALSE, $this->getConfigurationByShowtype());
 			}
+
+			// User erst loeschen nachdem die Mail an den User gesendet wurde, falls der Admin diesen ablehnt.
+			$this->deleteUser();
 
 			// Ausgabe vorbereiten.
 			$submode = $submodePrefix . self::submodeKeyUserdelete;
@@ -1716,7 +1716,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Ermittlet alle Benutzer Daten und schreibt diese in ein Markerarray.
+	 * Ermittlet alle Userdaten und schreibt diese in ein Markerarray.
 	 *
 	 * @return	array		$extraMarkers
 	 */
@@ -1878,7 +1878,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	}
 
 	/**
-	 * Ermittlet alle geaenderten Benutzer Daten und schreibt diese in ein Markerarray.
+	 * Ermittlet alle geaenderten Userdaten und schreibt diese in ein Markerarray.
 	 *
 	 * @param	array		$arrNewData
 	 * @param	array		$config
