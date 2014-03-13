@@ -1800,6 +1800,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					case 'select':
 						$value = array();
 
+						if (!is_array($rawValue)) {
+							$rawValue = t3lib_div::trimExplode(',', $rawValue, TRUE);
+						}
+
 						foreach (array_values($fieldConfig['items']) as $selectItem) {
 							if (in_array($selectItem[1], $rawValue)) {
 								$value[] = $this->getLabel($selectItem[0], FALSE);
