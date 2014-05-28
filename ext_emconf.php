@@ -20,8 +20,8 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_email' => 'b.baumgartl@datamints.com',
 	'constraints' => array(
 		'depends' => array(
-			'php' => '5.3.0-5.4.99',
-			'typo3' => '4.5.0-6.1.99',
+			'php' => '5.3.0-5.5.99',
+			'typo3' => '4.5.0-6.2.99',
 		),
 		'conflicts' => array(
 		),

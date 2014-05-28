@@ -90,7 +90,6 @@
  *
  */
 
-require_once PATH_tslib . 'class.tslib_pibase.php';
 require_once t3lib_extmgm::extPath('datamints_feuser', 'lib/class.tx_datamintsfeuser_utils.php');
 
 /**
