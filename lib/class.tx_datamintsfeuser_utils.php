@@ -463,32 +463,42 @@ class tx_datamintsfeuser_utils {
 	 * @return	array		$conf
 	 */
 	public static function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array()) {
-		 if (is_array($flexData)) {
-			 if (isset($flexData['data'][$sTab]['lDEF'])) {
-				 $flexData = $flexData['data'][$sTab]['lDEF'];
-			 }
+		if (isset($flexData['data'][$sTab]['lDEF'])) {
+			$flexData = $flexData['data'][$sTab]['lDEF'];
+		}
 
-			 foreach ($flexData as $key => $value) {
-				 if (is_array($value['el']) && count($value['el']) > 0) {
-					 foreach ($value['el'] as $ekey => $element) {
-						 if (isset($element['vDEF'])) {
-							 $conf[$ekey] = $element['vDEF'];
-						 } else {
-							 $conf[$key][$ekey] = self::getFlexformConfigurationFromTab($element, $sTab, $conf[$key][$ekey]);
-						 }
-					 }
-				 } else {
-					 $conf = self::getFlexformConfigurationFromTab($value['el'], $sTab, $conf);
-				 }
+		if (!is_array($flexData)) {
+			return $conf;
+		}
 
-				 if ($value['vDEF']) {
-					 $conf[$key] = $value['vDEF'];
-				 }
-			 }
-		 }
+		foreach ($flexData as $key => $value) {
+			if (!is_array($value)) {
+				continue;
+			}
 
-		 return $conf;
-	 }
+			if (is_array($value['el']) && count($value['el']) > 0) {
+				foreach ($value['el'] as $ekey => $element) {
+					if (!is_array($element)) {
+						continue;
+					}
+
+					if (isset($element['vDEF'])) {
+						$conf[$ekey] = $element['vDEF'];
+					} else {
+						$conf[$key][$ekey] = self::getFlexformConfigurationFromTab($element, $sTab, $conf[$key][$ekey]);
+					}
+				}
+			} else {
+				$conf = self::getFlexformConfigurationFromTab($value['el'], $sTab, $conf);
+			}
+
+			if ($value['vDEF']) {
+				$conf[$key] = $value['vDEF'];
+			}
+		}
+
+		return $conf;
+	}
 
 	/**
 	 * Ueberschreibt eventuell vorhandene TypoScript Konfigurationen mit den Konfigurationen aus der Flexform.
