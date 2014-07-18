@@ -181,8 +181,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$this->pi_USER_INT_obj = 1;
 
 		// ToDo: Bessere Lösung für das Problem ab 4.6.? finden, dass ein Label nur zum LOCAL_LANG Array hinzugefügt wird, wenn die Sprache bereits im Array vorhanden ist!
-		if (t3lib_div::compat_version('4.6')) {
-			foreach (t3lib_div::removeDotsFromTS((array)$this->conf['_LOCAL_LANG.']) as $lang => $arrLang) {
+		if (t3lib_div::compat_version('4.6') && is_array($this->conf['_LOCAL_LANG.'])) {
+			foreach (t3lib_div::removeDotsFromTS($this->conf['_LOCAL_LANG.']) as $lang => $arrLang) {
 				foreach ($arrLang as $langKey => $langValue) {
 					$this->LOCAL_LANG[$lang][$langKey]['0'] = $this->LOCAL_LANG['default'][$langKey]['0'];
 
@@ -662,7 +662,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Fuer Felder vom Typ group (internal_type="file") wird eine Ueberpruefung auf eine vorhandene Datei gemacht.
 			if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'file') {
-				$arrFieldVars = (array)$this->piVars[$this->contentId][$fieldName];
+				if (!is_array($this->piVars[$this->contentId][$fieldName])) {
+					continue;
+				}
+
+				$arrFieldVars = $this->piVars[$this->contentId][$fieldName];
 				$arrFilenames = t3lib_div::trimExplode(',', $GLOBALS['TSFE']->fe_user->user[$fieldName], TRUE);
 
 				foreach ($arrFieldVars['files'] as $sentKey => $filename) {
@@ -925,7 +929,13 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	string		$error
 	 */
 	public function saveDeleteFiles(&$arrUpdate, $fieldName, $fieldConfig) {
-		$arrFieldVars = (array)$this->piVars[$this->contentId][$fieldName];
+		$error = '';
+
+		if (!is_array($this->piVars[$this->contentId][$fieldName])) {
+			return $error;
+		}
+
+		$arrFieldVars = $this->piVars[$this->contentId][$fieldName];
 
 		$maxSize = $fieldConfig['max_size'] * 1024;
 		$uploadFolder = tx_datamintsfeuser_utils::fixPath($fieldConfig['uploadfolder']);
@@ -934,7 +944,6 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		$arrFilenames = t3lib_div::trimExplode(',', $arrUpdate[$fieldName], TRUE);
 
-		$error = '';
 		$arrProcessedKeys = array();
 
 		foreach ($arrFieldVars['files'] as $sentKey => $filename) {
@@ -1788,9 +1797,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 					case 'radio':
 						$value = '';
 
-						foreach (array_values($fieldConfig['items']) as $radioItem) {
-							if ($rawValue == $radioItem[1]) {
-								$value = $this->getLabel($radioItem[0], FALSE);
+						if (is_array($fieldConfig['items'])) {
+							foreach (array_values($fieldConfig['items']) as $radioItem) {
+								if ($rawValue == $radioItem[1]) {
+									$value = $this->getLabel($radioItem[0], FALSE);
+								}
 							}
 						}
 
@@ -1803,9 +1814,11 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 							$rawValue = t3lib_div::trimExplode(',', $rawValue, TRUE);
 						}
 
-						foreach (array_values($fieldConfig['items']) as $selectItem) {
-							if (in_array($selectItem[1], $rawValue)) {
-								$value[] = $this->getLabel($selectItem[0], FALSE);
+						if (is_array($fieldConfig['items'])) {
+							foreach (array_values($fieldConfig['items']) as $selectItem) {
+								if (in_array($selectItem[1], $rawValue)) {
+									$value[] = $this->getLabel($selectItem[0], FALSE);
+								}
 							}
 						}
 
@@ -1835,7 +1848,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						break;
 
 					case 'group':
-						if ($fieldConfig['internal_type'] == 'db') {
+						if ($fieldConfig['internal_type'] == 'db' && is_array($rawValue)) {
 							$value = array();
 
 							$arrItems = array();
@@ -1947,15 +1960,17 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Beim editieren der Userdaten, die Felder vorausfuellen.
 		if ($this->conf['showtype'] == self::showtypeKeyEdit) {
-			$arrCurrentData = (array)$GLOBALS['TSFE']->fe_user->user;
+			if (is_array($GLOBALS['TSFE']->fe_user->user)) {
+				$arrCurrentData = $GLOBALS['TSFE']->fe_user->user;
+			}
 
 			// ToDo: MM-Relation, Merge MM-Values erweitern.
 			$arrCurrentData = $this->mergeRelationValues($this->userId, $arrCurrentData);
 		}
 
 		// Wenn das Formular schon einmal abgesendet wurde, aber ein Fehler auftrat, dann die bereits vom User uebertragenen Userdaten vorausfuellen.
-		if ($this->piVars[$this->contentId]) {
-			$arrCurrentData = array_merge($arrCurrentData, (array)$this->piVars[$this->contentId]);
+		if (is_array($this->piVars[$this->contentId])) {
+			$arrCurrentData = array_merge($arrCurrentData, $this->piVars[$this->contentId]);
 		}
 
 		// Alle moeglichen Zeichen der Ausgabe, die stoeren koennten (XSS) konvertieren / entfernen.
@@ -2158,7 +2173,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	array		$arrCurrentData
 	 */
 	public function mergeRelationValues($userId, $arrCurrentData) {
-		foreach ($this->arrUsedFields as $fieldName) {
+		foreach (array_keys($arrCurrentData) as $fieldName) {
 			if (!is_array($this->feUsersTca['columns'][$fieldName])) {
 				continue;
 			}
@@ -2352,17 +2367,19 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		$i = 1;
 
-		foreach (array_values($fieldConfig['items']) as $radioItem) {
-			$checked = ($arrCurrentData[$fieldName] == $radioItem[1]) ? ' checked="checked"' : '';
+		if (is_array($fieldConfig['items'])) {
+			foreach (array_values($fieldConfig['items']) as $radioItem) {
+				$checked = ($arrCurrentData[$fieldName] == $radioItem[1]) ? ' checked="checked"' : '';
 
-			$content .= '<div id="' . $this->getFieldId($fieldName, 'item', $i, 'wrapper') . '" class="item item-' . $i . '">';
-			$content .= '<input type="radio" name="' . $this->getFieldName($fieldName) . '" value="' . $radioItem[1] . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
-			$content .= '<label for="' . $this->getFieldId($fieldName, 'item', $i) . '">';
-			$content .= $this->getLabel($radioItem[0], FALSE);
-			$content .= '</label>';
-			$content .= '</div>';
+				$content .= '<div id="' . $this->getFieldId($fieldName, 'item', $i, 'wrapper') . '" class="item item-' . $i . '">';
+				$content .= '<input type="radio" name="' . $this->getFieldName($fieldName) . '" value="' . $radioItem[1] . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
+				$content .= '<label for="' . $this->getFieldId($fieldName, 'item', $i) . '">';
+				$content .= $this->getLabel($radioItem[0], FALSE);
+				$content .= '</label>';
+				$content .= '</div>';
 
-			$i++;
+				$i++;
+			}
 		}
 
 		$content .= '</div>';
@@ -2393,21 +2410,23 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$i = 1;
 
 		// Items, die in der TCA-Konfiguration festgelegt wurden.
-		foreach (array_values($fieldConfig['items']) as $selectItem) {
-			if ($fieldConfig['renderMode'] == 'checkbox') {
-				$checked = (in_array($selectItem[1], $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
+		if (is_array($fieldConfig['items'])) {
+			foreach (array_values($fieldConfig['items']) as $selectItem) {
+				if ($fieldConfig['renderMode'] == 'checkbox') {
+					$checked = (in_array($selectItem[1], $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
 
-				$optionlist .= '<div id="' . $this->getFieldId($fieldName, 'item', $i, 'wrapper') . '" class="item item-' . $i . '">';
-				$optionlist .= '<input type="checkbox"  name="' . $this->getFieldName($fieldName) . '[]" value="' . $selectItem[1] . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
-				$optionlist .= '<label for="' . $this->getFieldId($fieldName, 'item', $i) . '">' . $this->getLabel($selectItem[0], FALSE) . '</label>';
-				$optionlist .= '</div>';
-			} else {
-				$selected = (in_array($selectItem[1], $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
+					$optionlist .= '<div id="' . $this->getFieldId($fieldName, 'item', $i, 'wrapper') . '" class="item item-' . $i . '">';
+					$optionlist .= '<input type="checkbox"  name="' . $this->getFieldName($fieldName) . '[]" value="' . $selectItem[1] . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
+					$optionlist .= '<label for="' . $this->getFieldId($fieldName, 'item', $i) . '">' . $this->getLabel($selectItem[0], FALSE) . '</label>';
+					$optionlist .= '</div>';
+				} else {
+					$selected = (in_array($selectItem[1], $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
 
-				$optionlist .= '<option value="' . $selectItem[1] . '"' . $selected . '>' . $this->getLabel($selectItem[0], FALSE) . '</option>';
+					$optionlist .= '<option value="' . $selectItem[1] . '"' . $selected . '>' . $this->getLabel($selectItem[0], FALSE) . '</option>';
+				}
+
+				$i++;
 			}
-
-			$i++;
 		}
 
 		// Wenn Tabelle angegeben zusaetzlich Items aus Datenbank holen.
