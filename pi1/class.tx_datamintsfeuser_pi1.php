@@ -1590,7 +1590,12 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 		}
 
-		$markerArray = array_merge((array)$config, (array)$row, (array)$extraMarkers);
+		$arrSpecialMarkers = array(
+			'siteurl' => t3lib_div::getIndpEnv('TYPO3_SITE_URL'),
+			'requesturl' => t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')
+		);
+
+		$markerArray = array_merge($arrSpecialMarkers, (array)$config, (array)$row, (array)$extraMarkers);
 
 		foreach ($markerArray as $key => $val) {
 			$markerArray['label_' . $key] = $this->getLabel($key, FALSE);
