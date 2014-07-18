@@ -326,13 +326,23 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Datumsfelder behandeln.
 			if (in_array('date', $arrFieldConfigEval)) {
-				$arrUpdate[$fieldName] = date_timestamp_get(date_create_from_format($this->conf['format.']['date'], $this->piVars[$this->contentId][$fieldName]));
+				$date = date_create_from_format($this->conf['format.']['date'], $this->piVars[$this->contentId][$fieldName]);
+
+				if ($date) {
+					$arrUpdate[$fieldName] = date_timestamp_get($date);
+				}
+
 				$isCleaned = TRUE;
 			}
 
 			// Datumzeitfelder behandeln.
 			if (in_array('datetime', $arrFieldConfigEval)) {
-				$arrUpdate[$fieldName] = date_timestamp_get(date_create_from_format($this->conf['format.']['datetime'], $this->piVars[$this->contentId][$fieldName]));
+				$datetime = date_create_from_format($this->conf['format.']['datetime'], $this->piVars[$this->contentId][$fieldName]);
+
+				if ($date) {
+					$arrUpdate[$fieldName] = date_timestamp_get($datetime);
+				}
+
 				$isCleaned = TRUE;
 			}
 
