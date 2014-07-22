@@ -339,7 +339,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			if (in_array('datetime', $arrFieldConfigEval)) {
 				$datetime = date_create_from_format($this->conf['format.']['datetime'], $this->piVars[$this->contentId][$fieldName]);
 
-				if ($date) {
+				if ($datetime) {
 					$arrUpdate[$fieldName] = date_timestamp_get($datetime);
 				}
 
