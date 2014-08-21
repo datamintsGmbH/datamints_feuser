@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-02-14T14:33:32Z" product-name="datamints_feuser">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-08-21T09:19:12Z" product-name="datamints_feuser">
 		<header/>
 		<body>
 			<trans-unit id="username_error_required" xml:space="preserve" approved="yes">
@@ -245,7 +245,7 @@
 			</trans-unit>
 			<trans-unit id="adminapproval_userdelete" xml:space="preserve" approved="yes">
 				<source>The activation of the users account has been successfully rejected.</source>
-				<target></target>
+				<target>Die Aktivierung des Benutzeraccounts wurde erfolgreich abgelehnt!</target>
 			</trans-unit>
 			<trans-unit id="adminapproval_failure" xml:space="preserve" approved="yes">
 				<source>Sorry, this activation link is not valid or this account has already been activated.</source>
@@ -261,7 +261,7 @@
 			</trans-unit>
 			<trans-unit id="adminapproval_doubleoptin_userdelete" xml:space="preserve" approved="yes">
 				<source>The activation of the users account has been successfully rejected.</source>
-				<target></target>
+				<target>Die Aktivierung des Benutzeraccounts wurde erfolgreich abgelehnt!</target>
 			</trans-unit>
 			<trans-unit id="adminapproval_doubleoptin_failure" xml:space="preserve" approved="yes">
 				<source>Sorry, this activation link is not valid or this account has already been activated.</source>
@@ -286,14 +286,6 @@
 			<trans-unit id="edit_error_userfolder" xml:space="preserve" approved="yes">
 				<source>You can not edit your user data here.</source>
 				<target>Die Benutzerdaten können hier nicht bearbeitet werden!</target>
-			</trans-unit>
-			<trans-unit id="adminapproval_deleted" xml:space="preserve" approved="yes">
-				<source></source>
-				<target>Die Aktivierung des Benutzeraccounts wurde erfolgreich abgelehnt!</target>
-			</trans-unit>
-			<trans-unit id="adminapproval_doubleoptin_deleted" xml:space="preserve" approved="yes">
-				<source></source>
-				<target>Die Aktivierung des Benutzeraccounts wurde erfolgreich abgelehnt!</target>
 			</trans-unit>
 		</body>
 	</file>

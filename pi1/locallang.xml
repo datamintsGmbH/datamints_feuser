@@ -140,11 +140,11 @@
 			<label index="doubleoptin_adminapproval_failure">Ihr Aktivierungslink ist leider nicht gültig!</label>
 			<label index="adminapproval_sent">Sie werden durch den Administrator freigeschalten!</label>
 			<label index="adminapproval_success">Der Benutzeraccount wurde erfolgreich freigeschaltet!</label>
-			<label index="adminapproval_deleted">Die Aktivierung des Benutzeraccounts wurde erfolgreich abgelehnt!</label>
+			<label index="adminapproval_userdelete">Die Aktivierung des Benutzeraccounts wurde erfolgreich abgelehnt!</label>
 			<label index="adminapproval_failure">Der Aktivierungslink ist leider nicht gültig, oder der Account wurde schon aktiviert!</label>
 			<label index="adminapproval_doubleoptin_sent">Um Ihren Account zu aktivieren, müssen Sie auf die Freischaltung des Administrators warten! Sobald das geschehen ist, klicken Sie den Aktivierungslink der an die von Ihnen angegebene E-Mail geschickt wird!</label>
 			<label index="adminapproval_doubleoptin_success">Der Benutzeraccount wurde erfolgreich freigeschaltet! Als Nächstes muss der Benutzer selbst der Registrierung zustimmen!</label>
-			<label index="adminapproval_doubleoptin_deleted">Die Aktivierung des Benutzeraccounts wurde erfolgreich abgelehnt!</label>
+			<label index="adminapproval_doubleoptin_userdelete">Die Aktivierung des Benutzeraccounts wurde erfolgreich abgelehnt!</label>
 			<label index="adminapproval_doubleoptin_failure">Der Aktivierungslink ist leider nicht gültig, oder der Account wurde schon aktiviert!</label>
 			<label index="edit_success">Ihre Daten wurden erfolgreich geändert! Sie werden in wenigen Sekunden zurück geleitet!</label>
 			<label index="edit_userdelete">Der Benutzer wurde erfolgreich gelöscht!</label>
