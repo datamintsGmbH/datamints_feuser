@@ -323,8 +323,14 @@ class tx_datamintsfeuser_utils {
 		$GLOBALS['TSFE']->fe_user->checkPid = 0;
 
 		$userRecord = $GLOBALS['TSFE']->fe_user->getRawUserByUid($userId);
+		
+		// enforce cookie, otherwise auto-login does not work (TYPO3 6.2.5+, see https://forge.typo3.org/issues/62194)
+		$GLOBALS['TSFE']->fe_user->forceSetCookie = TRUE;
 
 		$GLOBALS['TSFE']->fe_user->createUserSession($userRecord);
+		
+		// enforce session so we get a FE cookie, otherwise auto-login does not work (TYPO3 6.2.5+, see https://forge.typo3.org/issues/62194)
+		$GLOBALS['TSFE']->->fe_user->setAndSaveSessionData('tx-datamintsfeuser-autologin-dummy', TRUE);
 
 		// Umleiten, damit der Login wirksam wird.
 		self::userRedirect($pageId, $urlParameters, TRUE);
