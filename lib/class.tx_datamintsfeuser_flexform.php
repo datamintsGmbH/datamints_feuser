@@ -23,6 +23,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  *
  * [CLASS/FUNCTION INDEX of SCRIPT]
@@ -52,9 +54,6 @@ class tx_datamintsfeuser_flexform {
 	 * @return	array		$config
 	 */
 	public function getFieldNames($config) {
-		// TCA-Teil laden. Damit koennen wir alle Felder durchgehen.
-		t3lib_div::loadTCA('fe_users');
-
 		$fieldList = array();
 
 		foreach ($GLOBALS['TCA']['fe_users']['columns'] as $key => $_){
@@ -71,5 +70,3 @@ class tx_datamintsfeuser_flexform {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_flexform.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_flexform.php']);
 }
-
-?>

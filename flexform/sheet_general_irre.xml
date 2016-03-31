@@ -38,9 +38,7 @@
 				<el>
 
 					<databasefield>
-						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.databasefield</title>
-						</tx_templavoila>
+						<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.databasefield</title>
 						<type>array</type>
 						<el>
 
@@ -89,9 +87,7 @@
 					</databasefield>
 
 					<separator>
-						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.separator</title>
-						</tx_templavoila>
+						<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.separator</title>
 						<type>array</type>
 						<el>
 
@@ -108,9 +104,7 @@
 					</separator>
 
 					<infoitem>
-						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.infoitem</title>
-						</tx_templavoila>
+						<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.infoitem</title>
 						<type>array</type>
 						<el>
 
@@ -127,9 +121,7 @@
 					</infoitem>
 
 					<userdelete>
-						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.userdelete</title>
-						</tx_templavoila>
+						<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.userdelete</title>
 						<type>array</type>
 						<el>
 
@@ -155,9 +147,7 @@
 					</userdelete>
 
 					<passwordconfirmation>
-						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.passwordconfirmation</title>
-						</tx_templavoila>
+						<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.passwordconfirmation</title>
 						<type>array</type>
 						<el>
 
@@ -174,9 +164,7 @@
 					</passwordconfirmation>
 
 					<resendactivation>
-						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.resendactivation</title>
-						</tx_templavoila>
+						<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.resendactivation</title>
 						<type>array</type>
 						<el>
 
@@ -202,9 +190,7 @@
 					</resendactivation>
 
 					<captcha>
-						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.captcha</title>
-						</tx_templavoila>
+						<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.captcha</title>
 						<type>array</type>
 						<el>
 
@@ -221,9 +207,7 @@
 					</captcha>
 
 					<submit>
-						<tx_templavoila type="array">
-							<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.submit</title>
-						</tx_templavoila>
+						<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.submit</title>
 						<type>array</type>
 						<el>
 

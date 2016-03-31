@@ -156,7 +156,13 @@
 								<type>popup</type>
 								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.emailtemplate</title>
 								<icon>link_popup.gif</icon>
-								<script>browse_links.php?act=file&amp;mode=wizard</script>
+								<module type="array">
+									<name>wizard_element_browser</name>
+									<urlParameters type="array">
+										<mode>wizard</mode>
+										<act>file</act>
+									</urlParameters>
+								</module>
 								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
 							</link>
 						</wizards>

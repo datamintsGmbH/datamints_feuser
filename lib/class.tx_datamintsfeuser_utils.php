@@ -23,6 +23,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Saltedpasswords\Utility\SaltedPasswordsUtility;
+
 /**
  *
  * [CLASS/FUNCTION INDEX of SCRIPT]
@@ -72,11 +77,10 @@ class tx_datamintsfeuser_utils {
 	 * @return	array		$globalFeUsersTca
 	 */
 	public static function getFeUsersTca($feUsersTca) {
-		$GLOBALS['TSFE']->includeTCA();
 		$globalFeUsersTca = $GLOBALS['TCA']['fe_users'];
 
 		if ($feUsersTca) {
-			$globalFeUsersTca['columns'] = t3lib_div::array_merge_recursive_overrule((array)$globalFeUsersTca['columns'], (array)t3lib_div::removeDotsFromTS($feUsersTca));
+			ArrayUtility::mergeRecursiveWithOverrule((array)$globalFeUsersTca['columns'], (array)GeneralUtility::removeDotsFromTS($feUsersTca));
 		}
 
 		return $globalFeUsersTca;
@@ -105,7 +109,7 @@ class tx_datamintsfeuser_utils {
 	 * @return	string		$pageLink
 	 */
 	public static function getTypoLinkUrl($params, $urlParameters = array()) {
-		$cObj = t3lib_div::makeInstance('tslib_cObj');
+		$cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 		$pageLink = $cObj->getTypoLink_URL($params, $urlParameters);
 
 		return $pageLink;
@@ -119,7 +123,7 @@ class tx_datamintsfeuser_utils {
 	 * @return	string		$content
 	 */
 	public static function currentUserWrap($content, $stdWrap) {
-		$cObj = t3lib_div::makeInstance('tslib_cObj');
+		$cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 		$cObj->data = $GLOBALS['TSFE']->fe_user->user;
 
 		return $cObj->stdWrap($content, $stdWrap);
@@ -216,35 +220,13 @@ class tx_datamintsfeuser_utils {
 		$arrPassword['encrypted'] = $arrPassword['normal'];
 
 		// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password verschluesselt.
-		if (t3lib_extMgm::isLoaded('saltedpasswords') && $GLOBALS['TYPO3_CONF_VARS']['FE']['loginSecurityLevel']) {
-			$saltedpasswords = tx_saltedpasswords_div::returnExtConf();
+		if (ExtensionManagementUtility::isLoaded('saltedpasswords') && $GLOBALS['TYPO3_CONF_VARS']['FE']['loginSecurityLevel']) {
+			$saltedpasswords = SaltedPasswordsUtility::returnExtConf();
 
 			if ($saltedpasswords['enabled']) {
-				$tx_saltedpasswords = t3lib_div::makeInstance($saltedpasswords['saltedPWHashingMethod']);
+				$tx_saltedpasswords = GeneralUtility::makeInstance($saltedpasswords['saltedPWHashingMethod']);
 
 				$arrPassword['encrypted'] = $tx_saltedpasswords->getHashedPassword($arrPassword['normal']);
-			}
-		} else
-
-		// Wenn "md5passwords" installiert ist wird wenn aktiviert, das Password md5 verschluesselt.
-		if (t3lib_extMgm::isLoaded('md5passwords')) {
-			$arrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['md5passwords']);
-
-			if ($arrConf['activate']) {
-				$arrPassword['encrypted'] = md5($arrPassword['normal']);
-			}
-		} else
-
-		// Wenn "t3sec_saltedpw" installiert ist wird wenn aktiviert, das Password gehashed.
-		if (t3lib_extMgm::isLoaded('t3sec_saltedpw')) {
-			require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/staticlib/class.tx_t3secsaltedpw_div.php';
-
-			if (tx_t3secsaltedpw_div::isUsageEnabled()) {
-				require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/lib/class.tx_t3secsaltedpw_phpass.php';
-
-				$tx_t3secsaltedpw_phpass = t3lib_div::makeInstance('tx_t3secsaltedpw_phpass');
-
-				$arrPassword['encrypted'] = $tx_t3secsaltedpw_phpass->getHashedPassword($arrPassword['normal']);
 			}
 		}
 
@@ -262,11 +244,11 @@ class tx_datamintsfeuser_utils {
 		$check = FALSE;
 
 		// Wenn "saltedpasswords" installiert ist wird deren Konfiguration geholt, und je nach Einstellung das Password ueberprueft.
-		if (t3lib_extMgm::isLoaded('saltedpasswords') && $GLOBALS['TYPO3_CONF_VARS']['FE']['loginSecurityLevel']) {
-			$saltedpasswords = tx_saltedpasswords_div::returnExtConf();
+		if (ExtensionManagementUtility::isLoaded('saltedpasswords') && $GLOBALS['TYPO3_CONF_VARS']['FE']['loginSecurityLevel']) {
+			$saltedpasswords = SaltedPasswordsUtility::returnExtConf();
 
 			if ($saltedpasswords['enabled']) {
-				$tx_saltedpasswords = t3lib_div::makeInstance($saltedpasswords['saltedPWHashingMethod']);
+				$tx_saltedpasswords = GeneralUtility::makeInstance($saltedpasswords['saltedPWHashingMethod']);
 
 				if ($tx_saltedpasswords->checkPassword($submittedPassword, $originalPassword)) {
 					$check = TRUE;
@@ -275,7 +257,7 @@ class tx_datamintsfeuser_utils {
 		}
 
 		// Wenn "md5passwords" installiert ist wird wenn aktiviert, das Password ueberprueft.
-		else if (t3lib_extMgm::isLoaded('md5passwords')) {
+		else if (ExtensionManagementUtility::isLoaded('md5passwords')) {
 			$arrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['md5passwords']);
 
 			if ($arrConf['activate']) {
@@ -286,13 +268,13 @@ class tx_datamintsfeuser_utils {
 		}
 
 		// Wenn "t3sec_saltedpw" installiert ist wird wenn aktiviert, das Password ueberprueft.
-		else if (t3lib_extMgm::isLoaded('t3sec_saltedpw')) {
-			require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/staticlib/class.tx_t3secsaltedpw_div.php';
+		else if (ExtensionManagementUtility::isLoaded('t3sec_saltedpw')) {
+			require_once ExtensionManagementUtility::extPath('t3sec_saltedpw') . 'res/staticlib/class.tx_t3secsaltedpw_div.php';
 
 			if (tx_t3secsaltedpw_div::isUsageEnabled()) {
-				require_once t3lib_extMgm::extPath('t3sec_saltedpw') . 'res/lib/class.tx_t3secsaltedpw_phpass.php';
+				require_once ExtensionManagementUtility::extPath('t3sec_saltedpw') . 'res/lib/class.tx_t3secsaltedpw_phpass.php';
 
-				$tx_t3secsaltedpw_phpass = t3lib_div::makeInstance('tx_t3secsaltedpw_phpass');
+				$tx_t3secsaltedpw_phpass = GeneralUtility::makeInstance('tx_t3secsaltedpw_phpass');
 
 				if ($tx_t3secsaltedpw_phpass->checkPassword($submittedPassword, $originalPassword)) {
 					$check = TRUE;
@@ -356,7 +338,7 @@ class tx_datamintsfeuser_utils {
 
 		$pageLink = self::getTypoLinkUrl($pageId, $urlParameters);
 
-		header('Location: ' . t3lib_div::locationHeaderUrl($pageLink));
+		header('Location: ' . GeneralUtility::locationHeaderUrl($pageLink));
 		exit;
 	}
 
@@ -445,7 +427,7 @@ class tx_datamintsfeuser_utils {
 	 */
 	public static function getTemplateSubpart($templateFile, $templatePart, $markerArray = array()) {
 		// Template laden.
-		$cObj = t3lib_div::makeInstance('tslib_cObj');
+		$cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 		$template = $cObj->fileResource($templateFile);
 		$template = $cObj->getSubpart($template, '###' . strtoupper($templatePart) . '###');
 
@@ -514,7 +496,7 @@ class tx_datamintsfeuser_utils {
 	 */
 	public static function setFlexformConfigurationValue($key, $value, $conf) {
 		if (strpos($key, '.') !== FALSE && $value) {
-			$arrKey = t3lib_div::trimExplode('.', $key, TRUE);
+			$arrKey = GeneralUtility::trimExplode('.', $key, TRUE);
 
 			for ($i = count($arrKey) - 1; $i >= 0; $i--) {
 				$newValue = array();
@@ -528,7 +510,7 @@ class tx_datamintsfeuser_utils {
 				$value = $newValue;
 			}
 
-			$conf = t3lib_div::array_merge_recursive_overrule($conf, $value);
+			ArrayUtility::mergeRecursiveWithOverrule($conf, $value);
 		} else if ($value) {
 			$conf[$key] = $value;
 		}
@@ -605,5 +587,3 @@ class tx_datamintsfeuser_utils {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_utils.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_utils.php']);
 }
-
-?>

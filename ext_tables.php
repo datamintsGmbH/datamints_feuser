@@ -4,19 +4,19 @@ if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 if (TYPO3_MODE == 'BE') {
-	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_datamintsfeuser_pi1_wizicon'] = t3lib_extMgm::extPath($_EXTKEY) . 'pi1/class.tx_datamintsfeuser_pi1_wizicon.php';
+	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_datamintsfeuser_pi1_wizicon'] = ExtensionManagementUtility::extPath($_EXTKEY) . 'pi1/class.tx_datamintsfeuser_pi1_wizicon.php';
 }
 
-t3lib_extMgm::addPlugin(array('LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:tt_content.list_type_pi1', $_EXTKEY . '_pi1', t3lib_extMgm::extRelPath($_EXTKEY) . 'ext_icon.gif'), 'list_type');
-t3lib_extMgm::addStaticFile($_EXTKEY, 'pi1/static/', 'Frontend User Management');
+ExtensionManagementUtility::addPlugin(array('LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:tt_content.list_type_pi1', $_EXTKEY . '_pi1', ExtensionManagementUtility::extRelPath($_EXTKEY) . 'ext_icon.gif'), 'list_type');
+ExtensionManagementUtility::addStaticFile($_EXTKEY, 'pi1/static/', 'Frontend User Management');
 
 // Salesforce.
-t3lib_extMgm::addStaticFile($_EXTKEY, 'static/salesforce/', 'Frontend User Management (Salesforce)');
+ExtensionManagementUtility::addStaticFile($_EXTKEY, 'static/salesforce/', 'Frontend User Management (Salesforce)');
 
-// TCA von tt_content laden, Flexform anzeigen und die Felder layout, select_key, pages und recursive ausblenden.
-t3lib_div::loadTCA('tt_content');
-
+// Flexform anzeigen und die Felder layout, select_key, pages und recursive ausblenden.
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY . '_pi1'] = 'pi_flexform';
 $TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY . '_pi1'] = 'layout, select_key, pages, recursive';
 
@@ -24,12 +24,12 @@ $TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY . '_pi1'] =
 $confArray = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);
 
 // Flexformfunktionen einbinden.
-include_once(t3lib_extMgm::extPath($_EXTKEY) . 'lib/class.tx_datamintsfeuser_flexform.php');
+include_once(ExtensionManagementUtility::extPath($_EXTKEY) . 'lib/class.tx_datamintsfeuser_flexform.php');
 
 if ($confArray['enableIrre']) {
-	t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_pi1', 'FILE:EXT:' . $_EXTKEY . '/flexform/data_pi1_irre.xml');
+	ExtensionManagementUtility::addPiFlexFormValue($_EXTKEY . '_pi1', 'FILE:EXT:' . $_EXTKEY . '/flexform/data_pi1_irre.xml');
 } else {
-	t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_pi1', 'FILE:EXT:' . $_EXTKEY . '/flexform/data_pi1.xml');
+	ExtensionManagementUtility::addPiFlexFormValue($_EXTKEY . '_pi1', 'FILE:EXT:' . $_EXTKEY . '/flexform/data_pi1.xml');
 }
 
 // Wenn gewünscht Salesforce verwenden.
@@ -65,10 +65,7 @@ $tempColumns = array (
 	),
 );
 
-t3lib_div::loadTCA('fe_users');
-t3lib_extMgm::addTCAcolumns('fe_users', $tempColumns, 1);
+ExtensionManagementUtility::addTCAcolumns('fe_users', $tempColumns, 1);
 
-t3lib_extMgm::addToAllTCAtypes('fe_users', 'gender', '', 'before:name');
-t3lib_extMgm::addToAllTCAtypes('fe_users', '--div--;LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:tt_content.list_type_pi1, tx_datamintsfeuser_approval_level;;;;1-1-1');
-
-?>
+ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'gender', '', 'before:name');
+ExtensionManagementUtility::addToAllTCAtypes('fe_users', '--div--;LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:tt_content.list_type_pi1, tx_datamintsfeuser_approval_level;;;;1-1-1');

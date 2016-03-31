@@ -23,6 +23,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 /**
  *
  * [CLASS/FUNCTION INDEX of SCRIPT]
@@ -90,7 +94,7 @@
  *
  */
 
-require_once t3lib_extmgm::extPath('datamints_feuser', 'lib/class.tx_datamintsfeuser_utils.php');
+require_once ExtensionManagementUtility::extPath('datamints_feuser', 'lib/class.tx_datamintsfeuser_utils.php');
 
 /**
  * Plugin 'Frontend User Management' for the 'datamints_feuser' extension.
@@ -99,7 +103,7 @@ require_once t3lib_extmgm::extPath('datamints_feuser', 'lib/class.tx_datamintsfe
  * @package	TYPO3
  * @subpackage	tx_datamintsfeuser
  */
-class tx_datamintsfeuser_pi1 extends tslib_pibase {
+class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 	public $extKey = 'datamints_feuser';
 	public $prefixId = 'tx_datamintsfeuser_pi1';
 	public $scriptRelPath = 'pi1/class.tx_datamintsfeuser_pi1.php';
@@ -181,8 +185,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$this->pi_USER_INT_obj = 1;
 
 		// ToDo: Bessere Lösung für das Problem ab 4.6.? finden, dass ein Label nur zum LOCAL_LANG Array hinzugefügt wird, wenn die Sprache bereits im Array vorhanden ist!
-		if (t3lib_div::compat_version('4.6') && is_array($this->conf['_LOCAL_LANG.'])) {
-			foreach (t3lib_div::removeDotsFromTS($this->conf['_LOCAL_LANG.']) as $lang => $arrLang) {
+		if (GeneralUtility::compat_version('4.6') && is_array($this->conf['_LOCAL_LANG.'])) {
+			foreach (GeneralUtility::removeDotsFromTS($this->conf['_LOCAL_LANG.']) as $lang => $arrLang) {
 				foreach ($arrLang as $langKey => $langValue) {
 					$this->LOCAL_LANG[$lang][$langKey]['0'] = $this->LOCAL_LANG['default'][$langKey]['0'];
 
@@ -201,10 +205,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$this->storagePageId = tx_datamintsfeuser_utils::getStoragePageId($this->getConfigurationByShowtype('userfolder'));
 
 		// Stylesheets in den Head einbinden.
-		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[stylesheet]'] = ($this->conf['disablestylesheet']) ? '' : '<link rel="stylesheet" type="text/css" href="' . (($this->conf['stylesheetpath']) ? $this->conf['stylesheetpath'] : tx_datamintsfeuser_utils::getTypoLinkUrl(t3lib_extMgm::siteRelPath($this->extKey) . 'res/datamints_feuser.css')) . '" />';
+		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[stylesheet]'] = ($this->conf['disablestylesheet']) ? '' : '<link rel="stylesheet" type="text/css" href="' . (($this->conf['stylesheetpath']) ? $this->conf['stylesheetpath'] : tx_datamintsfeuser_utils::getTypoLinkUrl(ExtensionManagementUtility::siteRelPath($this->extKey) . 'res/datamints_feuser.css')) . '" />';
 
 		// Javascripts in den Head einbinden.
-		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[jsvalidator]'] = ($this->conf['disablejsvalidator']) ? '' : '<script type="text/javascript" src="' . (($this->conf['jsvalidatorpath']) ? $this->conf['jsvalidatorpath'] : tx_datamintsfeuser_utils::getTypoLinkUrl(t3lib_extMgm::siteRelPath($this->extKey) . 'res/validator.min.js')) . '"></script>';
+		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[jsvalidator]'] = ($this->conf['disablejsvalidator']) ? '' : '<script type="text/javascript" src="' . (($this->conf['jsvalidatorpath']) ? $this->conf['jsvalidatorpath'] : tx_datamintsfeuser_utils::getTypoLinkUrl(ExtensionManagementUtility::siteRelPath($this->extKey) . 'res/validator.min.js')) . '"></script>';
 		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[jsvalidation][' . $this->contentId . ']'] = ($this->conf['disablejsconfig']) ? '' : '<script type="text/javascript">' . "\n/*<![CDATA[*/\n" . $this->getJSValidationConfiguration() . "\n/*]]>*/\n" . '</script>';
 
 		// Wenn nicht eingeloggt kann man auch nicht editieren!
@@ -319,7 +323,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 
 			$fieldConfig = $this->feUsersTca['columns'][$fieldName]['config'];
-			$arrFieldConfigEval = t3lib_div::trimExplode(',', $fieldConfig['eval'], TRUE);
+			$arrFieldConfigEval = GeneralUtility::trimExplode(',', $fieldConfig['eval'], TRUE);
 
 			// Ist das Feld schon gesaeubert worden (MySQL, PHP, HTML, ...).
 			$isCleaned = FALSE;
@@ -445,7 +449,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				);
 
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendForm'] as $_funcRef) {
-				t3lib_div::callUserFunction($_funcRef, $_params, $this);
+				GeneralUtility::callUserFunction($_funcRef, $_params, $this);
 			}
 		}
 
@@ -534,7 +538,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 					if ($value == $valueRep) {
 						if ($validate['length']) {
-							$arrLength = t3lib_div::trimExplode(',', $validate['length']);
+							$arrLength = GeneralUtility::trimExplode(',', $validate['length']);
 						}
 
 						if (!preg_match('/^.{' . $arrLength[0] . ',' . $arrLength[1] . '}$/', $value)) {
@@ -584,7 +588,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						}
 					}
 					if ($validate['length']) {
-						$arrLength = t3lib_div::trimExplode(',', $validate['length']);
+						$arrLength = GeneralUtility::trimExplode(',', $validate['length']);
 
 						if (is_array($value)) {
 							if (($arrLength[0] && count($value) < $arrLength[0]) || ($arrLength[1] && count($value) > $arrLength[1])) {
@@ -660,7 +664,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Arrays zum Ueberpruefen normalisieren, und leere Werte entfernen!
 			if (is_array($fieldValue)) {
-				$fieldValue = implode(',', t3lib_div::trimExplode(',', implode(',', $fieldValue), TRUE));
+				$fieldValue = implode(',', GeneralUtility::trimExplode(',', implode(',', $fieldValue), TRUE));
 			}
 
 			// Dadurch dass die einfache Checkbox ein besonderes verstecktes Feld hat (value="0"), muss dieser Wert erst normalisiert werden!
@@ -677,7 +681,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				}
 
 				$arrFieldVars = $this->piVars[$this->contentId][$fieldName];
-				$arrFilenames = t3lib_div::trimExplode(',', $GLOBALS['TSFE']->fe_user->user[$fieldName], TRUE);
+				$arrFilenames = GeneralUtility::trimExplode(',', $GLOBALS['TSFE']->fe_user->user[$fieldName], TRUE);
 
 				foreach ($arrFieldVars['files'] as $sentKey => $filename) {
 					$sentKey = intval($sentKey);
@@ -708,7 +712,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 * @return	string
 	 */
 	public function checkCaptcha($value) {
-		if (!t3lib_extMgm::isLoaded($this->conf['captcha.']['use'])) {
+		if (!ExtensionManagementUtility::isLoaded($this->conf['captcha.']['use'])) {
 			return '';
 		}
 
@@ -726,9 +730,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				break;
 
 			case 'sr_freecap':
-				require_once(t3lib_extMgm::extPath($this->conf['captcha.']['use']) . 'pi2/class.tx_srfreecap_pi2.php');
+				require_once(ExtensionManagementUtility::extPath($this->conf['captcha.']['use']) . 'pi2/class.tx_srfreecap_pi2.php');
 
-				$freecap = t3lib_div::makeInstance('tx_srfreecap_pi2');
+				$freecap = GeneralUtility::makeInstance('tx_srfreecap_pi2');
 
 				if (!$freecap->checkWord($value)) {
 					return self::validationerrorKeyValid;
@@ -737,9 +741,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				break;
 
 //			case 'jm_recaptcha':
-//				require_once(t3lib_extMgm::extPath($this->conf['captcha.']['use']) . 'class.tx_jmrecaptcha.php');
+//				require_once(ExtensionManagementUtility::extPath($this->conf['captcha.']['use']) . 'class.tx_jmrecaptcha.php');
 //
-//				$recaptcha = t3lib_div::makeInstance('tx_jmrecaptcha');
+//				$recaptcha = GeneralUtility::makeInstance('tx_jmrecaptcha');
 //
 //				$status = $recaptcha->validateReCaptcha();
 //
@@ -750,9 +754,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 //				break;
 
 			case 'wt_calculating_captcha':
-				require_once(t3lib_extMgm::extPath($this->conf['captcha.']['use']) . 'class.tx_wtcalculatingcaptcha.php');
+				require_once(ExtensionManagementUtility::extPath($this->conf['captcha.']['use']) . 'class.tx_wtcalculatingcaptcha.php');
 
-				$calculatingcaptcha = t3lib_div::makeInstance('tx_wtcalculatingcaptcha');
+				$calculatingcaptcha = GeneralUtility::makeInstance('tx_wtcalculatingcaptcha');
 
 				if (!$calculatingcaptcha->correctCode($value)) {
 					return self::validationerrorKeyValid;
@@ -870,7 +874,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$maxItemsCount = 1;
 		$arrCleanedValues = array();
 
-		$arrAllowed = t3lib_div::trimExplode(',', $fieldConfig['allowed'], TRUE);
+		$arrAllowed = GeneralUtility::trimExplode(',', $fieldConfig['allowed'], TRUE);
 
 		// Hier werden absichtlich nur die Erlaubten Tabellen benutzt, da es sonst unmengen an möglichen Optionen geben wuerde!
 		foreach ($arrAllowed as $table) {
@@ -949,10 +953,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		$maxSize = $fieldConfig['max_size'] * 1024;
 		$uploadFolder = tx_datamintsfeuser_utils::fixPath($fieldConfig['uploadfolder']);
-		$allowedTypes = t3lib_div::trimExplode(',', strtolower(str_replace('*', '', $fieldConfig['allowed'])), TRUE);
-		$disallowedTypes = t3lib_div::trimExplode(',', strtolower(str_replace('*', '', $fieldConfig['disallowed'])), TRUE);
+		$allowedTypes = GeneralUtility::trimExplode(',', strtolower(str_replace('*', '', $fieldConfig['allowed'])), TRUE);
+		$disallowedTypes = GeneralUtility::trimExplode(',', strtolower(str_replace('*', '', $fieldConfig['disallowed'])), TRUE);
 
-		$arrFilenames = t3lib_div::trimExplode(',', $arrUpdate[$fieldName], TRUE);
+		$arrFilenames = GeneralUtility::trimExplode(',', $arrUpdate[$fieldName], TRUE);
 
 		$arrProcessedKeys = array();
 
@@ -1015,7 +1019,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$newFilename = basename(strtolower($_FILES[$this->prefixId]['name'][$this->contentId][$fieldName]['upload'][$sentKey]), '.' . $newFiletype);
 				$newFilename = preg_replace('/[^a-z0-9]/', '', $newFilename) . '_' . sprintf('%02d', $sentKey + 1) . '_' . time() . '.' . $newFiletype;
 
-				$filePath = t3lib_div::getFileAbsFileName($uploadFolder . $newFilename);
+				$filePath = GeneralUtility::getFileAbsFileName($uploadFolder . $newFilename);
 
 				// Bild verschieben, und anschliessend den neuen Bildnamen in die Datenbank schreiben.
 				if (move_uploaded_file($_FILES[$this->prefixId]['tmp_name'][$this->contentId][$fieldName]['upload'][$sentKey], $filePath)) {
@@ -1030,7 +1034,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 
 			if ($savedKey !== FALSE && $arrFieldVars['delete'][$sentKey]) {
-				$filePath = t3lib_div::getFileAbsFileName($uploadFolder . $arrFilenames[$savedKey]);
+				$filePath = GeneralUtility::getFileAbsFileName($uploadFolder . $arrFilenames[$savedKey]);
 
 				if (file_exists($filePath) && unlink($filePath)) {
 					unset($arrFilenames[$savedKey]);
@@ -1118,7 +1122,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			// Ausgabe vorbereiten.
 			$arrMode['mode'] = $this->conf['showtype'];
 			$arrMode['submode'] = self::submodeKeyUserdelete;
-			$arrMode['params'] = array('refresh' => t3lib_div::getIndpEnv('TYPO3_SITE_URL'));
+			$arrMode['params'] = array('refresh' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'));
 
 			return $arrMode;
 		}
@@ -1146,7 +1150,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Ausgabe vorbereiten.
 		$arrMode['mode'] = $this->conf['showtype'];
 		$arrMode['submode'] = self::submodeKeySuccess;
-		$arrMode['params'] = array('refresh' => t3lib_div::locationHeaderUrl(tx_datamintsfeuser_utils::getTypoLinkUrl($GLOBALS['TSFE']->id)));
+		$arrMode['params'] = array('refresh' => GeneralUtility::locationHeaderUrl(tx_datamintsfeuser_utils::getTypoLinkUrl($GLOBALS['TSFE']->id)));
 
 		return $arrMode;
 	}
@@ -1253,7 +1257,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				continue;
 			}
 
-			$arrRelations = t3lib_div::trimExplode(',', $arrUpdate[$fieldName]);
+			$arrRelations = GeneralUtility::trimExplode(',', $arrUpdate[$fieldName]);
 
 			$arrUpdate[$fieldName] = count($arrRelations);
 
@@ -1369,7 +1373,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				);
 
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['showOutputRedirect'] as $_funcRef) {
-				t3lib_div::callUserFunction($_funcRef, $_params, $this);
+				GeneralUtility::callUserFunction($_funcRef, $_params, $this);
 			}
 		}
 
@@ -1419,12 +1423,19 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$disapprovalParameters = array($this->prefixId => array($this->contentId => array(self::submitparameterKeyHash => md5('disapproval' . $userId . $row['tstamp'] . $this->extConf['encryptionKey']))));
 
 		// Fuegt die hidden Params mit den Approvalcheck Parametern zusammen.
-		$approvalParameters = array_merge($this->getHiddenParamsArray(), t3lib_div::array_merge_recursive_overrule($urlParameters, $approvalParameters));
-		$disapprovalParameters = array_merge($this->getHiddenParamsArray(), t3lib_div::array_merge_recursive_overrule($urlParameters, $disapprovalParameters));
+		$tmpParameters = $this->getHiddenParamsArray();
+
+		ArrayUtility::mergeRecursiveWithOverrule($tmpParameters, $urlParameters);
+
+		$tmpApprovalParameters = $tmpParameters;
+		$tmpDisapprovalParameters = $tmpParameters;
+
+		ArrayUtility::mergeRecursiveWithOverrule($tmpApprovalParameters, $approvalParameters);
+		ArrayUtility::mergeRecursiveWithOverrule($tmpDisapprovalParameters, $disapprovalParameters);
 
 		$extraMarkers = array(
-			'approvallink' => t3lib_div::locationHeaderUrl(tx_datamintsfeuser_utils::escapeBrackets($this->pi_getPageLink($GLOBALS['TSFE']->id, '', $approvalParameters))),
-			'disapprovallink' => t3lib_div::locationHeaderUrl(tx_datamintsfeuser_utils::escapeBrackets($this->pi_getPageLink($GLOBALS['TSFE']->id, '', $disapprovalParameters)))
+			'approvallink' => GeneralUtility::locationHeaderUrl(tx_datamintsfeuser_utils::escapeBrackets($this->pi_getPageLink($GLOBALS['TSFE']->id, '', $tmpApprovalParameters))),
+			'disapprovallink' => GeneralUtility::locationHeaderUrl(tx_datamintsfeuser_utils::escapeBrackets($this->pi_getPageLink($GLOBALS['TSFE']->id, '', $tmpDisapprovalParameters)))
 		);
 
 		// E-Mail senden.
@@ -1527,7 +1538,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 	 */
 	public function getApprovalTypes() {
 		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => Beim Exploden kommt dann ein leeres Arrayelement heraus, das nach dem entfernen einen leeren Platz uebrig lassen wuerde.
-		return array_unique(array_values(t3lib_div::trimExplode(',', $this->getConfigurationByShowtype('approvalcheck'), TRUE)));
+		return array_unique(array_values(GeneralUtility::trimExplode(',', $this->getConfigurationByShowtype('approvalcheck'), TRUE)));
 	}
 
 	/**
@@ -1554,7 +1565,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		// Nicht aktivierte User ueber den Cookie ermitteln, und vor Missbrauch schuetzen.
 		if (!$arrNotActivated) {
-			$arrNotActivated = array_unique(array_map('intval', t3lib_div::trimExplode(',', $_COOKIE[$this->prefixId]['not_activated'], TRUE)));
+			$arrNotActivated = array_unique(array_map('intval', GeneralUtility::trimExplode(',', $_COOKIE[$this->prefixId]['not_activated'], TRUE)));
 		}
 
 		// Wenn nach dem reinigen noch User uebrig bleiben.
@@ -1591,8 +1602,8 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		$arrSpecialMarkers = array(
-			'siteurl' => t3lib_div::getIndpEnv('TYPO3_SITE_URL'),
-			'requesturl' => t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')
+			'siteurl' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
+			'requesturl' => GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL')
 		);
 
 		$markerArray = array_merge($arrSpecialMarkers, (array)$config, (array)$row, (array)$extraMarkers);
@@ -1661,7 +1672,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				);
 
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey]['sendMail'] as $_funcRef) {
-				t3lib_div::callUserFunction($_funcRef, $_params, $this);
+				GeneralUtility::callUserFunction($_funcRef, $_params, $this);
 			}
 		}
 
@@ -1675,34 +1686,18 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				$bodyPlain = tx_datamintsfeuser_utils::convertHtmlEmailToPlain($bodyHtml);
 			}
 
-			if (t3lib_div::compat_version('4.5')) {
-				$mail = t3lib_div::makeInstance('t3lib_mail_Message');
-				$mail->setSubject($subject);
-				$mail->setFrom(array($fromEmail => $fromName));
-				$mail->setTo(array($toEmail => $toName));
-				$mail->setBody($bodyPlain);
-				$mail->setCharset($GLOBALS['TSFE']->metaCharset);
+			$mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+			$mail->setSubject($subject);
+			$mail->setFrom(array($fromEmail => $fromName));
+			$mail->setTo(array($toEmail => $toName));
+			$mail->setBody($bodyPlain);
+			$mail->setCharset($GLOBALS['TSFE']->metaCharset);
 
-				if ($config['mailtype'] == 'html') {
-					$mail->addPart($bodyHtml, 'text/html', $GLOBALS['TSFE']->metaCharset);
-				}
-
-				$mail->send();
-			} else {
-				$mail = t3lib_div::makeInstance('t3lib_htmlmail');
-				$mail->start();
-				$mail->subject = $subject;
-				$mail->from_email = $fromEmail;
-				$mail->from_name = $fromName;
-				$mail->addPlain($bodyPlain);
-				$mail->charset = $GLOBALS['TSFE']->metaCharset;
-
-				if ($config['mailtype'] == 'html') {
-					$mail->setHTML($mail->encodeMsg($bodyHtml));
-				}
-
-				$mail->send($toEmail);
+			if ($config['mailtype'] == 'html') {
+				$mail->addPart($bodyHtml, 'text/html', $GLOBALS['TSFE']->metaCharset);
 			}
+
+			$mail->send();
 		}
 	}
 
@@ -1763,7 +1758,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				switch ($fieldConfig['type']) {
 
 					case 'input':
-						$arrFieldConfigEval = t3lib_div::trimExplode(',', $fieldConfig['eval'], TRUE);
+						$arrFieldConfigEval = GeneralUtility::trimExplode(',', $fieldConfig['eval'], TRUE);
 
 						// Datumsfeld und Datumzeitfeld.
 						if (in_array('date', $arrFieldConfigEval) || in_array('datetime', $arrFieldConfigEval)) {
@@ -1826,7 +1821,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 						$value = array();
 
 						if (!is_array($rawValue)) {
-							$rawValue = t3lib_div::trimExplode(',', $rawValue, TRUE);
+							$rawValue = GeneralUtility::trimExplode(',', $rawValue, TRUE);
 						}
 
 						if (is_array($fieldConfig['items'])) {
@@ -1867,7 +1862,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 							$value = array();
 
 							$arrItems = array();
-							$arrAllowed = t3lib_div::trimExplode(',', $fieldConfig['allowed'], TRUE);
+							$arrAllowed = GeneralUtility::trimExplode(',', $fieldConfig['allowed'], TRUE);
 
 							foreach ($arrAllowed as $table) {
 								if (!$GLOBALS['TCA'][$table]) {
@@ -2211,7 +2206,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 
 			if ($fieldConfig['type'] == 'select') {
-				$arrForeignTables = t3lib_div::trimExplode(',', $fieldConfig['foreign_table'], TRUE);
+				$arrForeignTables = GeneralUtility::trimExplode(',', $fieldConfig['foreign_table'], TRUE);
 
 				// Falls kein AND, OR, GROUP BY, ORDER BY oder LIMIT am Anfang des where steht, ein AND voranstellen!
 				$options = strtolower(substr(trim($fieldConfig['foreign_table_where']), 0, 3));
@@ -2219,7 +2214,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			}
 
 			if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db') {
-				$arrForeignTables = t3lib_div::trimExplode(',', $fieldConfig['allowed'], TRUE);
+				$arrForeignTables = GeneralUtility::trimExplode(',', $fieldConfig['allowed'], TRUE);
 			}
 
 			foreach ($arrForeignTables as $foreignTable) {
@@ -2253,7 +2248,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$content = '';
 		$additionalAttributes = '';
 
-		$arrFieldConfigEval = t3lib_div::trimExplode(',', $fieldConfig['eval'], TRUE);
+		$arrFieldConfigEval = GeneralUtility::trimExplode(',', $fieldConfig['eval'], TRUE);
 
 		// Datumsfeld und Datumzeitfeld.
 		if (in_array('date', $arrFieldConfigEval) || in_array('datetime', $arrFieldConfigEval)) {
@@ -2418,7 +2413,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// ToDo: Logik von Anzeige trennen!
 		// Moeglichkeit das der gespeicherte Wert eine kommseparierte Liste ist, daher aufsplitten in ein Array, wie es auch von einem abgesendeten Formular kommen wuerde.
 		if (!is_array($arrCurrentData[$fieldName])) {
-			$arrCurrentData[$fieldName] = t3lib_div::trimExplode(',', $arrCurrentData[$fieldName], TRUE);
+			$arrCurrentData[$fieldName] = GeneralUtility::trimExplode(',', $arrCurrentData[$fieldName], TRUE);
 		}
 
 		// Beim Typ Select gibt es zwei verschidene Rendermodi. Dieser kann "singlebox" (dann ist es eine Selectbox) oder "checkbox" (dann ist es eine Checkboxliste) sein.
@@ -2518,7 +2513,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 			$uploadFolder = tx_datamintsfeuser_utils::fixPath($fieldConfig['uploadfolder']);
 
 			// ToDo: Logik von Anzeige trennen!
-			$arrCurrentFieldData = t3lib_div::trimExplode(',', $arrCurrentData[$fieldName], TRUE);
+			$arrCurrentFieldData = GeneralUtility::trimExplode(',', $arrCurrentData[$fieldName], TRUE);
 
 			$content .= '<div class="list">';
 
@@ -2575,7 +2570,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		// Hier werden absichtlich nur die Erlaubten Tabellen benutzt, da es sonst unmengen an möglichen Optionen geben wuerde!
 		if ($fieldConfig['internal_type'] == 'db') {
 			$arrItems = array();
-			$arrAllowed = t3lib_div::trimExplode(',', $fieldConfig['allowed'], TRUE);
+			$arrAllowed = GeneralUtility::trimExplode(',', $fieldConfig['allowed'], TRUE);
 
 			foreach ($arrAllowed as $table) {
 				if (!$GLOBALS['TCA'][$table]) {
@@ -2601,7 +2596,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				// ToDo: Logik von Anzeige trennen!
 				// Ist der gespeicherte Wert eine kommseparierte Liste, dann in ein Array aufsplitten, wie es auch von einem abgesendeten Formular kommen wuerde.
 				if (!is_array($arrCurrentData[$fieldName])) {
-					$arrCurrentData[$fieldName] = t3lib_div::trimExplode(',', $arrCurrentData[$fieldName], TRUE);
+					$arrCurrentData[$fieldName] = GeneralUtility::trimExplode(',', $arrCurrentData[$fieldName], TRUE);
 				}
 
 				$checked = (array_intersect(array($key, substr($key, strripos($key, '_') + 1)), $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
@@ -2633,21 +2628,21 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$captcha = '';
 //		$showInput = TRUE;
 
-		if (!t3lib_extMgm::isLoaded($this->conf['captcha.']['use'])) {
+		if (!ExtensionManagementUtility::isLoaded($this->conf['captcha.']['use'])) {
 			return $content;
 		}
 
 		switch ($this->conf['captcha.']['use']) {
 
 			case 'captcha':
-				$captcha = '<img src="' . tx_datamintsfeuser_utils::getTypoLinkUrl(t3lib_extMgm::siteRelPath($this->conf['captcha.']['use']) . 'captcha/captcha.php') . '" alt="Captcha" />';
+				$captcha = '<img src="' . tx_datamintsfeuser_utils::getTypoLinkUrl(ExtensionManagementUtility::siteRelPath($this->conf['captcha.']['use']) . 'captcha/captcha.php') . '" alt="Captcha" />';
 
 				break;
 
 			case 'sr_freecap':
-				require_once(t3lib_extMgm::extPath($this->conf['captcha.']['use']) . 'pi2/class.tx_srfreecap_pi2.php');
+				require_once(ExtensionManagementUtility::extPath($this->conf['captcha.']['use']) . 'pi2/class.tx_srfreecap_pi2.php');
 
-				$freecap = t3lib_div::makeInstance('tx_srfreecap_pi2');
+				$freecap = GeneralUtility::makeInstance('tx_srfreecap_pi2');
 				$arrFreecap = $freecap->makeCaptcha();
 
 				$captcha = $arrFreecap['###SR_FREECAP_IMAGE###'];
@@ -2655,9 +2650,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 				break;
 
 //			case 'jm_recaptcha':
-//				require_once(t3lib_extMgm::extPath($this->conf['captcha.']['use']) . 'class.tx_jmrecaptcha.php');
+//				require_once(ExtensionManagementUtility::extPath($this->conf['captcha.']['use']) . 'class.tx_jmrecaptcha.php');
 //
-//				$recaptcha = t3lib_div::makeInstance('tx_jmrecaptcha');
+//				$recaptcha = GeneralUtility::makeInstance('tx_jmrecaptcha');
 //
 //				$captcha = $recaptcha->getReCaptcha();
 //
@@ -2666,9 +2661,9 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 //				break;
 
 			case 'wt_calculating_captcha':
-				require_once(t3lib_extMgm::extPath($this->conf['captcha.']['use']) . 'class.tx_wtcalculatingcaptcha.php');
+				require_once(ExtensionManagementUtility::extPath($this->conf['captcha.']['use']) . 'class.tx_wtcalculatingcaptcha.php');
 
-				$calculatingcaptcha = t3lib_div::makeInstance('tx_wtcalculatingcaptcha');
+				$calculatingcaptcha = GeneralUtility::makeInstance('tx_wtcalculatingcaptcha');
 
 				$captcha = $calculatingcaptcha->generateCaptcha();
 
@@ -2782,7 +2777,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Label aus der Konfiguration holen basierend auf dem languageKey.
-		$label = $this->pi_getLL(str_replace('.', '-', array_pop(t3lib_div::trimExplode(':', $languageString, TRUE))));
+		$label = $this->pi_getLL(str_replace('.', '-', array_pop(GeneralUtility::trimExplode(':', $languageString, TRUE))));
 
 		// Das Label zurueckliefern, falls vorhanden.
 		if ($label) {
@@ -2894,7 +2889,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		$arrParams = array();
 
 		foreach ($this->arrHiddenParams as $paramName) {
-			$arrParamNameParts = t3lib_div::trimExplode('|', $paramName, TRUE);
+			$arrParamNameParts = GeneralUtility::trimExplode('|', $paramName, TRUE);
 
 			$this->getParamArrayFromParamNameParts($arrParamNameParts, $_REQUEST, $arrParams);
 		}
@@ -2912,7 +2907,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 		foreach ($this->arrHiddenParams as $paramName) {
 			$arrParams = array();
-			$arrParamNameParts = t3lib_div::trimExplode('|', $paramName, TRUE);
+			$arrParamNameParts = GeneralUtility::trimExplode('|', $paramName, TRUE);
 
 			$this->getParamArrayFromParamNameParts($arrParamNameParts, $_REQUEST, $arrParams);
 
@@ -2927,7 +2922,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 				// Wenn der letzte Pfad-Teil erreicht ist, das Hidden Field ausgeben.
 				if (!$arrParamNameParts) {
-					$arrParamNameParts = t3lib_div::trimExplode('|', $paramName, TRUE);
+					$arrParamNameParts = GeneralUtility::trimExplode('|', $paramName, TRUE);
 
 					$hiddenFieldName = array_shift($arrParamNameParts);
 
@@ -3029,10 +3024,10 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 		}
 
 		// Konfigurationen, die an mehreren Stellen benoetigt werden, in globales Array schreiben.
-		$this->arrUsedFields = t3lib_div::trimExplode(',', $this->conf['usedfields'], TRUE);
-		$this->arrUniqueFields = array_unique(t3lib_div::trimExplode(',', $this->conf['uniquefields'], TRUE));
-		$this->arrRequiredFields = array_unique(t3lib_div::trimExplode(',', $this->conf['requiredfields'], TRUE));
-		$this->arrHiddenParams = array_unique(t3lib_div::trimExplode(',', $this->conf['hiddenparams'], TRUE));
+		$this->arrUsedFields = GeneralUtility::trimExplode(',', $this->conf['usedfields'], TRUE);
+		$this->arrUniqueFields = array_unique(GeneralUtility::trimExplode(',', $this->conf['uniquefields'], TRUE));
+		$this->arrRequiredFields = array_unique(GeneralUtility::trimExplode(',', $this->conf['requiredfields'], TRUE));
+		$this->arrHiddenParams = array_unique(GeneralUtility::trimExplode(',', $this->conf['hiddenparams'], TRUE));
 
 		// Konfigurationen die immer gelten setzten (Feldnamen sind fuer konfigurierte Felder und fuer input Felder).
 		$this->arrRequiredFields[] = tx_datamintsfeuser_utils::getSpecialFieldKey(self::specialfieldKeyCaptcha);
@@ -3253,7 +3248,7 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 
 			// Die Anzahl der Felder die ausgegeben wurden, wird beim Typ DB ueber einen Count auf die erlaubten Tabellen ermittelt.
 			if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db') {
-				$arrAllowed = t3lib_div::trimExplode(',', $fieldConfig['allowed'], TRUE);
+				$arrAllowed = GeneralUtility::trimExplode(',', $fieldConfig['allowed'], TRUE);
 
 				foreach ($arrAllowed as $table) {
 					if (!$GLOBALS['TCA'][$table]) {
@@ -3343,5 +3338,3 @@ class tx_datamintsfeuser_pi1 extends tslib_pibase {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/pi1/class.tx_datamintsfeuser_pi1.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/pi1/class.tx_datamintsfeuser_pi1.php']);
 }
-
-?>

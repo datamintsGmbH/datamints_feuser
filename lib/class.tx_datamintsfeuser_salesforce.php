@@ -23,6 +23,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  *
  * [CLASS/FUNCTION INDEX of SCRIPT]
@@ -79,6 +81,7 @@ class tx_datamintsfeuser_salesforce {
 
 		$mappingFields = self::getMappingFields($pObj->conf['salesforce.']['mapping.'], $params['variables']['markerArray']);
 
+
 		$resource = curl_init();
 
 		curl_setopt_array($resource, array(
@@ -105,7 +108,7 @@ class tx_datamintsfeuser_salesforce {
 	public function getMappingFields($mappings, $variables) {
 		$fields = array();
 
-		$cObj = t3lib_div::makeInstance('tslib_cObj');
+		$cObj = GeneralUtility::makeInstance('tslib_cObj');
 		$cObj->data = $variables;
 
 		foreach ($mappings as $field => $stdWrapConfig) {
@@ -120,5 +123,3 @@ class tx_datamintsfeuser_salesforce {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_salesforce.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/datamints_feuser/lib/class.tx_datamintsfeuser_salesforce.php']);
 }
-
-?>
