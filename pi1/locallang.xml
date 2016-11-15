@@ -36,6 +36,7 @@
 			<label index="image_error_type">The uploaded file is not an image!</label>
 			<label index="image_error_upload">The image could not be uploaded!</label>
 			<label index="image_error_delete">The image could not be deleted!</label>
+			<label index="gender_error_required">You must provide your gender!</label>
 			<label index="check_yes">Yes</label>
 			<label index="check_no">No</label>
 			<label index="userdelete">Delete Current User?</label>
@@ -110,6 +111,7 @@
 			<label index="image_error_type">Die Hochgeladene Datei ist kein Bild!</label>
 			<label index="image_error_upload">Das Bild konnte nicht hochgeladen werden!</label>
 			<label index="image_error_delete">Das Bild konnte nicht gelöscht werden!</label>
+			<label index="gender_error_required">Es muss ein Geschlecht angegeben werden!</label>
 			<label index="check_yes">Ja</label>
 			<label index="check_no">Nein</label>
 			<label index="userdelete">Aktuellen Benutzer löschen?</label>
