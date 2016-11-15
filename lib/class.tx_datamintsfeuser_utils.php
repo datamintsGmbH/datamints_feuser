@@ -81,7 +81,9 @@ class tx_datamintsfeuser_utils {
 
 		if ($feUsersTca) {
 			$columns = (array)$globalFeUsersTca['columns'];
+
 			ArrayUtility::mergeRecursiveWithOverrule($columns, (array)GeneralUtility::removeDotsFromTS($feUsersTca));
+
 			$globalFeUsersTca['columns'] = $columns;
 		}
 
