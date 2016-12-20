@@ -1261,10 +1261,20 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 			$arrUpdate[$fieldName] = count($arrRelations);
 
-			$arrInserts[$fieldConfig['MM']] = array();
+			$arrInserts[$fieldConfig['MM']] = array_merge(($fieldConfig['MM_match_fields'] && $fieldConfig['MM_match_fields']['tablenames'] == 'fe_users') ? array(
+				'user_field' => 'uid_foreign',
+				'record_field' => 'uid_local'
+			) : array(
+				'user_field' => 'uid_local',
+				'record_field' => 'uid_foreign'
+			), array(
+				'records' => array(),
+				'match_fields' => (array)$fieldConfig['MM_match_fields'],
+				'insert_fields' => (array)$fieldConfig['MM_insert_fields']
+			));
 
 			foreach($arrRelations as $relation) {
-				$arrInserts[$fieldConfig['MM']][] = intval(($dividerPosition = strripos($relation, '_')) ? substr($relation, $dividerPosition + 1) : $relation);
+				$arrInserts[$fieldConfig['MM']]['records'][] = intval(($dividerPosition = strripos($relation, '_')) ? substr($relation, $dividerPosition + 1) : $relation);
 			}
 		}
 
@@ -1279,26 +1289,36 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 	 * @return	void
 	 */
 	public function insertRelationInserts($userId, $arrInserts = array()) {
-		foreach ($arrInserts as $foreignTable => $arrRelations) {
+		$userId = intval($userId);
+
+		foreach ($arrInserts as $foreignTable => $arrInsert) {
 			$rows = array();
 
 			$sorting = 1;
 
-			foreach ($arrRelations as $relation) {
-				if (intval($relation) <= 0) {
+			foreach ($arrInsert['records'] as $recordId) {
+				$recordId = intval($recordId);
+
+				if ($recordId <= 0) {
 					continue;
 				}
 
-				$rows[] = array(
+				$rows[] = array_merge($arrInsert['match_fields'], $arrInsert['insert_fields'], array(
 					'sorting' => $sorting,
-					'uid_local' => intval($userId),
-					'uid_foreign' => intval($relation)
-				);
+					$arrInsert['user_field'] => $userId,
+					$arrInsert['record_field'] => $recordId
+				));
 
 				$sorting++;
 			}
 
-			$GLOBALS['TYPO3_DB']->exec_DELETEquery($foreignTable, 'uid_local = ' . intval($userId));
+			$where = $arrInsert['user_field'] . ' = ' . $userId;
+
+			foreach($arrInsert['match_fields'] as $field => $value) {
+				$where .= ' AND ' . $field . ' = "' . $value . '"';
+			}
+
+			$GLOBALS['TYPO3_DB']->exec_DELETEquery($foreignTable, $where);
 
 			if (count($rows) > 0) {
 				$GLOBALS['TYPO3_DB']->exec_INSERTmultipleRows($foreignTable, array_keys($rows[0]), $rows);
@@ -2194,35 +2214,55 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 				continue;
 			}
 
-			$where = '';
-			$options = '';
 			$mmTable = $fieldConfig['MM'];
 
-			$arrCurrentData[$fieldName] = array();
+			$where = '';
+			$mmWhere = '';
+			$foreignWhere = '';
+
+			foreach ($fieldConfig['MM_match_fields'] as $field => $value) {
+				$where .= ' AND ' . $mmTable . '.' . $field . ' = "' . $value . '"';
+			}
 
 			// Beim Bearbeiten, nur die eigenen Datensaetze anzeigen.
 			if ($this->conf['showtype'] == self::showtypeKeyEdit) {
 				$where .= ' AND fe_users.uid = ' . intval($userId);
 			}
 
+			// Falls kein AND, OR, GROUP BY, ORDER BY oder LIMIT am Anfang des where steht, ein AND voranstellen!
+			$options = strtolower(substr(trim($fieldConfig['MM_table_where']), 0, 3));
+
+			$mmWhere .= ' ' . trim((!$options || $options == 'and' || $options == 'or ' || $options == 'gro' || $options == 'ord' || $options == 'lim') ? $fieldConfig['MM_table_where'] : 'AND ' . $fieldConfig['MM_table_where']);
+
 			if ($fieldConfig['type'] == 'select') {
 				$arrForeignTables = GeneralUtility::trimExplode(',', $fieldConfig['foreign_table'], TRUE);
 
 				// Falls kein AND, OR, GROUP BY, ORDER BY oder LIMIT am Anfang des where steht, ein AND voranstellen!
 				$options = strtolower(substr(trim($fieldConfig['foreign_table_where']), 0, 3));
-				$options = ' ' . trim((!$options || $options == 'and' || $options == 'or ' || $options == 'gro' || $options == 'ord' || $options == 'lim') ? $fieldConfig['foreign_table_where'] : 'AND ' . $fieldConfig['foreign_table_where']);
+
+				$foreignWhere .= ' ' . trim((!$options || $options == 'and' || $options == 'or ' || $options == 'gro' || $options == 'ord' || $options == 'lim') ? $fieldConfig['foreign_table_where'] : 'AND ' . $fieldConfig['foreign_table_where']);
 			}
 
 			if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'db') {
 				$arrForeignTables = GeneralUtility::trimExplode(',', $fieldConfig['allowed'], TRUE);
 			}
 
+			$arrCurrentData[$fieldName] = array();
+
 			foreach ($arrForeignTables as $foreignTable) {
 				if (!$GLOBALS['TCA'][$foreignTable]) {
 					continue;
 				}
 
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query($foreignTable . '.uid', 'fe_users', $mmTable, $foreignTable, $where . $this->cObj->enableFields($foreignTable) . $options);
+				$tables = ($fieldConfig['MM_match_fields'] && $fieldConfig['MM_match_fields']['tablenames'] == 'fe_users') ? array(
+					'local' => $foreignTable,
+					'foreign' => 'fe_users'
+				) : array(
+					'local' => 'fe_users',
+					'foreign' => $foreignTable
+				);
+
+				$res = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query($foreignTable . '.uid', $tables['local'], $mmTable, $tables['foreign'], $where . $this->cObj->enableFields($foreignTable) . $mmWhere . $foreignWhere);
 
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 					$arrCurrentData[$fieldName][] = $row['uid'];
