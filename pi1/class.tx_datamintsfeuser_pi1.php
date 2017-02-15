@@ -2025,7 +2025,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 		// Wenn eine Lgende fuer das erste Fieldset definiert wurde, diese ausgeben.
 		if ($this->conf['legends.'][$iFieldset]) {
-			$content .= '<legend>' . $this->conf['legends.'][$iFieldset] . '</legend>';
+			$content .= '<legend>' . tx_datamintsfeuser_utils::currentUserWrap($this->conf['legends.'][$iFieldset], $this->conf['legends.'][$iFieldset . '.']) . '</legend>';
 		}
 
 		// Alle ausgewaehlten Felder durchgehen.
