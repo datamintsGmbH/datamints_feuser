@@ -2220,13 +2220,10 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			$mmWhere = '';
 			$foreignWhere = '';
 
+			$where .= ' AND fe_users.uid = ' . intval($userId);
+
 			foreach ($fieldConfig['MM_match_fields'] as $field => $value) {
 				$where .= ' AND ' . $mmTable . '.' . $field . ' = "' . $value . '"';
-			}
-
-			// Beim Bearbeiten, nur die eigenen Datensaetze anzeigen.
-			if ($this->conf['showtype'] == self::showtypeKeyEdit) {
-				$where .= ' AND fe_users.uid = ' . intval($userId);
 			}
 
 			// Falls kein AND, OR, GROUP BY, ORDER BY oder LIMIT am Anfang des where steht, ein AND voranstellen!
