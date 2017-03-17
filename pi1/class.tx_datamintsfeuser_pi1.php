@@ -2222,7 +2222,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 			$where .= ' AND fe_users.uid = ' . intval($userId);
 
-			foreach ($fieldConfig['MM_match_fields'] as $field => $value) {
+			foreach ((array)$fieldConfig['MM_match_fields'] as $field => $value) {
 				$where .= ' AND ' . $mmTable . '.' . $field . ' = "' . $value . '"';
 			}
 
