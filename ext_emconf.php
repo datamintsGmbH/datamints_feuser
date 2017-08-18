@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "datamints_feuser".
  *
- * Auto generated 05-05-2017 14:41
+ * Auto generated 18-08-2017 10:02
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -14,21 +14,21 @@ $EM_CONF[$_EXTKEY] = array (
 	'title' => 'Frontend User Management',
 	'description' => 'User registration and edit plugin, fully configurable, custom validators, autologin, double-opt-in, admin approval, IRRE configuration, resend activation mail, redirect features, support for saltedpasswords, support for salesforce. More to come!',
 	'category' => 'plugin',
-	'version' => '0.11.5',
+	'version' => '0.11.6',
 	'state' => 'beta',
 	'author' => 'Bernhard Baumgartl, datamints GmbH',
 	'author_email' => 'b.baumgartl@datamints.com',
-	'constraints' =>
+	'constraints' => 
 	array (
-		'depends' =>
+		'depends' => 
 		array (
 			'php' => '5.3.7-7.99.99',
 			'typo3' => '6.2.0-8.99.99',
 		),
-		'conflicts' =>
+		'conflicts' => 
 		array (
 		),
-		'suggests' =>
+		'suggests' => 
 		array (
 		),
 	),
