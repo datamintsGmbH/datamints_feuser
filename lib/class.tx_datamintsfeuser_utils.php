@@ -97,12 +97,19 @@ class tx_datamintsfeuser_utils {
 	 * @return	integer		$storagePid
 	 */
 	public static function getStoragePageId($storagePageId) {
-		if (!$storagePageId) {
-			$arrayRootPids = $GLOBALS['TSFE']->getStorageSiterootPids();
-			$storagePageId = $arrayRootPids['_STORAGE_PID'];
+		if ($storagePageId) {
+			return intval($storagePageId);
 		}
 
-		return intval($storagePageId);
+		foreach ((array)$GLOBALS['TSFE']->rootLine as $page) {
+			$storagePageId = intval($page['storage_pid']);
+
+			if ($storagePageId) {
+				return $storagePageId;
+			}
+		}
+
+		return 0;
 	}
 
 	/**
