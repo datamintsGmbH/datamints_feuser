@@ -5,13 +5,13 @@ if (!defined('TYPO3_MODE')) {
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
     'datamints_feuser',
-    'pi1/static/',
+    'Configuration/TypoScript/',
     'Frontend User Management'
 );
 
 // Salesforce
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
     'datamints_feuser',
-    'static/salesforce/',
+    'Configuration/TypoScript/Salesforce/',
     'Frontend User Management (Salesforce)'
 );
