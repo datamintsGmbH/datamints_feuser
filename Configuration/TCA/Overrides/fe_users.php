@@ -34,4 +34,4 @@ $tempColumns = array (
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $tempColumns);
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'gender', '', 'before:name');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', '--div--; LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.list_type_pi1, tx_datamintsfeuser_approval_level');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', '--div--;LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.list_type_pi1, tx_datamintsfeuser_approval_level');
