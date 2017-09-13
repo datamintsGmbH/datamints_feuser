@@ -26,19 +26,6 @@
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- *
- * [CLASS/FUNCTION INDEX of SCRIPT]
- *
- *
- *   46: class tx_datamintsfeuser_flexform
- *   54:     public function getFieldNames($config)
- *
- *
- * TOTAL FUNCTIONS: 1
- *
- */
-
-/**
  * Class 'tx_datamintsfeuser_flexform' which gets all field names from the "fe_users".
  *
  * @author	Bernhard baumgartl <b.baumgartl@datamints.com>

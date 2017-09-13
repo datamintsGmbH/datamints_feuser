@@ -26,19 +26,6 @@
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
- *
- * [CLASS/FUNCTION INDEX of SCRIPT]
- *
- *
- *   46: class tx_datamintsfeuser_pi1_wizicon
- *   54:     public function proc($wizardItems)
- *
- *
- * TOTAL FUNCTIONS: 1
- *
- */
-
-/**
  * Class that adds the wizard icon.
  *
  * @author	Bernhard baumgartl <b.baumgartl@datamints.com>

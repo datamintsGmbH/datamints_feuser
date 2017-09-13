@@ -26,20 +26,6 @@
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- *
- * [CLASS/FUNCTION INDEX of SCRIPT]
- *
- *
- *   47: class tx_datamintsfeuser_salesforce
- *   59:     public function main($params, $pObj)
- *  105:     public function getMappingFields($mappings, $variables)
- *
- *
- * TOTAL FUNCTIONS: 2
- *
- */
-
-/**
  * Library 'Salesforce' for the 'datamints_feuser' extension.
  *
  * @author	Bernhard Baumgartl <b.baumgartl@datamints.com>

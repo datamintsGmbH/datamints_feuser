@@ -29,39 +29,6 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Saltedpasswords\Utility\SaltedPasswordsUtility;
 
 /**
- *
- * [CLASS/FUNCTION INDEX of SCRIPT]
- *
- *
- *   66: class tx_datamintsfeuser_utils
- *   74:     public static function getFeUsersTca($feUsersTca)
- *   91:     public static function getStoragePageId($storagePageId)
- *  107:     public static function getTypoLinkUrl($params, $urlParameters = array())
- *  121:     public static function currentUserWrap($content, $stdWrap)
- *  135:     public static function fixPath($path)
- *  147:     public static function htmlspecialcharsPostArray(&$arrPost, $decode)
- *  178:     public static function shiftEmptyArrayValuePostArray(&$arrPost)
- *  197:     public static function generatePassword($password, $arrGenerate = array())
- *  261:     public static function checkPassword($submittedPassword, $originalPassword)
- *  321:     public static function userAutoLogin($userId, $pageId = 0, $urlParameters = array())
- *  341:     public static function userRedirect($pageId = 0, $urlParameters = array(), $disableAccessCheck = FALSE)
- *  366:     public static function escapeBrackets($url)
- *  378:     public static function getSpecialFieldKey($fieldName)
- *  388:     public static function getSpecialFieldName($fieldName)
- *  402:     public static function convertHtmlEmailToPlain($content)
- *  443:     public static function getTemplateSubpart($templateFile, $templatePart, $markerArray = array())
- *  466:     public static function getFlexformConfigurationFromTab($flexData, $sTab, $conf = array())
- *  512:     public static function setFlexformConfigurationValue($key, $value, $conf)
- *  542:     public static function trimCallback(&$string)
- *  552:     public static function stripTagsCallback(&$string)
- *  562:     public static function checkUtf8($str)
- *
- *
- * TOTAL FUNCTIONS: 21
- *
- */
-
-/**
  * Library 'Utils' for the 'datamints_feuser' extension.
  *
  * @author	Bernhard Baumgartl <b.baumgartl@datamints.com>
