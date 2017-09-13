@@ -91,6 +91,20 @@ class tx_datamintsfeuser_utils {
 	}
 
 	/**
+	 * Ermittelt das Language Field einer Tabelle.
+	 *
+	 * @param	string		$table
+	 * @return	string
+	 */
+	public static function getLanguageFieldName($table) {
+		if (array_key_exists($table, $GLOBALS['TCA']) && array_key_exists('languageField', $GLOBALS['TCA'][$table]['ctrl'])) {
+			return $GLOBALS['TCA'][$table]['ctrl']['languageField'];
+		}
+
+		return '';
+	}
+
+	/**
 	 * Ermittelt die General Record Storage Pid, falls keine Pid uebergeben wurde.
 	 *
 	 * @param	integer		$storagePageId

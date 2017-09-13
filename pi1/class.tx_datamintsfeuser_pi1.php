@@ -2481,9 +2481,10 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			$table = $fieldConfig['foreign_table'];
 
 			$labelFieldName = $this->getTableLabelFieldName($table);
+			$languageFieldName = tx_datamintsfeuser_utils::getLanguageFieldName($table);
 
 			// Select-Items aus DB holen.
-			$select = 'uid, pid, sys_language_uid, ' . $labelFieldName;
+			$select = implode(', ', array_filter(array('uid', 'pid', $languageFieldName, $labelFieldName)));
 
 			// Falls kein AND, OR, GROUP BY, ORDER BY oder LIMIT am Anfang des where steht, ein AND voranstellen!
 			$options = strtolower(substr(trim($fieldConfig['foreign_table_where']), 0, 3));
@@ -2495,7 +2496,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 				// Übersetzung ermitteln.
-				if ($GLOBALS['TSFE']->sys_language_contentOL && $row['sys_language_uid'] != $GLOBALS['TSFE']->sys_language_content) {
+				if ($GLOBALS['TSFE']->sys_language_contentOL && $languageFieldName && $row[$languageFieldName] != $GLOBALS['TSFE']->sys_language_content) {
 					$row = $GLOBALS['TSFE']->sys_page->getRecordOverlay($table, $row, $GLOBALS['TSFE']->sys_language_content, $GLOBALS['TSFE']->sys_language_contentOL);
 				}
 
