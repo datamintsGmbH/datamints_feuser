@@ -248,39 +248,6 @@ class tx_datamintsfeuser_utils {
 			}
 		}
 
-		// Wenn "md5passwords" installiert ist wird wenn aktiviert, das Password ueberprueft.
-		else if (ExtensionManagementUtility::isLoaded('md5passwords')) {
-			$arrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['md5passwords']);
-
-			if ($arrConf['activate']) {
-				if (md5($submittedPassword) == $originalPassword) {
-					$check = TRUE;
-				}
-			}
-		}
-
-		// Wenn "t3sec_saltedpw" installiert ist wird wenn aktiviert, das Password ueberprueft.
-		else if (ExtensionManagementUtility::isLoaded('t3sec_saltedpw')) {
-			require_once ExtensionManagementUtility::extPath('t3sec_saltedpw') . 'res/staticlib/class.tx_t3secsaltedpw_div.php';
-
-			if (tx_t3secsaltedpw_div::isUsageEnabled()) {
-				require_once ExtensionManagementUtility::extPath('t3sec_saltedpw') . 'res/lib/class.tx_t3secsaltedpw_phpass.php';
-
-				$tx_t3secsaltedpw_phpass = GeneralUtility::makeInstance('tx_t3secsaltedpw_phpass');
-
-				if ($tx_t3secsaltedpw_phpass->checkPassword($submittedPassword, $originalPassword)) {
-					$check = TRUE;
-				}
-			}
-		}
-
-		// Wenn keine der oberen Extensions installiert ist (also keine Verschluesselung).
-		else {
-			if ($submittedPassword == $originalPassword) {
-				$check = TRUE;
-			}
-		}
-
 		return $check;
 	}
 
