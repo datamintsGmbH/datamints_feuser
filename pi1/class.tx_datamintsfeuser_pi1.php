@@ -1572,6 +1572,15 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		// Absender vorbereiten.
 		$fromName = $config['sendername'];
 		$fromEmail = $config['sendermail'];
+		$replytoName = $config['replytoname'];
+		$replytoEmail = $config['replytomail'];
+
+		if (empty($config['replytoname'])) {
+			$replytoName = $fromName;
+		}
+		if (empty($config['replytomail'])) {
+			$replytoEmail = $fromEmail;
+		}
 
 		// Wenn die Mail fuer den Admin bestimmt ist.
 		if ($adminMail) {
@@ -1620,7 +1629,9 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 							'toName' => &$toName,
 							'toEmail' => &$toEmail,
 							'fromName' => &$fromName,
-							'fromEmail' => &$fromEmail
+							'fromEmail' => &$fromEmail,
+							'replytoName' => &$replytoName,
+							'replytoEmail' => &$replytoEmail
 						)
 				);
 
@@ -1642,6 +1653,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			$mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
 			$mail->setSubject($subject);
 			$mail->setFrom(array($fromEmail => $fromName));
+			$mail->setReplyTo(array($replytoEmail => $replytoName));
 			$mail->setTo(array($toEmail => $toName));
 			$mail->setBody($bodyPlain);
 			$mail->setCharset($GLOBALS['TSFE']->metaCharset);
@@ -1649,7 +1661,6 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			if ($config['mailtype'] == 'html') {
 				$mail->addPart($bodyHtml, 'text/html', $GLOBALS['TSFE']->metaCharset);
 			}
-
 			$mail->send();
 		}
 	}
