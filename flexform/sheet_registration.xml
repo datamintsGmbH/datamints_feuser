@@ -194,6 +194,30 @@
 				</TCEforms>
 			</register.sendermail>
 
+			<register.replytoname>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.replytoname</label>
+					<config>
+						<type>input</type>
+						<size>10</size>
+						<max>256</max>
+						<eval>trim</eval>
+					</config>
+				</TCEforms>
+			</register.replytoname>
+
+			<register.replytomail>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.replytomail</label>
+					<config>
+						<type>input</type>
+						<size>10</size>
+						<max>256</max>
+						<eval>trim</eval>
+					</config>
+				</TCEforms>
+			</register.replytomail>
+
 			<register.adminname>
 				<TCEforms>
 					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.adminname</label>

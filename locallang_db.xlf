@@ -129,6 +129,12 @@
 			<trans-unit id="tt_content.pi_flexform.sendermail" xml:space="preserve">
 				<source>Sender E-Mail Address:</source>
 			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.replytoname" xml:space="preserve">
+				<source>Reply to Name:</source>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.replytomail" xml:space="preserve">
+				<source>Reply to E-Mail Address:</source>
+			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.adminname" xml:space="preserve">
 				<source>Admin Name:</source>
 			</trans-unit>

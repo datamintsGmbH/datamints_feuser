@@ -1573,6 +1573,9 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$fromName = $config['sendername'];
 		$fromEmail = $config['sendermail'];
 
+		$replytoName = empty($config['replytoname']) ? $fromName : $config['replytoname'];
+		$replytoEmail = empty($config['replytomail']) ? $fromEmail : $config['replytomail'];
+
 		// Wenn die Mail fuer den Admin bestimmt ist.
 		if ($adminMail) {
 			// Template laden.
@@ -1620,7 +1623,9 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 							'toName' => &$toName,
 							'toEmail' => &$toEmail,
 							'fromName' => &$fromName,
-							'fromEmail' => &$fromEmail
+							'fromEmail' => &$fromEmail,
+							'replytoName' => &$replytoName,
+							'replytoEmail' => &$replytoEmail
 						)
 				);
 
@@ -1642,6 +1647,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			$mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
 			$mail->setSubject($subject);
 			$mail->setFrom(array($fromEmail => $fromName));
+			$mail->setReplyTo(array($replytoEmail => $replytoName));
 			$mail->setTo(array($toEmail => $toName));
 			$mail->setBody($bodyPlain);
 			$mail->setCharset($GLOBALS['TSFE']->metaCharset);

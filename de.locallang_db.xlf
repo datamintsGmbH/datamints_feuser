@@ -171,6 +171,14 @@
 				<source>Sender E-Mail Address:</source>
 				<target>Absender E-Mail Adresse:</target>
 			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.replytoname" xml:space="preserve">
+				<source>Reply to Name:</source>
+				<target>Reply to Name:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.replytomail" xml:space="preserve">
+				<source>Reply to E-Mail Address:</source>
+				<target>Reply to E-Mail Addresse:</target>
+			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.adminname" xml:space="preserve" approved="yes">
 				<source>Admin Name:</source>
 				<target>Administrator Name:</target>
