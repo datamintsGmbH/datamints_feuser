@@ -56,6 +56,7 @@
 			<label index="tt_content.pi_flexform.register.approvalcheck.doubleoptin">Double Opt-in</label>
 			<label index="tt_content.pi_flexform.register.approvalcheck.adminapproval">Admin approval</label>
 			<label index="tt_content.pi_flexform.redirect.register_success">Redirect Site ID &quot;Registration&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.doubleoptin">Redirect Site ID &quot;Double Opt-in&quot; (fallback):</label>
 			<label index="tt_content.pi_flexform.redirect.doubleoptin_success">Redirect Site ID &quot;Double Opt-in - Activated&quot;:</label>
 			<label index="tt_content.pi_flexform.redirect.doubleoptin_deleted">Redirect Site ID &quot;Double Opt-in - Denied&quot;:</label>
 			<label index="tt_content.pi_flexform.redirect.adminapproval_success">Redirect Site ID &quot;Admin Approval - Activated&quot;:</label>
@@ -124,6 +125,7 @@
 			<label index="tt_content.pi_flexform.register.approvalcheck.doubleoptin">Double-Opt-In</label>
 			<label index="tt_content.pi_flexform.register.approvalcheck.adminapproval">Administratorgenehmigung</label>
 			<label index="tt_content.pi_flexform.redirect.register_success">Weiterleitungsseiten ID &quot;Registrierung&quot;:</label>
+			<label index="tt_content.pi_flexform.redirect.doubleoptin">Weiterleitungsseiten ID "Double-Opt-In&quot; (Plan B):</label>
 			<label index="tt_content.pi_flexform.redirect.doubleoptin_success">Weiterleitungsseiten ID &quot;Double-Opt-In - Aktiviert&quot;:</label>
 			<label index="tt_content.pi_flexform.redirect.doubleoptin_deleted">Weiterleitungsseiten ID &quot;Double-Opt-In - Verweigert&quot;:</label>
 			<label index="tt_content.pi_flexform.redirect.adminapproval_success">Weiterleitungsseiten ID &quot;Administratorgenehmigung - Aktiviert&quot;:</label>
