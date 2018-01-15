@@ -267,6 +267,11 @@ class tx_datamintsfeuser_utils {
 
 		$GLOBALS['TSFE']->fe_user->createUserSession($userRecord);
 
+		$reflection = new \ReflectionClass($GLOBALS['TSFE']->fe_user);
+		$setSessionCookieMethod = $reflection->getMethod('setSessionCookie');
+		$setSessionCookieMethod->setAccessible(TRUE);
+		$setSessionCookieMethod->invoke($GLOBALS['TSFE']->fe_user);
+
 		// Session erzwingen um einen FE Cookie zu bekommen (TYPO3 6.2.5+, see https://forge.typo3.org/issues/62194).
 		$GLOBALS['TSFE']->fe_user->setAndSaveSessionData('tx-datamintsfeuser-autologin', TRUE);
 
