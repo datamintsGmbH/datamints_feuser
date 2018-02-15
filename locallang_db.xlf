@@ -159,6 +159,9 @@
 			<trans-unit id="tt_content.pi_flexform.redirect.register_success" xml:space="preserve">
 				<source>Redirect Site ID &quot;Registration&quot;:</source>
 			</trans-unit>
+			<trans-unit id="tt_content.pi_flexform.redirect.doubleoptin" xml:space="preserve">
+				<source>Redirect Site ID &quot;Double Opt-in&quot; (fallback):</source>
+			</trans-unit>
 			<trans-unit id="tt_content.pi_flexform.redirect.doubleoptin_success" xml:space="preserve">
 				<source>Redirect Site ID &quot;Double Opt-in - Activated&quot;:</source>
 			</trans-unit>

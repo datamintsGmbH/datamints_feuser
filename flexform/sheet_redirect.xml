@@ -35,6 +35,34 @@
 				</TCEforms>
 			</redirect.register_success>
 
+			<redirect.doubleoptin>
+				<TCEforms>
+					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.doubleoptin</label>
+					<config>
+						<type>input</type>
+						<size>5</size>
+						<max>100</max>
+						<eval>int</eval>
+						<wizards type="array">
+							<_PADDING type="integer">2</_PADDING>
+							<link type="array">
+								<type>popup</type>
+								<title>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.doubleoptin</title>
+								<icon>link_popup.gif</icon>
+								<module type="array">
+									<name>wizard_element_browser</name>
+									<urlParameters type="array">
+										<mode>wizard</mode>
+										<act>file</act>
+									</urlParameters>
+								</module>
+								<JSopenParams>height=600,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+							</link>
+						</wizards>
+					</config>
+				</TCEforms>
+			</redirect.doubleoptin>
+
 			<redirect.doubleoptin_success>
 				<TCEforms>
 					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.redirect.doubleoptin_success</label>
