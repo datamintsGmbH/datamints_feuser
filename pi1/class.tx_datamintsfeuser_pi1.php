@@ -2511,7 +2511,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 				if ($fieldConfig['show_thumbs'] && $filename) {
 					$imgTSConfig = $this->conf['thumb.'];
 					$imgTSConfig['file'] = $uploadFolder . $filename;
-					$image = $this->cObj->IMAGE($imgTSConfig);
+					$image = $this->cObj->cObjGetSingle('IMAGE', $imgTSConfig);
 
 					if ($image) {
 						$content .= '<div class="thumb">' . $image . '</div>';
