@@ -1973,7 +1973,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			$disabledField = ($fieldConfig['readOnly']) ? ' disabled="disabled"' : '';
 
 			// Standardkonfigurationen laden.
-			if (!$arrCurrentData[$fieldName] && $fieldConfig['default']) {
+			if (!isset($arrCurrentData[$fieldName]) && $fieldConfig['default']) {
 				$arrCurrentData[$fieldName] = $fieldConfig['default'];
 			}
 
