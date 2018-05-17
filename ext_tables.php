@@ -27,8 +27,3 @@ if ($confArray['enableIrre']) {
 } else {
 	ExtensionManagementUtility::addPiFlexFormValue($_EXTKEY . '_pi1', 'FILE:EXT:' . $_EXTKEY . '/flexform/data_pi1.xml');
 }
-
-// Wenn gewünscht Salesforce verwenden.
-if ($confArray['enableSalesforce']) {
-	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['sendMail']['salesforce'] = 'EXT:' . $_EXTKEY . '/lib/class.tx_datamintsfeuser_salesforce.php:tx_datamintsfeuser_salesforce->main';
-}
