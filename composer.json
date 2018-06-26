@@ -2,19 +2,42 @@
     "name": "datamints/datamints_feuser",
     "type": "typo3-cms-extension",
     "description": "User registration and edit plugin, fully configurable, custom validators, autologin, double-opt-in, admin approval, IRRE configuration, resend activation mail, redirect features, support for saltedpasswords, support for salesforce. More to come!",
-    "license": "[GPL-2.0-or-later]",
+    "keywords": [
+        "feuser",
+        "Registration",
+        "edit",
+        "validators",
+        "autologin",
+        "double-opt-in",
+        "admin-approval",
+        "md5",
+        "salted",
+        "salesforce"
+    ],
+    "homepage": "https://extensions.typo3.org/extension/datamints_feuser/",
     "authors": [
         {
             "name": "Bernhard Baumgartl, datamints GmbH",
-            "email": "b.baumgartl@datamints.com"
+            "email": "b.baumgartl@datamints.com",
+            "role": "Developer",
+            "homepage": "https://www.datamints.com/"
         }
     ],
+    "license": "[GPL-2.0-or-later]",
+    "support": {
+        "issues": "http://forge.typo3.org/projects/extension-datamints_feuser"
+    },
     "require": {
-        "typo3/cms-core": ">=6.2.0,<9.0.0"
+        "php": ">=5.3.7,<=7.99.99",
+        "typo3/cms-core": ">=6.2.0,<=8.99.990"
     },
     "autoload": {
         "psr-4": {
-            "Datamints\\Feuser\\": "Classes/"
+            "Datamints\\Feuser\\": "Classes"
         }
+    },
+    "replace": {
+        "datamints_feuser": "self.version",
+        "typo3-ter/datamints_feuser": "self.version"
     }
 }
