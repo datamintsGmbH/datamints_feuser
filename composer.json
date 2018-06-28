@@ -39,6 +39,6 @@
     },
     "replace": {
         "datamints_feuser": "self.version",
-        "typo3-ter/datamints_feuser": "self.version"
+        "typo3-ter/datamints-feuser": "self.version"
     }
 }
