@@ -1,10 +1,10 @@
 {
-    "name": "datamints/datamints_feuser",
+    "name": "datamints/feuser",
     "type": "typo3-cms-extension",
     "description": "User registration and edit plugin, fully configurable, custom validators, autologin, double-opt-in, admin approval, IRRE configuration, resend activation mail, redirect features, support for saltedpasswords, support for salesforce. More to come!",
     "keywords": [
         "feuser",
-        "Registration",
+        "registration",
         "edit",
         "validators",
         "autologin",
