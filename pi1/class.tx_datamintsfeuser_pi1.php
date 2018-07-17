@@ -733,7 +733,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 	 * @return	boolean
 	 */
 	public function cleanCheckField(&$arrUpdate, $fieldName, $fieldConfig) {
-		$checkItemsCount = count($fieldConfig['items']);
+		$checkItemsCount = count((array)$fieldConfig['items']);
 
 		// Mehrere Checkboxen oder eine Checkbox.
 		if ($checkItemsCount > 1) {
@@ -1743,7 +1743,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 						break;
 
 					case 'check':
-						if (count($fieldConfig['items']) > 1) {
+						if (count((array)$fieldConfig['items']) > 1) {
 							$value = array();
 
 							if (!is_array($rawValue)) {
@@ -2296,7 +2296,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 	public function showCheck($fieldName, $fieldConfig, $arrCurrentData, $disabledField = '') {
 		$content = '';
 
-		if (count($fieldConfig['items']) > 1) {
+		if (count((array)$fieldConfig['items']) > 1) {
 			// ToDo: Logik von Anzeige trennen!
 			// Moeglichkeit das der gespeicherte Wert eine Bitmap ist, daher aufsplitten in ein Array, wie es auch von einem abgesendeten Formular kommen wuerde.
 			if (!is_array($arrCurrentData[$fieldName])) {
@@ -3223,9 +3223,9 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 			// Die Anzahl der Felder die ausgegeben wurden (falls mehrere Felder ausgegeben, also kein Select und nur mehr als eine Checkbox).
 			if ($fieldConfig['type'] == 'radio'
-					|| ($fieldConfig['type'] == 'check' && count($fieldConfig['items']) > 1)
+					|| ($fieldConfig['type'] == 'check' && count((array)$fieldConfig['items']) > 1)
 					|| ($fieldConfig['type'] == 'select' && $fieldConfig['renderMode'] == 'checkbox')) {
-				$itemCount = count($fieldConfig['items']);
+				$itemCount = count((array)$fieldConfig['items']);
 			}
 
 			// Die Anzahl der Felder die ausgegeben wurden, wird beim Typ DB ueber einen Count auf die erlaubten Tabellen ermittelt.
