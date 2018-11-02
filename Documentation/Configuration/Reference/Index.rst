@@ -43,6 +43,9 @@ requestpid                              integer        Defines the page id where
                                                        user clicks register / save. The default is the page id
                                                        where the form is displayed on.
 --------------------------------------  -------------  --------------------------------------------------------------------------------------  -------------------------------------
+requestanchor                           boolean        Activate it, if you want to jump to the form after the                                  false
+                                                       user clicks register / save and there was e.g. an error.
+--------------------------------------  -------------  --------------------------------------------------------------------------------------  -------------------------------------
 legends.[ITEMID]                        string         A text which is shown as html legend for each fieldset.
                                                        Fieldsets are identified by increasing numbers.
 

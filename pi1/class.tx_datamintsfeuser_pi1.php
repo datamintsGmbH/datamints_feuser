@@ -1953,6 +1953,11 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			$requestLink = $this->pi_getPageLink($GLOBALS['TSFE']->id);
 		}
 
+		// Zum Formular springen wenn z.B. ein Fehler aufgetreten ist.
+		if ($this->conf['requestanchor']) {
+			$requestLink .= '#c' . $this->contentId;
+		}
+
 		// ID Zaehler fuer Items und Fieldsets.
 		$iItem = 1;
 		$iFieldset = 1;
