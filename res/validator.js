@@ -1,12 +1,10 @@
 
-var datamints_feuser_formId = 0;
-
 window.onload = function() {
 	if (datamints_feuser_config == null || datamints_feuser_inputids == null) {
 		return;
 	}
 
-	for (datamints_feuser_formId in datamints_feuser_inputids) {
+	for (var datamints_feuser_formId in datamints_feuser_inputids) {
 		if (typeof(datamints_feuser_inputids[datamints_feuser_formId]) != 'object') {
 			continue;
 		}
@@ -35,7 +33,7 @@ function formCheck(evt) {
 	var ret = false;
 
 	// ID des aktuell verwendeten Formulars ueber das aktuell verwendete Input Element ermitteln.
-	datamints_feuser_formId = getEventTarget(evt).id.split('_')[2];
+	var datamints_feuser_formId = getEventTarget(evt).id.split('_')[2];
 
 	for (var fieldId in datamints_feuser_inputids[datamints_feuser_formId]) {
 		if (typeof(datamints_feuser_inputids[datamints_feuser_formId][fieldId]) != 'string') {
@@ -138,17 +136,17 @@ function inputItemCheck(evt, input) {
 		fieldName = fieldName.slice(0, fieldName.length - 4);
 	}
 
-	// Den Error Dialog loeschen, damit er wenn die Validierung korrekt ist nicht mehr da ist.
-	removeInfo(fieldName);
-
 	// ID des aktuell verwendeten Formulars ueber das aktuell verwendete Input Element ermitteln.
-	datamints_feuser_formId = input.id.split('_')[2];
+	var datamints_feuser_formId = input.id.split('_')[2];
+
+	// Den Error Dialog loeschen, damit er wenn die Validierung korrekt ist nicht mehr da ist.
+	removeInfo(datamints_feuser_formId, fieldName);
 
 	if (datamints_feuser_config[datamints_feuser_formId][fieldName] != null) {
 		var validate = datamints_feuser_config[datamints_feuser_formId][fieldName]['validation'];
 
 		if (datamints_feuser_config[datamints_feuser_formId][fieldName]['required'] && (!value || (typeof(value) == 'object' && !value.length))) {
-			showInfo(fieldName, 'required');
+			showInfo(datamints_feuser_formId, fieldName, 'required');
 
 			return true;
 		} else if (validate) {
@@ -175,12 +173,12 @@ function inputItemCheck(evt, input) {
 							}
 
 							if ((arrLength[0] && value.length < arrLength[0]) || (arrLength[1] && value.length > arrLength[1])) {
-								showInfo(fieldName, 'size');
+								showInfo(datamints_feuser_formId, fieldName, 'size');
 
 								return true;
 							}
 						} else {
-							showInfo(fieldName, 'equal');
+							showInfo(datamints_feuser_formId, fieldName, 'equal');
 
 							return true;
 						}
@@ -189,8 +187,8 @@ function inputItemCheck(evt, input) {
 					break;
 
 				case 'email':
-					if (!value.match(/^[a-zA-Z0-9\._%+-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,63}$/)) {
-						showInfo(fieldName, 'valid');
+					if (!value.match(/^[a-zA-Z0-9\._%+-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,6}$/)) {
+						showInfo(datamints_feuser_formId, fieldName, 'valid');
 
 						return true;
 					}
@@ -199,7 +197,7 @@ function inputItemCheck(evt, input) {
 
 				case 'username':
 					if (!value.match(/^[^ ]*$/)) {
-						showInfo(fieldName, 'valid');
+						showInfo(datamints_feuser_formId, fieldName, 'valid');
 
 						return true;
 					}
@@ -208,7 +206,7 @@ function inputItemCheck(evt, input) {
 
 				case 'zero':
 					if (value == '0') {
-						showInfo(fieldName, 'valid');
+						showInfo(datamints_feuser_formId, fieldName, 'valid');
 
 						return true;
 					}
@@ -217,7 +215,7 @@ function inputItemCheck(evt, input) {
 
 				case 'emptystring':
 					if (value == '') {
-						showInfo(fieldName, 'valid');
+						showInfo(datamints_feuser_formId, fieldName, 'valid');
 
 						return true;
 					}
@@ -231,14 +229,14 @@ function inputItemCheck(evt, input) {
 
 							for (k in value) {
 								if (!value[k].match(validate['regexp'])) {
-									showInfo(fieldName, 'valid');
+									showInfo(datamints_feuser_formId, fieldName, 'valid');
 
 									return true;
 								}
 							}
 						} else {
 							if (!value.match(validate['regexp'])) {
-								showInfo(fieldName, 'valid');
+								showInfo(datamints_feuser_formId, fieldName, 'valid');
 
 								return true;
 							}
@@ -249,7 +247,7 @@ function inputItemCheck(evt, input) {
 						arrLength = validate['size'].replace(' ', '').split(',');
 
 						if ((arrLength[0] && value.length < arrLength[0]) || (arrLength[1] && value.length > arrLength[1])) {
-							showInfo(fieldName, 'size');
+							showInfo(datamints_feuser_formId, fieldName, 'size');
 
 							return true;
 						}
@@ -283,8 +281,8 @@ function getEventTarget(evt) {
 	}
 }
 
-function showInfo(fieldName, error) {
-	var errorLabelFather = getErrorLabelFather(fieldName);
+function showInfo(formId, fieldName, error) {
+	var errorLabelFather = getErrorLabelFather(formId, fieldName);
 
 	if (errorLabelFather) {
 		if (errorLabelFather.lastChild.className == 'error-label error-' + fieldName) {
@@ -294,25 +292,25 @@ function showInfo(fieldName, error) {
 		var div = document.createElement('div');
 
 		div.className = 'error-label error-' + fieldName;
-		div.innerHTML = datamints_feuser_config[datamints_feuser_formId][fieldName][error];
+		div.innerHTML = datamints_feuser_config[formId][fieldName][error];
 		errorLabelFather.appendChild(div);
 	}
 }
 
-function removeInfo(fieldName) {
-	var errorLabelFather = getErrorLabelFather(fieldName);
+function removeInfo(formId, fieldName) {
+	var errorLabelFather = getErrorLabelFather(formId, fieldName);
 
 	if (errorLabelFather && errorLabelFather.lastChild.className == 'error-label error-' + fieldName) {
 		errorLabelFather.removeChild(errorLabelFather.lastChild);
 	}
 }
 
-function getErrorLabelFather(fieldName) {
+function getErrorLabelFather(formId, fieldName) {
 	var fieldNameWrapper = fieldName;
 
-	if (datamints_feuser_config[datamints_feuser_formId][fieldName]['validation'] && datamints_feuser_config[datamints_feuser_formId][fieldName]['validation']['type'] == 'password') {
+	if (datamints_feuser_config[formId][fieldName]['validation'] && datamints_feuser_config[formId][fieldName]['validation']['type'] == 'password') {
 		fieldNameWrapper = fieldName + '_rep';
 	}
 
-	return document.getElementById('datamints_feuser_' + datamints_feuser_formId + '_' + fieldNameWrapper + '_wrapper');
+	return document.getElementById('datamints_feuser_' + formId + '_' + fieldNameWrapper + '_wrapper');
 }
