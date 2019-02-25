@@ -94,8 +94,7 @@ class tx_datamintsfeuser_salesforce {
 	public function getMappingFields($mappings, $variables) {
 		$fields = array();
 
-		$className = GeneralUtility::compat_version('7') ? 'TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer' : 'tslib_cObj';
-		$cObj = GeneralUtility::makeInstance($className);
+		$cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 		$cObj->data = $variables;
 
 		foreach ($mappings as $field => $stdWrapConfig) {

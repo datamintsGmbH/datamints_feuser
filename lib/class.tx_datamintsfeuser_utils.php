@@ -222,6 +222,10 @@ class tx_datamintsfeuser_utils {
 			}
 		}
 
+		if ($GLOBALS['TYPO3_CONF_VARS']['FE']['passwordHashing']['className']) {
+			$arrPassword['encrypted'] = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Crypto\\PasswordHashing\\PasswordHashFactory')->getDefaultHashInstance('FE')->getHashedPassword($arrPassword['normal']);
+		}
+
 		return $arrPassword;
 	}
 
@@ -242,10 +246,12 @@ class tx_datamintsfeuser_utils {
 			if ($saltedpasswords['enabled']) {
 				$tx_saltedpasswords = GeneralUtility::makeInstance($saltedpasswords['saltedPWHashingMethod']);
 
-				if ($tx_saltedpasswords->checkPassword($submittedPassword, $originalPassword)) {
-					$check = TRUE;
-				}
+				$check = $tx_saltedpasswords->checkPassword($submittedPassword, $originalPassword);
 			}
+		}
+
+		if ($GLOBALS['TYPO3_CONF_VARS']['FE']['passwordHashing']['className']) {
+			$check = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Crypto\\PasswordHashing\\PasswordHashFactory')->get($originalPassword, 'FE')->checkPassword($submittedPassword, $originalPassword);
 		}
 
 		return $check;
@@ -388,15 +394,16 @@ class tx_datamintsfeuser_utils {
 	 */
 	public static function getTemplateSubpart($templateFile, $templatePart, $markerArray = array()) {
 		// Template laden.
-		$cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
-		$template = $cObj->fileResource($templateFile);
-		$template = $cObj->getSubpart($template, '###' . strtoupper($templatePart) . '###');
+		$template = file_get_contents($GLOBALS['TSFE']->tmpl->getFileName($templateFile));
+
+		$templateService = GeneralUtility::makeInstance(class_exists('TYPO3\\CMS\\Core\\Service\\MarkerBasedTemplateService') ? 'TYPO3\\CMS\\Core\\Service\\MarkerBasedTemplateService' : 'TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
+		$template = $templateService->getSubpart($template, '###' . strtoupper($templatePart) . '###');
 
 //		if (!self::checkUtf8($template)) {
-//			$template = utf8_encode($template);
+//			$template = utf8_encode ($template);
 //		}
 
-		$template = $cObj->substituteMarkerArray($template, $markerArray, '###|###', 1);
+		$template = $templateService->substituteMarkerArray($template, $markerArray, '###|###', TRUE);
 
 		return $template;
 	}

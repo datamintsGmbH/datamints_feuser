@@ -23,6 +23,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -37,6 +38,12 @@ require_once ExtensionManagementUtility::extPath('datamints_feuser', 'lib/class.
  * @subpackage	tx_datamintsfeuser
  */
 class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
+	protected $frontendController;
+	protected $databaseConnection;
+	protected $templateService;
+
+	private $pageRepository;
+
 	public $extKey = 'datamints_feuser';
 	public $prefixId = 'tx_datamintsfeuser_pi1';
 	public $scriptRelPath = 'pi1/class.tx_datamintsfeuser_pi1.php';
@@ -102,9 +109,15 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 	public function main($content, $conf) {
 		$this->conf = $conf;
 
+		$this->databaseConnection = $this->databaseConnection ?: $GLOBALS['TYPO3_DB'];
+		$this->frontendController = $this->frontendController ?: $GLOBALS['TSFE'];
+		$this->templateService = $this->templateService ?: $this->cObj;
+
+		$this->pageRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
+
 		// Debug.
-//		$GLOBALS['TSFE']->set_no_cache();
-//		$GLOBALS['TYPO3_DB']->debugOutput = TRUE;
+//		$this->frontendController->set_no_cache();
+//		$this->databaseConnection->debugOutput = TRUE;
 
 		// PiVars und Flexform laden.
 		$this->pi_setPiVarDefaults();
@@ -117,8 +130,8 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		// Niemals einen cHash setzen!
 		$this->pi_USER_INT_obj = 1;
 
-		// ToDo: Bessere Lösung für das Problem ab 4.6.? finden, dass ein Label nur zum LOCAL_LANG Array hinzugefügt wird, wenn die Sprache bereits im Array vorhanden ist!
-		if (GeneralUtility::compat_version('4.6') && is_array($this->conf['_LOCAL_LANG.'])) {
+		// ToDo: Bessere Lösung für das Problem, dass ein Label nur zum LOCAL_LANG Array hinzugefügt wird, wenn die Sprache bereits im Array vorhanden ist!
+		if (is_array($this->conf['_LOCAL_LANG.'])) {
 			foreach (GeneralUtility::removeDotsFromTS($this->conf['_LOCAL_LANG.']) as $lang => $arrLang) {
 				foreach ($arrLang as $langKey => $langValue) {
 					$this->LOCAL_LANG[$lang][$langKey]['0'] = $this->LOCAL_LANG['default'][$langKey]['0'];
@@ -129,7 +142,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		}
 
 		// UserId ermitteln.
-		$this->userId = $GLOBALS['TSFE']->fe_user->user['uid'];
+		$this->userId = $this->frontendController->fe_user->user['uid'];
 
 		// ContentId ermitteln.
 		$this->contentId = $this->cObj->data['uid'];
@@ -138,12 +151,12 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$this->storagePageId = tx_datamintsfeuser_utils::getStoragePageId($this->getConfigurationByShowtype('userfolder'));
 
 		// Stylesheets in den Head einbinden.
-		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[stylesheet]'] = ($this->conf['disablestylesheet']) ? '' : '<link rel="stylesheet" type="text/css" href="' . (($this->conf['stylesheetpath']) ? $this->conf['stylesheetpath'] : tx_datamintsfeuser_utils::getTypoLinkUrl(ExtensionManagementUtility::siteRelPath($this->extKey) . 'res/datamints_feuser.css')) . '" />';
+		$this->frontendController->additionalHeaderData[$this->prefixId . '[stylesheet]'] = ($this->conf['disablestylesheet']) ? '' : '<link rel="stylesheet" type="text/css" href="' . ($this->conf['stylesheetpath'] ?: tx_datamintsfeuser_utils::getTypoLinkUrl(PathUtility::stripPathSitePrefix(ExtensionManagementUtility::extPath($this->extKey)) . 'res/datamints_feuser.css')) . '" />';
 
 		// Javascripts in den Head einbinden.
-		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[jsvalidator]'] = ($this->conf['disablejsvalidator']) ? '' : '<script type="text/javascript" src="' . (($this->conf['jsvalidatorpath']) ? $this->conf['jsvalidatorpath'] : tx_datamintsfeuser_utils::getTypoLinkUrl(ExtensionManagementUtility::siteRelPath($this->extKey) . 'res/validator.min.js')) . '"></script>';
-		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[jsvalidation]'] = ($this->conf['disablejsconfig']) ? '' : '<script type="text/javascript">' . "\n/*<![CDATA[*/\n" . 'var datamints_feuser_config=[];var datamints_feuser_inputids=[];' . "\n/*]]>*/\n" . '</script>';
-		$GLOBALS['TSFE']->additionalHeaderData[$this->prefixId . '[jsvalidation][' . $this->contentId . ']'] = ($this->conf['disablejsconfig']) ? '' : '<script type="text/javascript">' . "\n/*<![CDATA[*/\n" . $this->getJSValidationConfiguration() . "\n/*]]>*/\n" . '</script>';
+		$this->frontendController->additionalHeaderData[$this->prefixId . '[jsvalidator]'] = ($this->conf['disablejsvalidator']) ? '' : '<script type="text/javascript" src="' . ($this->conf['jsvalidatorpath'] ?: tx_datamintsfeuser_utils::getTypoLinkUrl(PathUtility::stripPathSitePrefix(ExtensionManagementUtility::extPath($this->extKey)) . 'res/validator.min.js')) . '"></script>';
+		$this->frontendController->additionalHeaderData[$this->prefixId . '[jsvalidation]'] = ($this->conf['disablejsconfig']) ? '' : '<script type="text/javascript">' . "\n/*<![CDATA[*/\n" . 'var datamints_feuser_config=[];var datamints_feuser_inputids=[];' . "\n/*]]>*/\n" . '</script>';
+		$this->frontendController->additionalHeaderData[$this->prefixId . '[jsvalidation][' . $this->contentId . ']'] = ($this->conf['disablejsconfig']) ? '' : '<script type="text/javascript">' . "\n/*<![CDATA[*/\n" . $this->getJSValidationConfiguration() . "\n/*]]>*/\n" . '</script>';
 
 		// Wenn nicht eingeloggt kann man auch nicht editieren!
 		if ($this->conf['showtype'] == self::showtypeKeyEdit && !$this->userId) {
@@ -151,7 +164,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		}
 
 		// Wenn ein "userfolder" angegeben ist, der aktuelle User aber nicht in diesem ist, kann man auch nicht editieren!
-		if ($this->conf['showtype'] == self::showtypeKeyEdit && $this->getConfigurationByShowtype('userfolder') && $GLOBALS['TSFE']->fe_user->user['pid'] != $this->storagePageId) {
+		if ($this->conf['showtype'] == self::showtypeKeyEdit && $this->getConfigurationByShowtype('userfolder') && $this->frontendController->fe_user->user['pid'] != $this->storagePageId) {
 			return $this->pi_wrapInBaseClass($this->showOutputRedirect(self::showtypeKeyEdit, self::submodeKeyError . '_userfolder'));
 		}
 
@@ -215,12 +228,12 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			// Falls der Anzeigetyp "list" ist (Liste der im Cookie gespeicherten User), alle uebergebenen User ermitteln und fuer das erneute zusenden verwenden. Ansonsten die uebergebene E-Mail verwenden.
 //			if ($this->conf['shownotactivated'] == 'list') {
 //				$arrNotActivated = $this->getNotActivatedUserArray($this->piVars[$this->contentId][$fieldName]);
-//				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tx_datamintsfeuser_approval_level', 'fe_users', 'pid = ' . $this->storagePageId . ' AND uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
+//				$res = $this->databaseConnection->exec_SELECTquery('uid, tx_datamintsfeuser_approval_level', 'fe_users', 'pid = ' . $this->storagePageId . ' AND uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
 //			} else {
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tx_datamintsfeuser_approval_level', 'fe_users', 'pid = ' . $this->storagePageId . ' AND email = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr(strtolower($this->piVars[$this->contentId][self::specialfieldKeyResendactivation]), 'fe_users') . ' AND disable = 1 AND deleted = 0', '', '', '1');
+				$res = $this->databaseConnection->exec_SELECTquery('uid, tx_datamintsfeuser_approval_level', 'fe_users', 'pid = ' . $this->storagePageId . ' AND email = ' . $this->databaseConnection->fullQuoteStr(strtolower($this->piVars[$this->contentId][self::specialfieldKeyResendactivation]), 'fe_users') . ' AND disable = 1 AND deleted = 0', '', '', '1');
 //			}
 
-			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			while ($row = $this->databaseConnection->sql_fetch_assoc($res)) {
 				// Genehmigungstypen aufsteigend sortiert ermitteln. Das ist noetig um das Level dem richtigen Typ zuordnen zu koennen.
 				// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig laesst.
 				$arrApprovalTypes = $this->getApprovalTypes();
@@ -246,7 +259,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		}
 
 		// Wenn die Zielseite, der User oder der Bearbeitungsmodus nicht stimmen, dann wird abgebrochen. Andernfalls wird in die Datenbank geschrieben.
-		if ($this->piVars[$this->contentId][self::submitparameterKeyPage] != $GLOBALS['TSFE']->id || $this->piVars[$this->contentId][self::submitparameterKeyUser] != $this->userId || $this->piVars[$this->contentId][self::submitparameterKeySubmode] != $this->conf['showtype']) {
+		if ($this->piVars[$this->contentId][self::submitparameterKeyPage] != $this->frontendController->id || $this->piVars[$this->contentId][self::submitparameterKeyUser] != $this->userId || $this->piVars[$this->contentId][self::submitparameterKeySubmode] != $this->conf['showtype']) {
 			return $this->showOutputRedirect($mode, $submode);
 		}
 
@@ -311,7 +324,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 			// Dateifelder behandeln.
 			if ($fieldConfig['type'] == 'group' && $fieldConfig['internal_type'] == 'file') {
-				$arrUpdate[$fieldName] = $GLOBALS['TSFE']->fe_user->user[$fieldName];
+				$arrUpdate[$fieldName] = $this->frontendController->fe_user->user[$fieldName];
 
 				// Das Bild hochladen oder loeschen. Gibt einen Fehlerstring per Referenz zurueck falls ein Fehler auftritt!
 				$valueCheck[$fieldName] = $this->saveDeleteFiles($arrUpdate, $fieldName, $fieldConfig);
@@ -408,15 +421,15 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 			// Besonderes Feld das fest in der Extension verbaut ist (passwordconfirmation), und ueberprueft werden soll.
 			if ($fieldName == self::specialfieldKeyPasswordconfirmation && $this->conf['showtype'] == self::showtypeKeyEdit) {
-				if (!tx_datamintsfeuser_utils::checkPassword($value, $GLOBALS['TSFE']->fe_user->user['password'])) {
+				if (!tx_datamintsfeuser_utils::checkPassword($value, $this->frontendController->fe_user->user['password'])) {
 					$valueCheck[$fieldName] = self::validationerrorKeyValid;
 				}
 			}
 
 			// Besonderes Feld das fest in der Extension verbaut ist (resendactivation), und ueberprueft werden soll.
 			if ($fieldName == self::specialfieldKeyResendactivation && $value) {
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . $this->storagePageId . ' AND (uid = ' . intval($value) . ' OR email = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr(strtolower($value), 'fe_users') . ') AND disable = 1 AND deleted = 0');
-				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+				$res = $this->databaseConnection->exec_SELECTquery('COUNT(uid) as count', 'fe_users', 'pid = ' . $this->storagePageId . ' AND (uid = ' . intval($value) . ' OR email = ' . $this->databaseConnection->fullQuoteStr(strtolower($value), 'fe_users') . ') AND disable = 1 AND deleted = 0');
+				$row = $this->databaseConnection->sql_fetch_assoc($res);
 
 				if ($row['count'] < 1) {
 					$valueCheck[$fieldName] = self::validationerrorKeyValid;
@@ -564,8 +577,8 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 		foreach ($this->arrUniqueFields as $fieldName) {
 			if ($this->piVars[$this->contentId][$fieldName]) {
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(uid) as count', 'fe_users', $fieldName . ' = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($this->piVars[$this->contentId][$fieldName], 'fe_users') . $where . ' AND deleted = 0');
-				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+				$res = $this->databaseConnection->exec_SELECTquery('COUNT(uid) as count', 'fe_users', $fieldName . ' = ' . $this->databaseConnection->fullQuoteStr($this->piVars[$this->contentId][$fieldName], 'fe_users') . $where . ' AND deleted = 0');
+				$row = $this->databaseConnection->sql_fetch_assoc($res);
 
 				if ($row['count'] >= 1) {
 					$valueCheck[$fieldName] = self::validationerrorKeyUnique;
@@ -615,7 +628,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 				}
 
 				$arrFieldVars = $this->piVars[$this->contentId][$fieldName];
-				$arrFilenames = GeneralUtility::trimExplode(',', $GLOBALS['TSFE']->fe_user->user[$fieldName], TRUE);
+				$arrFilenames = GeneralUtility::trimExplode(',', $this->frontendController->fe_user->user[$fieldName], TRUE);
 
 				foreach ($arrFieldVars['files'] as $sentKey => $filename) {
 					$sentKey = intval($sentKey);
@@ -1065,7 +1078,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$this->insertRelationInserts($this->userId, $this->getRelationInserts($arrUpdate));
 
 		// Der User hat seine Daten editiert.
-		$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, $arrUpdate);
+		$this->databaseConnection->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, $arrUpdate);
 
 		// User und Admin Benachrichtigung schicken, aber nur wenn etwas geaendert wurde.
 		if ($this->getConfigurationByShowtype('sendusermail') || $this->getConfigurationByShowtype('sendadminmail')) {
@@ -1084,7 +1097,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		// Ausgabe vorbereiten.
 		$arrMode['mode'] = $this->conf['showtype'];
 		$arrMode['submode'] = self::submodeKeySuccess;
-		$arrMode['params'] = array('refresh' => GeneralUtility::locationHeaderUrl(tx_datamintsfeuser_utils::getTypoLinkUrl($GLOBALS['TSFE']->id)));
+		$arrMode['params'] = array('refresh' => GeneralUtility::locationHeaderUrl(tx_datamintsfeuser_utils::getTypoLinkUrl($this->frontendController->id)));
 
 		return $arrMode;
 	}
@@ -1097,10 +1110,10 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 	public function deleteUser() {
 		if ($this->getConfigurationByShowtype('userdelete')) {
 			// Den User endgueltig loeschen.
-			$GLOBALS['TYPO3_DB']->exec_DELETEquery('fe_users', 'uid = ' . $this->userId);
+			$this->databaseConnection->exec_DELETEquery('fe_users', 'uid = ' . $this->userId);
 		} else {
 			// Den User als geloescht markieren.
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('tstamp' => time(), 'deleted' => '1'));
+			$this->databaseConnection->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('tstamp' => time(), 'deleted' => '1'));
 		}
 	}
 
@@ -1116,7 +1129,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		// Standard-Konfigurationen anwenden.
 		$arrUpdate['pid'] = $this->storagePageId;
 		$arrUpdate['crdate'] = $arrUpdate['tstamp'];
-		$arrUpdate['usergroup'] = ($arrUpdate['usergroup']) ? $arrUpdate['usergroup'] : $this->getConfigurationByShowtype('usergroup');
+		$arrUpdate['usergroup'] = $arrUpdate['usergroup'] ?: $this->getConfigurationByShowtype('usergroup');
 
 		// Genehmigungstypen aufsteigend sortiert ermitteln. Das ist noetig um das Level dem richtigen Typ zuordnen zu koennen.
 		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig laesst.
@@ -1134,10 +1147,10 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$arrRelationInserts = $this->getRelationInserts($arrUpdate);
 
 		// User erstellen.
-		$GLOBALS['TYPO3_DB']->exec_INSERTquery('fe_users', $arrUpdate);
+		$this->databaseConnection->exec_INSERTquery('fe_users', $arrUpdate);
 
 		// Userid ermittln und Global definieren!
-		$this->userId = $GLOBALS['TYPO3_DB']->sql_insert_id();
+		$this->userId = $this->databaseConnection->sql_insert_id();
 
 		// ToDo: MM-Relation, Ermittelte MM-Relationen setzen.
 		$this->insertRelationInserts($this->userId, $arrRelationInserts);
@@ -1252,10 +1265,10 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 				$where .= ' AND ' . $field . ' = "' . $value . '"';
 			}
 
-			$GLOBALS['TYPO3_DB']->exec_DELETEquery($foreignTable, $where);
+			$this->databaseConnection->exec_DELETEquery($foreignTable, $where);
 
 			if (count($rows) > 0) {
-				$GLOBALS['TYPO3_DB']->exec_INSERTmultipleRows($foreignTable, array_keys($rows[0]), $rows);
+				$this->databaseConnection->exec_INSERTmultipleRows($foreignTable, array_keys($rows[0]), $rows);
 			}
 		}
 	}
@@ -1303,7 +1316,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			case self::showtypeKeyEdit:
 				if ($params['refresh']) {
 					// Einen Refresh der aktuellen Seite am Client ausfuehren.
-					$GLOBALS['TSFE']->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=' . $params['refresh'] . '" />';
+					$this->frontendController->additionalHeaderData['refresh'] = '<meta http-equiv="refresh" content="2; url=' . $params['refresh'] . '" />';
 				}
 
 				break;
@@ -1358,11 +1371,11 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		}
 
 		// Neuen Timestamp setzten, damit jede Aktivierungsmail einen anderen Hash hat.
-		$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $userId, array('tstamp' => time()));
+		$this->databaseConnection->exec_UPDATEquery('fe_users', 'uid = ' . $userId, array('tstamp' => time()));
 
 		// Userdaten ermitteln.
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tstamp, tx_datamintsfeuser_approval_level', 'fe_users', 'uid = ' . $userId, '', '', '1');
-		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+		$res = $this->databaseConnection->exec_SELECTquery('uid, tstamp, tx_datamintsfeuser_approval_level', 'fe_users', 'uid = ' . $userId, '', '', '1');
+		$row = $this->databaseConnection->sql_fetch_assoc($res);
 
 		// Genehmigungstypen aufsteigend sortiert ermitteln. Das ist noetig um das Level dem richtigen Typ zuordnen zu koennen.
 		// Beispiel: approvalcheck = ,doubleoptin,adminapproval => beim exploden kommt dann ein leeres Arrayelement herraus, das nach dem entfernen einen leeren Platz uebrig laesst.
@@ -1388,8 +1401,8 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		ArrayUtility::mergeRecursiveWithOverrule($tmpDisapprovalParameters, $disapprovalParameters);
 
 		$extraMarkers = array(
-			'approvallink' => GeneralUtility::locationHeaderUrl(tx_datamintsfeuser_utils::escapeBrackets($this->pi_getPageLink($GLOBALS['TSFE']->id, '', $tmpApprovalParameters))),
-			'disapprovallink' => GeneralUtility::locationHeaderUrl(tx_datamintsfeuser_utils::escapeBrackets($this->pi_getPageLink($GLOBALS['TSFE']->id, '', $tmpDisapprovalParameters)))
+			'approvallink' => GeneralUtility::locationHeaderUrl(tx_datamintsfeuser_utils::escapeBrackets($this->pi_getPageLink($this->frontendController->id, '', $tmpApprovalParameters))),
+			'disapprovallink' => GeneralUtility::locationHeaderUrl(tx_datamintsfeuser_utils::escapeBrackets($this->pi_getPageLink($this->frontendController->id, '', $tmpDisapprovalParameters)))
 		);
 
 		// E-Mail senden.
@@ -1406,8 +1419,8 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 	 */
 	public function doApprovalCheck() {
 		// Userdaten ermitteln.
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, tstamp, tx_datamintsfeuser_approval_level', 'fe_users', 'uid = ' . $this->userId . ' AND pid = ' . $this->storagePageId, '', '', '1');
-		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+		$res = $this->databaseConnection->exec_SELECTquery('uid, tstamp, tx_datamintsfeuser_approval_level', 'fe_users', 'uid = ' . $this->userId . ' AND pid = ' . $this->storagePageId, '', '', '1');
+		$row = $this->databaseConnection->sql_fetch_assoc($res);
 
 		// Genehmigungstyp ermitteln um die richtige E-Mail zu senden, bzw. die richtige Ausgabe zu ermitteln.
 		$arrApprovalTypes = array_slice($this->getApprovalTypes(), -$row['tx_datamintsfeuser_approval_level']);
@@ -1418,7 +1431,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			return $this->showOutputRedirect(self::modeKeyApprovalcheck, self::submodeKeyFailure);
 		}
 
-		$submodePrefix = ((count($arrApprovalTypes) > 0) ? implode('_', $arrApprovalTypes) . '_' : '');
+		$submodePrefix = (count($arrApprovalTypes) > 0) ? implode('_', $arrApprovalTypes) . '_' : '';
 
 		// Ausgabe vorbereiten.
 		$mode = $approvalType;
@@ -1432,7 +1445,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		// Wenn der Approval-Hash richtig ist, des letzte Genehmigungslevel aber noch nicht erreicht ist.
 		if ($this->piVars[$this->contentId][self::submitparameterKeyHash] == $hashApproval && $row['tx_datamintsfeuser_approval_level'] > 1) {
 			// Genehmigungslevel updaten.
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('tstamp' => time(), 'tx_datamintsfeuser_approval_level' => $row['tx_datamintsfeuser_approval_level'] - 1));
+			$this->databaseConnection->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('tstamp' => time(), 'tx_datamintsfeuser_approval_level' => $row['tx_datamintsfeuser_approval_level'] - 1));
 
 			// Aktivierungsmail schicken.
 			$this->sendActivationMail();
@@ -1444,7 +1457,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		// Wenn der Approval-Hash richtig ist, und das letzte Genehmigungslevel erreicht ist.
 		if ($this->piVars[$this->contentId][self::submitparameterKeyHash] == $hashApproval && $row['tx_datamintsfeuser_approval_level'] == 1) {
 			// User aktivieren.
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('tstamp' => time(), 'disable' => '0', 'tx_datamintsfeuser_approval_level' => '0'));
+			$this->databaseConnection->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('tstamp' => time(), 'disable' => '0', 'tx_datamintsfeuser_approval_level' => '0'));
 
 			// Registrierungs E-Mail schicken.
 			if ($this->getConfigurationByShowtype('sendadminmail')) {
@@ -1525,9 +1538,9 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		// Wenn nach dem reinigen noch User uebrig bleiben.
 		if (count($arrNotActivated) > 0) {
 			// Herrausgefundene User ermitteln und ueberpruefen, ob die User mitlerweile schon aktiviert wurden.
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid', 'fe_users', 'uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
+			$res = $this->databaseConnection->exec_SELECTquery('uid', 'fe_users', 'uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
 
-			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			while ($row = $this->databaseConnection->sql_fetch_assoc($res)) {
 				$arrNotActivatedCleaned[] = $row['uid'];
 			}
 		}
@@ -1551,8 +1564,8 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		if ($this->userId) {
 			$row = $this->getValuesForMail();
 		} else {
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . intval($userId), '', '', '1');
-			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+			$res = $this->databaseConnection->exec_SELECTquery('*', 'fe_users', 'uid = ' . intval($userId), '', '', '1');
+			$row = $this->databaseConnection->sql_fetch_assoc($res);
 		}
 
 		$arrSpecialMarkers = array(
@@ -1593,8 +1606,8 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		}
 
 		// Betreff ermitteln und aus dem E-Mail Content entfernen.
-		$subject = trim($this->cObj->getSubpart($content, '###SUBJECT###'));
-		$content = $this->cObj->substituteSubpart($content, '###SUBJECT###', '');
+		$subject = trim($this->templateService->getSubpart($content, '###SUBJECT###'));
+		$content = $this->templateService->substituteSubpart($content, '###SUBJECT###', '');
 
 		// Body zusammensetzen.
 		$body = $this->getTemplateSubpart('body', array_merge($markerArray, array('content' => $content)), $config);
@@ -1604,7 +1617,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 		// Extra Subparts ersetzten.
 		foreach ($extraSuparts as $key => $val) {
-			$body = $this->cObj->substituteSubpart($body, '###' . strtoupper($key) . '###', $val);
+			$body = $this->templateService->substituteSubpart($body, '###' . strtoupper($key) . '###', $val);
 		}
 
 		// Hook um die E-Mail zu aendern.
@@ -1651,10 +1664,10 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			$mail->setReplyTo(array($replytoEmail => $replytoName));
 			$mail->setTo(array($toEmail => $toName));
 			$mail->setBody($bodyPlain);
-			$mail->setCharset($GLOBALS['TSFE']->metaCharset);
+			$mail->setCharset($this->frontendController->metaCharset);
 
 			if ($config['mailtype'] == 'html') {
-				$mail->addPart($bodyHtml, 'text/html', $GLOBALS['TSFE']->metaCharset);
+				$mail->addPart($bodyHtml, 'text/html', $this->frontendController->metaCharset);
 			}
 
 			$mail->send();
@@ -1702,8 +1715,8 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$extraMarkers = array();
 
 		// Userdaten ermitteln.
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'fe_users', 'uid = ' . $this->userId, '', '', '1');
-		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+		$res = $this->databaseConnection->exec_SELECTquery('*', 'fe_users', 'uid = ' . $this->userId, '', '', '1');
+		$row = $this->databaseConnection->sql_fetch_assoc($res);
 
 		// ToDo: MM-Relation, Merge MM-Values erweitern.
 		$arrCurrentData = $this->mergeRelationValues($this->userId, $row);
@@ -1804,9 +1817,9 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 							$options = strtolower(substr(trim($fieldConfig['foreign_table_where']), 0, 3));
 							$options = trim((!$options || $options == 'and' || $options == 'or ' || $options == 'gro' || $options == 'ord' || $options == 'lim') ? $fieldConfig['foreign_table_where'] : 'AND ' . $fieldConfig['foreign_table_where']);
 
-							$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $table, '1 ' . $this->cObj->enableFields($table) . ' ' . $options);
+							$res = $this->databaseConnection->exec_SELECTquery($select, $table, '1 ' . $this->pageRepository->enableFields($table) . ' ' . $options);
 
-							while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+							while ($row = $this->databaseConnection->sql_fetch_assoc($res)) {
 								if (in_array($row['uid'], $rawValue)) {
 									$value[] = $row[$labelFieldName];
 								}
@@ -1831,9 +1844,9 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 								$labelFieldName = $this->getTableLabelFieldName($table);
 
-								$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, ' . $labelFieldName, $table, '1 ' . $this->cObj->enableFields($table));
+								$res = $this->databaseConnection->exec_SELECTquery('uid, ' . $labelFieldName, $table, '1 ' . $this->pageRepository->enableFields($table));
 
-								while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+								while ($row = $this->databaseConnection->sql_fetch_assoc($res)) {
 									$arrItems[$table . '_' . $row['uid']] = $row[$labelFieldName];
 								}
 							}
@@ -1872,17 +1885,17 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$extraMarkers = array();
 
 		foreach ($this->arrUsedFields as $fieldName) {
-			if ($arrNewData[$fieldName] != $GLOBALS['TSFE']->fe_user->user[$fieldName]) {
+			if ($arrNewData[$fieldName] != $this->frontendController->fe_user->user[$fieldName]) {
 				$markerArray = array();
 				$markerArray['label'] = $this->getLabel($fieldName, FALSE);
-				$markerArray['value_old'] = $GLOBALS['TSFE']->fe_user->user[$fieldName];
+				$markerArray['value_old'] = $this->frontendController->fe_user->user[$fieldName];
 				$markerArray['value_new'] = $arrNewData[$fieldName];
 
-				$subpart = $this->cObj->getSubpart($template, '###' . strtoupper($fieldName) . '###');
+				$subpart = $this->templateService->getSubpart($template, '###' . strtoupper($fieldName) . '###');
 
 				if ($subpart) {
 					$count++;
-					$extraMarkers['changed_item_' . $fieldName] = $this->cObj->substituteMarkerArray($subpart, $markerArray, '###|###', 1);
+					$extraMarkers['changed_item_' . $fieldName] = $this->templateService->substituteMarkerArray($subpart, $markerArray, '###|###', TRUE);
 				} else {
 					$extraMarkers['changed_item_' . $fieldName] = '';
 				}
@@ -1913,7 +1926,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 			$extraMarkers['password'] = $password['normal'];
 
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('password' => $password['encrypted']));
+			$this->databaseConnection->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, array('password' => $password['encrypted']));
 		}
 
 		return $extraMarkers;
@@ -1930,8 +1943,8 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 		// Beim editieren der Userdaten, die Felder vorausfuellen.
 		if ($this->conf['showtype'] == self::showtypeKeyEdit) {
-			if (is_array($GLOBALS['TSFE']->fe_user->user)) {
-				$arrCurrentData = $GLOBALS['TSFE']->fe_user->user;
+			if (is_array($this->frontendController->fe_user->user)) {
+				$arrCurrentData = $this->frontendController->fe_user->user;
 			}
 
 			// ToDo: MM-Relation, Merge MM-Values erweitern.
@@ -1951,7 +1964,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 		// Wenn keine Seite per TypoScript angegeben ist, wird die aktuelle Seite verwendet.
 		if (!$this->conf['requestpid']) {
-			$requestLink = $this->pi_getPageLink($GLOBALS['TSFE']->id);
+			$requestLink = $this->pi_getPageLink($this->frontendController->id);
 		}
 
 		// Zum Formular springen wenn z.B. ein Fehler aufgetreten ist.
@@ -2020,7 +2033,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 					case 'group':
 						if ($fieldConfig['internal_type'] == 'file') {
-							$arrCurrentData[$fieldName] = $GLOBALS['TSFE']->fe_user->user[$fieldName];
+							$arrCurrentData[$fieldName] = $this->frontendController->fe_user->user[$fieldName];
 						}
 
 						$content .= $this->showGroup($fieldName, $fieldConfig, $arrCurrentData, $disabledField);
@@ -2094,9 +2107,9 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 				// Noch nicht fertig gestellte Listenansicht der nicht aktivierten User.
 //				if ($this->conf['shownotactivated'] == 'list') {
 //					$arrNotActivated = $this->getNotActivatedUserArray();
-//					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, username', 'fe_users', 'pid = ' . $this->storagePageId . ' AND uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
+//					$res = $this->databaseConnection->exec_SELECTquery('uid, username', 'fe_users', 'pid = ' . $this->storagePageId . ' AND uid IN(' . implode(',', $arrNotActivated) . ') AND disable = 1 AND deleted = 0');
 //
-//					while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+//					while ($row = $this->databaseConnection->sql_fetch_assoc($res)) {
 //						$content .= '<div id="' . $this->getFieldId($fieldName, 'wrapper') . '" class="' . $this->getFieldClasses($iItem, $fieldName) . ' ' . $this->conf['shownotactivated'] . '">';
 //						$content .= '<label for="' . $this->getFieldId($fieldName) . '">' . $this->getLabel($fieldName) . ' ' . $row['username'] . '</label>';
 //						$content .= '<input type="checkbox" name="' . $this->getFieldName($fieldName, $row['uid']) . '" value="1" id="' . $this->getFieldId($fieldName) . '" />';
@@ -2130,7 +2143,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		// UserId, PageId und Modus anhaengen.
 		$content .= '<input type="hidden" name="' . $this->getFieldName(self::submitparameterKeyMode) . '" value="' . self::modeKeySend . '" />';
 		$content .= '<input type="hidden" name="' . $this->getFieldName(self::submitparameterKeyUser) . '" value="' . $this->userId . '" />';
-		$content .= '<input type="hidden" name="' . $this->getFieldName(self::submitparameterKeyPage) . '" value="' . $GLOBALS['TSFE']->id . '" />';
+		$content .= '<input type="hidden" name="' . $this->getFieldName(self::submitparameterKeyPage) . '" value="' . $this->frontendController->id . '" />';
 		$content .= '<input type="hidden" name="' . $this->getFieldName(self::submitparameterKeySubmode) . '" value="' . $this->conf['showtype'] . '" />';
 		$content .= $this->getHiddenParamsHiddenFields();
 
@@ -2204,9 +2217,9 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 					'foreign' => $foreignTable
 				);
 
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query($foreignTable . '.uid', $tables['local'], $mmTable, $tables['foreign'], $where . $this->cObj->enableFields($foreignTable) . $mmWhere . $foreignWhere);
+				$res = $this->databaseConnection->exec_SELECT_mm_query($foreignTable . '.uid', $tables['local'], $mmTable, $tables['foreign'], $where . $this->pageRepository->enableFields($foreignTable) . $mmWhere . $foreignWhere);
 
-				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+				while ($row = $this->databaseConnection->sql_fetch_assoc($res)) {
 					$arrCurrentData[$fieldName][] = $row['uid'];
 				}
 			}
@@ -2405,14 +2418,14 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		if (is_array($fieldConfig['items'])) {
 			foreach (array_values($fieldConfig['items']) as $selectItem) {
 				if ($fieldConfig['renderMode'] == 'checkbox') {
-					$checked = (in_array($selectItem[1], $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
+					$checked = in_array($selectItem[1], $arrCurrentData[$fieldName]) ? ' checked="checked"' : '';
 
 					$optionlist .= '<div id="' . $this->getFieldId($fieldName, 'item', $i, 'wrapper') . '" class="item item-' . $i . '">';
 					$optionlist .= '<input type="checkbox"  name="' . $this->getFieldName($fieldName) . '[]" value="' . $selectItem[1] . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
 					$optionlist .= '<label for="' . $this->getFieldId($fieldName, 'item', $i) . '">' . $this->getLabel($selectItem[0], FALSE) . '</label>';
 					$optionlist .= '</div>';
 				} else {
-					$selected = (in_array($selectItem[1], $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
+					$selected = in_array($selectItem[1], $arrCurrentData[$fieldName]) ? ' selected="selected"' : '';
 
 					$optionlist .= '<option value="' . $selectItem[1] . '"' . $selected . '>' . $this->getLabel($selectItem[0], FALSE) . '</option>';
 				}
@@ -2435,25 +2448,25 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			$options = strtolower(substr(trim($fieldConfig['foreign_table_where']), 0, 3));
 			$options = trim((!$options || $options == 'and' || $options == 'or ' || $options == 'gro' || $options == 'ord' || $options == 'lim') ? $fieldConfig['foreign_table_where'] : 'AND ' . $fieldConfig['foreign_table_where']);
 
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $table, '1 ' . $this->cObj->enableFields($table) . ' ' . $options);
+			$res = $this->databaseConnection->exec_SELECTquery($select, $table, '1 ' . $this->pageRepository->enableFields($table) . ' ' . $options);
 
 			$i = 1;
 
-			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			while ($row = $this->databaseConnection->sql_fetch_assoc($res)) {
 				// Übersetzung ermitteln.
-				if ($GLOBALS['TSFE']->sys_language_contentOL && $languageFieldName && $row[$languageFieldName] != $GLOBALS['TSFE']->sys_language_content) {
-					$row = $GLOBALS['TSFE']->sys_page->getRecordOverlay($table, $row, $GLOBALS['TSFE']->sys_language_content, $GLOBALS['TSFE']->sys_language_contentOL);
+				if ($this->frontendController->sys_language_contentOL && $languageFieldName && $row[$languageFieldName] != $this->frontendController->sys_language_content) {
+					$row = $this->frontendController->sys_page->getRecordOverlay($table, $row, $this->frontendController->sys_language_content, $this->frontendController->sys_language_contentOL);
 				}
 
 				if ($fieldConfig['renderMode'] == 'checkbox') {
-					$checked = (in_array($row['uid'], $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
+					$checked = in_array($row['uid'], $arrCurrentData[$fieldName]) ? ' checked="checked"' : '';
 
 					$optionlist .= '<div id="' . $this->getFieldId($fieldName, 'item', $i, 'wrapper') . '" class="item item-' . $i . '">';
 					$optionlist .= '<input type="checkbox" name="' . $this->getFieldName($fieldName) . '[]" value="' . $row['uid'] . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
 					$optionlist .= '<label for="' . $this->getFieldId($fieldName, 'item', $i) . '">' . $row[$labelFieldName] . '</label>';
 					$optionlist .= '</div>';
 				} else {
-					$selected = (in_array($row['uid'], $arrCurrentData[$fieldName])) ? ' selected="selected"' : '';
+					$selected = in_array($row['uid'], $arrCurrentData[$fieldName]) ? ' selected="selected"' : '';
 
 					$optionlist .= '<option value="' . $row['uid'] . '"' . $selected . '>' . $row[$labelFieldName] . '</option>';
 				}
@@ -2567,9 +2580,9 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 				$labelFieldName = $this->getTableLabelFieldName($table);
 
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid, ' . $labelFieldName, $table, '1 ' . $this->cObj->enableFields($table));
+				$res = $this->databaseConnection->exec_SELECTquery('uid, ' . $labelFieldName, $table, '1 ' . $this->pageRepository->enableFields($table));
 
-				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+				while ($row = $this->databaseConnection->sql_fetch_assoc($res)) {
 					$arrItems[$table . '_' . $row['uid']] = $row[$labelFieldName];
 				}
 			}
@@ -2587,7 +2600,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 					$arrCurrentData[$fieldName] = GeneralUtility::trimExplode(',', $arrCurrentData[$fieldName], TRUE);
 				}
 
-				$checked = (array_intersect(array($key, substr($key, strripos($key, '_') + 1)), $arrCurrentData[$fieldName])) ? ' checked="checked"' : '';
+				$checked = array_intersect(array($key, substr($key, strripos($key, '_') + 1)), $arrCurrentData[$fieldName]) ? ' checked="checked"' : '';
 
 				$content .= '<div id="' . $this->getFieldId($fieldName, 'item', $i, 'wrapper') . '" class="item item-' . $i . '">';
 				$content .= '<input type="checkbox" name="' . $this->getFieldName($fieldName) . '[]" value="' . $key . '"' . $checked . $disabledField . ' id="' . $this->getFieldId($fieldName, 'item', $i) . '" />';
@@ -2623,7 +2636,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		switch ($this->conf['captcha.']['use']) {
 
 			case 'captcha':
-				$captcha = '<img src="' . tx_datamintsfeuser_utils::getTypoLinkUrl(ExtensionManagementUtility::siteRelPath($this->conf['captcha.']['use']) . 'captcha/captcha.php') . '" alt="Captcha" />';
+				$captcha = '<img src="' . tx_datamintsfeuser_utils::getTypoLinkUrl(PathUtility::stripPathSitePrefix(ExtensionManagementUtility::extPath($this->conf['captcha.']['use'])) . 'captcha/captcha.php') . '" alt="Captcha" />';
 
 				break;
 
@@ -2710,9 +2723,9 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			'item',
 			'item-' . $iItem,
 			'name-' . $fieldName,
-			($fieldType ? 'type-' . $fieldType : ''),
+			(($fieldType) ? 'type-' . $fieldType : ''),
 			($this->isRequiredField($fieldName) ? 'required' : ''),
-			($valueCheck ? trim($this->getErrorClass($fieldName, $valueCheck)) : ''),
+			(($valueCheck) ? trim($this->getErrorClass($fieldName, $valueCheck)) : ''),
 			'clearfix'
 		);
 
@@ -2773,7 +2786,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		}
 
 		// Das Label zurueckliefern.
-		$label = $GLOBALS['TSFE']->sL($languageString);
+		$label = $this->frontendController->sL($languageString);
 
 		// Das Label zurueckliefern, falls vorhanden.
 		if ($label) {
@@ -3062,7 +3075,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 				// Label setzten falls angegeben.
 				if ($field['label']) {
-					$this->conf['_LOCAL_LANG.'][$GLOBALS['TSFE']->lang . '.'][$field['field']] = $field['label'];
+					$this->conf['_LOCAL_LANG.'][$this->frontendController->lang . '.'][$field['field']] = $field['label'];
 				}
 			}
 
@@ -3072,7 +3085,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 				// Label setzten falls angegeben.
 				if ($field[self::specialfieldKeySubmit]) {
-					$this->conf['_LOCAL_LANG.'][$GLOBALS['TSFE']->lang . '.'][self::specialfieldKeySubmit . '_' . $this->conf['showtype']] = $field[self::specialfieldKeySubmit];
+					$this->conf['_LOCAL_LANG.'][$this->frontendController->lang . '.'][self::specialfieldKeySubmit . '_' . $this->conf['showtype']] = $field[self::specialfieldKeySubmit];
 				}
 			}
 
@@ -3084,7 +3097,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 				// Label setzten falls angegeben.
 				if ($field[self::specialfieldKeyCaptcha]) {
-					$this->conf['_LOCAL_LANG.'][$GLOBALS['TSFE']->lang . '.'][self::specialfieldKeyCaptcha] = $field[self::specialfieldKeyCaptcha];
+					$this->conf['_LOCAL_LANG.'][$this->frontendController->lang . '.'][self::specialfieldKeyCaptcha] = $field[self::specialfieldKeyCaptcha];
 				}
 
 				$captchaCounter++;
@@ -3130,7 +3143,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 				// Label setzten falls angegeben.
 				if ($field[self::specialfieldKeyUserdelete]) {
-					$this->conf['_LOCAL_LANG.'][$GLOBALS['TSFE']->lang . '.'][self::specialfieldKeyUserdelete] = $field[self::specialfieldKeyUserdelete];
+					$this->conf['_LOCAL_LANG.'][$this->frontendController->lang . '.'][self::specialfieldKeyUserdelete] = $field[self::specialfieldKeyUserdelete];
 				}
 
 				$userdeleteCounter++;
@@ -3147,7 +3160,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 				// Label setzten falls angegeben.
 				if ($field[self::specialfieldKeyResendactivation]) {
-					$this->conf['_LOCAL_LANG.'][$GLOBALS['TSFE']->lang . '.'][self::specialfieldKeyResendactivation] = $field[self::specialfieldKeyResendactivation];
+					$this->conf['_LOCAL_LANG.'][$this->frontendController->lang . '.'][self::specialfieldKeyResendactivation] = $field[self::specialfieldKeyResendactivation];
 				}
 
 				$resendactivationCounter++;
@@ -3161,7 +3174,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 				// Label setzten falls angegeben.
 				if ($field[self::specialfieldKeyPasswordconfirmation]) {
-					$this->conf['_LOCAL_LANG.'][$GLOBALS['TSFE']->lang . '.'][self::specialfieldKeyPasswordconfirmation] = $field[self::specialfieldKeyPasswordconfirmation];
+					$this->conf['_LOCAL_LANG.'][$this->frontendController->lang . '.'][self::specialfieldKeyPasswordconfirmation] = $field[self::specialfieldKeyPasswordconfirmation];
 				}
 
 				$passwordconfirmationCounter++;
@@ -3243,8 +3256,8 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 						continue;
 					}
 
-					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('COUNT(*) as count', $table, '1 ' . $this->cObj->enableFields($table));
-					$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+					$res = $this->databaseConnection->exec_SELECTquery('COUNT(*) as count', $table, '1 ' . $this->pageRepository->enableFields($table));
+					$row = $this->databaseConnection->sql_fetch_assoc($res);
 
 					$itemCount += $row['count'];
 				}

@@ -66,7 +66,7 @@ class FlexFormHook {
 			}
 		}
 
-		$flexFormTools = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools::class);
+		$flexFormTools = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Configuration\\FlexForm\\FlexFormTools');
 
 		$fieldArray['pi_flexform'] = $flexFormTools->flexArray2Xml($flexFormData, TRUE);
 	}
