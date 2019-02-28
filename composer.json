@@ -31,6 +31,9 @@
         "php": ">=5.3.7,<=7.99.99",
         "typo3/cms-core": ">=6.2.0,<=9.99.990"
     },
+    "suggest": {
+        "typo3db_legacy": ">=1.0.0,<=1.0.99"
+    },
     "autoload": {
         "psr-4": {
           "Datamints\\Feuser\\": "Classes"
