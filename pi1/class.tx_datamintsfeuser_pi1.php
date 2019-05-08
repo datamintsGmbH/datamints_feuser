@@ -1080,6 +1080,18 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		// Der User hat seine Daten editiert.
 		$this->databaseConnection->exec_UPDATEquery('fe_users', 'uid = ' . $this->userId, $arrUpdate);
 
+		// Destroy sessions if a password field was submitted!
+		if (method_exists('TYPO3\\CMS\\Core\\Session\\SessionManager', 'invalidateAllSessionsByUserId')) {
+			$passwordFields = array_filter(array_map(function ($column) {
+				return in_array('password', GeneralUtility::trimExplode(',', $column['config']['eval'], TRUE));
+			}, $this->feUsersTca['columns']));
+
+			if (count(array_intersect_key($arrUpdate, $passwordFields)) > 0) {
+				$sessionManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Session\\SessionManager');
+				$sessionManager->invalidateAllSessionsByUserId($sessionManager->getSessionBackend('FE'), $this->userId, $this->frontendController->fe_user);
+			}
+		}
+
 		// User und Admin Benachrichtigung schicken, aber nur wenn etwas geaendert wurde.
 		if ($this->getConfigurationByShowtype('sendusermail') || $this->getConfigurationByShowtype('sendadminmail')) {
 			$extraMarkers = $this->getChangedForMail($arrUpdate, $this->getConfigurationByShowtype());
