@@ -394,16 +394,15 @@ class tx_datamintsfeuser_utils {
 	 */
 	public static function getTemplateSubpart($templateFile, $templatePart, $markerArray = array()) {
 		// Template laden.
-		$templateFilePath = $GLOBALS['TSFE']->tmpl->getFileName($templateFile);
-		if (!file_exists($templateFilePath)) {
-			$linkService = GeneralUtility::makeInstance(TYPO3\CMS\Core\LinkHandling\LinkService::class);
-			$result = $linkService->resolve($templateFile);
-			if ($result['type'] === 'file' && $result['file']) {
-				$template = $result['file']->getContents();
-			}
-		} else {
-			$template = file_get_contents($templateFilePath);
+		$fileFolder = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance()->retrieveFileOrFolderObject($templateFile);
+
+		if (!$fileFolder && class_exists('TYPO3\\CMS\\Core\\LinkHandling\\LinkService')) {
+			$result = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\LinkHandling\\LinkService')->resolve($templateFile);
+
+			$fileFolder = isset($result['file']) ? $result['file'] : null;
 		}
+
+		$template = ($fileFolder instanceof \TYPO3\CMS\Core\Resource\File) ? $fileFolder->getContents() : FALSE;
 
 		$templateService = GeneralUtility::makeInstance(class_exists('TYPO3\\CMS\\Core\\Service\\MarkerBasedTemplateService') ? 'TYPO3\\CMS\\Core\\Service\\MarkerBasedTemplateService' : 'TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 		$template = $templateService->getSubpart($template, '###' . strtoupper($templatePart) . '###');
