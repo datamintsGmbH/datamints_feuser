@@ -4,8 +4,11 @@
 
 ---
 conf.py:
-  copyright: 2013-2014
+  copyright: 2013-2019
   project: Frontend User Management
-  version: 0.11
-  release: 0.11.4
+  version: 0.12
+  release: 0.12.2
+  html_theme_options:
+    github_repository: datamintsGmbH/datamints_feuser
+    github_branch: master
 ...
