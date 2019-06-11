@@ -47,12 +47,13 @@ Frontend User Management
         |today|
 
     The content of this document is related to TYPO3,
-    a GNU/GPL CMS/Framework available from `www.typo3.org <https://typo3.org/>`__.
+    a GNU/GPL CMS/Framework available from `www.typo3.org <https://typo3.org/>`_.
 
 
     Due to the requirements of our projects the following extension fits all of our needs.
 
     .. image:: Images/datamints.png
+        :target: https://www.datamints.com/
 
 
     **Table of Contents**
@@ -66,5 +67,4 @@ Frontend User Management
     Configuration/Index
     Hooks/Index
     TodoList/Index
-    Changelog/Index
     Sponsors/Index
