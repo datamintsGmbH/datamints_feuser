@@ -174,7 +174,7 @@ class tx_datamintsfeuser_utils {
 	public static function shiftEmptyArrayValuePostArray(&$arrPost) {
 		foreach($arrPost as $key => $value) {
 			if (is_array($value) && $value[0] === '') {
-				array_shift($value);
+				unset($value[0]);
 
 				$arrPost[$key] = $value;
 			}
