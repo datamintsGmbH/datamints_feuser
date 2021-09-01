@@ -1666,20 +1666,19 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			$bodyHtml = '<html>' . $header . $body . '</html>';
 			$bodyPlain = trim(strip_tags($body));
 
-			if ($config['mailtype'] == 'html') {
+			if ($config['mailtype'] === 'html') {
 				$bodyPlain = tx_datamintsfeuser_utils::convertHtmlEmailToPlain($bodyHtml);
 			}
 
-			$mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-			$mail->setSubject($subject);
-			$mail->setFrom(array($fromEmail => $fromName));
-			$mail->setReplyTo(array($replytoEmail => $replytoName));
-			$mail->setTo(array($toEmail => $toName));
-			$mail->setBody($bodyPlain);
-			$mail->setCharset($this->frontendController->metaCharset);
+			$mail = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
+			$mail->subject($subject);
+			$mail->from(new \Symfony\Component\Mime\Address($fromEmail, $fromName));
+			$mail->replyTo(new \Symfony\Component\Mime\Address($replytoEmail, $replytoName));
+			$mail->to(new \Symfony\Component\Mime\Address($toEmail, $toName));
+			$mail->text($bodyPlain);
 
-			if ($config['mailtype'] == 'html') {
-				$mail->addPart($bodyHtml, 'text/html', $this->frontendController->metaCharset);
+			if ($config['mailtype'] === 'html') {
+                $mail->html($bodyHtml);
 			}
 
 			$mail->send();
@@ -3011,7 +3010,8 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$flexConf = array();
 
 		// Extension Konfiguration ermitteln.
-		$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extKey]);
+		$this->extConf = $confArray = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)
+            ->get('datamints_feuser');
 
 		// Alle Tabs der Flexformkonfiguration durchgehn.
 		if (is_array($this->cObj->data['pi_flexform']['data'])) {
