@@ -1,10 +1,12 @@
 <T3DataStructure>
+
 	<ROOT>
 		<TCEforms>
 			<sheetTitle>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.sheet.general</sheetTitle>
 		</TCEforms>
 		<type>array</type>
 		<el>
+
 			<showtype>
 				<TCEforms>
 					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.showtype</label>
@@ -22,8 +24,7 @@
 							</numIndex>
 							<numIndex index="2" type="array">
 								<numIndex index="0">TypoScript</numIndex>
-								<numIndex index="1">
-								</numIndex>
+								<numIndex index="1"></numIndex>
 							</numIndex>
 						</items>
 						<maxitems>1</maxitems>
@@ -31,6 +32,7 @@
 					</config>
 				</TCEforms>
 			</showtype>
+
 			<usedfields>
 				<TCEforms>
 					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.usedfields</label>
@@ -83,6 +85,7 @@
 					</config>
 				</TCEforms>
 			</usedfields>
+
 			<requiredfields>
 				<TCEforms>
 					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.requiredfields</label>
@@ -110,6 +113,7 @@
 					</config>
 				</TCEforms>
 			</requiredfields>
+
 			<uniquefields>
 				<TCEforms>
 					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.uniquefields</label>
@@ -127,6 +131,8 @@
 					</config>
 				</TCEforms>
 			</uniquefields>
+
 		</el>
 	</ROOT>
+
 </T3DataStructure>

@@ -1,11 +1,5 @@
 <?php
 
-use TYPO3\CMS\Core\Crypto\PasswordHashing\SaltedPasswordsUtility;
-use TYPO3\CMS\Core\Resource\ResourceFactory;
-use TYPO3\CMS\Core\Resource\File;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 /***************************************************************
  *  Copyright notice
  *
@@ -28,6 +22,11 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Saltedpasswords\Utility\SaltedPasswordsUtility;
 
 /**
  * Library 'Utils' for the 'datamints_feuser' extension.
@@ -395,7 +394,7 @@ class tx_datamintsfeuser_utils {
 	 */
 	public static function getTemplateSubpart($templateFile, $templatePart, $markerArray = array()) {
 		// Template laden.
-		$fileFolder = GeneralUtility::makeInstance(ResourceFactory::class)->retrieveFileOrFolderObject($templateFile);
+		$fileFolder = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\ResourceFactory')->retrieveFileOrFolderObject($templateFile);
 
 		if (!$fileFolder && class_exists('TYPO3\\CMS\\Core\\LinkHandling\\LinkService')) {
 			$result = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\LinkHandling\\LinkService')->resolve($templateFile);
@@ -403,7 +402,7 @@ class tx_datamintsfeuser_utils {
 			$fileFolder = isset($result['file']) ? $result['file'] : null;
 		}
 
-		$template = ($fileFolder instanceof File) ? $fileFolder->getContents() : FALSE;
+		$template = ($fileFolder instanceof \TYPO3\CMS\Core\Resource\File) ? $fileFolder->getContents() : FALSE;
 
 		$templateService = GeneralUtility::makeInstance(class_exists('TYPO3\\CMS\\Core\\Service\\MarkerBasedTemplateService') ? 'TYPO3\\CMS\\Core\\Service\\MarkerBasedTemplateService' : 'TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 		$template = $templateService->getSubpart($template, '###' . strtoupper($templatePart) . '###');
