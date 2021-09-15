@@ -1675,11 +1675,19 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			$mail->setFrom(array($fromEmail => $fromName));
 			$mail->setReplyTo(array($replytoEmail => $replytoName));
 			$mail->setTo(array($toEmail => $toName));
-			$mail->setBody($bodyPlain);
-			$mail->setCharset($this->frontendController->metaCharset);
+
+			if (method_exists($mail, 'text')) {
+				$mail->text($bodyPlain, $this->frontendController->metaCharset);
+			} else {
+				$mail->setBody($bodyPlain, 'text/plain', $this->frontendController->metaCharset);
+			}
 
 			if ($config['mailtype'] == 'html') {
-				$mail->addPart($bodyHtml, 'text/html', $this->frontendController->metaCharset);
+				if (method_exists($mail, 'html')) {
+					$mail->html($bodyHtml, $this->frontendController->metaCharset);
+				} else {
+					$mail->addPart($bodyHtml, 'text/html', $this->frontendController->metaCharset);
+				}
 			}
 
 			$mail->send();
@@ -3011,7 +3019,7 @@ class tx_datamintsfeuser_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$flexConf = array();
 
 		// Extension Konfiguration ermitteln.
-		$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extKey]);
+		$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extKey]) ?: GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Configuration\\ExtensionConfiguration')->get($this->extKey);
 
 		// Alle Tabs der Flexformkonfiguration durchgehn.
 		if (is_array($this->cObj->data['pi_flexform']['data'])) {

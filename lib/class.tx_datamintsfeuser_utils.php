@@ -203,8 +203,8 @@ class tx_datamintsfeuser_utils {
 
 			$arrPassword['normal'] = '';
 
-			for ($i = 0; $i < (($arrGenerate['length']) ? $arrGenerate['length'] : 8); $i++) {
-				$arrPassword['normal'] .= $chars{mt_rand(0, strlen($chars))};
+			for ($i = 0; $i < (($arrGenerate['length']) ?: 8); $i++) {
+				$arrPassword['normal'] .= $chars[random_int(0, strlen($chars))];
 			}
 		}
 
@@ -394,7 +394,7 @@ class tx_datamintsfeuser_utils {
 	 */
 	public static function getTemplateSubpart($templateFile, $templatePart, $markerArray = array()) {
 		// Template laden.
-		$fileFolder = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance()->retrieveFileOrFolderObject($templateFile);
+		$fileFolder = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\ResourceFactory')->retrieveFileOrFolderObject($templateFile);
 
 		if (!$fileFolder && class_exists('TYPO3\\CMS\\Core\\LinkHandling\\LinkService')) {
 			$result = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\LinkHandling\\LinkService')->resolve($templateFile);

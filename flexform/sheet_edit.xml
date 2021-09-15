@@ -49,6 +49,7 @@
 					<label>LLL:EXT:datamints_feuser/locallang_db.xml:tt_content.pi_flexform.mailtype</label>
 					<config>
 						<type>select</type>
+						<renderType>selectSingle</renderType>
 						<items type="array">
 							<numIndex index="0" type="array">
 								<numIndex index="0"></numIndex>
